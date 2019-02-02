@@ -1,6 +1,7 @@
+import hidden_motif
+import stepik_hidden_motif
 import pytest
 from math import isclose
-import hidden_motif
 from random import seed
 
 
@@ -27,7 +28,7 @@ def test_kmers_from_dna():
 def test_motif_enumeration():
     k, d = 3, 1
     dna = ['ATTTGGC', 'TGCCTTA', 'CGGTATC', 'GAAAATT']
-    res = hidden_motif.motif_enumeration(dna, k, d)
+    res = stepik_hidden_motif.motif_enumeration(dna, k, d)
     assert sorted(res) == sorted(['ATA', 'ATT', 'GTT', 'TTT'])
     assert type(res) is list
 
@@ -74,11 +75,11 @@ def test_generalised_hamming_distance():
 def test_kmer_to_motif_distance():
     kmer = 'GATTACA'
     motif = ['ACGTGATTACACGTGATTACAA', 'GATTACC', 'AATTACG']
-    dist = hidden_motif.kmer_to_motif_distance(kmer, motif)
+    dist = hidden_motif.kmer_to_dna_distance(kmer, motif)
     assert dist == 3
 
     with pytest.raises(TypeError):
-        _ = hidden_motif.kmer_to_motif_distance(kmer, 42)
+        _ = hidden_motif.kmer_to_dna_distance(kmer, 42)
 
 
 def test_flattened():
@@ -90,7 +91,7 @@ def test_dna_to_number():
     for k in range(1, 8):
         for n in range(0, 4 ** k):
             kmer = hidden_motif.number_to_kmer(n, k)
-            number = hidden_motif.dna_to_number(kmer)
+            number = hidden_motif.kmer_to_number(kmer)
             assert number == n
 
 
@@ -124,7 +125,7 @@ def test_profile_most_probable_kmer():
 
 def test_profile_matrix():
     dna = ['GGCGTTCAGGCA', 'AAGAATCAGTCA', 'CAAGGAGTTCGC', 'CACGTCAATCAC', 'CAATAATATTCG']
-    profile = hidden_motif.profile_matrix(dna)
+    profile = hidden_motif.profile(dna)
     answer = {
         'A': [0.2, 0.8, 0.4, 0.2, 0.4, 0.4, 0.2, 0.8, 0, 0, 0.2, 0.4],
         'C': [0.6000000000000001, 0, 0.4, 0, 0, 0.2, 0.4, 0, 0, 0.4, 0.6000000000000001, 0.4],
@@ -144,8 +145,7 @@ def test_score_motif():
 def test_GreedyMotifSearch():
     dna = ['GGCGTTCAGGCA', 'AAGAATCAGTCA', 'CAAGGAGTTCGC', 'CACGTCAATCAC', 'CAATAATATTCG']
     k = 3
-    t = len(dna)
-    motif = hidden_motif.greedy_motif_search(dna, k, t)
+    motif = hidden_motif.greedy_motifs_search(dna, k)
     assert sorted(motif) == sorted(['CAG', 'CAG', 'CAA', 'CAA', 'CAA'])
 
 
@@ -198,8 +198,8 @@ def test_mc_test_randomized_motif_search():
     dna = ['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA', 'GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG', 'TAGTACCGAGACCGAAAGAAGTATACAGGCGT',
            'TAGATCAAGTTTCAGGTGCACGTCGGTGAACC', 'AATCCACCAGCTCCACGTGCAATGTTGGCCTA']
     k = 8
-    motif = hidden_motif.mc_randomized_motif_search(dna, k, times=1000)
-    assert sorted(motif) == sorted(['AAGTATAC', 'AGCTCCAC', 'AGGTGCAC', 'AGGTGCCA', 'CAGTAAAC'])
+    motif = hidden_motif.mc_randomized_motif_search(dna, k, times=1000, seed=42)
+    assert sorted(motif) == sorted(['CCAAGGTG', 'TACAGGCG', 'TCCACGTG', 'TCTCGGGG', 'TTCAGGTG'])
 
 
 def test_gibbs_sampler():
