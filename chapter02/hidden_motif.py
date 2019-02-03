@@ -4,6 +4,7 @@ from collections import Counter
 from random import randint, choices
 from copy import deepcopy
 import random
+import pandas as pd
 
 """
 Transcription factors are proteins that regulate the expression of genes, and turn them on and off. They do so by binding to specific short segments of DNA, tipically upstream of genes, called regulatory motifs. Here we try to identify regulatory motifs via computational analysis.
@@ -199,9 +200,7 @@ def median_string(dna, k):  # TODO add unit test
 
 """
 The brute force approach finds the median string, but it takes time exponential in the k-mer length, k. Also, we don't know how long the motif is, therefore we need to find the median string for different values of k, and then try and deduce the motif length. The brute force approach becomes unsuitable as k increases.
-"""
 
-"""
 We now look into more efficent possibilities, first a greedy algorithm, and then a randomized one. Instead of looking for a median string, we will be looking for motifs in every DNA segment, such that they are as similar to each other as possible. We will do so while enumerating the possible choices of motifs in a "clever" way, as opposed to enumerating all possible choices, which would be computationally intractable.
 
 For starters, we define a profile for k-mers. Given a set of k-mers, the profile tells with what frequency each nucleotide appears in each of the k positions of the k-mers.
@@ -242,7 +241,7 @@ def profile_most_probable_kmer(text, k, profile):
     highest_prob = -1
     for kmer in kmers_from_dna(text, k):
         prob = functools.reduce(operator.mul,
-                                [profile[nucleotide][i] for nucleotide, i in zip(kmer, range(0, len(kmer)))], 1)
+                                [profile[kmer[i]][i] for i in range(0, k)], 1)
         if prob > highest_prob:
             highest_prob = prob
             most_prob_kmer = kmer
@@ -264,8 +263,6 @@ def score_motif(motifs):
     n_cols = len(motifs[0])
     scores = []
     for col in range(0, n_cols):
-        # ps = pandas.Series([motif[row][col] for row in range(0, n_rows)])
-        # counts = ps.value_counts()
         counts = Counter([motifs[row][col] for row in range(0, n_rows)])
         scores.append(n_rows - max(counts.values()))
     total_score = sum(scores)
@@ -325,20 +322,40 @@ def laplace_profile_matrix(motif, pseudocount=1):
     """
     n_rows = len(motif)
     n_cols = len(motif[0])
-    profile = {'A': [pseudocount] * n_cols, 'C': [pseudocount] * n_cols, 'G': [pseudocount] * n_cols,
-               'T': [pseudocount] * n_cols}
+    the_profile = {'A': [pseudocount] * n_cols, 'C': [pseudocount] * n_cols, 'G': [pseudocount] * n_cols,
+                   'T': [pseudocount] * n_cols}
     for column in range(0, n_cols):
         for row in range(0, n_rows):
             nucleotide = motif[row][column]
-            profile[nucleotide][column] += 1
-    # This sucks, redo it with pandas or numpy
+            the_profile[nucleotide][column] += 1
+
+    col_total = pseudocount * 4 + 1 * n_rows
     for col in range(0, n_cols):
-        col_total = profile['A'][col] + profile['C'][col] + profile['G'][col] + profile['T'][col]
-        profile['A'][col] /= col_total
-        profile['C'][col] /= col_total
-        profile['G'][col] /= col_total
-        profile['T'][col] /= col_total
-    return profile
+        the_profile['A'][col] /= col_total
+        the_profile['C'][col] /= col_total
+        the_profile['G'][col] /= col_total
+        the_profile['T'][col] /= col_total
+
+    return the_profile
+
+
+def laplace_profile_matrix_bad(motif, pseudocount=1):
+    """
+    Determine the probability profile matrix for a motif using Laplace's Rule of Succession.
+    :param motif: The given motif.
+    :param pseudocount: The constant value added to the count of every nucleotide in every position, before normalising the counts into frequencies.
+    :return: The profile, a dictionary with keys 'A', 'C', 'G' and 'T' which associates every nucleotide with a list of frequencies of length k. Each frequency is a real number between 0 and 1 included, and the sum of frequencies for a given position across all nucleotides is 1.
+    """
+    k = len(motif[0])
+    n_segments = len(motif)
+    the_profile = pd.DataFrame(pseudocount, index=range(0, k), columns=['A', 'C', 'G', 'T'])
+    for i_kmer in range(0, k):
+        for i_segment in range(0, n_segments):
+            nucleotide = motif[i_segment][i_kmer]
+            the_profile[nucleotide][i_kmer] += 1
+    total_by_i_kmer = the_profile.sum(axis=1)
+    the_profile = the_profile.div(total_by_i_kmer, axis=0)
+    return the_profile
 
 
 def greedy_motif_search_with_pseudocounts(dna, k, t,
@@ -348,8 +365,9 @@ def greedy_motif_search_with_pseudocounts(dna, k, t,
     for kmer in kmers_from_dna(dna[0], k):
         motif = [kmer]
         for i in range(1, t):
-            profile = laplace_profile_matrix(motif, pseudocount)
-            most_prob_kmer = profile_most_probable_kmer(dna[i], k, profile)
+            # print('kmer=', kmer, '  i=', i)
+            the_profile = laplace_profile_matrix(motif, pseudocount)
+            most_prob_kmer = profile_most_probable_kmer(dna[i], k, the_profile)
             motif.append(most_prob_kmer)
         score = score_motif(motif)
         if score < best_score:
@@ -365,7 +383,7 @@ We start with a random choice of motifs, taken one from every DNA segment. We bu
 '''
 
 
-def randomized_motif_search(dna, k, seed = None):
+def randomized_motif_search(dna, k, seed=None):
     """
     Find the motifs that best fit a collection of DNA segments (have the lowest score), using a randomised search. Setting the same seed with random.seed() before calling the function, will produce the same result every time.
     :param dna: The collection of DNA segments (strings), not necessarily of the same length.
@@ -381,8 +399,8 @@ def randomized_motif_search(dna, k, seed = None):
     best_motif = deepcopy(motif)
     best_motif_score = score_motif(best_motif)
     while True:
-        profile = laplace_profile_matrix(motif)
-        motif = [profile_most_probable_kmer(text, k, profile) for text in dna]
+        the_profile = laplace_profile_matrix(motif)
+        motif = [profile_most_probable_kmer(text, k, the_profile) for text in dna]
         score = score_motif(motif)
         if score < best_motif_score:
             best_motif = deepcopy(motif)
@@ -426,6 +444,7 @@ Algorithm "Gibbs Sampler", at every iteration:
  - keeps track of the best (lowest score) list of motifs.  
 '''
 
+
 def gibbs_sampler(dna, k, n):
     """
     Find the motifs that best fit a collection of DNA segments (have the lowest score), using a Gibbs sampler. Setting the same seed with random.seed() before calling the function, will produce the same result every time.
@@ -461,7 +480,7 @@ def gibbs_sampler(dna, k, n):
         drafted_kmer_i = choices(range(0, len(prob_distr)), weights=prob_distr)[0]
         # Replace the i-th motif in the current set of motifs with the sampled one
         motifs[i] = dna[i][drafted_kmer_i:drafted_kmer_i + k]
-        # Check if the obtaiend motif is the best so far
+        # Check if the obtained motif is the best so far
         score = score_motif(motifs)
         if score < best_motif_score:
             best_motif_score = score
@@ -504,13 +523,10 @@ def main_for_gibbs_sampler():
 if __name__ == '__main__':
     pass
 
-
-
 '''
 TODO
 - Remove redundant functions (pseudocount =1)
 - Add missing unit tests
-- Adopt numpy/pandas
 - Try bigger/real word test cases
 - Try different scores
 - Chart the score as Gibbs sampler proceeds
