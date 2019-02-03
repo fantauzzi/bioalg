@@ -92,8 +92,9 @@ def ProfileMostProbableKmer(text, k, profile):
 
 def GreedyMotifSearch(dna, k, t):
     assert t == len(dna)
-    return hidden_motif.greedy_motifs_search(dna, k)
+    return hidden_motif.greedy_motifs_search(dna, k, pseudocount=0)
 
 
 def GreedyMotifSearchWithPseudocounts(dna, k, t, pseudocount=1):
-    return hidden_motif.greedy_motif_search_with_pseudocounts(dna, k, t, pseudocount)
+    assert t == len(dna)
+    return hidden_motif.greedy_motifs_search(dna, k, pseudocount)

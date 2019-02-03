@@ -125,7 +125,7 @@ def test_profile_most_probable_kmer():
 
 def test_profile_matrix():
     dna = ['GGCGTTCAGGCA', 'AAGAATCAGTCA', 'CAAGGAGTTCGC', 'CACGTCAATCAC', 'CAATAATATTCG']
-    profile = hidden_motif.profile(dna)
+    profile = hidden_motif.motifs_profile(dna, pseudocount=0)
     answer = {
         'A': [0.2, 0.8, 0.4, 0.2, 0.4, 0.4, 0.2, 0.8, 0, 0, 0.2, 0.4],
         'C': [0.6000000000000001, 0, 0.4, 0, 0, 0.2, 0.4, 0, 0, 0.4, 0.6000000000000001, 0.4],
@@ -151,7 +151,7 @@ def test_GreedyMotifSearch():
 
 def test_laplace_profile_matrix():
     dna = ['GGCGTTCAGGCA', 'AAGAATCAGTCA', 'CAAGGAGTTCGC', 'CACGTCAATCAC', 'CAATAATATTCG']
-    profile = hidden_motif.laplace_profile_matrix(dna)
+    profile = hidden_motif.motifs_profile(dna, pseudocount=1)
     answer = {'A': [0.2222222222222222, 0.5555555555555556, 0.3333333333333333, 0.2222222222222222, 0.3333333333333333,
                     0.3333333333333333, 0.2222222222222222, 0.5555555555555556, 0.1111111111111111, 0.1111111111111111,
                     0.2222222222222222, 0.3333333333333333],
@@ -175,7 +175,7 @@ def test_greedy_motif_search_with_pseudocounts():
     k = 3
     t = len(dna)
     pseudocount = 1
-    motif = hidden_motif.greedy_motif_search_with_pseudocounts(dna=dna, k=k, t=t, pseudocount=pseudocount)
+    motif = hidden_motif.greedy_motifs_search(dna=dna, k=k, pseudocount=pseudocount)
     assert sorted(motif) == sorted(['TTC', 'ATC', 'TTC', 'ATC', 'TTC'])
 
     with open('dataset_160_9.txt') as genome_file:
@@ -189,7 +189,7 @@ def test_greedy_motif_search_with_pseudocounts():
               'GGTGAGGAAGGT', 'GGTGAGCTAGGT', 'GGTGGGCAAGTT', 'GGTGAGCGAGGT', 'GGTGAGTAAGCT', 'GGTGCGACAGAT',
               'GGTGCGAAAGTT', 'GGTGTGTTAGTT', 'GGTGCGCCAGCT', 'GGTGTGCAAGTT', 'GGTGCGTTAGTT', 'GGTGAGTGAGAT',
               'GGTGTGATAGAT']
-    motif = hidden_motif.greedy_motif_search_with_pseudocounts(dna=genome, k=k, t=t)
+    motif = hidden_motif.greedy_motifs_search(dna=genome, k=k, pseudocount=1)
     assert sorted(motif) == sorted(result)
 
 

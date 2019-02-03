@@ -13,7 +13,7 @@ We assume that the regions upstream of the genes of interest have been sequenced
 
 Let's begin to formalise the problem. The sequenced regions are strings of nucleotides of length of up to 1000. The motifs we are looking for are k-mers, that is strings of nucleotides of length exactly k.
 
-To match k-mers with each other and then with longer strings, we define a distance. The choice falls on the Hamming distance: given two strings of the same length, the Hamming distance is the number of respective positions where the strings differ. For instance, the Hamming distance between 'ACGTT' and'ATGAT' is 2.     
+To match k-mers with each other and then with longer segments, we define a distance. The choice falls on the Hamming distance: given two strings of the same length, the Hamming distance is the number of respective positions where the strings differ. For instance, the Hamming distance between 'ACGTT' and'ATGAT' is 2.     
 """
 
 
@@ -81,7 +81,7 @@ Still working toward finding motifs in a collection of DNA segments. Those motif
 
 This is what we are going to do instead: we put together a string of nucleotides that is representative of every motif. We will set a length k, then look for a k-mer that doesn't necessarily appear in any of the DNA segments, but that minimises the sum of its distances from the DNA segments. Such k-mer is sort of "blueprint" for the motifs we are looking for. It is called, the *median string* for the set of DNA segments.
 
-The approach is "brute force", where we enumerate all possible k-mers, and compute their distances from every DNA segment.
+The algorithm is "brute force", where we enumerate all possible k-mers, and compute their distances from every DNA segment.
 """
 
 
@@ -112,7 +112,7 @@ def flattened(list_of_lists):
 
 
 """
-To enumerate al k-mers for a given k, we establish a bijection between those k-mers and an interval of natural numbers. Then, enuemrating all k-mers will be as easy as counting natural numbers in that interval, and mapping each number into the corresponding k-mer
+To enumerate al k-mers for a given k, we establish a bijection between those k-mers and an interval of natural numbers. Then, enumerating all k-mers will be as easy as counting natural numbers in that interval, and mapping each number to the corresponding k-mer.
 """
 
 
@@ -199,41 +199,51 @@ def median_string(dna, k):  # TODO add unit test
 
 
 """
-The brute force approach finds the median string, but it takes time exponential in the k-mer length, k. Also, we don't know how long the motif is, therefore we need to find the median string for different values of k, and then try and deduce the motif length. The brute force approach becomes unsuitable as k increases.
+The brute force approach finds the median string, but it takes time exponential in the k-mer length, k. Also, we don't know how long the motif is, therefore we need to find the median string for different values of k, and then try and deduce the motif length. Brute force becomes unsuitable as k increases.
 
-We now look into more efficent possibilities, first a greedy algorithm, and then a randomized one. Instead of looking for a median string, we will be looking for motifs in every DNA segment, such that they are as similar to each other as possible. We will do so while enumerating the possible choices of motifs in a "clever" way, as opposed to enumerating all possible choices, which would be computationally intractable.
+We now look into more efficient possibilities, first a greedy algorithm, and then a randomized one. Instead of looking for a median string, we will be looking for motifs in every DNA segment, such that they are as similar to each other as possible. We will do so while enumerating the possible choices of motifs in a "clever" way, as opposed to enumerating all possible choices, which would be computationally intractable.
 
-For starters, we define a profile for k-mers. Given a set of k-mers, the profile tells with what frequency each nucleotide appears in each of the k positions of the k-mers.
+For starters, we define a profile for k-mers. Given a set of k-mers, the profile tells with what frequency each nucleotide appears in each of the k positions of the k-mers. In the implementation there is an extra parameter, pseudocount, that we will need later, for now it is set to a default of 0.
 """
 
 
-def profile(kmers):
+def motifs_profile(motif, pseudocount=0):
     """
-    Determine the profile for a collection of k-mers.
-    :param kmers: The given k-mers.
+    Determine the frequency profile matrix for a motif using Laplace's Rule of Succession.
+    :param motif: The given motif.
+    :param pseudocount: The constant value added to the count of every nucleotide in every position, before normalising the counts into frequencies.
     :return: The profile, a dictionary with keys 'A', 'C', 'G' and 'T' which associates every nucleotide with a list of frequencies of length k. Each frequency is a real number between 0 and 1 included, and the sum of frequencies for a given position across all nucleotides is 1.
     """
-    n_rows = len(kmers)
-    n_cols = len(kmers[0])
-    profile = {'A': [0] * n_cols, 'C': [0] * n_cols, 'G': [0] * n_cols, 'T': [0] * n_cols}
+    n_rows = len(motif)
+    n_cols = len(motif[0])
+    the_profile = {'A': [pseudocount] * n_cols, 'C': [pseudocount] * n_cols, 'G': [pseudocount] * n_cols,
+                   'T': [pseudocount] * n_cols}
     for column in range(0, n_cols):
         for row in range(0, n_rows):
-            nucleotide = kmers[row][column]
-            profile[nucleotide][column] += 1 / n_rows
-    return profile
+            nucleotide = motif[row][column]
+            the_profile[nucleotide][column] += 1
+
+    col_total = pseudocount * 4 + 1 * n_rows
+    for col in range(0, n_cols):
+        the_profile['A'][col] /= col_total
+        the_profile['C'][col] /= col_total
+        the_profile['G'][col] /= col_total
+        the_profile['T'][col] /= col_total
+
+    return the_profile
 
 
 '''
-Next thing, given a DNA segment, we want to find, among all its k-mers, the most likely based on a profile.   
+Next thing, given a DNA segment, we want to find, among all its k-mers, the most likely based on a motifs.   
 '''
 
 
 def profile_most_probable_kmer(text, k, profile):
     """
-    Choose the k-mer within a DNA segment that is most probable given a certain profile.
+    Choose the k-mer within a DNA segment that is most probable given a certain motifs.
     :param text: The DNA segment, a string.
     :param k: The size of the wanted k-mer.
-    :param profile: The probability profile; a dictionary with keys 'A', 'C', 'G' and 'T' which associates every nucleotide with a list of probabilities of length k.
+    :param profile: The frequency profile; a dictionary with keys 'A', 'C', 'G' and 'T' which associates every nucleotide with a list of probabilities of length k.
     :return: The most probable k-mer, a string.
     """
 
@@ -270,16 +280,17 @@ def score_motif(motifs):
 
 
 """
-We are now all set to implement a greedy motifs search. 
+We are now all set to implement a greedy motifs search. Again, there is an additional parameter pseudocount, which we will use later
 """
 
 
-def greedy_motifs_search(dna, k):
+def greedy_motifs_search(dna, k, pseudocount=0):
     """
     Find the motifs that best fit a collection of DNA segments (have the lowest score), using a greedy search. If multiple motifs have the same score, then provide just one of them.
     :param dna: The collection of DNA segments (strings), not necessarily of the same length.
     :param k: The size of motifs to be discovered; the same for every motif, an integer number.
-    :param t: The number of motifs to be found, must be the same as the number of segments in dna, an integer number.
+    :param pseudocount: The constant value added to the count of every nucleotide in every position, for computation of the frequency profile.
+
     :return: The discovered motifs, a list of strings.
     """
     t = len(dna)
@@ -294,7 +305,7 @@ def greedy_motifs_search(dna, k):
         for i in range(1, t):
             ''' The k-mer to be added to the list of motifs is choosen based on which
             is the most probable, giving the profile of the k-mers already in the list '''
-            the_profile = profile(motifs)
+            the_profile = motifs_profile(motifs, pseudocount=pseudocount)
             most_prob_kmer = profile_most_probable_kmer(dna[i], k, the_profile)
             motifs.append(most_prob_kmer)
         # Once the list of motifs contain one k-mer per DNA segment, score it
@@ -309,34 +320,8 @@ def greedy_motifs_search(dna, k):
 '''
 The greedy motif search performs poorly. Issue is, it constructs and update a profile which is rather sparse, with many values set to 0. As a consequence, the likelyhood assigned to most k-mers in every DNA segment is zero, and most k-mers are not evaluated at all for inclusion among the motifs. K-mers that are good candidate to be motifs are instead skipped altogether. 
 
-To address the issue, we adopt "Laplace's Rule fo Succession": when we should set a value of the profile to 0, we set it to some small value instead, like if that nucleotide was observed a few times in that position (typically one).  
+To address the issue, we adopt "Laplace's Rule fo Succession": when we should set a value of the profile to 0, we set it to some small value instead, like if that nucleotide was observed a few times in that position (typically one). This is we have the pseudocount paramter in functions motifs_profile() and greedy_motif_search(): it is a positive integer value to be used instead of 0 in counting nucleotides.   
 '''
-
-
-def laplace_profile_matrix(motif, pseudocount=1):
-    """
-    Determine the probability profile matrix for a motif using Laplace's Rule of Succession.
-    :param motif: The given motif.
-    :param pseudocount: The constant value added to the count of every nucleotide in every position, before normalising the counts into frequencies.
-    :return: The profile, a dictionary with keys 'A', 'C', 'G' and 'T' which associates every nucleotide with a list of frequencies of length k. Each frequency is a real number between 0 and 1 included, and the sum of frequencies for a given position across all nucleotides is 1.
-    """
-    n_rows = len(motif)
-    n_cols = len(motif[0])
-    the_profile = {'A': [pseudocount] * n_cols, 'C': [pseudocount] * n_cols, 'G': [pseudocount] * n_cols,
-                   'T': [pseudocount] * n_cols}
-    for column in range(0, n_cols):
-        for row in range(0, n_rows):
-            nucleotide = motif[row][column]
-            the_profile[nucleotide][column] += 1
-
-    col_total = pseudocount * 4 + 1 * n_rows
-    for col in range(0, n_cols):
-        the_profile['A'][col] /= col_total
-        the_profile['C'][col] /= col_total
-        the_profile['G'][col] /= col_total
-        the_profile['T'][col] /= col_total
-
-    return the_profile
 
 
 def laplace_profile_matrix_bad(motif, pseudocount=1):
@@ -358,24 +343,6 @@ def laplace_profile_matrix_bad(motif, pseudocount=1):
     return the_profile
 
 
-def greedy_motif_search_with_pseudocounts(dna, k, t,
-                                          pseudocount=1):  # TODO this can be the same as the function above, when pseudocounts=0
-    best_score = float('inf')
-    best_motif = None
-    for kmer in kmers_from_dna(dna[0], k):
-        motif = [kmer]
-        for i in range(1, t):
-            # print('kmer=', kmer, '  i=', i)
-            the_profile = laplace_profile_matrix(motif, pseudocount)
-            most_prob_kmer = profile_most_probable_kmer(dna[i], k, the_profile)
-            motif.append(most_prob_kmer)
-        score = score_motif(motif)
-        if score < best_score:
-            best_motif = motif  # TODO Should I do a deep copy here?
-            best_score = score
-    return best_motif
-
-
 '''
 Let's now explore an alternative kind of algorithms, randomised algorithms. 
 
@@ -388,6 +355,7 @@ def randomized_motif_search(dna, k, seed=None):
     Find the motifs that best fit a collection of DNA segments (have the lowest score), using a randomised search. Setting the same seed with random.seed() before calling the function, will produce the same result every time.
     :param dna: The collection of DNA segments (strings), not necessarily of the same length.
     :param k: The size of motifs to be discovered; the same for every motif, an integer number.
+    :param seed: seed for random number generator initialisation: if set to None, no initialisation is performed.
     :return: The discovered motifs, a list of strings.
     """
     if seed is not None:
@@ -396,21 +364,21 @@ def randomized_motif_search(dna, k, seed=None):
     s = len(dna[0])
     assert s >= k
     motif = [dna[row][i:i + k] for row, i in zip(range(0, t), [randint(0, s - k - 1) for _ in range(0, t)])]
-    best_motif = deepcopy(motif)
+    best_motif = motif
     best_motif_score = score_motif(best_motif)
     while True:
-        the_profile = laplace_profile_matrix(motif)
+        the_profile = motifs_profile(motif, pseudocount=1)
         motif = [profile_most_probable_kmer(text, k, the_profile) for text in dna]
         score = score_motif(motif)
         if score < best_motif_score:
-            best_motif = deepcopy(motif)
+            best_motif = motif
             best_motif_score = score
         else:
             return best_motif, best_motif_score
 
 
 '''
-We then run the randomised search repetedly, and keep the motifs with the best (lowest) score.
+We then run the randomised search repeatedly, and keep the motifs with the best (lowest) score.
 '''
 
 
@@ -420,22 +388,23 @@ def mc_randomized_motif_search(dna, k, times, seed=None):
     :param dna: The collection of DNA segments (strings), not necessarily of the same length.
     :param k: The size of motifs to be discovered; the same for every motif, an integer number.
     :param times: The number of time the motifs search has to be repeated
+    :param seed: seed for random number generator initialisation: if set to None, no initialisation is performed.
     :return: The discovered motifs, a list of strings.
     """
     if seed is not None:
-        random.seed(42)
+        random.seed(seed)
     best_score = float('inf')
     best_motif = None
     for _ in range(0, times):
         motif, score = randomized_motif_search(dna, k, None)
         if score < best_score:
             best_score = score
-            best_motif = deepcopy(motif)
+            best_motif = motif
     return best_motif
 
 
 '''
-The randomised search above implemented samples a new set of motifs at every iteration. A more prudent approach is to sample only one new motif at every iteration, and replace it in the current list of motifs. 
+The randomised search samples a new set of motifs at every iteration. A more prudent approach is to sample only one new motif per iteration, and replace it in the current list of motifs. 
 
 Algorithm "Gibbs Sampler", at every iteration:
  - discards one motif, randomly chosen, say corresponding to DNA segment i;
@@ -459,19 +428,20 @@ def gibbs_sampler(dna, k, n):
     # Randomly select one motif per dna string, each of length  k, as a starting set of motifs
     motifs = [dna[row][i:i + k] for row, i in zip(range(0, t), [randint(0, s - k - 1) for _ in range(0, t)])]
     # Initialise the needful to keep track of the best motifs discovered so far
-    best_motifs = deepcopy(motifs)
+    best_motifs = deepcopy(motifs)  # Deep copy needed to prevent updates to motifs[i] from changing best_motifs[i]
     best_motif_score = score_motif(best_motifs)
     for _ in range(0, n):  # TODO find better stop criteria
         # Randomly choose one of the motifs
         i = randint(0, t - 1)
-        # Find the probability profile of the motifs, without the randomly choosen one
+        # Find the probability motifs_profile of the motifs, without the randomly choosen one
         motif_ex_i = motifs[:i] + motifs[i + 1:]
-        profile = laplace_profile_matrix(motif_ex_i)
+        the_profile = motifs_profile(motif_ex_i, pseudocount=1)
         # Determine the likelihood of every k-mer in the i-th string of dna, based on the just calculated profile
         proportions = []
         for kmer in kmers_from_dna(dna[i], k):
             prop = functools.reduce(operator.mul,
-                                    [profile[nucleotide][col] for nucleotide, col in zip(kmer, range(0, len(kmer)))], 1)
+                                    [the_profile[nucleotide][col] for nucleotide, col in
+                                     zip(kmer, range(0, len(kmer)))], 1)
             proportions.append(prop)
         sum_proportions = sum(proportions)
         prob_distr = [prop / sum_proportions for prop in proportions]
@@ -483,8 +453,9 @@ def gibbs_sampler(dna, k, n):
         # Check if the obtained motif is the best so far
         score = score_motif(motifs)
         if score < best_motif_score:
-            best_motif_score = score
+            # Deep copy needed, or else code above that updates motifs[i] will overwrite best_motifs[i]
             best_motifs = deepcopy(motifs)
+            best_motif_score = score
     return best_motifs
 
 
@@ -525,7 +496,6 @@ if __name__ == '__main__':
 
 '''
 TODO
-- Remove redundant functions (pseudocount =1)
 - Add missing unit tests
 - Try bigger/real word test cases
 - Try different scores
