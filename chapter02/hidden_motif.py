@@ -320,30 +320,8 @@ def greedy_motifs_search(dna, k, pseudocount=0):
 '''
 The greedy motif search performs poorly. Issue is, it constructs and update a profile which is rather sparse, with many values set to 0. As a consequence, the likelyhood assigned to most k-mers in every DNA segment is zero, and most k-mers are not evaluated at all for inclusion among the motifs. K-mers that are good candidate to be motifs are instead skipped altogether. 
 
-To address the issue, we adopt "Laplace's Rule fo Succession": when we should set a value of the profile to 0, we set it to some small value instead, like if that nucleotide was observed a few times in that position (typically one). This is we have the pseudocount paramter in functions motifs_profile() and greedy_motif_search(): it is a positive integer value to be used instead of 0 in counting nucleotides.   
-'''
+To address the issue, we adopt "Laplace's Rule fo Succession": when we should set a value of the profile to 0, we set it to some small value instead, like if that nucleotide was observed a few times in that position (typically one). This is why we have the pseudocount paramter in functions motifs_profile() and greedy_motif_search(): it is a positive integer value to be used instead of 0 in counting nucleotides.   
 
-
-def laplace_profile_matrix_bad(motif, pseudocount=1):
-    """
-    Determine the probability profile matrix for a motif using Laplace's Rule of Succession.
-    :param motif: The given motif.
-    :param pseudocount: The constant value added to the count of every nucleotide in every position, before normalising the counts into frequencies.
-    :return: The profile, a dictionary with keys 'A', 'C', 'G' and 'T' which associates every nucleotide with a list of frequencies of length k. Each frequency is a real number between 0 and 1 included, and the sum of frequencies for a given position across all nucleotides is 1.
-    """
-    k = len(motif[0])
-    n_segments = len(motif)
-    the_profile = pd.DataFrame(pseudocount, index=range(0, k), columns=['A', 'C', 'G', 'T'])
-    for i_kmer in range(0, k):
-        for i_segment in range(0, n_segments):
-            nucleotide = motif[i_segment][i_kmer]
-            the_profile[nucleotide][i_kmer] += 1
-    total_by_i_kmer = the_profile.sum(axis=1)
-    the_profile = the_profile.div(total_by_i_kmer, axis=0)
-    return the_profile
-
-
-'''
 Let's now explore an alternative kind of algorithms, randomised algorithms. 
 
 We start with a random choice of motifs, taken one from every DNA segment. We build a profile for the current choice of motifs, then choose a new set of motifs (one per DNA segment) based on the profile; then we iterate, as long as we get a choice of motifs with better (lower) score than before. 
@@ -496,8 +474,9 @@ if __name__ == '__main__':
 
 '''
 TODO
-- Add missing unit tests
-- Try bigger/real word test cases
+- Try bigger/real word test cases 
+  - Find a big FASTA file, e.g. from Coursera assignment. How to download it and parse it?
+  - Is the challenge at the end of Ch. 2 of the book different? Where to find that file then?
 - Try different scores
 - Chart the score as Gibbs sampler proceeds
 - Implement Gibbs sampler in C++

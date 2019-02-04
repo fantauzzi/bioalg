@@ -123,7 +123,20 @@ def test_profile_most_probable_kmer():
     assert res == 'CCGAG'
 
 
-def test_profile_matrix():
+def test_median_string():
+    dna = ['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA', 'GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG', 'TAGTACCGAGACCGAAAGAAGTATACAGGCGT',
+           'TAGATCAAGTTTCAGGTGCACGTCGGTGAACC', 'AATCCACCAGCTCCACGTGCAATGTTGGCCTA']
+    k = 6
+    res = hidden_motif.median_string(dna, k)
+    assert res == 'AGGTGC'
+
+    dna2 = ['AAACCGGTT', 'CCTTGGAAA', 'CTGAAACAA', 'TTTAAAGGG']
+    k2 = 3
+    res2 = hidden_motif.median_string(dna2, k2)
+    assert res2 == 'AAA'
+
+
+def test_motifs_profile():
     dna = ['GGCGTTCAGGCA', 'AAGAATCAGTCA', 'CAAGGAGTTCGC', 'CACGTCAATCAC', 'CAATAATATTCG']
     profile = hidden_motif.motifs_profile(dna, pseudocount=0)
     answer = {

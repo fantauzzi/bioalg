@@ -4,7 +4,6 @@
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter02/hidden_motif.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter02/hidden_motif.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chapter02/stepik_hidden_motif.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter02/stepik_hidden_motif.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter02/test_hidden_motif.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter02/test_hidden_motif.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter02/hidden_motif.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2029">
-              <caret line="496" column="3" lean-forward="true" selection-start-line="496" selection-start-column="3" selection-end-line="496" selection-end-column="3" />
+            <state relative-caret-position="379">
+              <caret line="182" lean-forward="true" selection-start-line="182" selection-end-line="182" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -27,11 +26,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter02/test_hidden_motif.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="146" column="9" lean-forward="true" selection-start-line="146" selection-start-column="9" selection-end-line="146" selection-end-column="9" />
+            <state relative-caret-position="428">
+              <caret line="132" lean-forward="true" selection-start-line="132" selection-end-line="132" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -42,7 +41,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter02/stepik_hidden_motif.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="623">
+            <state relative-caret-position="1196">
               <caret line="80" column="23" selection-start-line="80" selection-start-column="23" selection-end-line="80" selection-end-column="23" />
             </state>
           </provider>
@@ -76,6 +75,9 @@
       <find>profile(</find>
       <find>greed</find>
       <find>motifs_profile</find>
+      <find>unit</find>
+      <find>unit test</find>
+      <find>motifs_profil</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -102,16 +104,16 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/chapter02/notes.txt" />
         <option value="$PROJECT_DIR$/chapter02/stepik_hidden_motif.py" />
-        <option value="$PROJECT_DIR$/chapter02/test_hidden_motif.py" />
         <option value="$PROJECT_DIR$/chapter02/hidden_motif.py" />
+        <option value="$PROJECT_DIR$/chapter02/test_hidden_motif.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1977" />
-    <option name="y" value="-3" />
-    <option name="width" value="2503" />
-    <option name="height" value="1443" />
+    <option name="x" value="2204" />
+    <option name="y" value="27" />
+    <option name="width" value="1440" />
+    <option name="height" value="1059" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -272,27 +274,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.03 at 20h 52m 41s.xml">
-      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.03 at 21h 03m 50s.xml">
-      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.03 at 21h 04m 30s.xml">
-      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.03 at 21h 05m 49s.xml">
-      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.03 at 21h 06m 42s.xml">
-      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.03 at 21h 43m 22s.xml">
-      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.03 at 21h 48m 15s.xml">
-      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
-    </history-entry>
     <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.03 at 21h 48m 22s.xml">
       <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
@@ -300,6 +281,27 @@
       <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
     <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.03 at 21h 54m 39s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.03 at 22h 59m 58s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 13h 14m 43s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 13h 14m 53s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 13h 16m 07s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 13h 16m 10s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 13h 19m 00s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 13h 19m 04s.xml">
       <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -314,15 +316,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4743295" visible="true" weight="0.26039565" />
-      <window_info id="Structure" order="1" sideWeight="0.52567047" side_tool="true" visible="true" weight="0.26039565" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.47126436" visible="true" weight="0.26039565" />
+      <window_info id="Structure" order="1" sideWeight="0.52873564" side_tool="true" visible="true" weight="0.26039565" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.33103448" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32950193" />
@@ -527,27 +528,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter02/stepik_hidden_motif.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="623">
+        <state relative-caret-position="1196">
           <caret line="80" column="23" selection-start-line="80" selection-start-column="23" selection-end-line="80" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter02/test_hidden_motif.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="146" column="9" lean-forward="true" selection-start-line="146" selection-start-column="9" selection-end-line="146" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter02/hidden_motif.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2029">
-          <caret line="496" column="3" lean-forward="true" selection-start-line="496" selection-start-column="3" selection-end-line="496" selection-end-column="3" />
+        <state relative-caret-position="379">
+          <caret line="182" lean-forward="true" selection-start-line="182" selection-end-line="182" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter02/test_hidden_motif.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="132" lean-forward="true" selection-start-line="132" selection-end-line="132" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
