@@ -17,10 +17,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter02/hidden_motif.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="182" lean-forward="true" selection-start-line="182" selection-end-line="182" />
+            <state relative-caret-position="229">
+              <caret line="293" selection-start-line="293" selection-end-line="293" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chapter01/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret selection-end-line="6" selection-end-column="64" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -29,8 +41,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter02/test_hidden_motif.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="132" lean-forward="true" selection-start-line="132" selection-end-line="132" />
+            <state relative-caret-position="836">
+              <caret line="223" column="37" selection-start-line="223" selection-start-column="37" selection-end-line="223" selection-end-column="37" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -41,7 +53,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter02/stepik_hidden_motif.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1196">
+            <state relative-caret-position="1920">
               <caret line="80" column="23" selection-start-line="80" selection-start-column="23" selection-end-line="80" selection-end-column="23" />
             </state>
           </provider>
@@ -76,8 +88,12 @@
       <find>greed</find>
       <find>motifs_profile</find>
       <find>unit</find>
-      <find>unit test</find>
       <find>motifs_profil</find>
+      <find>unit test</find>
+      <find>profile</find>
+      <find>plot</find>
+      <find>functools</find>
+      <find>relative</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -110,10 +126,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2204" />
-    <option name="y" value="27" />
-    <option name="width" value="1440" />
-    <option name="height" value="1059" />
+    <option name="x" value="1977" />
+    <option name="y" value="25" />
+    <option name="width" value="2503" />
+    <option name="height" value="1415" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -231,6 +247,21 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="pytest for test_hidden_motif.test_consensus_from_motifs" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="bioalg" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter02" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;-v&quot;" />
+      <option name="_new_target" value="&quot;test_hidden_motif.test_consensus_from_motifs&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <configuration name="pytest in test_hidden_motif.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="bioalg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -249,11 +280,13 @@
     <list>
       <item itemvalue="Python.hidden_motif" />
       <item itemvalue="Python tests.pytest in test_hidden_motif.py" />
+      <item itemvalue="Python tests.pytest for test_hidden_motif.test_consensus_from_motifs" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python tests.pytest in test_hidden_motif.py" />
         <item itemvalue="Python.hidden_motif" />
+        <item itemvalue="Python tests.pytest for test_hidden_motif.test_consensus_from_motifs" />
       </list>
     </recent_temporary>
   </component>
@@ -274,34 +307,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.03 at 21h 48m 22s.xml">
+    <history-entry file="pytest_for_test_hidden_motif_test_consensus_from_motifs - 2019.02.04 at 14h 46m 32s.xml">
+      <configuration name="pytest for test_hidden_motif.test_consensus_from_motifs" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_for_test_hidden_motif_test_consensus_from_motifs - 2019.02.04 at 14h 49m 33s.xml">
+      <configuration name="pytest for test_hidden_motif.test_consensus_from_motifs" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_for_test_hidden_motif_test_consensus_from_motifs - 2019.02.04 at 14h 50m 05s.xml">
+      <configuration name="pytest for test_hidden_motif.test_consensus_from_motifs" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_for_test_hidden_motif_test_consensus_from_motifs - 2019.02.04 at 14h 50m 38s.xml">
+      <configuration name="pytest for test_hidden_motif.test_consensus_from_motifs" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_for_test_hidden_motif_test_consensus_from_motifs - 2019.02.04 at 14h 50m 39s.xml">
+      <configuration name="pytest for test_hidden_motif.test_consensus_from_motifs" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_for_test_hidden_motif_test_consensus_from_motifs - 2019.02.04 at 14h 52m 20s.xml">
+      <configuration name="pytest for test_hidden_motif.test_consensus_from_motifs" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 22h 04m 21s.xml">
       <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.03 at 21h 54m 23s.xml">
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 22h 05m 22s.xml">
       <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.03 at 21h 54m 39s.xml">
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 22h 05m 49s.xml">
       <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.03 at 22h 59m 58s.xml">
-      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 13h 14m 43s.xml">
-      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 13h 14m 53s.xml">
-      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 13h 16m 07s.xml">
-      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 13h 16m 10s.xml">
-      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 13h 19m 00s.xml">
-      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 13h 19m 04s.xml">
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.02.04 at 22h 06m 36s.xml">
       <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -316,21 +349,22 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.47126436" visible="true" weight="0.26039565" />
-      <window_info id="Structure" order="1" sideWeight="0.52873564" side_tool="true" visible="true" weight="0.26039565" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.46896553" visible="true" weight="0.26039565" />
+      <window_info id="Structure" order="1" sideWeight="0.53103447" side_tool="true" visible="true" weight="0.26039565" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.33103448" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32950193" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32977098" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32950193" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32796934" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.249694" />
@@ -338,6 +372,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/chapter02/hidden_motif.py</url>
+          <line>504</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnlyOnFirst="true" notifyOnTerminate="true" ignoreLibraries="true" exception="BaseException">
@@ -358,6 +399,31 @@
       </expression>
     </expressions>
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>log2(0)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>log2(nucleotides_freq[r])</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>nucleotides_freq[r]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>log2(profile[r][j])</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>profile[r][j]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>best_motifs is motifs</expression-string>
         <language-id>Python</language-id>
@@ -380,26 +446,6 @@
       </expression>
       <expression>
         <expression-string>motif_ex_i[i] is motifs[i]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>motif_ex_i is motifs</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>best_motif is motif</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>motif</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>best_motif</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -446,16 +492,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter01/skew_dataset.txt">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter01/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="865">
-          <caret line="197" column="22" selection-start-line="197" selection-start-column="22" selection-end-line="197" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -526,17 +562,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chapter01/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="6" selection-end-column="64" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter02/stepik_hidden_motif.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1196">
+        <state relative-caret-position="1920">
           <caret line="80" column="23" selection-start-line="80" selection-start-column="23" selection-end-line="80" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter02/hidden_motif.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="182" lean-forward="true" selection-start-line="182" selection-end-line="182" />
+        <state relative-caret-position="229">
+          <caret line="293" selection-start-line="293" selection-end-line="293" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
@@ -545,8 +591,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter02/test_hidden_motif.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="132" lean-forward="true" selection-start-line="132" selection-end-line="132" />
+        <state relative-caret-position="836">
+          <caret line="223" column="37" selection-start-line="223" selection-start-column="37" selection-end-line="223" selection-end-column="37" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>

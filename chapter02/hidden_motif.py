@@ -4,7 +4,12 @@ from collections import Counter
 from random import randint, choices
 from copy import deepcopy
 import random
-import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib
+plt.ion()
+from Bio import SeqIO
+from numpy import argmin
+from math import log2
 
 """
 Transcription factors are proteins that regulate the expression of genes, and turn them on and off. They do so by binding to specific short segments of DNA, tipically upstream of genes, called regulatory motifs. Here we try to identify regulatory motifs via computational analysis.
@@ -279,6 +284,17 @@ def score_motif(motifs):
     return total_score
 
 
+def relative_entropy(motifs, nucleotides_freq):
+    profile = motifs_profile(motifs, pseudocount=0)
+    k = len(motifs[0])
+    total = .0
+    for j in range(0, k):
+        for r in 'ACGT':
+            the_log2 = log2(profile[r][j]) if profile[r][j] > 0 else .0
+            total += profile[r][j]*the_log2 - profile[r][j]*log2(nucleotides_freq[r])
+    return -total
+
+
 """
 We are now all set to implement a greedy motifs search. Again, there is an additional parameter pseudocount, which we will use later
 """
@@ -392,22 +408,35 @@ Algorithm "Gibbs Sampler", at every iteration:
 '''
 
 
-def gibbs_sampler(dna, k, n):
+def gibbs_sampler(dna, k, n, seed = None):
     """
     Find the motifs that best fit a collection of DNA segments (have the lowest score), using a Gibbs sampler. Setting the same seed with random.seed() before calling the function, will produce the same result every time.
     :param dna: The collection of DNA segments (strings), not necessarily of the same length.
     :param k: The size of motifs to be discovered; the same for every motif, an integer number.
     :param n: The number of iterations to be performed, an integer number.
+    :param seed: seed for random number generator initialisation: if set to None, no initialisation is performed.
     :return: The discovered motifs, a list of strings.
     """
+    if seed is not None:
+        random.seed(seed)
     t = len(dna)  # No. of strings in dna
     s = len(dna[0])  # Length of every string in dna
     assert s >= k
+    nucleotides_count_by_segm = [Counter(dna[i]) for i in range(0, len(dna))]
+    nucleotides_freq = functools.reduce(operator.add, nucleotides_count_by_segm, Counter(A=0, C=0, G=0, T=0))
+    total_nucleotides_no = nucleotides_freq['A']+nucleotides_freq['C']+nucleotides_freq['G']+nucleotides_freq['T']
+    assert total_nucleotides_no == sum([len(segment) for segment in dna])
+    nucleotides_freq['A'] /= total_nucleotides_no
+    nucleotides_freq['C'] /= total_nucleotides_no
+    nucleotides_freq['G'] /= total_nucleotides_no
+    nucleotides_freq['T'] /= total_nucleotides_no
+
     # Randomly select one motif per dna string, each of length  k, as a starting set of motifs
     motifs = [dna[row][i:i + k] for row, i in zip(range(0, t), [randint(0, s - k - 1) for _ in range(0, t)])]
     # Initialise the needful to keep track of the best motifs discovered so far
     best_motifs = deepcopy(motifs)  # Deep copy needed to prevent updates to motifs[i] from changing best_motifs[i]
     best_motif_score = score_motif(best_motifs)
+    scores = []
     for _ in range(0, n):  # TODO find better stop criteria
         # Randomly choose one of the motifs
         i = randint(0, t - 1)
@@ -429,48 +458,56 @@ def gibbs_sampler(dna, k, n):
         # Replace the i-th motif in the current set of motifs with the sampled one
         motifs[i] = dna[i][drafted_kmer_i:drafted_kmer_i + k]
         # Check if the obtained motif is the best so far
-        score = score_motif(motifs)
+        # score = score_motif(motifs)
+        score = relative_entropy(motifs, nucleotides_freq)
+        scores.append(score)
         if score < best_motif_score:
             # Deep copy needed, or else code above that updates motifs[i] will overwrite best_motifs[i]
             best_motifs = deepcopy(motifs)
             best_motif_score = score
-    return best_motifs
+    return best_motifs, scores
 
 
-def main_for_mc_randomized_motif_search():
-    s1 = input()
-    k, t = s1.split(sep=' ')
-    k, t = int(k), int(t)
-    dna = []
-    for _ in range(0, t):
-        s2 = input()
-        dna.append(s2)
-
-    res = mc_randomized_motif_search(dna, k, times=1000)
-
-    for item in res:
-        print(item)
+def consensus_from_motifs(motifs):
+    n_cols = len(motifs[0])
+    n_rows = len(motifs)
+    consensus = []
+    for col in range(0, n_cols):
+        counts = Counter([motifs[row][col] for row in range(0, n_rows)])
+        consensus_nucleotide, _ = counts.most_common(1)[0]
+        consensus.append(consensus_nucleotide)
+    consensus_as_str = ''.join(consensus)
+    return consensus_as_str
 
 
-def main_for_gibbs_sampler():
-    random.seed(2)
-    s1 = input()
-    k, t, n = s1.split(sep=' ')
-    k, t, n = int(k), int(t), int(n)
-    dna = []
-    for _ in range(0, t):
-        s2 = input()
-        dna.append(s2)
-    assert len(dna) == t
 
-    res = gibbs_sampler(dna, k, n)
 
-    for item in res:
-        print(item)
+def main():
+    backend = matplotlib.get_backend()
+    interactive = matplotlib.is_interactive()
+    print('Using backend', backend, ', interactive = ', interactive)
+
+    parsed = SeqIO.parse('upstream250.txt', 'fasta')
+    segment_IDs = []
+    segments = []
+    for record in parsed:
+        segment_IDs.append(record.id)
+        segments.append(str(record.seq))
+
+    motifs, scores = gibbs_sampler(segments, k=21, n=20000, seed=42)
+    print(motifs)
+    consensus = consensus_from_motifs(motifs)
+    print('Consensus is', consensus)
+    print('Best score is', min(scores), 'at iteration#', argmin(scores))
+    plt.plot(scores)
+    plt.show(block=True)
+
+    median = median_string(segments, k=5)
+    print('Median string is', median)
 
 
 if __name__ == '__main__':
-    pass
+    main()
 
 '''
 TODO
