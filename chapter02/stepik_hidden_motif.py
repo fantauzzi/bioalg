@@ -83,7 +83,8 @@ def DistanceBetweenPatternAndStrings(pattern, dna):
 
 
 def MedianString(dna, k):
-    return hidden_motif.median_string(dna, k)
+    median, _ = hidden_motif.median_string(dna, k)
+    return median
 
 
 def ProfileMostProbableKmer(text, k, profile):

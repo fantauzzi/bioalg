@@ -6,10 +6,12 @@ from copy import deepcopy
 import random
 import matplotlib.pyplot as plt
 import matplotlib
-plt.ion()
+from tqdm import tqdm
 from Bio import SeqIO
 from numpy import argmin
-from math import log2
+from math import log2, isclose
+
+plt.ion()
 
 """
 Transcription factors are proteins that regulate the expression of genes, and turn them on and off. They do so by binding to specific short segments of DNA, tipically upstream of genes, called regulatory motifs. Here we try to identify regulatory motifs via computational analysis.
@@ -186,7 +188,7 @@ And finally, the calculation of the median string of length k.
 """
 
 
-def median_string(dna, k):  # TODO add unit test
+def median_string(dna, k, progress_bar=False):  # TODO add unit test
     """
     Among all possible k-mers, find the one with minimum distance from a given collection of DNA segments. If multiple k-mers satisfy the requirement, choose any of them.
     :param dna: The collection of DNA segments (each segment is a string).
@@ -195,12 +197,13 @@ def median_string(dna, k):  # TODO add unit test
     """
     min_dist = float('inf')
     best_kmer = None
-    for kmer in all_kmers(k):
+    kmers_count = 4 ** k
+    for kmer in tqdm(iterable=all_kmers(k), total=kmers_count, miniters=64) if progress_bar else all_kmers(k):
         dist = kmer_to_dna_distance(kmer, dna)
         if dist < min_dist:
             min_dist = dist
             best_kmer = kmer
-    return best_kmer
+    return best_kmer, min_dist
 
 
 """
@@ -291,7 +294,7 @@ def relative_entropy(motifs, nucleotides_freq):
     for j in range(0, k):
         for r in 'ACGT':
             the_log2 = log2(profile[r][j]) if profile[r][j] > 0 else .0
-            total += profile[r][j]*the_log2 - profile[r][j]*log2(nucleotides_freq[r])
+            total += profile[r][j] * the_log2 - profile[r][j] * log2(nucleotides_freq[r])
     return -total
 
 
@@ -397,6 +400,18 @@ def mc_randomized_motif_search(dna, k, times, seed=None):
     return best_motif
 
 
+def nucleotides_frequency(dna):
+    nucleotides_count_by_segm = [Counter(dna[i]) for i in range(0, len(dna))]
+    nucleotides_freq = functools.reduce(operator.add, nucleotides_count_by_segm, Counter(A=0, C=0, G=0, T=0))
+    total_nucleotides_no = nucleotides_freq['A'] + nucleotides_freq['C'] + nucleotides_freq['G'] + nucleotides_freq['T']
+    assert total_nucleotides_no == sum([len(segment) for segment in dna])
+    nucleotides_freq['A'] /= total_nucleotides_no
+    nucleotides_freq['C'] /= total_nucleotides_no
+    nucleotides_freq['G'] /= total_nucleotides_no
+    nucleotides_freq['T'] /= total_nucleotides_no
+    return nucleotides_freq
+
+
 '''
 The randomised search samples a new set of motifs at every iteration. A more prudent approach is to sample only one new motif per iteration, and replace it in the current list of motifs. 
 
@@ -408,7 +423,7 @@ Algorithm "Gibbs Sampler", at every iteration:
 '''
 
 
-def gibbs_sampler(dna, k, n, seed = None):
+def gibbs_sampler(dna, k, n, seed=None):
     """
     Find the motifs that best fit a collection of DNA segments (have the lowest score), using a Gibbs sampler. Setting the same seed with random.seed() before calling the function, will produce the same result every time.
     :param dna: The collection of DNA segments (strings), not necessarily of the same length.
@@ -422,14 +437,8 @@ def gibbs_sampler(dna, k, n, seed = None):
     t = len(dna)  # No. of strings in dna
     s = len(dna[0])  # Length of every string in dna
     assert s >= k
-    nucleotides_count_by_segm = [Counter(dna[i]) for i in range(0, len(dna))]
-    nucleotides_freq = functools.reduce(operator.add, nucleotides_count_by_segm, Counter(A=0, C=0, G=0, T=0))
-    total_nucleotides_no = nucleotides_freq['A']+nucleotides_freq['C']+nucleotides_freq['G']+nucleotides_freq['T']
-    assert total_nucleotides_no == sum([len(segment) for segment in dna])
-    nucleotides_freq['A'] /= total_nucleotides_no
-    nucleotides_freq['C'] /= total_nucleotides_no
-    nucleotides_freq['G'] /= total_nucleotides_no
-    nucleotides_freq['T'] /= total_nucleotides_no
+
+    nucleotides_freq = nucleotides_frequency(dna)
 
     # Randomly select one motif per dna string, each of length  k, as a starting set of motifs
     motifs = [dna[row][i:i + k] for row, i in zip(range(0, t), [randint(0, s - k - 1) for _ in range(0, t)])]
@@ -480,21 +489,93 @@ def consensus_from_motifs(motifs):
     return consensus_as_str
 
 
+def sample_random_relative_entropy(dna, k, n, seed=None):
+    if seed is not None:
+        random.seed(seed)
+    nucleotides_freq = nucleotides_frequency(dna)
+    n_rows = len(dna)
+    n_cols = len(dna[0])
+    samples = []
+    for _ in range(0, n):
+        motifs = [dna[segment][i:i + k] for (segment, i) in
+                  zip(range(0, n_rows), [randint(0, n_cols - k - 1) for _ in range(0, n_rows)])]
+        rel_entropy = relative_entropy(motifs, nucleotides_freq)
+        samples.append(rel_entropy)
+    return samples
 
 
-def main():
+def generate_dataset(file_name, n_segments, segment_length, motif_length, proportions=None, seed=None):
+    if seed is not None:
+        random.seed(seed)
+
+    if proportions is not None:
+        weights = (proportions['A'], proportions['C'], proportions['G'], proportions['T'])
+        assert isclose(sum(weights), 1)
+    else:
+        weights = [.25] * 4
+
+    motif = ''.join(choices(population='ACGT', weights=weights, k=motif_length))
+    with open(file_name, 'w') as fasta_file:
+        for i_segment in range(0, n_segments):
+            fasta_file.write('>synth' + str(i_segment) + '\n')
+            motif_pos = random.randint(0, segment_length - motif_length - 1)
+            prefix = ''.join(choices(population='ACGT', weights=weights, k=motif_pos))
+            postfix = ''.join(
+                choices(population='ACGT', weights=weights, k=segment_length - motif_length - len(prefix)))
+            segment = prefix + motif + postfix + '\n'
+            fasta_file.write(segment)
+
+    return motif
+
+
+def main3():
+    motif = generate_dataset(file_name='synthetic.fasta',
+                             n_segments=36,
+                             segment_length=250,
+                             motif_length=20,
+                             proportions=None,
+                             seed=42)
+    print(motif)
+
+
+def main2():
     backend = matplotlib.get_backend()
     interactive = matplotlib.is_interactive()
     print('Using backend', backend, ', interactive = ', interactive)
 
     parsed = SeqIO.parse('upstream250.txt', 'fasta')
+    # parsed = SeqIO.parse('synthetic.fasta', 'fasta')
     segment_IDs = []
     segments = []
     for record in parsed:
         segment_IDs.append(record.id)
         segments.append(str(record.seq))
 
-    motifs, scores = gibbs_sampler(segments, k=21, n=20000, seed=42)
+    """
+    random.seed(42)
+    for k in range(8, 42, 2):
+        samples = sample_random_relative_entropy(dna=segments, k=k, n=10000, seed=None)
+        mean = statistics.mean(samples)
+        var = statistics.variance(samples)
+        print(k, mean/k, var)
+    """
+
+    """
+    best_scores = []
+    for k in range(8, 42, 2):
+        motifs, scores = gibbs_sampler(segments, k=k, n=20000, seed=42)
+        print('\n k=', k)
+        print(motifs)
+        consensus = consensus_from_motifs(motifs)
+        print('Consensus is', consensus)
+        print('Best score is', min(scores), 'at iteration#', argmin(scores))
+        best_scores.append(min(scores) / k)
+        # plt.plot(scores)
+        # plt.show(block=True)
+    """
+    k = 20
+    motifs, scores = gibbs_sampler(segments, k=k, n=20000, seed=42)
+    print('\n k=', k)
     print(motifs)
     consensus = consensus_from_motifs(motifs)
     print('Consensus is', consensus)
@@ -502,12 +583,15 @@ def main():
     plt.plot(scores)
     plt.show(block=True)
 
-    median = median_string(segments, k=5)
-    print('Median string is', median)
+    # plt.plot(range(8, 42, 2), best_scores)
+    # plt.show(block=True)
+
+    # median = median_string(segments, k=5)
+    # print('Median string is', median)
 
 
 if __name__ == '__main__':
-    main()
+    main2()
 
 '''
 TODO
@@ -518,3 +602,5 @@ TODO
 - Chart the score as Gibbs sampler proceeds
 - Implement Gibbs sampler in C++
 '''
+
+# Secret for synthetic.fasta: GACAGGTACAAGAAGGAGTA

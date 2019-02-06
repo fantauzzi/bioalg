@@ -3,6 +3,7 @@ import stepik_hidden_motif
 import pytest
 from math import isclose
 from random import seed
+import numpy as np
 
 
 def test_kmers_from_dna():
@@ -127,12 +128,12 @@ def test_median_string():
     dna = ['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA', 'GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG', 'TAGTACCGAGACCGAAAGAAGTATACAGGCGT',
            'TAGATCAAGTTTCAGGTGCACGTCGGTGAACC', 'AATCCACCAGCTCCACGTGCAATGTTGGCCTA']
     k = 6
-    res = hidden_motif.median_string(dna, k)
+    res, _ = hidden_motif.median_string(dna, k)
     assert res == 'AGGTGC'
 
     dna2 = ['AAACCGGTT', 'CCTTGGAAA', 'CTGAAACAA', 'TTTAAAGGG']
     k2 = 3
-    res2 = hidden_motif.median_string(dna2, k2)
+    res2, _ = hidden_motif.median_string(dna2, k2)
     assert res2 == 'AAA'
 
 
@@ -225,10 +226,15 @@ def test_gibbs_sampler():
     assert sorted(motif) == sorted(['AAACGGCC', 'ATACAGGC', 'CAAGGTGC', 'CAAGTTTC', 'CCACGTGC'])
 
 
-
 def test_consensus_from_motifs():
     motifs = ['GGCGTTCAGGCA', 'AAGAATCAGTCA', 'CAAGGAGTTCGC', 'CACGTCAATCAC', 'CAATAATATTCG']
     consensus = hidden_motif.consensus_from_motifs(motifs)
     assert consensus == 'CACGTTCATTCA'
 
 
+def test_sample_random_relative_entropy():
+    dna = ['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA', 'GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG', 'TAGTACCGAGACCGAAAGAAGTATACAGGCGT',
+           'TAGATCAAGTTTCAGGTGCACGTCGGTGAACC', 'AATCCACCAGCTCCACGTGCAATGTTGGCCTA']
+    samples = hidden_motif.sample_random_relative_entropy(dna=dna, k=7, n=5, seed=42)
+    assert np.isclose(samples, [-4.361310120017858, -3.8374744768060447, -3.3695044762291197, -3.3698300963604413, -3.237474476806044]).all()
+    pass
