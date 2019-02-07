@@ -12,3 +12,10 @@ def test_path_to_genome():
     genome = assembly.path_to_genome(path)
     assert genome == 'ACCGAAGCT'
 
+
+def test_overlap_graph():
+    kmers = ['ATGCG', 'GCATG', 'CATGC', 'AGGCA', 'GGCAT']
+    adj, count = assembly.overlap_graph(kmers)
+    assembly.print_overlap_graph(adj, count)
+    assert True
+

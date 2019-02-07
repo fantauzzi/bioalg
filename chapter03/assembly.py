@@ -24,16 +24,60 @@ def path_to_genome(path):
     return genome
 
 
+def overlap_graph(kmers):
+    """
+    Construct the overlap graph of a collection of k-mers.
+    :param kmers: The given k-mers.
+    :return: The overlap graph, as a dictionary associating every k-mer (key in the dictionary) with its adjacency list.
+    """
+
+    # Keep count of how many times any given k-mer was in the input list of k-mers
+    kmers_count = {}
+
+    # Adjacency list for the overlap graph. Note that the same k-mer may recur multiple times in the input list of k-mers, but it appears as a key only once.
+    graph_adj = {}
+
+    for kmer in kmers:
+        if kmers_count.get(kmer) is None:
+            kmers_count[kmer] = 1
+            graph_adj[kmer] = []
+        else:
+            kmers_count[kmer] += 1
+
+    for kmer in graph_adj.keys():
+        postfix = kmer[1:]
+        candidates_next=[postfix+'A', postfix+'C', postfix+'G', postfix+'T']
+        for candidate in candidates_next:
+            if graph_adj.get(candidate) is not None:
+                assert candidate not in graph_adj[candidate]
+                graph_adj[kmer].append(candidate)
+
+    return graph_adj, kmers_count
+
+
+def print_overlap_graph(graph_adj, kmers_count):
+    for kmer, adj in graph_adj.items():
+        if len(adj) == 0:
+            continue
+        print(kmer, sep='', end='')
+        for adj_kmer in adj:
+            adj_kmer_count = kmers_count[adj_kmer]
+            for i in range(0, adj_kmer_count):
+                print(' -> ', adj_kmer, sep='', end='')
+        print('')
+
+
 def main():
-    path = []
+    kmers = []
     try:
         while True:
             item = input()
-            path.append(item)
+            kmers.append(item)
     except EOFError:
         pass
-    res = path_to_genome(path)
-    print(res)
+    adj, count = overlap_graph(kmers)
+    print_overlap_graph(adj, count)
+
 
 
 if __name__ == '__main__':
