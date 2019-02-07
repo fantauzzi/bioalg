@@ -20,7 +20,7 @@ def path_to_genome(path):
     """
 
     nucleotides = [item[-1] for item in path[1:]]
-    genome = path[0]+''.join(nucleotides)
+    genome = path[0] + ''.join(nucleotides)
     return genome
 
 
@@ -46,10 +46,10 @@ def overlap_graph(kmers):
 
     for kmer in graph_adj.keys():
         postfix = kmer[1:]
-        candidates_next=[postfix+'A', postfix+'C', postfix+'G', postfix+'T']
+        candidates_next = [postfix + 'A', postfix + 'C', postfix + 'G', postfix + 'T']
         for candidate in candidates_next:
             if graph_adj.get(candidate) is not None:
-                assert candidate not in graph_adj[candidate]
+                assert candidate not in graph_adj[kmer]
                 graph_adj[kmer].append(candidate)
 
     return graph_adj, kmers_count
@@ -59,15 +59,47 @@ def print_overlap_graph(graph_adj, kmers_count):
     for kmer, adj in graph_adj.items():
         if len(adj) == 0:
             continue
-        print(kmer, sep='', end='')
-        for adj_kmer in adj:
-            adj_kmer_count = kmers_count[adj_kmer]
-            for i in range(0, adj_kmer_count):
-                print(' -> ', adj_kmer, sep='', end='')
-        print('')
+        for _ in range(0, kmers_count[kmer]):
+            print(kmer, ' -> ', sep='', end='')
+            for i, adj_kmer in enumerate(adj):
+                adj_kmer_count = kmers_count[adj_kmer]
+                for j in range(0, adj_kmer_count):
+                    print(adj_kmer, sep='', end='')
+                    if j < adj_kmer_count - 1 or i < len(adj) - 1:
+                        print(',', sep='', end='')
+            print('')
+
+
+def print_graph(adj):
+    for vertex, adjs in sorted(adj.items()):
+        print(vertex, sep='', end='')
+        separator = ' -> '
+        for item in sorted(adjs):
+            print(separator, item, sep='', end='')
+            separator = ','
+        print()
+
+
+def de_brujin_graph(k, text):
+    m = k - 1
+    adj = {}
+    for i in range(0, len(text) - m + 1):
+        mmer = text[i:i + m]
+        if i + 1 + m <= len(text):
+            if adj.get(mmer) is None:
+                adj[mmer] = [text[i + 1:i + 1 + m]]
+            else:
+                adj[mmer].append(text[i + 1:i + 1 + m])
+    return adj
 
 
 def main():
+    k = int(input())
+    text = input()
+    adj = de_brujin_graph(k, text)
+    print_graph(adj)
+
+    """
     kmers = []
     try:
         while True:
@@ -77,7 +109,7 @@ def main():
         pass
     adj, count = overlap_graph(kmers)
     print_overlap_graph(adj, count)
-
+    """
 
 
 if __name__ == '__main__':

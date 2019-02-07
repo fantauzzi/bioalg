@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter03/assembly.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="815">
-              <caret line="72" column="19" lean-forward="true" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
+            <state relative-caret-position="695">
+              <caret line="82" column="29" lean-forward="true" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -25,8 +25,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter03/test_assembly.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+            <state relative-caret-position="480">
+              <caret line="20" column="35" lean-forward="true" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -319,34 +319,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_for_test_assembly_test_path_to_genome - 2019.02.06 at 23h 56m 56s.xml">
-      <configuration name="pytest for test_assembly.test_path_to_genome" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_test_assembly_test_path_to_genome - 2019.02.06 at 23h 57m 03s.xml">
-      <configuration name="pytest for test_assembly.test_path_to_genome" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.06 at 23h 57m 14s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 36m 29s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_assembly_test_overlap_graph - 2019.02.07 at 01h 44m 49s.xml">
-      <configuration name="pytest for test_assembly.test_overlap_graph" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_for_test_assembly_test_overlap_graph - 2019.02.07 at 01h 45m 07s.xml">
-      <configuration name="pytest for test_assembly.test_overlap_graph" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 01h 45m 16s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 37m 13s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 01h 52m 37s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 42m 01s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 01h 58m 22s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 42m 03s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 02h 01m 40s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 43m 06s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 02h 03m 42s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 43m 52s.xml">
+      <configuration name="pytest in test_assembly.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 47m 58s.xml">
+      <configuration name="pytest in test_assembly.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 48m 12s.xml">
+      <configuration name="pytest in test_assembly.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 48m 34s.xml">
+      <configuration name="pytest in test_assembly.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 50m 30s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -363,12 +363,12 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.46283525" visible="true" weight="0.26281792" />
-      <window_info id="Structure" order="1" sideWeight="0.53716475" side_tool="true" visible="true" weight="0.26281792" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4616266" visible="true" weight="0.26281792" />
+      <window_info id="Structure" order="1" sideWeight="0.5383734" side_tool="true" visible="true" weight="0.26281792" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.33103448" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33103448" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -392,13 +392,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/chapter03/test_assembly.py</url>
-          <line>17</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/chapter03/assembly.py</url>
-          <line>54</line>
-          <option name="timeStamp" value="12" />
+          <line>24</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -623,15 +618,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter03/test_assembly.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="480">
+          <caret line="20" column="35" lean-forward="true" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter03/assembly.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="815">
-          <caret line="72" column="19" lean-forward="true" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
+        <state relative-caret-position="695">
+          <caret line="82" column="29" lean-forward="true" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
         </state>
       </provider>
     </entry>
