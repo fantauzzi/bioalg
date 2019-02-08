@@ -17,8 +17,6 @@ def test_path_to_genome():
 def test_overlap_graph():
     kmers = ['ATGCG', 'GCATG', 'CATGC', 'AGGCA', 'GGCAT']
     adj, count = assembly.overlap_graph(kmers)
-    # print()
-    # assembly.print_overlap_graph(adj, count)
     expected = {'ATGCG': [],
                 'GCATG': ['CATGC'],
                 'CATGC': ['ATGCG'],
@@ -28,8 +26,6 @@ def test_overlap_graph():
 
     kmers2 = ['AAT', 'ATG', 'ATG', 'ATG', 'CAT', 'CCA', 'GAT', 'GCC', 'GGA', 'GGG', 'GTT', 'TAA', 'TGC', 'TGG', 'TGT']
     adj, count = assembly.overlap_graph(kmers2)
-    # print()
-    # assembly.print_overlap_graph(adj, count)
     assert len(adj) == len(count) == 13
 
 
@@ -74,30 +70,27 @@ def test_eulerian_cycle():
            '1': ['2'],
            '2': ['0']}
     cycle = assembly.eulerian_cycle(adj)
-    print()
-    print(cycle)
-    # print(assembly.cycle_from_adj(cycle, '1'))
+    res = assembly.is_eulerian_cycle(adj, cycle)
+    assert res
 
     adj = {'0': ['0']}
     cycle = assembly.eulerian_cycle(adj)
-    print()
-    print(cycle)
+    res = assembly.is_eulerian_cycle(adj, cycle)
+    assert res
 
     adj = {'0': ['1'],
            '1': ['0']}
     cycle = assembly.eulerian_cycle(adj)
-    print()
-    print(cycle)
-    # print(assembly.cycle_from_adj(cycle, '1'))
+    res = assembly.is_eulerian_cycle(adj, cycle)
+    assert res
 
     adj = {'0': ['1'],
            '1': ['1', '2', '3'],
            '2': ['3'],
            '3': ['0', '1']}
     cycle = assembly.eulerian_cycle(adj)
-    print()
-    print(cycle)
-    # print(assembly.cycle_from_adj(cycle, '1'))
+    res = assembly.is_eulerian_cycle(adj, cycle)
+    assert res
 
     adj = {'0': ['1', '2', '3', '4'],
            '1': ['0', '2'],
@@ -105,6 +98,13 @@ def test_eulerian_cycle():
            '3': ['0', '4'],
            '4': ['0', '1']}
     cycle = assembly.eulerian_cycle(adj)
-    print()
-    print(cycle)
-    # print(assembly.cycle_from_adj(cycle, '1'))
+    res = assembly.is_eulerian_cycle(adj, cycle)
+    assert res
+
+    with open('dataset01.txt') as dataset_file:
+        dataset = dataset_file.readlines()
+    adj = assembly.parse_graph(dataset)
+    cycle = assembly.eulerian_cycle(adj)
+
+    res = assembly.is_eulerian_cycle(adj, cycle)
+    assert res

@@ -118,7 +118,8 @@ def eulerian_cycle(adj):
             cycle.append(current)
             current = curr_path.pop()
 
-    return cycle
+    res = list(reversed(cycle))
+    return res
 
 
 def de_brujin_graph_from_kmers(kmers):
@@ -145,14 +146,44 @@ def cycle_from_adj(adj, start):
     return cycle
 
 
-def main():
-    for k in (2, 3, 4):
-        adj = de_brujin_graph(k, 'TAATGCCATGGGATGTT')
-        print_graph(adj)
-        print()
+def parse_graph(text):
+    adj = {}
+    for line in text:
+        vertex, adj_list = str.split(line, ' -> ')
+        vertex = str(int(vertex))
+        adjs = str.split(adj_list, ',')
+        adjs = [str(int(item)) for item in adjs]
+        adj[vertex] = adjs
+    return adj
 
 
-def main2():
+def print_cycle(cycle):
+    for i, vertex in enumerate(cycle):
+        if i > 0:
+            print('->', sep='', end='')
+        print(vertex, sep='', end='')
+
+
+def is_eulerian_cycle(adj, cycle):
+    for i in range(0, len(cycle) - 1):
+        vertex1 = cycle[i]
+        vertex2 = cycle[i + 1]
+        adjs = adj.get(vertex1)
+        if adjs is None:
+            return False
+        try:
+            adjs.remove(vertex2)
+        except ValueError:
+            return False
+
+    for _, adjs in adj.items():
+        if len(adjs) > 0:
+            return False
+
+    return True
+
+
+def main_eulerian_cycle():
     """
     k = int(input())
     text = input()
@@ -160,16 +191,17 @@ def main2():
     print_graph(adj)
     """
 
-    kmers = []
+    text = []
     try:
         while True:
             item = input()
-            kmers.append(item)
+            text.append(item)
     except EOFError:
         pass
-    adj = de_brujin_graph_from_kmers(kmers)
-    print_graph(adj)
+    adj = parse_graph(text)
+    cycle = eulerian_cycle(adj)
+    print_cycle(cycle)
 
 
 if __name__ == '__main__':
-    main()
+    pass
