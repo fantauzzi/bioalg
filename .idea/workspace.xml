@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter03/assembly.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter03/assembly.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter03/test_assembly.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter03/test_assembly.py" afterDir="false" />
     </list>
@@ -13,20 +14,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter03/assembly.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="695">
-              <caret line="82" column="29" lean-forward="true" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
+            <state relative-caret-position="1713">
+              <caret line="146" lean-forward="true" selection-start-line="146" selection-end-line="146" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter03/test_assembly.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="20" column="35" lean-forward="true" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+            <state relative-caret-position="389">
+              <caret line="75" column="25" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -69,6 +70,8 @@
       <find>zip</find>
       <find>randint</find>
       <find>tqdm</find>
+      <find>dummy</find>
+      <find>break</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -97,8 +100,8 @@
         <option value="$PROJECT_DIR$/chapter02/test_hidden_motif.py" />
         <option value="$PROJECT_DIR$/chapter02/hidden_motif.py" />
         <option value="$PROJECT_DIR$/chapter01/main.py" />
-        <option value="$PROJECT_DIR$/chapter03/test_assembly.py" />
         <option value="$PROJECT_DIR$/chapter03/assembly.py" />
+        <option value="$PROJECT_DIR$/chapter03/test_assembly.py" />
       </list>
     </option>
   </component>
@@ -161,7 +164,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.assembly">
+  <component name="RunManager" selected="Python tests.pytest in test_assembly.py">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="bioalg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -204,27 +207,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="bioalg" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter01" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/chapter01/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="true" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration default="true" type="tests" factoryName="py.test">
       <module name="bioalg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -238,36 +220,6 @@
       <option name="_new_additionalArguments" value="&quot;-v&quot;" />
       <option name="_new_target" value="&quot;&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytest for test_assembly.test_overlap_graph" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="bioalg" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter03" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;-v&quot;" />
-      <option name="_new_target" value="&quot;test_assembly.test_overlap_graph&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytest for test_assembly.test_path_to_genome" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="bioalg" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter03" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;-v&quot;" />
-      <option name="_new_target" value="&quot;test_assembly.test_path_to_genome&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <configuration name="pytest in test_assembly.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
@@ -287,18 +239,12 @@
     </configuration>
     <list>
       <item itemvalue="Python.assembly" />
-      <item itemvalue="Python.main" />
       <item itemvalue="Python tests.pytest in test_assembly.py" />
-      <item itemvalue="Python tests.pytest for test_assembly.test_path_to_genome" />
-      <item itemvalue="Python tests.pytest for test_assembly.test_overlap_graph" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.assembly" />
         <item itemvalue="Python tests.pytest in test_assembly.py" />
-        <item itemvalue="Python tests.pytest for test_assembly.test_overlap_graph" />
-        <item itemvalue="Python tests.pytest for test_assembly.test_path_to_genome" />
-        <item itemvalue="Python.main" />
+        <item itemvalue="Python.assembly" />
       </list>
     </recent_temporary>
   </component>
@@ -319,34 +265,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 36m 29s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.08 at 14h 43m 56s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 37m 13s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.08 at 14h 44m 26s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 42m 01s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.08 at 14h 47m 54s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 42m 03s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.08 at 16h 33m 45s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 43m 06s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.08 at 16h 34m 05s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 43m 52s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.08 at 16h 41m 11s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 47m 58s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.08 at 16h 46m 45s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 48m 12s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.08 at 16h 48m 37s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 48m 34s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.08 at 16h 48m 59s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.07 at 11h 50m 30s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.08 at 17h 07m 01s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -363,12 +309,12 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4616266" visible="true" weight="0.26281792" />
-      <window_info id="Structure" order="1" sideWeight="0.5383734" side_tool="true" visible="true" weight="0.26281792" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.45823756" visible="true" weight="0.26281792" />
+      <window_info id="Structure" order="1" sideWeight="0.5417625" side_tool="true" visible="true" weight="0.26281792" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33103448" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33103448" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -391,9 +337,14 @@
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/chapter03/assembly.py</url>
+          <line>76</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/chapter03/test_assembly.py</url>
-          <line>24</line>
-          <option name="timeStamp" value="13" />
+          <line>75</line>
+          <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -417,6 +368,36 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>adj_list=cycle_adj[vertex]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>vertex='1'</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>adj_list = cycle_adj[vertex]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>vertex= '1'</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>adj_list is cycle_adj[vertex]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>adj_list is cycle_adj</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>log2(0)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -436,46 +417,9 @@
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>profile[r][j]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>best_motifs is motifs</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>best_motifs[i]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>best_motifs[i] is motifs[i]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>motif_ex_i[0] is motifs[0]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>motif_ex_i[i] is motifs[i]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-352">
-          <caret line="3276" column="45" lean-forward="true" selection-start-line="3276" selection-start-column="45" selection-end-line="3276" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter01/deborah.py" />
     <entry file="file://$PROJECT_DIR$/chapter01/chap01.py" />
     <entry file="file://$PROJECT_DIR$/chapter01/niemasd.py" />
@@ -565,20 +509,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter02/notes.txt" />
-    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/pluggy/callers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="175" column="80" lean-forward="true" selection-start-line="175" selection-start-column="80" selection-end-line="175" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/_pytest/python.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="165" selection-start-line="165" selection-end-line="165" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter02/test_hidden_motif.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
@@ -616,17 +546,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter03/test_assembly.py">
+    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/_pytest/python.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="20" column="35" lean-forward="true" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+        <state relative-caret-position="241">
+          <caret line="165" selection-start-line="165" selection-end-line="165" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/pluggy/callers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="174" column="48" lean-forward="true" selection-start-line="174" selection-start-column="48" selection-end-line="174" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="3260" column="31" selection-start-line="3260" selection-start-column="31" selection-end-line="3260" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/copy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="137" selection-start-line="137" selection-end-line="137" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter03/assembly.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="695">
-          <caret line="82" column="29" lean-forward="true" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
+        <state relative-caret-position="1713">
+          <caret line="146" lean-forward="true" selection-start-line="146" selection-end-line="146" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter03/test_assembly.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="75" column="25" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
         </state>
       </provider>
     </entry>

@@ -1,3 +1,6 @@
+from copy import deepcopy
+
+
 def composition(k, text):
     """
     Produces the list of k-mers in a string, in lexicographic order.
@@ -84,22 +87,79 @@ def de_brujin_graph(k, text):
     m = k - 1
     adj = {}
     for i in range(0, len(text) - m + 1):
-        mmer = text[i:i + m]
+        prefix = text[i:i + m]
         if i + 1 + m <= len(text):
-            if adj.get(mmer) is None:
-                adj[mmer] = [text[i + 1:i + 1 + m]]
+            if adj.get(prefix) is None:
+                adj[prefix] = [text[i + 1:i + 1 + m]]
             else:
-                adj[mmer].append(text[i + 1:i + 1 + m])
+                adj[prefix].append(text[i + 1:i + 1 + m])
     return adj
 
 
+def eulerian_cycle(adj):
+    untraversed_adj = deepcopy(adj)
+
+    # Choose any starting vertex
+    current = next(iter(untraversed_adj.keys()))
+    # Initialise the current path (used as a stack)
+    curr_path = [current]
+    # Initialise the cycle, to be built
+    cycle = []
+
+    while len(curr_path) > 0:
+        succ_list = untraversed_adj[current]
+        # If there are un-traversed edges outgoing from the current vertex...
+        if len(succ_list) > 0:
+            # ... then choose one and traverse it...
+            curr_path.append(current)
+            current = succ_list.pop()
+        else:
+            # ... otherwise add the current vertex to the cycle being built, and then backtrack along the current path
+            cycle.append(current)
+            current = curr_path.pop()
+
+    return cycle
+
+
+def de_brujin_graph_from_kmers(kmers):
+    adj = {}
+    for kmer in kmers:
+        prefix = kmer[0:len(kmer) - 1]
+        if adj.get(prefix) is None:
+            adj[prefix] = [kmer[1:]]
+        else:
+            adj[prefix].append(kmer[1:])
+    return adj
+
+
+def cycle_from_adj(adj, start):
+    cycle_adj = deepcopy(adj)
+
+    vertex, adj_list = start, cycle_adj[start]
+    cycle = [vertex]
+    while len(adj_list) > 0:
+        vertex = adj_list.pop(0)
+        adj_list = cycle_adj[vertex]
+        cycle.append(vertex)
+
+    return cycle
+
+
 def main():
+    for k in (2, 3, 4):
+        adj = de_brujin_graph(k, 'TAATGCCATGGGATGTT')
+        print_graph(adj)
+        print()
+
+
+def main2():
+    """
     k = int(input())
     text = input()
     adj = de_brujin_graph(k, text)
     print_graph(adj)
-
     """
+
     kmers = []
     try:
         while True:
@@ -107,9 +167,8 @@ def main():
             kmers.append(item)
     except EOFError:
         pass
-    adj, count = overlap_graph(kmers)
-    print_overlap_graph(adj, count)
-    """
+    adj = de_brujin_graph_from_kmers(kmers)
+    print_graph(adj)
 
 
 if __name__ == '__main__':
