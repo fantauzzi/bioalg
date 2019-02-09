@@ -108,3 +108,32 @@ def test_eulerian_cycle():
 
     res = assembly.is_eulerian_cycle(adj, cycle)
     assert res
+
+
+def test_euleria_path():
+    adj = {'0': ['2'],
+           '1': ['3'],
+           '2': ['1'],
+           '3': ['0', '4'],
+           '6': ['3', '7'],
+           '7': ['8'],
+           '8': ['9'],
+           '9': ['6']}
+
+    path = assembly.eulerian_path(adj)
+    print()
+    assembly.print_cycle(path)
+
+    adj = {'0': ['1']}
+    path = assembly.eulerian_path(adj)
+    print()
+    assembly.print_cycle(path)
+
+    for i in range(1, 6):
+        file_name = 'test' + str(i) + '.txt'
+        with open(file_name) as input_file:
+            test_case_text = input_file.readlines()
+        adj = assembly.parse_graph(test_case_text)
+        path = assembly.eulerian_path(adj)
+        print()
+        assembly.print_cycle(path)

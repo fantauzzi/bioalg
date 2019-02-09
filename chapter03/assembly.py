@@ -152,8 +152,16 @@ def parse_graph(text):
         vertex, adj_list = str.split(line, ' -> ')
         vertex = str(int(vertex))
         adjs = str.split(adj_list, ',')
-        adjs = [str(int(item)) for item in adjs]
-        adj[vertex] = adjs
+        adjs_corrected = []
+        for item in adjs:
+            try:
+                item_corrected = str(int(item))
+                adjs_corrected.append(item_corrected)
+            except ValueError:
+                adjs_corrected = None
+                break
+        if adjs_corrected is not None:
+            adj[vertex] = adjs_corrected
     return adj
 
 
@@ -183,6 +191,52 @@ def is_eulerian_cycle(adj, cycle):
     return True
 
 
+def eulerian_path(adj):
+    outbound_count = {}
+    inbound_count = {}
+    for vertex, adjs in adj.items():
+        outbound_count[vertex] = len(adjs)
+        if inbound_count.get(vertex) is None:
+            inbound_count[vertex] = 0
+        for adj_vertex in adjs:
+            count = inbound_count.get(adj_vertex, 0)
+            inbound_count[adj_vertex] = count + 1
+            if outbound_count.get(adj_vertex) is None:
+                outbound_count[adj_vertex] = 0
+
+    pos_vertex, neg_vertex = None, None
+    for vertex, outbound in outbound_count.items():
+        inbound = inbound_count[vertex]
+        if outbound > inbound:
+            assert pos_vertex is None
+            pos_vertex = vertex
+            pos_amount = outbound - inbound
+        elif outbound < inbound:
+            assert neg_vertex is None
+            neg_vertex = vertex
+            neg_amount = outbound - inbound
+
+    assert pos_vertex is not None and pos_amount == 1
+    assert neg_vertex is not None and neg_amount == -1
+
+    augmented_adj = deepcopy(adj)
+    if augmented_adj.get(neg_vertex) is None:
+        augmented_adj[neg_vertex] = [pos_vertex]
+    else:
+        augmented_adj[neg_vertex].append(pos_vertex)
+
+    cycle = eulerian_cycle(augmented_adj)
+    cycle.pop()
+    cycle_cut_position = None
+    for i in range(0, len(cycle)):
+        if cycle[i] == neg_vertex and cycle[(i + 1) % len(cycle)] == pos_vertex:
+            cycle_cut_position = (i + 1) % len(cycle)
+            break
+    assert cycle_cut_position is not None
+    path = cycle[cycle_cut_position:] + cycle[:cycle_cut_position]
+    return path
+
+
 def main_eulerian_cycle():
     """
     k = int(input())
@@ -203,5 +257,25 @@ def main_eulerian_cycle():
     print_cycle(cycle)
 
 
+def main_eulerian_path():
+    """
+    k = int(input())
+    text = input()
+    adj = de_brujin_graph(k, text)
+    print_graph(adj)
+    """
+
+    text = []
+    try:
+        while True:
+            item = input()
+            text.append(item)
+    except EOFError:
+        pass
+    adj = parse_graph(text)
+    path = eulerian_path(adj)
+    print_cycle(path)
+
+
 if __name__ == '__main__':
-    pass
+    main_eulerian_path()
