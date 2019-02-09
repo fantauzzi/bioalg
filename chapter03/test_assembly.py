@@ -1,4 +1,5 @@
 import assembly
+from pathlib import Path
 
 
 def test_composition():
@@ -70,12 +71,14 @@ def test_eulerian_cycle():
            '1': ['2'],
            '2': ['0']}
     cycle = assembly.eulerian_cycle(adj)
+    assert cycle == ['0', '1', '2', '0']
     res = assembly.is_eulerian_cycle(adj, cycle)
     assert res
 
     adj = {'0': ['0']}
     cycle = assembly.eulerian_cycle(adj)
     res = assembly.is_eulerian_cycle(adj, cycle)
+    assert cycle == ['0', '0']
     assert res
 
     adj = {'0': ['1'],
@@ -89,6 +92,7 @@ def test_eulerian_cycle():
            '2': ['3'],
            '3': ['0', '1']}
     cycle = assembly.eulerian_cycle(adj)
+    assert cycle == ['0', '1', '3', '1', '1', '2', '3', '0']
     res = assembly.is_eulerian_cycle(adj, cycle)
     assert res
 
@@ -98,14 +102,15 @@ def test_eulerian_cycle():
            '3': ['0', '4'],
            '4': ['0', '1']}
     cycle = assembly.eulerian_cycle(adj)
+    assert cycle == ['0', '4', '1', '2', '3', '4', '0', '3', '0', '2', '0', '1', '0']
     res = assembly.is_eulerian_cycle(adj, cycle)
     assert res
 
-    with open('dataset01.txt') as dataset_file:
+    with open(Path('test/dataset01.txt')) as dataset_file:
         dataset = dataset_file.readlines()
     adj = assembly.parse_graph(dataset)
     cycle = assembly.eulerian_cycle(adj)
-
+    assert len(cycle) == 4001
     res = assembly.is_eulerian_cycle(adj, cycle)
     assert res
 
@@ -121,19 +126,18 @@ def test_euleria_path():
            '9': ['6']}
 
     path = assembly.eulerian_path(adj)
-    print()
-    assembly.print_cycle(path)
+    assert path == ['6', '7', '8', '9', '6', '3', '0', '2', '1', '3', '4']
 
     adj = {'0': ['1']}
     path = assembly.eulerian_path(adj)
-    print()
-    assembly.print_cycle(path)
+    assert path == ['0', '1']
 
     for i in range(1, 6):
-        file_name = 'test' + str(i) + '.txt'
-        with open(file_name) as input_file:
+        with open(Path('test/test' + str(i) + '.txt')) as input_file:
             test_case_text = input_file.readlines()
         adj = assembly.parse_graph(test_case_text)
         path = assembly.eulerian_path(adj)
-        print()
-        assembly.print_cycle(path)
+        with open(Path('test/test' + str(i) + 'out.txt')) as input_file:
+            expected_txt = input_file.readlines()[0].rstrip()
+        expected = expected_txt.split('->')
+        assert expected == path, 'i={}'.format(i)
