@@ -280,6 +280,60 @@ def eulerian_path(adj):
     return path
 
 
+def is_k_universal(k, string):
+    '''
+    Returns whether a given binary string is k-universal.
+    :param k: the k parameter, a positive integer.
+    :param string: the binary string to be tested, a string.
+    :return: True if the string is k-universal, False otherwise.
+    '''
+
+    def binary_kmer_to_int(kmer):
+        total = 0
+        for pos, char in enumerate(reversed(kmer)):
+            assert char in ('0', '1')
+            total += (char == '1') * (2 ** pos)
+        return total
+
+    found = [False] * (2 ** k)
+    extended_string = string + string[0:k-1]
+    for i in range(0, len(string)):
+        kmer = extended_string[i:i + k]
+        kmer_as_int = binary_kmer_to_int(kmer)
+        if found[kmer_as_int]:
+            return False
+        found[kmer_as_int] = True
+
+    res = sum(found) == len(found)
+    return res
+
+
+def make_k_universal(k):
+    '''
+    Returns a binary k-universal circular string.
+    :param k: Value for parameter k.
+    :return: The circular string, a Python string.
+    '''
+
+    # Generate all binary k-mers.
+    kmers = [bin(number)[2:].rjust(k, '0') for number in range(0, 2**k)]
+
+    # Build the De Brujin graph for the generated k-mers.
+
+    adj = de_brujin_graph_from_kmers(kmers)
+
+    # Find a Eulerian cycle in the De Brujin graph.
+
+    cycle = eulerian_cycle(adj)
+
+    # Spell the string along the cycle.
+
+    res = ''.join(vertex[0] for vertex in cycle[0: len(cycle)-1])
+
+    return res
+
+
+
 def main_eulerian_cycle():
     """
     k = int(input())
@@ -320,5 +374,12 @@ def main_eulerian_path():
     print_cycle(path)
 
 
+def main_k_universal():
+    k = int(input())
+    res = make_k_universal(k)
+    print(res)
+
+
+
 if __name__ == '__main__':
-    main_eulerian_path()
+    main_k_universal()

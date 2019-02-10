@@ -141,3 +141,17 @@ def test_euleria_path():
             expected_txt = input_file.readlines()[0].rstrip()
         expected = expected_txt.split('->')
         assert expected == path, 'i={}'.format(i)
+
+
+def test_is_k_universal():
+    assert assembly.is_k_universal(4, '0000110010111101')
+
+    with open(Path('test/kuniversal_test.txt')) as input_file:
+        string = input_file.readline().rstrip()
+    assert assembly.is_k_universal(14, string)
+
+
+def text_make_key_universal():
+    for k in range(1, 10):
+        string = assembly.make_k_universal(k)
+        assert assembly.is_k_universal(k, string)
