@@ -27,6 +27,22 @@ def path_to_genome(path):
     return genome
 
 
+def gapped_path_to_genome(d, path):
+    '''
+    Returns the string corresponding to a given sequence of gapped (k, d)-mers.
+    :param d: The length of the gap within each gapped (k, d)-mer.
+    :param path: The sequence of (k-d)-mers, each item is a pair of strings, representing two gapped k-mers.
+    :return: The string corresponding to the given gapped genome path.
+    '''
+
+    pre_path, post_path = [item[0] for item in path], [item[1] for item in path]
+    pre_genome = path_to_genome(pre_path)
+    post_genome = path_to_genome(post_path)
+    k = len(pre_path[0])
+    assert len(pre_genome) == len(post_genome)
+    return pre_genome[0:k + d] + post_genome if pre_genome[k + d:] == post_genome[:-k - d] else None
+
+
 def overlap_graph(kmers):
     """
     Returns the overlap graph for a sequence of k-mers.
@@ -296,7 +312,7 @@ def is_k_universal(k, string):
         return total
 
     found = [False] * (2 ** k)
-    extended_string = string + string[0:k-1]
+    extended_string = string + string[0:k - 1]
     for i in range(0, len(string)):
         kmer = extended_string[i:i + k]
         kmer_as_int = binary_kmer_to_int(kmer)
@@ -316,7 +332,7 @@ def make_k_universal(k):
     '''
 
     # Generate all binary k-mers.
-    kmers = [bin(number)[2:].rjust(k, '0') for number in range(0, 2**k)]
+    kmers = [bin(number)[2:].rjust(k, '0') for number in range(0, 2 ** k)]
 
     # Build the De Brujin graph for the generated k-mers.
 
@@ -328,10 +344,42 @@ def make_k_universal(k):
 
     # Spell the string along the cycle.
 
-    res = ''.join(vertex[0] for vertex in cycle[0: len(cycle)-1])
+    res = ''.join(vertex[0] for vertex in cycle[: len(cycle) - 1])
 
     return res
 
+
+def reconstruct_string(kmers):
+    k = len(kmers[0])
+
+    # Build the De Brujin graph for the given k-mers.
+
+    adj = de_brujin_graph_from_kmers(kmers)
+
+    # Find a Eulerian path in the De Brujin graph.
+
+    path = eulerian_path(adj)
+
+    # Spell the string along the cycle.
+
+    res = path[0] + ''.join(vertex[-1] for vertex in path[1: len(path)])
+
+    return res
+
+
+def main_reconstruct_string():
+    k = int(input())
+    text = []
+    try:
+        while True:
+            item = input()
+            text.append(item)
+    except EOFError:
+        pass
+    assert k == len(text[0])
+
+    res = reconstruct_string(text)
+    print(res)
 
 
 def main_eulerian_cycle():
@@ -380,6 +428,24 @@ def main_k_universal():
     print(res)
 
 
+def main_grepped_path():
+    line = input()
+    k, d = line.split(sep=' ')
+    k, d = int(k), int(d)
+
+    text = []
+    try:
+        while True:
+            item = input()
+            text.append(item)
+    except EOFError:
+        pass
+
+    gapped_kmers = [item.split(sep='|') for item in text]
+    assert k == len(gapped_kmers[0][0])
+    res = gapped_path_to_genome(d, gapped_kmers)
+    print(res)
+
 
 if __name__ == '__main__':
-    main_k_universal()
+    main_grepped_path()
