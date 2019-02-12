@@ -66,6 +66,38 @@ def test_de_brujin_graph_from_kmers():
     assert adj == expected
 
 
+def test_de_brujin_graph_from_read_pairs():
+    d = 2
+    reads = [['GAGA', 'TTGA'],
+             ['TCGT', 'GATG'],
+             ['CGTG', 'ATGT'],
+             ['TGGT', 'TGAG'],
+             ['GTGA', 'TGTT'],
+             ['GTGG', 'GTGA'],
+             ['TGAG', 'GTTG'],
+             ['GGTC', 'GAGA'],
+             ['GTCG', 'AGAT']]
+
+    adj = assembly.de_brujin_graph_from_read_pairs(reads)
+    print()
+    assembly.print_graph(adj)
+
+
+def test_reconstruct_string_from_paired_reads():
+    d = 2
+    reads = [['GAGA', 'TTGA'],
+             ['TCGT', 'GATG'],
+             ['CGTG', 'ATGT'],
+             ['TGGT', 'TGAG'],
+             ['GTGA', 'TGTT'],
+             ['GTGG', 'GTGA'],
+             ['TGAG', 'GTTG'],
+             ['GGTC', 'GAGA'],
+             ['GTCG', 'AGAT']]
+    gen = assembly.reconstruct_string_from_paired_reads(d, reads)
+    print(gen)
+
+
 def test_eulerian_cycle():
     adj = {'0': ['1'],
            '1': ['2'],
@@ -188,5 +220,43 @@ def test_gapped_path_to_genome():
                     ['GAGC', 'CGGA']]
 
     gen = assembly.gapped_path_to_genome(2, gapped_kmers)
-    print()
-    print(gen)
+    assert gen == 'GACCGAGCGCCGGA'
+
+
+def test_max_no_branch_paths():
+    adj = {'1': ['2'],
+           '2': ['3'],
+           '3': ['4', '5'],
+           '6': ['7'],
+           '7': ['6']}
+
+    paths = assembly.max_no_branch_paths(adj)
+    print('\n', paths)
+
+    adj = {'TA': ['AA'],
+           'AA': ['AT'],
+           'AT': ['TG', 'TG', 'TG'],
+           'TG': ['GC', 'GG', 'GT'],
+           'GT': ['TT'],
+           'GC': ['CC'],
+           'CC': ['CA'],
+           'CA': ['AT'],
+           'GG': ['GG', 'GA'],
+           'GA': ['AT']}
+    paths = assembly.max_no_branch_paths(adj)
+    print('\n', paths)
+
+
+def test_contigs_from_kmers():
+    kmers = [
+        'ATG',
+        'ATG',
+        'TGT',
+        'TGG',
+        'CAT',
+        'GGA',
+        'GAT',
+        'AGA']
+    paths = assembly.contigs_from_kmers(kmers)
+    print('\n',paths)
+

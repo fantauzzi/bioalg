@@ -27,12 +27,13 @@ def path_to_genome(path):
     return genome
 
 
-def gapped_path_to_genome(d, path):
+def gapped_path_to_genome(d,
+                          path):  # TODO tell apart the case where kmers are edges from the case where they are vertices
     '''
     Returns the string corresponding to a given sequence of gapped (k, d)-mers.
     :param d: The length of the gap within each gapped (k, d)-mer.
     :param path: The sequence of (k-d)-mers, each item is a pair of strings, representing two gapped k-mers.
-    :return: The string corresponding to the given gapped genome path.
+    :return: The string corresponding to the given gapped genome path, if it exists, None otherwise.
     '''
 
     pre_path, post_path = [item[0] for item in path], [item[1] for item in path]
@@ -174,6 +175,19 @@ def de_brujin_graph_from_kmers(kmers):
     return adj
 
 
+def de_brujin_graph_from_read_pairs(reads):
+    adj = {}
+    k = len(reads[0][0])
+    for read in reads:
+        prefix = (read[0][:k - 1], read[1][:k - 1])
+        postfix = (read[0][1:], read[1][1:])
+        if adj.get(prefix) is None:
+            adj[prefix] = [postfix]
+        else:
+            adj[prefix].append(postfix)
+    return adj
+
+
 def parse_graph(text):
     '''
     Returns the oriented graph described by a given text. Useful to feed input from Stepik challenges.
@@ -205,7 +219,7 @@ def print_cycle(cycle):
     '''
     for i, vertex in enumerate(cycle):
         if i > 0:
-            print('->', sep='', end='')
+            print(' -> ', sep='', end='')
         print(vertex, sep='', end='')
 
 
@@ -361,10 +375,84 @@ def reconstruct_string(kmers):
     path = eulerian_path(adj)
 
     # Spell the string along the cycle.
+    # TODO use path_to_genome() here!
 
     res = path[0] + ''.join(vertex[-1] for vertex in path[1: len(path)])
 
     return res
+
+
+def reconstruct_string_from_paired_reads(d, reads):
+    adj = de_brujin_graph_from_read_pairs(reads)
+
+    path = eulerian_path(adj)
+
+    gen = gapped_path_to_genome(d + 1, path)
+
+    return gen
+
+
+def max_no_branch_paths(adj):
+    def compute_in_out(adj):
+        fan_in = {}
+        fan_out = {}
+        for vertex, adjs in adj.items():
+            # count_out = fan_out.get(vertex, 0)
+            fan_out[vertex] = len(adj[vertex])
+            fan_in.setdefault(vertex, 0)
+            for vertex2 in adjs:
+                count_in = fan_in.get(vertex2, 0)
+                fan_in[vertex2] = count_in + 1
+                fan_out.setdefault(vertex2, 0)
+        return fan_in, fan_out
+
+    paths = []
+    fan_in, fan_out = compute_in_out(adj)
+    unprocessed_vertices = set(adj)
+    for vertex, adjs in adj.items():
+        #print('vertex=', vertex)
+        # If the vertex is a 1-in-1-out or has no outgoing egdes, then skip it
+        fan_in_vertex = fan_in.get(vertex, 0)
+        fan_out_vertex = fan_out.get(vertex, 0)
+        if (fan_in_vertex == fan_out_vertex == 1) or fan_out_vertex == 0:
+            continue
+        for vertex2 in adjs:
+            #print('vertex2=', vertex2)
+            new_path = [vertex, vertex2]
+            unprocessed_vertices.discard(vertex)
+            unprocessed_vertices.discard(vertex2)
+            while fan_in[vertex2] == 1 and fan_out[vertex2] == 1:
+                next_vertex = adj[vertex2][0]
+                #print('next_vertex=', next_vertex)
+                new_path.append(next_vertex)
+                unprocessed_vertices.discard(next_vertex)
+                vertex2 = next_vertex
+            paths.append(new_path)
+
+    while unprocessed_vertices:
+        vertex = unprocessed_vertices.pop()
+        assert fan_in[vertex] == fan_out[vertex] == 1
+        next_vertex = adj[vertex][0]
+        new_path = [vertex, next_vertex]
+        unprocessed_vertices.discard(vertex)
+        unprocessed_vertices.discard(next_vertex)
+        while True:
+            assert fan_in[next_vertex] == fan_out[next_vertex] == 1
+            next_vertex = adj[next_vertex][0]
+            new_path.append(next_vertex)
+            if next_vertex not in unprocessed_vertices:
+                break
+            unprocessed_vertices.discard(next_vertex)
+        paths.append(new_path)
+
+    return paths
+
+
+def contigs_from_kmers(kmers):
+    adj = de_brujin_graph_from_kmers(kmers)
+    paths = max_no_branch_paths(adj)
+    contigs = [path_to_genome(path) for path in paths]
+    return contigs
 
 
 def main_reconstruct_string():
@@ -428,7 +516,7 @@ def main_k_universal():
     print(res)
 
 
-def main_grepped_path():
+def main_paired_reads():
     line = input()
     k, d = line.split(sep=' ')
     k, d = int(k), int(d)
@@ -443,9 +531,39 @@ def main_grepped_path():
 
     gapped_kmers = [item.split(sep='|') for item in text]
     assert k == len(gapped_kmers[0][0])
-    res = gapped_path_to_genome(d, gapped_kmers)
+    res = reconstruct_string_from_paired_reads(d, gapped_kmers)
     print(res)
 
 
+def main_max_non_br_paths():
+    text = []
+    try:
+        while True:
+            item = input()
+            text.append(item)
+    except EOFError:
+        pass
+    adj = parse_graph(text)
+    paths = max_no_branch_paths(adj)
+    for path in paths:
+        print_cycle(path)
+        print()
+
+
+def main_contigs_from_kmers():
+    kmers = []
+    try:
+        while True:
+            item = input()
+            kmers.append(item)
+    except EOFError:
+        pass
+    contigs = contigs_from_kmers(kmers)
+    print(*contigs, sep=' ')  # TODO use it where applicable
+
+
+
 if __name__ == '__main__':
-    main_grepped_path()
+    main_contigs_from_kmers()
+
+# TODO more memorable names for functions!
