@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chapter02/experiments.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/chapter02/experiments.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter03/assembly.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter03/assembly.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter03/test_assembly.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter03/test_assembly.py" afterDir="false" />
     </list>
@@ -17,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter03/assembly.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="692">
-              <caret line="562" lean-forward="true" selection-start-line="562" selection-end-line="562" />
+            <state relative-caret-position="1035">
+              <caret line="549" lean-forward="true" selection-start-line="549" selection-end-line="549" />
             </state>
           </provider>
         </entry>
@@ -26,8 +27,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter03/test_assembly.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="654">
-              <caret line="261" selection-start-line="261" selection-end-line="261" />
+            <state relative-caret-position="356">
+              <caret line="234" column="4" selection-start-line="234" selection-start-column="4" selection-end-line="234" selection-end-column="4" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -46,7 +47,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>open</find>
       <find>median</find>
       <find>seed</find>
       <find>dataset01</find>
@@ -76,7 +76,11 @@
       <find>NONE</find>
       <find>.txt</find>
       <find>print</find>
+      <find>'''</find>
     </findStrings>
+    <replaceStrings>
+      <replace>&quot;&quot;&quot;</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -125,6 +129,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -147,7 +152,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -177,7 +181,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.assembly">
+  <component name="RunManager" selected="Python tests.pytest in test_assembly.py">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="bioalg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -256,8 +260,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.assembly" />
         <item itemvalue="Python tests.pytest in test_assembly.py" />
+        <item itemvalue="Python.assembly" />
       </list>
     </recent_temporary>
   </component>
@@ -278,34 +282,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.12 at 15h 46m 24s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 16m 07s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.12 at 16h 13m 44s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 16m 31s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.12 at 16h 14m 07s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 20m 46s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.12 at 16h 14m 44s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 34m 24s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.12 at 16h 20m 59s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 35m 04s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.12 at 16h 26m 05s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 51m 55s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.12 at 16h 26m 34s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 53m 22s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.12 at 16h 28m 03s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 54m 51s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 00h 10m 33s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 59m 28s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 00h 13m 24s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 16h 30m 40s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -322,12 +326,12 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.44215348" visible="true" weight="0.26281792" />
-      <window_info id="Structure" order="1" sideWeight="0.5578465" side_tool="true" visible="true" weight="0.26281792" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4413793" visible="true" weight="0.26560587" />
+      <window_info id="Structure" order="1" sideWeight="0.5586207" side_tool="true" visible="true" weight="0.26560587" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33103448" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33103448" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -348,21 +352,6 @@
           <url>file://$PROJECT_DIR$/chapter02/hidden_motif.py</url>
           <line>588</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/chapter03/assembly.py</url>
-          <line>521</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/chapter03/assembly.py</url>
-          <line>408</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/chapter03/assembly.py</url>
-          <line>398</line>
-          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -608,8 +597,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter03/test_assembly.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="654">
-          <caret line="261" selection-start-line="261" selection-end-line="261" />
+        <state relative-caret-position="356">
+          <caret line="234" column="4" selection-start-line="234" selection-start-column="4" selection-end-line="234" selection-end-column="4" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -618,8 +607,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter03/assembly.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="692">
-          <caret line="562" lean-forward="true" selection-start-line="562" selection-end-line="562" />
+        <state relative-caret-position="1035">
+          <caret line="549" lean-forward="true" selection-start-line="549" selection-end-line="549" />
         </state>
       </provider>
     </entry>
