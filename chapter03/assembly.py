@@ -434,3 +434,54 @@ def contigs_from_kmers(kmers):
     paths = max_no_branch_paths(adj)
     contigs = [path_to_genome(path) for path in paths]
     return contigs
+
+
+def print_overlap_graph(graph_adj, kmers_count):
+    '''
+    Pretty print for an overlap graph.
+    :param graph_adj: The adjacency lists for the overlap graph, a dictionary.
+    :param kmers_count: ???
+    '''
+    for kmer, adj in graph_adj.items():
+        if len(adj) == 0:
+            continue
+        for _ in range(0, kmers_count[kmer]):
+            print(kmer, ' -> ', sep='', end='')
+            for i, adj_kmer in enumerate(adj):
+                adj_kmer_count = kmers_count[adj_kmer]
+                for j in range(0, adj_kmer_count):
+                    print(adj_kmer, sep='', end='')
+                    if j < adj_kmer_count - 1 or i < len(adj) - 1:
+                        print(',', sep='', end='')
+            print('')
+
+
+def overlap_graph(kmers):
+    '''
+    Returns the overlap graph for a sequence of k-mers.
+    :param kmers: The k-mers sequence.
+    :return: The overlap graph, as a dictionary of adjacency list.
+    '''
+
+    # Keep count of how many times any given k-mer was in the input list of k-mers
+    kmers_count = {}
+
+    # Adjacency list for the overlap graph. Note that the same k-mer may recur multiple times in the input list of k-mers, but it appears as a key only once.
+    graph_adj = {}
+
+    for kmer in kmers:
+        if kmers_count.get(kmer) is None:
+            kmers_count[kmer] = 1
+            graph_adj[kmer] = []
+        else:
+            kmers_count[kmer] += 1
+
+    for kmer in graph_adj.keys():
+        postfix = kmer[1:]
+        candidates_next = [postfix + 'A', postfix + 'C', postfix + 'G', postfix + 'T']
+        for candidate in candidates_next:
+            if graph_adj.get(candidate) is not None:
+                assert candidate not in graph_adj[kmer]
+                graph_adj[kmer].append(candidate)
+
+    return graph_adj, kmers_count

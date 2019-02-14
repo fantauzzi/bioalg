@@ -126,10 +126,26 @@ def main_contigs_from_kmers():
     except EOFError:
         pass
     contigs = assembly.contigs_from_kmers(kmers)
-    print(*contigs, sep=' ')  # TODO use it where applicable
+    print(*contigs, sep=' ')
 
+
+def main_path_to_genome():
+    kmers = fetch_lines()
+    genome = assembly.path_to_genome(kmers)
+    print(genome)
+
+
+def main_overlap_graph():
+    kmers = fetch_lines()
+    adj, count = assembly.overlap_graph(kmers)
+    assembly.print_overlap_graph(adj, count)
+
+
+def main_de_brujin_from_kmers():
+    kmers = fetch_lines()
+    adj = assembly.de_brujin_graph_from_kmers(kmers)
+    assembly.print_graph(adj)
 
 if __name__ == '__main__':
-    main_contigs_from_kmers()
+    pass
 
-# TODO complete unit-test

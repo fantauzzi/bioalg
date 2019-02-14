@@ -14,7 +14,6 @@ def fetch_lines_from_file(the_file):
     return stripped
 
 
-
 def test_composition():
     k = 5
     text = 'CAATCCAAC'
@@ -97,7 +96,7 @@ def test_reconstruct_string_from_paired_reads():
         expected = input_file.readline().rstrip()
     reads2 = [line.split('|') for line in lines]
     assert k == len(reads2[0][0])
-    genome2= assembly.reconstruct_string_from_paired_reads(d, reads2)
+    genome2 = assembly.reconstruct_string_from_paired_reads(d, reads2)
     assert genome2 == expected
 
 
@@ -223,7 +222,7 @@ def test_max_no_branch_paths():
            '7': ['6']}
 
     paths = assembly.max_no_branch_paths(adj)
-    assert sorted(paths) == sorted([['1', '2', '3'], ['3', '4'], ['3', '5'], ['7', '6', '7']])
+    assert sorted(paths) == sorted([['1', '2', '3'], ['3', '4'], ['3', '5'], ['6', '7', '6']])
 
     adj = {'TA': ['AA'],
            'AA': ['AT'],
@@ -236,7 +235,9 @@ def test_max_no_branch_paths():
            'GG': ['GG', 'GA'],
            'GA': ['AT']}
     paths = assembly.max_no_branch_paths(adj)
-    assert sorted(paths) == sorted([['TA', 'AA', 'AT'], ['AT', 'TG'], ['AT', 'TG'], ['AT', 'TG'], ['TG', 'GC', 'CC', 'CA', 'AT'], ['TG', 'GG'], ['TG', 'GT', 'TT'], ['GG', 'GG'], ['GG', 'GA', 'AT']])
+    assert sorted(paths) == sorted(
+        [['TA', 'AA', 'AT'], ['AT', 'TG'], ['AT', 'TG'], ['AT', 'TG'], ['TG', 'GC', 'CC', 'CA', 'AT'], ['TG', 'GG'],
+         ['TG', 'GT', 'TT'], ['GG', 'GG'], ['GG', 'GA', 'AT']])
 
 
 def test_contigs_from_kmers():
@@ -251,3 +252,21 @@ def test_contigs_from_kmers():
         'AGA']
     paths = assembly.contigs_from_kmers(kmers)
     assert sorted(paths) == sorted(['ATG', 'ATG', 'TGT', 'TGGA', 'CAT', 'GAT', 'AGA'])
+
+
+def test_overlap_graph():
+    kmers = ['ATGCG', 'GCATG', 'CATGC', 'AGGCA', 'GGCAT']
+    adj, count = assembly.overlap_graph(kmers)
+    expected = {'ATGCG': [],
+                'GCATG': ['CATGC'],
+                'CATGC': ['ATGCG'],
+                'AGGCA': ['GGCAT'],
+                'GGCAT': ['GCATG']}
+    assert adj == expected
+
+    kmers2 = ['AAT', 'ATG', 'ATG', 'ATG', 'CAT', 'CCA', 'GAT', 'GCC', 'GGA', 'GGG', 'GTT', 'TAA', 'TGC', 'TGG', 'TGT']
+    adj, count = assembly.overlap_graph(kmers2)
+    expected2 = {'AAT': ['ATG'], 'ATG': ['TGC', 'TGG', 'TGT'], 'CAT': ['ATG'], 'CCA': ['CAT'], 'GAT': ['ATG'],
+                 'GCC': ['CCA'], 'GGA': ['GAT'], 'GGG': ['GGA', 'GGG'], 'GTT': [], 'TAA': ['AAT'], 'TGC': ['GCC'],
+                 'TGG': ['GGA', 'GGG'], 'TGT': ['GTT']}
+    assert adj == expected2
