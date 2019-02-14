@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/chapter03/test/reconstruct_string_from_paired_reads_test.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chapter03/test/reconstruct_string_from_paired_reads_test_out.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chapter02/experiments.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/chapter02/experiments.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter03/assembly.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter03/assembly.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter03/test_assembly.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter03/test_assembly.py" afterDir="false" />
     </list>
@@ -18,8 +19,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter03/assembly.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1035">
-              <caret line="549" lean-forward="true" selection-start-line="549" selection-end-line="549" />
+            <state relative-caret-position="198">
+              <caret line="407" column="23" lean-forward="true" selection-start-line="407" selection-start-column="23" selection-end-line="407" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chapter03/stepik_assembly.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="48">
+              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -27,8 +37,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter03/test_assembly.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="234" column="4" selection-start-line="234" selection-start-column="4" selection-end-line="234" selection-end-column="4" />
+            <state relative-caret-position="1340">
+              <caret line="225" column="44" selection-start-line="225" selection-start-column="44" selection-end-line="225" selection-end-column="44" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -47,7 +57,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>median</find>
       <find>seed</find>
       <find>dataset01</find>
       <find>motif_enumeration</find>
@@ -75,8 +84,9 @@
       <find>break</find>
       <find>NONE</find>
       <find>.txt</find>
-      <find>print</find>
       <find>'''</find>
+      <find>print</find>
+      <find>readline</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;&quot;</replace>
@@ -111,16 +121,20 @@
         <option value="$PROJECT_DIR$/chapter03/test/kuniversal_test.txt" />
         <option value="$PROJECT_DIR$/chapter03/test/reconstruct_string.txt" />
         <option value="$PROJECT_DIR$/chapter03/test/reconstruct_string_test.txt" />
-        <option value="$PROJECT_DIR$/chapter03/test_assembly.py" />
         <option value="$PROJECT_DIR$/chapter03/assembly.py" />
+        <option value="$PROJECT_DIR$/chapter03/test/reconstruct_string_from_paired_reads_test.txt" />
+        <option value="$PROJECT_DIR$/chapter03/test/reconstruct_string_from_paired_reads_test_out.txt" />
+        <option value="$PROJECT_DIR$/chapter03/stepik_assembly.py" />
+        <option value="$PROJECT_DIR$/chapter03/reconstruct_string_test_out.txt" />
+        <option value="$PROJECT_DIR$/chapter03/test_assembly.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1977" />
-    <option name="y" value="-3" />
+    <option name="y" value="25" />
     <option name="width" value="2503" />
-    <option name="height" value="1443" />
+    <option name="height" value="1415" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -140,13 +154,17 @@
             <path>
               <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
               <item name="bioalg" type="462c0819:PsiDirectoryNode" />
-              <item name="chapter03" type="462c0819:PsiDirectoryNode" />
+              <item name="chapter01" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bioalg" type="462c0819:PsiDirectoryNode" />
+              <item name="chapter02" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
               <item name="bioalg" type="462c0819:PsiDirectoryNode" />
               <item name="chapter03" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -160,13 +178,14 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/chapter01" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/chapter03/test" />
       <recent name="$PROJECT_DIR$/chapter02/assignment" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/docs" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/chapter01" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -282,34 +301,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 16m 07s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 10h 50m 46s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 16m 31s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 10h 51m 02s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 20m 46s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 10h 51m 15s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 34m 24s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 10h 56m 44s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 35m 04s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 10h 57m 43s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 51m 55s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 10h 59m 20s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 53m 22s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 11h 14m 17s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 54m 51s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 11h 15m 09s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 15h 59m 28s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 11h 17m 14s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.13 at 16h 30m 40s.xml">
+    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 11h 18m 11s.xml">
       <configuration name="pytest in test_assembly.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -326,12 +345,12 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4413793" visible="true" weight="0.26560587" />
-      <window_info id="Structure" order="1" sideWeight="0.5586207" side_tool="true" visible="true" weight="0.26560587" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4375716" visible="true" weight="0.26524022" />
+      <window_info id="Structure" order="1" sideWeight="0.5624284" side_tool="true" visible="true" weight="0.26524022" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.33103448" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33103448" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -554,16 +573,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter01/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="190" column="25" lean-forward="true" selection-start-line="190" selection-start-column="25" selection-end-line="190" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter02/hidden_motif.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="553">
@@ -595,10 +604,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chapter01/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="673">
+          <caret line="168" column="49" selection-start-line="168" selection-start-column="49" selection-end-line="168" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter03/test/reconstruct_string_from_paired_reads_test.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="606">
+          <caret line="1701" column="101" selection-start-line="1701" selection-start-column="101" selection-end-line="1701" selection-end-column="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter03/test/reconstruct_string_from_paired_reads_test_out.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter03/stepik_assembly.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter03/test/reconstruct_string_test_out.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter03/test_assembly.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="234" column="4" selection-start-line="234" selection-start-column="4" selection-end-line="234" selection-end-column="4" />
+        <state relative-caret-position="1340">
+          <caret line="225" column="44" selection-start-line="225" selection-start-column="44" selection-end-line="225" selection-end-column="44" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -607,8 +646,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter03/assembly.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1035">
-          <caret line="549" lean-forward="true" selection-start-line="549" selection-end-line="549" />
+        <state relative-caret-position="198">
+          <caret line="407" column="23" lean-forward="true" selection-start-line="407" selection-start-column="23" selection-end-line="407" selection-end-column="23" />
         </state>
       </provider>
     </entry>

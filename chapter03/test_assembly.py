@@ -2,11 +2,24 @@ import assembly
 from pathlib import Path
 
 
+def fetch_int_pair_from_file(the_file):
+    line = the_file.readline()
+    k, d = line.split(sep=' ')
+    return int(k), int(d)
+
+
+def fetch_lines_from_file(the_file):
+    lines = the_file.readlines()
+    stripped = [line.rstrip() for line in lines]
+    return stripped
+
+
+
 def test_composition():
     k = 5
     text = 'CAATCCAAC'
-    res = assembly.composition(k, text)
-    assert res == ['AATCC', 'ATCCA', 'CAATC', 'CCAAC', 'TCCAA']
+    composition = assembly.composition(k, text)
+    assert composition == ['AATCC', 'ATCCA', 'CAATC', 'CCAAC', 'TCCAA']
 
 
 def test_path_to_genome():
@@ -33,13 +46,7 @@ def test_de_brujin_graph():
 
 
 def test_de_brujin_graph_from_kmers():
-    kmers = ['GAGG',
-             'CAGG',
-             'GGGG',
-             'GGGA',
-             'CAGG',
-             'AGGG',
-             'GGAG']
+    kmers = ['GAGG', 'CAGG', 'GGGG', 'GGGA', 'CAGG', 'AGGG', 'GGAG']
 
     expected = {'AGG': ['GGG'],
                 'CAG': ['AGG', 'AGG'],
@@ -51,7 +58,7 @@ def test_de_brujin_graph_from_kmers():
     assert adj == expected
 
 
-def test_de_brujin_graph_from_read_pairs():
+def test_de_brujin_graph_from_paired_reads():
     d = 2
     reads = [['GAGA', 'TTGA'],
              ['TCGT', 'GATG'],
@@ -63,9 +70,10 @@ def test_de_brujin_graph_from_read_pairs():
              ['GGTC', 'GAGA'],
              ['GTCG', 'AGAT']]
 
-    adj = assembly.de_brujin_graph_from_read_pairs(reads)
-    print()
-    assembly.print_graph(adj)
+    adj = assembly.de_brujin_graph_from_paired_reads(reads)
+    assert adj == {('GAG', 'TTG'): [('AGA', 'TGA')], ('TCG', 'GAT'): [('CGT', 'ATG')], ('CGT', 'ATG'): [('GTG', 'TGT')],
+                   ('TGG', 'TGA'): [('GGT', 'GAG')], ('GTG', 'TGT'): [('TGA', 'GTT')], ('GTG', 'GTG'): [('TGG', 'TGA')],
+                   ('TGA', 'GTT'): [('GAG', 'TTG')], ('GGT', 'GAG'): [('GTC', 'AGA')], ('GTC', 'AGA'): [('TCG', 'GAT')]}
 
 
 def test_reconstruct_string_from_paired_reads():
@@ -79,8 +87,18 @@ def test_reconstruct_string_from_paired_reads():
              ['TGAG', 'GTTG'],
              ['GGTC', 'GAGA'],
              ['GTCG', 'AGAT']]
-    gen = assembly.reconstruct_string_from_paired_reads(d, reads)
-    print(gen)
+    genome = assembly.reconstruct_string_from_paired_reads(d, reads)
+    assert genome == 'GTGGTCGTGAGATGTTGA'
+
+    with open(Path('test/reconstruct_string_from_paired_reads_test.txt')) as input_file:
+        k, d = fetch_int_pair_from_file(input_file)
+        lines = fetch_lines_from_file(input_file)
+    with open(Path('test/reconstruct_string_from_paired_reads_test_out.txt')) as input_file:
+        expected = input_file.readline().rstrip()
+    reads2 = [line.split('|') for line in lines]
+    assert k == len(reads2[0][0])
+    genome2= assembly.reconstruct_string_from_paired_reads(d, reads2)
+    assert genome2 == expected
 
 
 def test_eulerian_cycle():
@@ -181,20 +199,9 @@ def test_reconstruct_string():
     with open(Path('test/reconstruct_string_test.txt')) as input_file:
         kmers = input_file.readlines()
     kmers = [kmer.rstrip() for kmer in kmers]
-    assert assembly.reconstruct_string_from_kmers(
-        kmers) == 'CATTTCCCGAGTCCGGCTCGGCAGCTCAGACGTCTTCGGCTGGTGTATGGATGCAATCTTCAGGTTGTGTAATCGACATGGACAACCGCTTAACGTGCATCATTCAGTGGAACCATCCACCTTACATTACTTCATGAGGCTTCCTCGAGATCAATCAAGATCAGAGAGTGCCAGCAAGATATCTCGCATAGAGCTTGATAACAACAAAGGTTTCCCTTTTCTGTGGGCTAGTTGAGTATATAGAGTCTCACCCTACGCATTTAGAGGCCATGGAAGGGCACTCGTAATTCACTGCTCTGACACGGGCATACTTAAACGCCTACGAAACATCCATCTAGCGTATCACTTGGCAAAGAGAGGACCGTCTAGGTGCGCGCTATCCGAATCCCTACCGTGGTGTGCGCCGCGCGTGCTGGTAGTCCAACATAGGGCCTTAAGGTCAAGGCTATGCATAGTACTAGCAATAACAAAAGTTAAGAGAGCTCGCATCGCCGAGGCGTTTTAACACTAGAAGCGGAACCGAGCGAATACTAGTCATTCCGGTATAAAGCTTAGTTAGAGCGCTTCCACTCAGACTTGAGCAATTCTTTGTGAGAGCTCGTAGATGGCGGCTATTTTGATTGTAATTACACGGGATTTTACTCTGAACTACAGAGTCCGCTAATTCCGCGACCTGCATTGCTTTCACTACCTGCGCTTTTTTCCCAAATGACATACCGATGTGCCGCAGGTGCATGCGTCGCCTACAAGATGGGACAAGGTTACTTCTGTTTGGCGTTCCTTTGATAGCATCCGCCGACGAATTGATGTGCCACACGAATCCGCCACTCACACGCGGTTCTGTACCAGATTAAGGGCTGATCAATTAGAAGACCGGTGCAGTAGGCTGCCGTGTTTTGGAAGTGCACCTATGGTATTATCCCAACAAGGTGCCCGGGAAGTTCGCTGCATCCAGCTACGTATGCACATCTGAATGAGCAAGAAAGAGTAAGATCGAGTGGTTCGTAAAGTTCAGCCGAGTGTGGAAGGAGATCCCGGAAGGACCTTGACGGTGTCCCTCGCAGCAACATTCCGGTGTGGCTTGTAGCACGCTTTCTTTAGCCTGCCCACACTATTAGTCTAAGACTACTGAACGCGCTGGTCATGGTAACCTCGTCGGGGAGCTTTCAAGAGAACATCAGTACTATTGAGTACTAAATTTTAACTAGCATGTACGTTCGTACCTCTAGCAACCATTGAGGGCCAGCACACAGTTGACAGAGTATCGTCCTACACGCGGGCCTTGAACCCCAGATGTCCTTCGGTCGGCGTGACCATGCTCGGAATCGCTATCTAGGAAAGTTCGAACTATTAACTGCTGATCGGAATATGCCCATAATGGCCTCTGGGTTAGCAGCAGCGGCGACTCAGAGATCCTGAGGATGCACTAGTTACCGAACATTTCAGTACTAGGCGAGTGTCAAGGAGATCCAGGCGACAAAGCGATTGTGTCGGGGGACGACTTACAGGCTGCAAACAGGTAATGTTGCCTTATCATTTACTGCGGCGCTGGAGCTAGAAAAACACGTTCAGCATTGAGCTGCAAAACGCCAATTGATCCCTCAAAAGCGAGTGCGACGCTAAGTGATGGAGACAATACACGAGTCCCGAGTCTGGGCCAATCGCGTTACACGGTCCTCTTATACACGGAGTCGTGTACCCAAGCATAAACCAGGACGCTTTATCTATTCCCCAGGATTAGACTCATACGTCACGGAACTCGGCCTATCATTCCCAAAGACGGTACCCCGGGACAAAAGGACGTATCATTCGTACCTTTAGCTCACTGAGACGGGTTTCCAAGCCGCGGCCTTAAAGTCAATGCCACGTTTGATCGGTTTTCATAAGGCACTACCTACGATCGAAAAGAATTTTGCACTGAGCCAGCTAAGAGTTGATCTCGTAGTGTCGATCAATTTGACGTGTCTGCGGGGGAACCACCTACAGGGGTGCTAGGGTAGACCTATATTTATGTTCAAATACAGTAAGAGCTTGTAATATTCCGTAATTCAGCTTGCATCAACCGAACGTTGATGACAAGAATCCAGTGATTCGAGGGACAAACAATGGTGGTGTGGCACCTCCCCCTGAACACCTCGCTTTAATTATTACATCGCATAATTTTTTCTAAAATTCTGTACGCGAGGTAGCTAGTCGTTGAGCTCAGGACTACAGCCAAAATCGACCCCCAAGCGGGTGAC'
-
-
-def for_later():
-    gapped_kmers = [['GAGA', 'TTGA'],
-                    ['TCGT', 'GATG'],
-                    ['CGTG', 'ATGT'],
-                    ['TGGT', 'TGAG'],
-                    ['GTGA', 'TGTT'],
-                    ['GTGG', 'GTGA'],
-                    ['TGAG', 'GTTG'],
-                    ['GGTC', 'GAGA'],
-                    ['GTCG', 'AGAT']]
+    with open(Path('test/reconstruct_string_test_out.txt')) as input_file:
+        expected = input_file.readline().rstrip()
+    assert assembly.reconstruct_string_from_kmers(kmers) == expected
 
 
 def test_gapped_path_to_genome():
@@ -216,7 +223,7 @@ def test_max_no_branch_paths():
            '7': ['6']}
 
     paths = assembly.max_no_branch_paths(adj)
-    print('\n', paths)
+    assert sorted(paths) == sorted([['1', '2', '3'], ['3', '4'], ['3', '5'], ['7', '6', '7']])
 
     adj = {'TA': ['AA'],
            'AA': ['AT'],
@@ -229,7 +236,7 @@ def test_max_no_branch_paths():
            'GG': ['GG', 'GA'],
            'GA': ['AT']}
     paths = assembly.max_no_branch_paths(adj)
-    print('\n', paths)
+    assert sorted(paths) == sorted([['TA', 'AA', 'AT'], ['AT', 'TG'], ['AT', 'TG'], ['AT', 'TG'], ['TG', 'GC', 'CC', 'CA', 'AT'], ['TG', 'GG'], ['TG', 'GT', 'TT'], ['GG', 'GG'], ['GG', 'GA', 'AT']])
 
 
 def test_contigs_from_kmers():
@@ -243,5 +250,4 @@ def test_contigs_from_kmers():
         'GAT',
         'AGA']
     paths = assembly.contigs_from_kmers(kmers)
-    print('\n',paths)
-
+    assert sorted(paths) == sorted(['ATG', 'ATG', 'TGT', 'TGGA', 'CAT', 'GAT', 'AGA'])

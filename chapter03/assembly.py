@@ -129,7 +129,7 @@ def de_brujin_graph_from_kmers(kmers):
     return adj
 
 
-def de_brujin_graph_from_read_pairs(reads):
+def de_brujin_graph_from_paired_reads(reads):
     """
     Returns a De Brujin graph from a sequence of read pairs. Each read-pair is a (k-d) mer. Note that the result doesn't depend on the value for d, which therefore is not required by the function.
     :param reads: The sequence of read pairs; each element in the sequence is a (k-d)-mer expressed as a pair of strings.
@@ -346,7 +346,7 @@ def reconstruct_string_from_paired_reads(d, reads):
     :param reads: A sequence of reads, each is a pair of (k-d)-mers (a pair of strings).
     :return: The string.
     """
-    adj = de_brujin_graph_from_read_pairs(reads)
+    adj = de_brujin_graph_from_paired_reads(reads)
 
     path = eulerian_path(adj)
 
@@ -434,116 +434,3 @@ def contigs_from_kmers(kmers):
     paths = max_no_branch_paths(adj)
     contigs = [path_to_genome(path) for path in paths]
     return contigs
-
-
-def main_reconstruct_string():
-    k = int(input())
-    text = []
-    try:
-        while True:
-            item = input()
-            text.append(item)
-    except EOFError:
-        pass
-    assert k == len(text[0])
-
-    res = reconstruct_string_from_kmers(text)
-    print(res)
-
-
-def main_eulerian_cycle():
-    """
-    k = int(input())
-    text = input()
-    adj = de_brujin_graph(k, text)
-    print_graph(adj)
-    """
-
-    text = []
-    try:
-        while True:
-            item = input()
-            text.append(item)
-    except EOFError:
-        pass
-    adj = parse_graph(text)
-    cycle = eulerian_cycle(adj)
-    print_cycle(cycle)
-
-
-def main_eulerian_path():
-    """
-    k = int(input())
-    text = input()
-    adj = de_brujin_graph(k, text)
-    print_graph(adj)
-    """
-
-    text = []
-    try:
-        while True:
-            item = input()
-            text.append(item)
-    except EOFError:
-        pass
-    adj = parse_graph(text)
-    path = eulerian_path(adj)
-    print_cycle(path)
-
-
-def main_k_universal():
-    k = int(input())
-    res = make_k_universal_string(k)
-    print(res)
-
-
-def main_paired_reads():
-    line = input()
-    k, d = line.split(sep=' ')
-    k, d = int(k), int(d)
-
-    text = []
-    try:
-        while True:
-            item = input()
-            text.append(item)
-    except EOFError:
-        pass
-
-    gapped_kmers = [item.split(sep='|') for item in text]
-    assert k == len(gapped_kmers[0][0])
-    res = reconstruct_string_from_paired_reads(d, gapped_kmers)
-    print(res)
-
-
-def main_max_non_br_paths():
-    text = []
-    try:
-        while True:
-            item = input()
-            text.append(item)
-    except EOFError:
-        pass
-    adj = parse_graph(text)
-    paths = max_no_branch_paths(adj)
-    for path in paths:
-        print_cycle(path)
-        print()
-
-
-def main_contigs_from_kmers():
-    kmers = []
-    try:
-        while True:
-            item = input()
-            kmers.append(item)
-    except EOFError:
-        pass
-    contigs = contigs_from_kmers(kmers)
-    print(*contigs, sep=' ')  # TODO use it where applicable
-
-
-if __name__ == '__main__':
-    main_contigs_from_kmers()
-
-# TODO complete unit-test
