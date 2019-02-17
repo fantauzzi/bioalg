@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/chapter04/sequence.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chapter04/test_sequence.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/bioalg.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bioalg.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter03/assembly.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter03/assembly.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter03/stepik_assembly.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter03/stepik_assembly.py" afterDir="false" />
@@ -15,32 +18,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chapter03/assembly.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="115" column="4" selection-start-line="115" selection-start-column="4" selection-end-line="115" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/chapter03/stepik_assembly.py">
+        <entry file="file://$PROJECT_DIR$/chapter04/sequence.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="548">
-              <caret line="146" column="19" selection-start-line="146" selection-start-column="19" selection-end-line="146" selection-end-column="19" />
+            <state relative-caret-position="404">
+              <caret line="105" column="7" lean-forward="true" selection-start-line="105" selection-start-column="7" selection-end-line="105" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chapter03/test_assembly.py">
+        <entry file="file://$PROJECT_DIR$/chapter04/test_sequence.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="668">
-              <caret line="272" selection-start-line="272" selection-end-line="272" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="192">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
@@ -56,9 +47,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>old_</find>
-      <find>new</find>
-      <find>_old</find>
       <find>_new</find>
       <find>pseudocount</find>
       <find>deep</find>
@@ -86,6 +74,9 @@
       <find>overlap</find>
       <find>overla</find>
       <find>over</find>
+      <find>gapped_pa</find>
+      <find>compleme</find>
+      <find>complemen</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;&quot;</replace>
@@ -123,9 +114,11 @@
         <option value="$PROJECT_DIR$/chapter03/test/reconstruct_string_from_paired_reads_test.txt" />
         <option value="$PROJECT_DIR$/chapter03/test/reconstruct_string_from_paired_reads_test_out.txt" />
         <option value="$PROJECT_DIR$/chapter03/reconstruct_string_test_out.txt" />
-        <option value="$PROJECT_DIR$/chapter03/assembly.py" />
         <option value="$PROJECT_DIR$/chapter03/test_assembly.py" />
+        <option value="$PROJECT_DIR$/chapter03/assembly.py" />
         <option value="$PROJECT_DIR$/chapter03/stepik_assembly.py" />
+        <option value="$PROJECT_DIR$/chapter04/test_sequence.py" />
+        <option value="$PROJECT_DIR$/chapter04/sequence.py" />
       </list>
     </option>
   </component>
@@ -142,7 +135,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -150,31 +142,17 @@
               <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
               <item name="bioalg" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bioalg" type="462c0819:PsiDirectoryNode" />
-              <item name="chapter01" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bioalg" type="462c0819:PsiDirectoryNode" />
-              <item name="chapter02" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bioalg" type="462c0819:PsiDirectoryNode" />
-              <item name="chapter03" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="add_unversioned_files" value="true" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -199,7 +177,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.stepik_assembly">
+  <component name="RunManager" selected="Python tests.pytest in test_sequence.py">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="bioalg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -293,13 +271,30 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="pytest in test_sequence.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="bioalg" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter04" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;-v&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/chapter04/test_sequence.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.assembly" />
       <item itemvalue="Python.stepik_assembly" />
       <item itemvalue="Python tests.pytest in test_assembly.py" />
+      <item itemvalue="Python tests.pytest in test_sequence.py" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.pytest in test_sequence.py" />
         <item itemvalue="Python.stepik_assembly" />
         <item itemvalue="Python tests.pytest in test_assembly.py" />
         <item itemvalue="Python.assembly" />
@@ -323,35 +318,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 11h 14m 17s.xml">
-      <configuration name="pytest in test_assembly.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.16 at 17h 26m 34s.xml">
+      <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 11h 15m 09s.xml">
-      <configuration name="pytest in test_assembly.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.16 at 17h 29m 30s.xml">
+      <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 11h 17m 14s.xml">
-      <configuration name="pytest in test_assembly.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.16 at 18h 15m 26s.xml">
+      <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 11h 18m 11s.xml">
-      <configuration name="pytest in test_assembly.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.16 at 18h 26m 14s.xml">
+      <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 11h 29m 52s.xml">
-      <configuration name="pytest in test_assembly.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.16 at 18h 28m 26s.xml">
+      <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 11h 50m 02s.xml">
-      <configuration name="pytest in test_assembly.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.16 at 18h 29m 16s.xml">
+      <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 11h 50m 35s.xml">
-      <configuration name="pytest in test_assembly.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.16 at 18h 35m 55s.xml">
+      <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 11h 52m 18s.xml">
-      <configuration name="pytest in test_assembly.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.16 at 18h 36m 08s.xml">
+      <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 11h 52m 19s.xml">
-      <configuration name="pytest in test_assembly.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.16 at 18h 36m 27s.xml">
+      <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_assembly_py - 2019.02.14 at 11h 53m 38s.xml">
-      <configuration name="pytest in test_assembly.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.17 at 10h 13m 58s.xml">
+      <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -365,9 +360,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4375716" visible="true" weight="0.26524022" />
-      <window_info id="Structure" order="1" sideWeight="0.5624284" side_tool="true" visible="true" weight="0.26524022" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.42955327" visible="true" weight="0.2676625" />
+      <window_info id="Structure" order="1" sideWeight="0.5704467" side_tool="true" visible="true" weight="0.2676625" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
@@ -376,7 +372,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32950193" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32950193" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32950193" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32796934" />
@@ -394,9 +390,14 @@
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/chapter03/assembly.py</url>
+          <line>240</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/chapter03/stepik_assembly.py</url>
-          <line>14</line>
-          <option name="timeStamp" value="11" />
+          <line>182</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -420,52 +421,52 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>post_genome</expression-string>
+        <expression-string>dna[len(dna)-i-len_encoding_rna: len(dna)-i]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>pre_genome</expression-string>
+        <expression-string>dna[len(dna)-i: len(dna)-i-len_encoding_rna:-1]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>pre_genome+post_genome[:-k-d]</expression-string>
+        <expression-string>(dna[::-1][i:i + len_encoding_rna])[::-1]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>kmers[-1]</expression-string>
+        <expression-string>len(dna)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>cycle[-1]</expression-string>
+        <expression-string>len(rna)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>cycle[start_in_cycle:]</expression-string>
+        <expression-string>adj['TTTCTATTAATG']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>cycleycle[start_in_cycle:]</expression-string>
+        <expression-string>adj['TATTTGGAAATA']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>adj_list=cycle_adj[vertex]</expression-string>
+        <expression-string>len(ungapped_reads)/len(paths)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>vertex='1'</expression-string>
+        <expression-string>len(ungapped_reads)-len(paths)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>adj_list = cycle_adj[vertex]</expression-string>
+        <expression-string>len(ungapped_reads)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -599,16 +600,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter02/hidden_motif.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
-          <caret line="285" column="29" lean-forward="true" selection-start-line="285" selection-start-column="29" selection-end-line="285" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter03/test/kuniversal_test.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
@@ -630,16 +621,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter01/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="673">
-          <caret line="168" column="49" selection-start-line="168" selection-start-column="49" selection-end-line="168" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter03/test/reconstruct_string_from_paired_reads_test.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="606">
@@ -653,10 +634,20 @@
     <entry file="file://$PROJECT_DIR$/chapter03/test/reconstruct_string_test_out.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/chapter03/stepik_assembly.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="793">
+          <caret line="180" column="34" selection-start-line="180" selection-start-column="34" selection-end-line="180" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter03/test_assembly.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="668">
-          <caret line="272" selection-start-line="272" selection-end-line="272" />
+        <state relative-caret-position="884">
+          <caret line="270" column="51" selection-start-line="270" selection-start-column="51" selection-end-line="270" selection-end-column="51" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -665,15 +656,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter03/assembly.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="115" column="4" selection-start-line="115" selection-start-column="4" selection-end-line="115" selection-end-column="4" />
+        <state relative-caret-position="11232">
+          <caret line="458" column="46" selection-start-line="458" selection-start-column="46" selection-end-line="458" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter03/stepik_assembly.py">
+    <entry file="file://$PROJECT_DIR$/chapter02/hidden_motif.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="548">
-          <caret line="146" column="19" selection-start-line="146" selection-start-column="19" selection-end-line="146" selection-end-column="19" />
+        <state relative-caret-position="229">
+          <caret line="18" column="221" selection-start-line="18" selection-start-column="221" selection-end-line="18" selection-end-column="221" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter04/test_sequence.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter01/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="128" column="25" selection-start-line="128" selection-start-column="25" selection-end-line="128" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter04/sequence.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="105" column="7" lean-forward="true" selection-start-line="105" selection-start-column="7" selection-end-line="105" selection-end-column="7" />
         </state>
       </provider>
     </entry>

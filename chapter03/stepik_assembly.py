@@ -1,3 +1,8 @@
+from pathlib import Path
+from itertools import chain
+from collections import Counter
+from functools import reduce
+import operator
 import assembly
 
 
@@ -146,6 +151,44 @@ def main_de_brujin_from_kmers():
     adj = assembly.de_brujin_graph_from_kmers(kmers)
     assembly.print_graph(adj)
 
-if __name__ == '__main__':
-    pass
 
+def main_contigs_from_kmers():
+    kmers = fetch_lines()
+    contigs = assembly.contigs_from_kmers(kmers)
+    print(*contigs, sep=' ')
+
+
+def main():
+    with open(Path('challenge03_dataset.txt')) as input_file:
+        lines = input_file.readlines()
+
+    reads = [line.rstrip().split('|') for line in lines]
+    del lines
+    k = len(reads[0][0])
+    assert all([len(kmer) == k for kmer in chain(*reads)])
+
+    # ungapped_reads = list(chain(*reads))
+    # genome = assembly.reconstruct_string_from_kmers(ungapped_reads)
+    # print(genome)
+    # exit(1)
+
+    # counts = reduce(operator.add, map(Counter, chain(*reads)))
+
+    d = 1000
+    broken_k = 12
+    broken_reads = assembly.break_gapped_reads(broken_k, reads)
+    broken_d = d + (d - broken_k)
+    adj = assembly.de_brujin_graph_from_kmers(broken_reads)
+    paths = assembly.max_no_branch_paths(adj)
+    exit(1)
+    # genome = assembly.reconstruct_string_from_paired_reads(broken_d, broken_reads)
+    # genome = assembly.reconstruct_string_from_paired_reads(d, reads)
+    # print(genome)
+
+
+if __name__ == '__main__':
+    main()
+
+# Reads may be from two strands
+# Reads are realistic after PCR (multeplicity of kmers not known)
+# Reads may make multiple contigs

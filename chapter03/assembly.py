@@ -1,4 +1,5 @@
 from copy import deepcopy
+from pandas import Series
 
 """ 
 NOTE
@@ -232,6 +233,12 @@ def eulerian_path(adj):
     for vertex, outbound in outbound_count.items():
         inbound = inbound_count[vertex]
         if outbound > inbound:
+            if pos_vertex is not None:
+                from pandas import Series
+                so = Series(outbound_count)
+                si = Series(inbound_count)
+                diff = so-si
+                dummy = 42
             assert pos_vertex is None
             pos_vertex = vertex
             pos_amount = outbound - inbound
@@ -485,3 +492,16 @@ def overlap_graph(kmers):
                 graph_adj[kmer].append(candidate)
 
     return graph_adj, kmers_count
+
+from textwrap import wrap
+
+def break_gapped_reads(new_k, reads):
+    k = len(reads[0][0])
+    assert k % new_k == 0
+    broken_gapped_reads = []
+    for gapped_read in reads:
+        broken1 = wrap(gapped_read[0], new_k)
+        broken2 = wrap(gapped_read[1], new_k)
+        broken_gapped = list(zip(broken1, broken2))
+        broken_gapped_reads.extend(broken_gapped)
+    return broken_gapped_reads

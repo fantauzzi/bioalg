@@ -222,7 +222,8 @@ def test_max_no_branch_paths():
            '7': ['6']}
 
     paths = assembly.max_no_branch_paths(adj)
-    assert sorted(paths) == sorted([['1', '2', '3'], ['3', '4'], ['3', '5'], ['6', '7', '6']])
+    assert (sorted(paths) == sorted([['1', '2', '3'], ['3', '4'], ['3', '5'], ['6', '7', '6']])) or (
+                sorted(paths) == sorted([['1', '2', '3'], ['3', '4'], ['3', '5'], ['7', '6', '7']]))
 
     adj = {'TA': ['AA'],
            'AA': ['AT'],
@@ -270,3 +271,9 @@ def test_overlap_graph():
                  'GCC': ['CCA'], 'GGA': ['GAT'], 'GGG': ['GGA', 'GGG'], 'GTT': [], 'TAA': ['AAT'], 'TGC': ['GCC'],
                  'TGG': ['GGA', 'GGG'], 'TGT': ['GTT']}
     assert adj == expected2
+
+
+def test_break_gapped_reads():
+    gapped_reads = [['AACCGG', 'CCGGTT'], ['GACTTG', 'CTTTAT'], ['TATATA', 'GCGCGC']]
+    res = assembly.break_gapped_reads(2, gapped_reads)
+    print(res)
