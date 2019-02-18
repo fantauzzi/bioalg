@@ -1,4 +1,5 @@
-from copy import deepcopy
+from itertools import chain
+from collections import Counter
 
 
 def translate_RNA(rna):
@@ -126,6 +127,10 @@ def peptide_encoding(dna, protein):
 
 
 def get_ammino_mass():
+    """
+    Returns an association between amminoacids and their mass.
+    :return: A dictionary, associating the ammino acid one letter code in the key, a string, with its mass, an integer number.
+    """
     ammino_mass = {
         'G': 57,
         'A': 71,
@@ -151,6 +156,14 @@ def get_ammino_mass():
     return ammino_mass
 
 
+def get_reverse_ammino_mass():
+    ammino_mass = get_ammino_mass()
+    reversed = {value: key for key, value in ammino_mass.items()}
+    reversed[113] = 'I/L'
+    reversed[128] = 'K/Q'
+    return reversed
+
+
 def get_ammino_mass_red():
     ammino_mass = get_ammino_mass()
     del ammino_mass['L']
@@ -158,11 +171,11 @@ def get_ammino_mass_red():
     return ammino_mass
 
 
-def peptide_spectrum(peptide, cyclic = True):
+def peptide_spectrum(peptide, cyclic=True):
     """
     Returns the theoretical peptide_spectrum for a peptide.
     :param peptide: The peptide, a string.
-    :return: The peptide_spectrum, a list of numbers sorted in ascending order.
+    :return: The peptide spectrum, a list of numbers sorted in ascending order.
     """
 
     ammino_mass = get_ammino_mass()
@@ -183,52 +196,72 @@ def peptide_spectrum(peptide, cyclic = True):
 
 
 def peptide_mass(peptide):
+    """
+    Returns the overall mass for a peptide, computed from its teoretical spectrum.
+    :param peptide: The peptide, a string.
+    :return: The mass, an integer.
+    """
     ammino_mass = get_ammino_mass()
     mass = sum([ammino_mass[ammino] for ammino in peptide])
     return mass
 
 
-from itertools import chain
-from collections import Counter
-
-
 def flatten(seq_of_seq):
+    """
+    Returns a sequence obtained by flattening a sequence of sequences. E.g. [[1, 2, 3], [4, 5]] becomes [1, 2, 3, 4, 5]
+    :param seq_of_seq: The sequence of sequences.
+    :return: The sequence after flattening, a list.
+    """
     return list(chain(*seq_of_seq))
 
 
 def sequence_cyclopeptide(spectrum):
+    """
+    Returns all cyclopeptides with a given mass spectrum. The implementation proceeds by branch and bound: it generates candidate peptides of increasing length, discarding those that cannot be, based on their spectrum, an infix of the peptide whose spectrum is given; iterations continue until all circular peptides with the given spectrum have been generated.
+    :param spectrum: The given spectrum, a list of integers in non-decreasing order; the same value may be repeated in the list multiple times as needed.
+    :return: The resulting cyclopeptides, a list of lists; each element in the list is a cyclopeptide, which is represented as the list of atomic weights of its component ammino acids (a list of integers).
+    """
     def expand(peptide):
+        """
+        Expands a given peptide into the list of peptides that have it for prefix,
+        :param peptide: The given peptide, a string.
+        :return: The list of peptides, a list of strings.
+        """
         ammino_mass = get_ammino_mass_red()
         expanded = [peptide + ammino for ammino in ammino_mass.keys()]
         return expanded
 
     def consistent(peptide, spectrum):
+        """
+        Checks and returns if the linear spectrum of a given peptide is a subset of a certain spectrum.
+        :param peptide: The given peptide, a string.
+        :param spectrum: The spectrum to be checked against, a list of integers in non-decreasing order.
+        :return: True if and only if the checked condition is met, False otherwise.
+        """
         peptide_spect = peptide_spectrum(peptide, cyclic=False)
         peptide_count = Counter(peptide_spect)
         spectrum_count = Counter(spectrum)
         it_is_consistent = True if peptide_count & spectrum_count == peptide_count else False
         return it_is_consistent
 
-    def consistent2(peptide, spectrum):
-        ammino_mass = get_ammino_mass_red()
-        peptide_masses = [ammino_mass[ammino] for ammino in peptide]
-        peptide_count = Counter(peptide_masses)
-        spectrum_count = Counter(spectrum)
-        it_is_consistent = True if peptide_count & spectrum_count == peptide_count else False
-        return it_is_consistent
-
+    # List of candidate peptides, to be grown
     candidate_peptides = ['']
+    # List of peptides found to match the given spectrum
     final_peptides = []
     while candidate_peptides:
+        # Expand the candidate peptides; expanded candidates are all the peptides with current candidates as prefix
         candidate_peptides = flatten([expand(peptide) for peptide in candidate_peptides])
+        # List of candidates to be further explored at the next iteration
         new_candidates = []
         for peptide in candidate_peptides:
-            the_peptide_spectrum = peptide_spectrum(peptide, cyclic=True)
-            # if sum(the_peptide_spectrum) == sum(spectrum):
-            if the_peptide_spectrum == spectrum:
-                    final_peptides.append(peptide)
-            elif consistent(peptide, spectrum):
-                new_candidates.append(peptide)
+            # If the candidate peptide has a spectrum matching the given spectrum, then list it in the solution
+            if peptide_spectrum(peptide, cyclic=True) == spectrum:
+                final_peptides.append(peptide)
+            elif consistent(peptide, spectrum):  # Otherwise, could it still be expanded into a solution?
+                new_candidates.append(peptide)  # If yes, list it to be expanded at the next iteration
         candidate_peptides = new_candidates
 
-    return final_peptides
+    ammino_mass = get_ammino_mass_red()
+    masses = [[ammino_mass[ammino] for ammino in peptide] for peptide in final_peptides]
+
+    return masses
