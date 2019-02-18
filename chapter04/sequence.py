@@ -1,3 +1,4 @@
+from copy import deepcopy
 from itertools import chain
 from collections import Counter
 
@@ -221,6 +222,7 @@ def sequence_cyclopeptide(spectrum):
     :param spectrum: The given spectrum, a list of integers in non-decreasing order; the same value may be repeated in the list multiple times as needed.
     :return: The resulting cyclopeptides, a list of lists; each element in the list is a cyclopeptide, which is represented as the list of atomic weights of its component ammino acids (a list of integers).
     """
+
     def expand(peptide):
         """
         Expands a given peptide into the list of peptides that have it for prefix,
@@ -265,3 +267,24 @@ def sequence_cyclopeptide(spectrum):
     masses = [[ammino_mass[ammino] for ammino in peptide] for peptide in final_peptides]
 
     return masses
+
+
+def score_peptide(peptide, spectrum, cyclic=True):
+    """
+    Return the score for a peptide, linear or cyclic, against a given spectrum. The score is given by the number of masses that belong to either the peptide spectrum or the given spectrum but not both.
+    :param peptide: The peptide, a string.
+    :param spectrum: The spectrum, a list of integer numbers in non-descending order.
+    :param cyclic: True to indicate that the peptide is cyclic, False to indicate it is linear.
+    :return: The score, an integer.
+    """
+    pept_spectr = peptide_spectrum(peptide, cyclic=cyclic)
+    pept_count = Counter(pept_spectr)
+    spectr_count = Counter(spectrum)
+    # Take the max (union) of the two Counters
+    totals_count = pept_count | spectr_count
+    total = sum([value for value in totals_count.values()])
+    diff_count = deepcopy(pept_count)
+    diff_count.subtract(spectr_count)
+    total_diffs = sum([abs(value) for value in diff_count.values()])
+    score = total - total_diffs
+    return score
