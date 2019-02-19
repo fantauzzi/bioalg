@@ -308,7 +308,8 @@ def leaderboard_peptide_sequence(spectrum, n):
     while leaderboard:
         expanded_peptides = flatten(
             [expand(peptide) for peptide in leaderboard.keys()])  # TODO move into its own function as common code
-        leaderboard = Counter({peptide: score_peptide(peptide, spectrum, cyclic=False) for peptide in expanded_peptides})
+        leaderboard = Counter(
+            {peptide: score_peptide(peptide, spectrum, cyclic=False) for peptide in expanded_peptides})
         new_leaderboard = Counter({})
         for peptide, peptide_score in leaderboard.items():
             if peptide_mass(peptide) == parent_mass:
@@ -324,3 +325,12 @@ def leaderboard_peptide_sequence(spectrum, n):
     masses = [ammino_mass[ammino] for ammino in leader_peptide]
 
     return masses
+
+
+def spectral_convolution(spectrum):
+    res = [spectrum[j] - spectrum[i] for j in range(0, len(spectrum)) for i in range(0, j)]
+    zeros_stripped = []
+    for item in res:
+        if item > 0:
+            zeros_stripped.append(item)
+    return zeros_stripped

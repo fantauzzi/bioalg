@@ -115,3 +115,15 @@ def test_leaderboard_peptide_sequence():
     res = sequence.leaderboard_peptide_sequence(spectrum, 10)
     assert res == [113, 147, 71, 129]
 
+
+def test_spectral_convolution():
+    spectrum = [0, 97, 99, 113, 113, 114, 129, 137, 137, 212, 226, 226, 227, 228, 234, 251, 274, 325, 325, 340, 341,
+                363, 364, 371, 388, 438, 439, 454, 462, 477, 485, 500, 501, 551, 568, 575, 576, 598, 599, 614, 614, 665,
+                688, 705, 711, 712, 713, 713, 727, 802, 802, 810, 825, 826, 826, 840, 842, 939]
+    res = sequence.spectral_convolution(spectrum)
+    expected = fetch_line_from_file(Path('test/testcase04.txt'))
+    assert sorted(res) == sorted(expected)
+
+    spectrum2 = [0, 137, 186, 323]
+    res2 = sequence.spectral_convolution(spectrum2)
+    assert sorted(res2) == sorted([137, 137, 186, 186, 323, 49])
