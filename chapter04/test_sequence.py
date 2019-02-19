@@ -108,3 +108,10 @@ def test_score_peptide():
     spectrum3 = fetch_line_from_file(Path('test/testcase03.txt'))
     score4 = sequence.score_peptide('ADEQMQSPHEIDPMRYVSAQLADRTPWPVRLLRGHSD', spectrum3, cyclic=False)
     assert score4 == 201
+
+
+def test_leaderboard_peptide_sequence():
+    spectrum = [0, 71, 113, 129, 147, 200, 218, 260, 313, 331, 347, 389, 460]
+    res = sequence.leaderboard_peptide_sequence(spectrum, 10)
+    assert res == [113, 147, 71, 129]
+

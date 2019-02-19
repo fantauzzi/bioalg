@@ -216,22 +216,23 @@ def flatten(seq_of_seq):
     return list(chain(*seq_of_seq))
 
 
+def expand(peptide):
+    """
+    Expands a given peptide into the list of peptides that have it for prefix,
+    :param peptide: The given peptide, a string.
+    :return: The list of peptides, a list of strings.
+    """
+    ammino_mass = get_ammino_mass_red()
+    expanded = [peptide + ammino for ammino in ammino_mass.keys()]
+    return expanded
+
+
 def sequence_cyclopeptide(spectrum):
     """
     Returns all cyclopeptides with a given mass spectrum. The implementation proceeds by branch and bound: it generates candidate peptides of increasing length, discarding those that cannot be, based on their spectrum, an infix of the peptide whose spectrum is given; iterations continue until all circular peptides with the given spectrum have been generated.
     :param spectrum: The given spectrum, a list of integers in non-decreasing order; the same value may be repeated in the list multiple times as needed.
     :return: The resulting cyclopeptides, a list of lists; each element in the list is a cyclopeptide, which is represented as the list of atomic weights of its component ammino acids (a list of integers).
     """
-
-    def expand(peptide):
-        """
-        Expands a given peptide into the list of peptides that have it for prefix,
-        :param peptide: The given peptide, a string.
-        :return: The list of peptides, a list of strings.
-        """
-        ammino_mass = get_ammino_mass_red()
-        expanded = [peptide + ammino for ammino in ammino_mass.keys()]
-        return expanded
 
     def consistent(peptide, spectrum):
         """
@@ -288,3 +289,38 @@ def score_peptide(peptide, spectrum, cyclic=True):
     total_diffs = sum([abs(value) for value in diff_count.values()])
     score = total - total_diffs
     return score
+
+
+def leaderboard_peptide_sequence(spectrum, n):
+    def trim(scored_peptides, n):
+        trimmed = Counter({})
+        best_n = scored_peptides.most_common(n)
+        lowest_passable = min([value for (_, value) in best_n])
+        for peptide, score in scored_peptides.items():
+            if score >= lowest_passable:
+                trimmed[peptide] = score
+        return trimmed
+
+    parent_mass = max(spectrum)
+    leader_peptide = ''
+    leader_score = score_peptide(leader_peptide, spectrum, cyclic=False)
+    leaderboard = Counter({'': leader_score})
+    while leaderboard:
+        expanded_peptides = flatten(
+            [expand(peptide) for peptide in leaderboard.keys()])  # TODO move into its own function as common code
+        leaderboard = Counter({peptide: score_peptide(peptide, spectrum, cyclic=False) for peptide in expanded_peptides})
+        new_leaderboard = Counter({})
+        for peptide, peptide_score in leaderboard.items():
+            if peptide_mass(peptide) == parent_mass:
+                new_leaderboard[peptide] = peptide_score
+                if peptide_score > leader_score:
+                    leader_score = peptide_score
+                    leader_peptide = peptide
+            elif peptide_mass(peptide) < parent_mass:
+                new_leaderboard[peptide] = peptide_score
+        leaderboard = trim(new_leaderboard, n) if new_leaderboard else new_leaderboard
+
+    ammino_mass = get_ammino_mass_red()
+    masses = [ammino_mass[ammino] for ammino in leader_peptide]
+
+    return masses
