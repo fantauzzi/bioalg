@@ -291,7 +291,7 @@ def score_peptide(peptide, spectrum, cyclic=True):
     return score
 
 
-def leaderboard_peptide_sequence(spectrum, n):
+def ()(spectrum, n):
     def trim(scored_peptides, n):
         trimmed = Counter({})
         best_n = scored_peptides.most_common(n)
