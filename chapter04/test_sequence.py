@@ -104,3 +104,7 @@ def test_score_peptide():
 
     score3 = sequence.score_peptide('NQEL', spectrum, cyclic=False)
     assert score3 == 8
+
+    spectrum3 = fetch_line_from_file(Path('test/testcase03.txt'))
+    score4 = sequence.score_peptide('ADEQMQSPHEIDPMRYVSAQLADRTPWPVRLLRGHSD', spectrum3, cyclic=False)
+    assert score4 == 201

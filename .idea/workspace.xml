@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/chapter04/test/testcase01.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chapter04/test/testcase02.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chapter04/test/testcase03.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chapter04/sequence.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter04/sequence.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter04/test_sequence.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter04/test_sequence.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,14 +14,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter04/sequence.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="503">
-              <caret line="266" column="32" selection-start-line="266" selection-start-column="32" selection-end-line="266" selection-end-column="32" />
+            <state relative-caret-position="675">
+              <caret line="290" lean-forward="true" selection-start-line="290" selection-end-line="290" />
               <folding>
-                <element signature="e#0#16#0" expanded="true" />
+                <element signature="e#0#25#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/chapter04/test/testcase03.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="552">
+              <caret column="3236" lean-forward="true" selection-start-column="3236" selection-end-column="3236" />
             </state>
           </provider>
         </entry>
@@ -31,8 +38,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter04/test_sequence.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="57" selection-start-line="57" selection-end-line="57" />
+            <state relative-caret-position="2616">
+              <caret line="109" column="20" selection-start-line="109" selection-start-column="20" selection-end-line="109" selection-end-column="20" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -126,6 +133,7 @@
         <option value="$PROJECT_DIR$/chapter04/test/testcase02.txt" />
         <option value="$PROJECT_DIR$/chapter04/sequence.py" />
         <option value="$PROJECT_DIR$/chapter04/test_sequence.py" />
+        <option value="$PROJECT_DIR$/chapter04/test/testcase03.txt" />
       </list>
     </option>
   </component>
@@ -153,17 +161,13 @@
             <path>
               <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
               <item name="bioalg" type="462c0819:PsiDirectoryNode" />
-              <item name="chapter02" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bioalg" type="462c0819:PsiDirectoryNode" />
-              <item name="chapter03" type="462c0819:PsiDirectoryNode" />
+              <item name="chapter04" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
               <item name="bioalg" type="462c0819:PsiDirectoryNode" />
               <item name="chapter04" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -340,9 +344,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_sequence_py - 2019.02.18 at 17h 45m 35s.xml">
-      <configuration name="pytest in test_sequence.py" configurationId="tests" />
-    </history-entry>
     <history-entry file="pytest_in_test_sequence_py - 2019.02.18 at 20h 19m 41s.xml">
       <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
@@ -370,6 +371,9 @@
     <history-entry file="pytest_in_test_sequence_py - 2019.02.18 at 20h 53m 12s.xml">
       <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.19 at 09h 52m 39s.xml">
+      <configuration name="pytest in test_sequence.py" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -384,12 +388,12 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.42681992" visible="true" weight="0.2704885" />
-      <window_info id="Structure" order="1" sideWeight="0.5731801" side_tool="true" visible="true" weight="0.2704885" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.42497137" visible="true" weight="0.2704885" />
+      <window_info id="Structure" order="1" sideWeight="0.57502866" side_tool="true" visible="true" weight="0.2704885" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.33103448" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33103448" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -722,23 +726,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chapter04/sequence.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="290" lean-forward="true" selection-start-line="290" selection-end-line="290" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter04/test_sequence.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
+        <state relative-caret-position="2616">
+          <caret line="109" column="20" selection-start-line="109" selection-start-column="20" selection-end-line="109" selection-end-column="20" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter04/sequence.py">
+    <entry file="file://$PROJECT_DIR$/chapter04/test/testcase03.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="266" column="32" selection-start-line="266" selection-start-column="32" selection-end-line="266" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="552">
+          <caret column="3236" lean-forward="true" selection-start-column="3236" selection-end-column="3236" />
         </state>
       </provider>
     </entry>
