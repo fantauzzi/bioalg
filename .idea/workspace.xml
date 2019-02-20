@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/chapter04/sequence.py" line="310" />
+    <bookmark url="file://$PROJECT_DIR$/chapter04/sequence.py" line="358" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/chapter04/test/testcase04.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter04/sequence.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter04/sequence.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter04/test_sequence.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter04/test_sequence.py" afterDir="false" />
@@ -21,8 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter04/sequence.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="624">
-              <caret line="329" column="38" selection-start-line="329" selection-start-column="38" selection-end-line="329" selection-end-column="38" />
+            <state relative-caret-position="342">
+              <caret line="401" column="24" selection-start-line="401" selection-start-column="24" selection-end-line="401" selection-end-column="24" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -33,20 +32,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter04/test_sequence.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="121" column="57" selection-start-line="121" selection-start-column="57" selection-end-line="121" selection-end-column="57" />
+            <state relative-caret-position="1964">
+              <caret line="147" column="8" lean-forward="true" selection-start-line="147" selection-start-column="8" selection-end-line="147" selection-end-column="8" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chapter04/test/testcase04.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="624">
-              <caret column="6221" lean-forward="true" selection-start-column="6221" selection-end-column="6221" />
             </state>
           </provider>
         </entry>
@@ -62,8 +52,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>greed</find>
-      <find>motifs_profile</find>
       <find>unit</find>
       <find>motifs_profil</find>
       <find>unit test</find>
@@ -89,13 +77,14 @@
       <find>compleme</find>
       <find>complemen</find>
       <find>consis</find>
-      <find>,</find>
       <find>peptide_mass</find>
       <find>dead</find>
+      <find>,</find>
+      <find>spectrum</find>
+      <find>sorted</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;&quot;</replace>
-      <replace />
       <replace />
     </replaceStrings>
   </component>
@@ -138,17 +127,17 @@
         <option value="$PROJECT_DIR$/chapter04/test/testcase02.txt" />
         <option value="$PROJECT_DIR$/chapter04/test/testcase03.txt" />
         <option value="$PROJECT_DIR$/chapter04/test/testcase04.txt" />
-        <option value="$PROJECT_DIR$/chapter04/sequence.py" />
         <option value="$PROJECT_DIR$/chapter04/test/testcase04.txt.py" />
         <option value="$PROJECT_DIR$/chapter04/test_sequence.py" />
+        <option value="$PROJECT_DIR$/chapter04/sequence.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1977" />
-    <option name="y" value="25" />
+    <option name="y" value="-3" />
     <option name="width" value="2503" />
-    <option name="height" value="1415" />
+    <option name="height" value="1443" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -157,6 +146,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -179,7 +169,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -351,34 +340,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_sequence_py - 2019.02.19 at 12h 35m 33s.xml">
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.20 at 00h 22m 46s.xml">
       <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_sequence_py - 2019.02.19 at 12h 45m 37s.xml">
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.20 at 00h 31m 58s.xml">
       <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_sequence_py - 2019.02.19 at 12h 57m 10s.xml">
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.20 at 00h 33m 25s.xml">
       <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_sequence_py - 2019.02.19 at 13h 00m 00s.xml">
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.20 at 00h 35m 33s.xml">
       <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_sequence_py - 2019.02.19 at 13h 00m 52s.xml">
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.20 at 00h 38m 25s.xml">
       <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_sequence_py - 2019.02.19 at 13h 25m 37s.xml">
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.20 at 00h 38m 49s.xml">
       <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_sequence_py - 2019.02.19 at 16h 10m 04s.xml">
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.20 at 00h 40m 54s.xml">
       <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_sequence_py - 2019.02.19 at 16h 11m 31s.xml">
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.20 at 00h 41m 38s.xml">
       <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_sequence_py - 2019.02.19 at 16h 12m 29s.xml">
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.20 at 00h 42m 04s.xml">
       <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_sequence_py - 2019.02.19 at 16h 12m 35s.xml">
+    <history-entry file="pytest_in_test_sequence_py - 2019.02.20 at 00h 58m 29s.xml">
       <configuration name="pytest in test_sequence.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -395,12 +384,12 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4226804" visible="true" weight="0.2733145" />
-      <window_info id="Structure" order="1" sideWeight="0.57731956" side_tool="true" visible="true" weight="0.2733145" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.42068964" visible="true" weight="0.2762138" />
+      <window_info id="Structure" order="1" sideWeight="0.57931036" side_tool="true" visible="true" weight="0.2762138" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33103448" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33103448" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -431,6 +420,11 @@
           <url>file://$PROJECT_DIR$/chapter03/stepik_assembly.py</url>
           <line>182</line>
           <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/chapter04/sequence.py</url>
+          <line>201</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -466,6 +460,31 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>conv_trimmed.keys()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>sorted(conv_trimmed.keys())</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>sorted(conv_trim)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>sorted(ammino_acids)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>sorted(amminoacids)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>peptide_spectrum(peptide, cyclic=True)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -482,31 +501,6 @@
       </expression>
       <expression>
         <expression-string>sum(peptide_spectrum(peptide, cyclic=True))-242</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>sum(peptide_spectrum(peptide, cyclic=True))- peptide_spectrum(peptide, cyclic=True)[-1]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>sum(peptide_spectrum(peptide, cyclic=False))</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>trimmed['EIFA']</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>trimmed['AEIF']</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>trimmed['FAEI']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -745,17 +739,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter04/test/testcase04.txt" />
-    <entry file="file://$PROJECT_DIR$/chapter04/sequence.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="624">
-          <caret line="329" column="38" selection-start-line="329" selection-start-column="38" selection-end-line="329" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter04/test/testcase04.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="624">
@@ -763,10 +746,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chapter04/sequence.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="401" column="24" selection-start-line="401" selection-start-column="24" selection-end-line="401" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter04/test_sequence.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="121" column="57" selection-start-line="121" selection-start-column="57" selection-end-line="121" selection-end-column="57" />
+        <state relative-caret-position="1964">
+          <caret line="147" column="8" lean-forward="true" selection-start-line="147" selection-start-column="8" selection-end-line="147" selection-end-column="8" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

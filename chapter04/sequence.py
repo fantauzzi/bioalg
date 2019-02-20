@@ -193,18 +193,41 @@ def peptide_spectrum(peptide, cyclic=True):
             if cyclic and i > 0 and j < len(peptide):
                 spectrum.append(peptide_mass - (prefix_mass[j] - prefix_mass[i]))
 
-    return list(sorted(spectrum))
+    return sorted(spectrum)
+
+
+def spectrum_from_peptide_mass(peptide, cyclic=True):
+    ''' Initialise prefix_mass with the masses of all prefixes of peptide. Item j is the mass of the peptide prefix of length j. '''
+    prefix_mass = [0]
+    for ammino in peptide:
+        prefix_mass.append(prefix_mass[-1] + ammino)
+
+    peptide_mass = prefix_mass[-1]
+    spectrum = [0]
+    for i in range(0, len(peptide)):
+        for j in range(i + 1, len(peptide) + 1):
+            spectrum.append(prefix_mass[j] - prefix_mass[i])
+            if cyclic and i > 0 and j < len(peptide):
+                spectrum.append(peptide_mass - (prefix_mass[j] - prefix_mass[i]))
+
+    return sorted(spectrum)
 
 
 def peptide_mass(peptide):
     """
-    Returns the overall mass for a peptide, computed from its teoretical spectrum.
+    Returns the overall mass for a peptide.
     :param peptide: The peptide, a string.
     :return: The mass, an integer.
     """
     ammino_mass = get_ammino_mass()
     mass = sum([ammino_mass[ammino] for ammino in peptide])
     return mass
+
+
+def peptide_masses_from_letters(peptide):
+    ammino_mass = get_ammino_mass()
+    masses = [ammino_mass[ammino] for ammino in peptide]
+    return masses
 
 
 def flatten(seq_of_seq):
@@ -224,6 +247,16 @@ def expand(peptide):
     """
     ammino_mass = get_ammino_mass_red()
     expanded = [peptide + ammino for ammino in ammino_mass.keys()]
+    return expanded
+
+
+def expand_mass(peptide_masses, nucleotide_masses):
+    """
+    Expands a given peptide into the list of peptides that have it for prefix,
+    :param peptide: The given peptide, a string.
+    :return: The list of peptides, a list of strings.
+    """
+    expanded = [peptide_masses + (nucleotide_masse, ) for nucleotide_masse in nucleotide_masses]
     return expanded
 
 
@@ -291,16 +324,31 @@ def score_peptide(peptide, spectrum, cyclic=True):
     return score
 
 
-def leaderboard_peptide_sequence(spectrum, n):
-    def trim(scored_peptides, n):
-        trimmed = Counter({})
-        best_n = scored_peptides.most_common(n)
-        lowest_passable = min([value for (_, value) in best_n])
-        for peptide, score in scored_peptides.items():
-            if score >= lowest_passable:
-                trimmed[peptide] = score
-        return trimmed
+def score_peptide_masses(peptide, spectrum, cyclic=True):
+    pept_spectr = spectrum_from_peptide_mass(peptide, cyclic=cyclic)
+    pept_count = Counter(pept_spectr)
+    spectr_count = Counter(spectrum)
+    # Take the max (union) of the two Counters
+    totals_count = pept_count | spectr_count
+    total = sum([value for value in totals_count.values()])
+    diff_count = deepcopy(pept_count)
+    diff_count.subtract(spectr_count)
+    total_diffs = sum([abs(value) for value in diff_count.values()])
+    score = total - total_diffs
+    return score
 
+
+def trim(scored_peptides, n):
+    trimmed = Counter({})
+    best_n = scored_peptides.most_common(n)
+    lowest_passable = min([value for (_, value) in best_n])
+    for peptide, score in scored_peptides.items():
+        if score >= lowest_passable:
+            trimmed[peptide] = score
+    return trimmed
+
+
+def leaderboard_peptide_sequence(spectrum, n):
     parent_mass = max(spectrum)
     leader_peptide = ''
     leader_score = score_peptide(leader_peptide, spectrum, cyclic=False)
@@ -328,9 +376,39 @@ def leaderboard_peptide_sequence(spectrum, n):
 
 
 def spectral_convolution(spectrum):
-    res = [spectrum[j] - spectrum[i] for j in range(0, len(spectrum)) for i in range(0, j)]
-    zeros_stripped = []
-    for item in res:
-        if item > 0:
-            zeros_stripped.append(item)
-    return zeros_stripped
+    res = [spectrum[j] - spectrum[i] for j in range(0, len(spectrum)) for i in range(0, j) if
+           spectrum[i] != spectrum[j]]
+    return res
+
+
+def convolution_peptide_sequence(spectrum, n_ammino_acids, n_leaderboard):
+    # Build the set of ammino acids to be used
+
+    spectrum = sorted(spectrum)
+    conv = spectral_convolution(spectrum)
+    conv = [peptide for peptide in conv if 57 <= peptide <= 200]
+    conv_count = Counter(conv)
+    conv_trimmed = trim(conv_count, n_ammino_acids)
+    ammino_acids = sorted(conv_trimmed.keys())
+
+    parent_mass = max(spectrum)
+    leader_peptide = (0,)
+    leader_score = score_peptide_masses(leader_peptide, spectrum, cyclic=False)
+    leaderboard = Counter({leader_peptide: leader_score})
+    while leaderboard:
+        expanded_peptides = flatten(
+            [expand_mass(peptide, ammino_acids) for peptide in leaderboard.keys()])  # TODO move into its own function as common code
+        leaderboard = Counter(
+            {tuple(peptide): score_peptide_masses(peptide, spectrum, cyclic=False) for peptide in expanded_peptides})
+        new_leaderboard = Counter({})
+        for peptide, peptide_score in leaderboard.items():
+            if sum(peptide) == parent_mass:
+                new_leaderboard[peptide] = peptide_score
+                if peptide_score > leader_score:
+                    leader_score = peptide_score
+                    leader_peptide = peptide
+            elif sum(peptide) < parent_mass:
+                new_leaderboard[peptide] = peptide_score
+        leaderboard = trim(new_leaderboard, n_leaderboard) if new_leaderboard else new_leaderboard
+
+    return leader_peptide[1:]

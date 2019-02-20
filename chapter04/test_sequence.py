@@ -31,6 +31,10 @@ def test_cyclic_spectrum():
     res = sequence.peptide_spectrum(peptide)
     assert res == [0, 113, 114, 128, 129, 227, 242, 242, 257, 355, 356, 370, 371, 484]
 
+    peptide_m = sequence.peptide_masses_from_letters(peptide)
+    res_m = sequence.spectrum_from_peptide_mass(peptide_m, cyclic=True)
+    assert res_m == res
+
     peptide2 = 'YYTMDKDVWRAP'
     res2 = sequence.peptide_spectrum(peptide2)
     assert res2 == [0, 71, 97, 99, 101, 115, 115, 128, 131, 156, 163, 163, 168, 186, 214, 227, 232, 243, 243, 246, 260,
@@ -42,16 +46,28 @@ def test_cyclic_spectrum():
                     1282, 1282, 1293, 1298, 1311, 1339, 1357, 1362, 1362, 1369, 1394, 1397, 1410, 1410, 1424, 1426,
                     1428, 1454, 1525]
 
+    peptide2_m = sequence.peptide_masses_from_letters(peptide2)
+    res2_m = sequence.spectrum_from_peptide_mass(peptide2_m)
+    assert res2_m == res2
+
 
 def test_linear_spectrum():
     peptide = 'NQEL'
     res = sequence.peptide_spectrum(peptide, cyclic=False)
     assert res == [0, 113, 114, 128, 129, 242, 242, 257, 370, 371, 484]
 
-    res2 = sequence.peptide_spectrum('VNLMFIITTVLEWGFTKAFHDLNCMNKVGRFPSVYGGCRKTSHESG', cyclic=False)
-    expected = fetch_line_from_file(Path('test/testcase01.txt'))
+    peptide_m = sequence.peptide_masses_from_letters(peptide)
+    res_m = sequence.spectrum_from_peptide_mass(peptide_m, cyclic=False)
+    assert res_m == res
 
+    longer_peptide = 'VNLMFIITTVLEWGFTKAFHDLNCMNKVGRFPSVYGGCRKTSHESG'
+    res2 = sequence.peptide_spectrum(longer_peptide, cyclic=False)
+    expected = fetch_line_from_file(Path('test/testcase01.txt'))
     assert res2 == expected
+
+    peptide2_m = sequence.peptide_masses_from_letters(longer_peptide)
+    res2_m = sequence.spectrum_from_peptide_mass(peptide2_m, cyclic=False)
+    assert res2_m == expected
 
 
 def print_cyclopeptide_sequences(seqs):
@@ -97,17 +113,34 @@ def test_score_peptide():
     score = sequence.score_peptide(pept, spectrum)
     assert score == 11
 
+    pept = sequence.peptide_masses_from_letters(pept)
+    score_m = sequence.score_peptide_masses(pept, spectrum)
+    assert score_m == 11
+
     pept2 = 'EERSDSDAQFLWAGYRCYPWPQKRTPLRGDAAQERGSWVAMKCSHYRS'
     spectrum2 = fetch_line_from_file(Path('test/testcase02.txt'))
     score2 = sequence.score_peptide(pept2, spectrum2)
     assert score2 == 679
 
+    pept2 = sequence.peptide_masses_from_letters(pept2)
+    score2_m = sequence.score_peptide_masses(pept2, spectrum2)
+    assert score2_m == 679
+
     score3 = sequence.score_peptide('NQEL', spectrum, cyclic=False)
     assert score3 == 8
 
+    score3_m = sequence.score_peptide_masses(sequence.peptide_masses_from_letters('NQEL'), spectrum, cyclic=False)
+    assert score3_m == 8
+
     spectrum3 = fetch_line_from_file(Path('test/testcase03.txt'))
-    score4 = sequence.score_peptide('ADEQMQSPHEIDPMRYVSAQLADRTPWPVRLLRGHSD', spectrum3, cyclic=False)
+    longer_peptide = 'ADEQMQSPHEIDPMRYVSAQLADRTPWPVRLLRGHSD'
+    score4 = sequence.score_peptide(longer_peptide, spectrum3, cyclic=False)
     assert score4 == 201
+
+    score4_m = sequence.score_peptide_masses(sequence.peptide_masses_from_letters(longer_peptide),
+                                             spectrum3,
+                                             cyclic=False)
+    assert score4_m == 201
 
 
 def test_leaderboard_peptide_sequence():
@@ -127,3 +160,9 @@ def test_spectral_convolution():
     spectrum2 = [0, 137, 186, 323]
     res2 = sequence.spectral_convolution(spectrum2)
     assert sorted(res2) == sorted([137, 137, 186, 186, 323, 49])
+
+
+def test_convolution_peptide_sequence():
+    spectrum = [57, 57, 71, 99, 129, 137, 170, 186, 194, 208, 228, 265, 285, 299, 307, 323, 356, 364, 394, 422, 493]
+    res = sequence.convolution_peptide_sequence(spectrum, n_ammino_acids=20, n_leaderboard=60)
+    print(res)
