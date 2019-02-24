@@ -20,8 +20,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter05/align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="635">
-              <caret line="176" column="12" lean-forward="true" selection-start-line="176" selection-start-column="12" selection-end-line="176" selection-end-column="12" />
+            <state relative-caret-position="-3082">
+              <caret line="119" selection-start-line="119" selection-end-line="119" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -29,8 +32,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1086">
-              <caret line="148" selection-start-line="148" selection-end-line="148" />
+            <state relative-caret-position="115">
+              <caret line="180" column="22" selection-start-line="180" selection-start-column="22" selection-end-line="180" selection-end-column="22" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -49,10 +52,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>zip</find>
-      <find>randint</find>
-      <find>tqdm</find>
-      <find>dummy</find>
       <find>break</find>
       <find>NONE</find>
       <find>.txt</find>
@@ -79,10 +78,16 @@
       <find>inf</find>
       <find>-inf</find>
       <find>fan_in</find>
+      <find>]</find>
+      <find>free</find>
+      <find>,,</find>
+      <find>YQAGI</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;&quot;</replace>
       <replace />
+      <replace>],</replace>
+      <replace>,</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -131,8 +136,8 @@
         <option value="$PROJECT_DIR$/chapter05/test/testcase02.txt" />
         <option value="$PROJECT_DIR$/chapter05/test/testcase03.txt" />
         <option value="$PROJECT_DIR$/chapter05/test/testcase04.txt" />
-        <option value="$PROJECT_DIR$/chapter05/test_align.py" />
         <option value="$PROJECT_DIR$/chapter05/align.py" />
+        <option value="$PROJECT_DIR$/chapter05/test_align.py" />
       </list>
     </option>
   </component>
@@ -353,34 +358,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_align_py - 2019.02.21 at 20h 16m 00s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.02.23 at 16h 39m 06s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.02.21 at 20h 17m 29s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.02.23 at 16h 40m 46s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.02.21 at 20h 33m 25s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.02.23 at 16h 40m 47s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.02.21 at 20h 35m 01s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.02.23 at 16h 49m 27s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.02.21 at 20h 35m 23s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.02.23 at 16h 54m 05s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.02.21 at 20h 35m 35s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.02.23 at 16h 58m 10s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.02.21 at 20h 36m 04s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.02.23 at 16h 58m 31s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.02.21 at 20h 36m 10s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.02.23 at 17h 11m 42s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.02.21 at 20h 53m 56s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.02.23 at 17h 14m 46s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.02.21 at 21h 05m 25s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.02.23 at 17h 15m 25s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -395,15 +400,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.41762453" visible="true" weight="0.21114251" />
-      <window_info id="Structure" order="1" sideWeight="0.58237547" side_tool="true" visible="true" weight="0.21114251" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4145594" visible="true" weight="0.21338229" />
+      <window_info id="Structure" order="1" sideWeight="0.58544064" side_tool="true" visible="true" weight="0.21338229" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.33103448" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4229885" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32950193" />
@@ -493,52 +497,47 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>adj['23']</expression-string>
+        <expression-string>sorted(adj['0,0'])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>adj['13']</expression-string>
+        <expression-string>adj['0,0']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>adj['7']</expression-string>
+        <expression-string>adj['3,0']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>min(fan_in.values())</expression-string>
+        <expression-string>sorted(adj['3,0'])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>max(fan_in.values())</expression-string>
+        <expression-string>sorted(adj['2,0'])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>backtrack['7']</expression-string>
+        <expression-string>sorted(adj['1,1'])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>max(fa_in.values())</expression-string>
+        <expression-string>sorted(adj['1,0'])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>len(adj)</expression-string>
+        <expression-string>sorted(adj['0,1'])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>len(fan_in)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>adj['9']</expression-string>
+        <expression-string>alignment</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -831,8 +830,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1086">
-          <caret line="148" selection-start-line="148" selection-end-line="148" />
+        <state relative-caret-position="115">
+          <caret line="180" column="22" selection-start-line="180" selection-start-column="22" selection-end-line="180" selection-end-column="22" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -841,8 +840,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter05/align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="635">
-          <caret line="176" column="12" lean-forward="true" selection-start-line="176" selection-start-column="12" selection-end-line="176" selection-end-column="12" />
+        <state relative-caret-position="-3082">
+          <caret line="119" selection-start-line="119" selection-end-line="119" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

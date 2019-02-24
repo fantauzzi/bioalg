@@ -1,4 +1,5 @@
 import numpy as np
+from pandas import DataFrame
 
 """ 
 NOTE
@@ -117,20 +118,47 @@ def dag_longest_path(adj, source, sink):
 
     ''' Reconstruct the longest path from source to sink by walking the backtracking information backward, from sink to source. '''
     longest_path = [sink]
+    distances = []
     current = sink
     while current != source:
-        current, _ = backtrack.get(current, (None, None))
+        current, distance = backtrack.get(current, (None, None))
         if current is None:
             longest_path = None
+            distances = None
             break
         longest_path.append(current)
+        distances.append(distance)
     if longest_path is not None:
         longest_path.reverse()
+        distances.reverse()
 
     # Get the length of the longest path
     _, path_length = backtrack.get(sink, (None, None))
+    assert distances[-1] == path_length
 
-    return path_length, longest_path
+    return longest_path, distances
+
+
+def vertex_name(row, col):
+    """
+    Converts a pair of integer numbers into a string, and returns the string. It is given by the two numbers separated by a comma.
+    :param row: The first integer.
+    :param col: The second integer.
+    :return: The string.
+    """
+    name = str(row) + ',' + str(col)
+    return name
+
+
+def vertex_from_name(name):
+    """
+    Given a string representing two integer numbers separated by a comma, returns the two numbers.
+    :param name:  The given string.
+    :return: A pair of two integer numbers.
+    """
+    r, c = name.split(',')
+    row, col = int(r), int(c)
+    return row, col
 
 
 def longest_common_string(string1, string2):
@@ -140,26 +168,6 @@ def longest_common_string(string1, string2):
     :param string2: The second given string, a string.
     :return: The longest common string, a string. If multiple such strings exist, then only one of them is returned.
     """
-
-    def vertex_name(row, col):
-        """
-        Converts a pair of integer numbers into a string, and returns the string. It is given by the two numbers separated by a comma.
-        :param row: The first integer.
-        :param col: The second integer.
-        :return: The string.
-        """
-        name = str(row) + ',' + str(col)
-        return name
-
-    def vertex_from_name(name):
-        """
-        Given a string representing two integer numbers separated by a comma, returns the two numbers.
-        :param name:  The given string.
-        :return: A pair of two integer numbers.
-        """
-        r, c = name.split(',')
-        row, col = int(r), int(c)
-        return row, col
 
     # Convert the two strings to be matched into their alignment graph
     adj = {}  # The aligment graph will go here
@@ -174,7 +182,8 @@ def longest_common_string(string1, string2):
         adj[vertex_name(len(string1), col_i)] = [(vertex_name(len(string1), col_i + 1), 0)]
 
     # Determine the longest path along the alignment graph
-    length, longest_path = dag_longest_path(adj, source=vertex_name(0, 0), sink=vertex_name(len(string1), len(string2)))
+    longest_path, lengths = dag_longest_path(adj, source=vertex_name(0, 0), sink=vertex_name(len(string1), len(string2)))
+    length = lengths[-1]
 
     # Convert the longest path into the longest common string
     longest_string = []
@@ -192,3 +201,130 @@ def longest_common_string(string1, string2):
     assert length == len(longest_string)
 
     return longest_string
+
+
+def best_alignment(string1, string2, scoring_matrix, alphabet, sigma, free_ride=False):
+    """
+    Return the best global alignment between two strings, based on a scoring matrix.
+    :param string1: The first string.
+    :param string2: The second string.
+    :param scoring_matrix: The scoring matrix, a sequence of sequences of integer numbers.
+    :param alphabet: All the characters that could appear in either string, a sequence of strings.
+    :param sigma: The penalty to be applied to insertions and deletion; an integer, typically positive; if negative, it becomes a reward for indels.
+    :return:the score of the alignment and a pair of strings, with the calculated alignment; insertions and deletions are indicated in the strings by a '-'.
+    """
+    blank = '-'
+    scoring_matrix = DataFrame(scoring_matrix, columns=alphabet, index=alphabet)
+
+    # Convert the two strings to be matched into their alignment graph
+    adj = {}  # The aligment graph will go here
+    for row_i, row_item in enumerate(string1):
+        adj[vertex_name(row_i, len(string2))] = [(vertex_name(row_i + 1, len(string2)), -sigma)]
+        for col_i, col_item in enumerate(string2):
+            adj[vertex_name(row_i, col_i)] = [(vertex_name(row_i, col_i + 1), -sigma),
+                                              (vertex_name(row_i + 1, col_i), -sigma),
+                                              (vertex_name(row_i + 1, col_i + 1),
+                                               scoring_matrix[string2[col_i]][string1[row_i]])]
+            if free_ride:
+                # (row_i, col_i) -> sink
+                adj[vertex_name(row_i, col_i)].append((vertex_name(len(string1), len(string2)), 0))
+                # source -> (row_i, col_i)
+                if (row_i, col_i) != (0, 0):  # Avoid to add a loop around source
+                    adj[vertex_name(0, 0)].append((vertex_name(row_i, col_i), 0))
+
+    for col_i in range(0, len(string2)):
+        assert adj.get(vertex_name(len(string1), col_i)) is None
+        adj[vertex_name(len(string1), col_i)] = [(vertex_name(len(string1), col_i + 1), -sigma)]
+        if free_ride:
+            # (bottom row, col_i) -> sink
+            adj[vertex_name(len(string1), col_i)].append((vertex_name(len(string1), len(string2)), 0))
+            # source -> (bottom_row, col_i)
+            adj[vertex_name(0, 0)].append((vertex_name(len(string1), col_i), 0))
+
+    if free_ride:
+        for row_i in range(0, len(string1)):
+            # source -> (row_i, starboard side)
+            adj[vertex_name(0, 0)].append((vertex_name(row_i, len(string2)), 0))
+            # (row_1, starboard side) -> sink
+            adj[vertex_name(row_i, len(string2))].append((vertex_name(len(string1), len(string2)), 0))
+
+    # Determine the longest path along the alignment graph
+    best_path, scores = dag_longest_path(adj, source=vertex_name(0, 0), sink=vertex_name(len(string1), len(string2)))
+
+    # Convert the longest path into the longest common string
+    aligned1, aligned2 = [], []
+    for i in range(0, len(best_path) - 1):
+        vertex1 = best_path[i]
+        vertex2 = best_path[i + 1]
+        v1_r, v1_c = vertex_from_name(vertex1)
+        v2_r, v2_c = vertex_from_name(vertex2)
+        if free_ride and scores[i]==0 and ((v1_r, v1_c) == (0, 0) or (v2_r, v2_c) == (len(string1), len(string2))):
+            continue
+        if v2_r == v1_r and v2_c == v1_c + 1:
+            aligned1.append(blank)
+            aligned2.append(string2[v1_c])
+        elif v2_r == v1_r + 1 and v2_c == v1_c:
+            aligned2.append(blank)
+            aligned1.append(string1[v1_r])
+        else:
+            assert free_ride or (v2_r == v1_r + 1 and v2_c == v1_c + 1)
+            aligned1.append(string1[v1_r])
+            aligned2.append(string2[v1_c])
+
+    aligned1 = ''.join(aligned1)
+    aligned2 = ''.join(aligned2)
+
+    return scores[-1], (aligned1, aligned2)
+
+
+def get_pam250():
+    alphabet = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y']
+    pam250 = [[2, -2, 0, 0, -3, 1, -1, -1, -1, -2, -1, 0, 1, 0, -2, 1, 1, 0, -6, -3],
+              [-2, 12, -5, -5, -4, -3, -3, -2, -5, -6, -5, -4, -3, -5, -4, 0, -2, -2, -8, 0],
+              [0, -5, 4, 3, -6, 1, 1, -2, 0, -4, -3, 2, -1, 2, -1, 0, 0, -2, -7, -4],
+              [0, -5, 3, 4, -5, 0, 1, -2, 0, -3, -2, 1, -1, 2, -1, 0, 0, -2, -7, -4],
+              [-3, -4, -6, -5, 9, -5, -2, 1, -5, 2, 0, -3, -5, -5, -4, -3, -3, -1, 0, 7],
+              [1, -3, 1, 0, -5, 5, -2, -3, -2, -4, -3, 0, 0, -1, -3, 1, 0, -1, -7, -5],
+              [-1, -3, 1, 1, -2, -2, 6, -2, 0, -2, -2, 2, 0, 3, 2, -1, -1, -2, -3, 0],
+              [-1, -2, -2, -2, 1, -3, -2, 5, -2, 2, 2, -2, -2, -2, -2, -1, 0, 4, -5, -1],
+              [-1, -5, 0, 0, -5, -2, 0, -2, 5, -3, 0, 1, -1, 1, 3, 0, 0, -2, -3, -4],
+              [-2, -6, -4, -3, 2, -4, -2, 2, -3, 6, 4, -3, -3, -2, -3, -3, -2, 2, -2, -1],
+              [-1, -5, -3, -2, 0, -3, -2, 2, 0, 4, 6, -2, -2, -1, 0, -2, -1, 2, -4, -2],
+              [0, -4, 2, 1, -3, 0, 2, -2, 1, -3, -2, 2, 0, 1, 0, 1, 0, -2, -4, -2],
+              [1, -3, -1, -1, -5, 0, 0, -2, -1, -3, -2, 0, 6, 0, 0, 1, 0, -1, -6, -5],
+              [0, -5, 2, 2, -5, -1, 3, -2, 1, -2, -1, 1, 0, 4, 1, -1, -1, -2, -5, -4],
+              [-2, -4, -1, -1, -4, -3, 2, -2, 3, -3, 0, 0, 0, 1, 6, 0, -1, -2, 2, -4],
+              [1, 0, 0, 0, -3, 1, -1, -1, 0, -3, -2, 1, 1, -1, 0, 2, 1, -1, -2, -3],
+              [1, -2, 0, 0, -3, 0, -1, 0, 0, -2, -1, 0, 0, -1, -1, 1, 3, 0, -5, -3],
+              [0, -2, -2, -2, -1, -1, -2, 4, -2, 2, 2, -2, -1, -2, -2, -1, 0, 4, -6, -2],
+              [-6, -8, -7, -7, 0, -7, -3, -5, -3, -2, -4, -4, -6, -5, 2, -2, -5, -6, 17, 0],
+              [-3, 0, -4, -4, 7, -5, 0, -1, -4, -1, -2, -2, -5, -4, -4, -3, -3, -2, 0, 10]]
+    return alphabet, pam250
+
+
+def best_protein_alignment(protein1, protein2, free_ride=False):
+    # The BLOSUM62 scoring matrix
+    alphabet = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y']
+    scoring_matrix = [[4, 0, -2, -1, -2, 0, -2, -1, -1, -1, -1, -2, -1, -1, -1, 1, 0, 0, -3, -2],
+                      [0, 9, -3, -4, -2, -3, -3, -1, -3, -1, -1, -3, -3, -3, -3, -1, -1, -1, -2, -2],
+                      [-2, -3, 6, 2, -3, -1, -1, -3, -1, -4, -3, 1, -1, 0, -2, 0, -1, -3, -4, -3],
+                      [-1, -4, 2, 5, -3, -2, 0, -3, 1, -3, -2, 0, -1, 2, 0, 0, -1, -2, -3, -2],
+                      [-2, -2, -3, -3, 6, -3, -1, 0, -3, 0, 0, -3, -4, -3, -3, -2, -2, -1, 1, 3],
+                      [0, -3, -1, -2, -3, 6, -2, -4, -2, -4, -3, 0, -2, -2, -2, 0, -2, -3, -2, -3],
+                      [-2, -3, -1, 0, -1, -2, 8, -3, -1, -3, -2, 1, -2, 0, 0, -1, -2, -3, -2, 2],
+                      [-1, -1, -3, -3, 0, -4, -3, 4, -3, 2, 1, -3, -3, -3, -3, -2, -1, 3, -3, -1],
+                      [-1, -3, -1, 1, -3, -2, -1, -3, 5, -2, -1, 0, -1, 1, 2, 0, -1, -2, -3, -2],
+                      [-1, -1, -4, -3, 0, -4, -3, 2, -2, 4, 2, -3, -3, -2, -2, -2, -1, 1, -2, -1],
+                      [-1, -1, -3, -2, 0, -3, -2, 1, -1, 2, 5, -2, -2, 0, -1, -1, -1, 1, -1, -1],
+                      [2, -3, 1, 0, -3, 0, 1, -3, 0, -3, -2, 6, -2, 0, 0, 1, 0, -3, -4, -2],
+                      [-1, -3, -1, -1, -4, -2, -2, -3, -1, -3, -2, -2, 7, -1, -2, -1, -1, -2, -4, -3],
+                      [-1, -3, 0, 2, -3, -2, 0, -3, 1, -2, 0, 0, -1, 5, 1, 0, -1, -2, -2, -1],
+                      [-1, -3, -2, 0, -3, -2, 0, -3, 2, -2, -1, 0, -2, 1, 5, -1, -1, -3, -3, -2],
+                      [1, -1, 0, 0, -2, 0, -1, -2, 0, -2, -1, 1, -1, 0, -1, 4, 1, -2, -3, -2],
+                      [0, -1, -1, -1, -2, -2, -2, -1, -1, -1, -1, 0, -1, -1, -1, 1, 5, 0, -2, -2],
+                      [0, -1, -3, -2, -1, -3, -3, 3, -2, 1, 1, -3, -2, -2, -3, -2, 0, 4, -3, -1],
+                      [-3, -2, -4, -3, 1, -2, -2, -3, -3, -2, -1, -4, -4, -2, -3, -3, -2, -3, 11, 2],
+                      [-2, -2, -3, -2, 3, -3, 2, -1, -2, -1, -1, -2, -3, -1, -2, -2, -2, -1, 2, 7]]
+
+    score, alignment = best_alignment(protein1, protein2, scoring_matrix, alphabet, sigma=5, free_ride=free_ride)
+    return score, alignment
