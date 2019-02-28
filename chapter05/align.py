@@ -92,7 +92,7 @@ def dag_longest_path(adj, source, sink):
     :param adj: The adjacency lists for the weighted DAG.
     :param source: The starting point for the longest path.
     :param sink: The end point for the longest path.
-    :return: A pair, with the length of the longest path as first item and the path as second item; the path is a sequence of vertices.
+    :return: A pair, with the length of the longest path as first item and the path as second item; the path is a sequence of vertices.  TODO correct and updatr this
     """
 
     ''' Traverse the vertices in topological order, from source to sink. Note that not all vertices in the graph will necessarily be traversed. '''
@@ -182,7 +182,8 @@ def longest_common_string(string1, string2):
         adj[vertex_name(len(string1), col_i)] = [(vertex_name(len(string1), col_i + 1), 0)]
 
     # Determine the longest path along the alignment graph
-    longest_path, lengths = dag_longest_path(adj, source=vertex_name(0, 0), sink=vertex_name(len(string1), len(string2)))
+    longest_path, lengths = dag_longest_path(adj, source=vertex_name(0, 0),
+                                             sink=vertex_name(len(string1), len(string2)))
     length = lengths[-1]
 
     # Convert the longest path into the longest common string
@@ -258,7 +259,8 @@ def best_alignment(string1, string2, scoring_matrix, alphabet, sigma, free_ride=
         vertex2 = best_path[i + 1]
         v1_r, v1_c = vertex_from_name(vertex1)
         v2_r, v2_c = vertex_from_name(vertex2)
-        if free_ride and scores[i]==0 and ((v1_r, v1_c) == (0, 0) or (v2_r, v2_c) == (len(string1), len(string2))):
+        if free_ride and ((scores[i] == 0 and (v1_r, v1_c) == (0, 0)) or (
+                scores[i] == scores[-2] and (v2_r, v2_c) == (len(string1), len(string2)))):
             continue
         if v2_r == v1_r and v2_c == v1_c + 1:
             aligned1.append(blank)
@@ -328,3 +330,41 @@ def best_protein_alignment(protein1, protein2, free_ride=False):
 
     score, alignment = best_alignment(protein1, protein2, scoring_matrix, alphabet, sigma=5, free_ride=free_ride)
     return score, alignment
+
+
+def score_and_check(input1, input2, solution1, solution2, scoring_matrix, alphabet, sigma):
+    """
+    Verifies if a given solution is admissible as the best local alignment between two strings, and computes and returns the related score.
+    :param input1: The first string.
+    :param input2: The second string.
+    :param solution1: The candidate solution for the first string; insertions are marked with a '-'.
+    :param solution2: The candidate solution for the second string; deletions are marked with a '-'.
+    :param scoring_matrix: The scoring matrix to be used, a sequence of sequences.
+    :param alphabet: The alphabet used by the strings, does not include the '-' character, used for indels; a sequence of strings.
+    :param sigma: The penalty for insertions and deletions; typically a positive number, if negative, it becomes a reward for indels.
+    :return: A pair with a boolean and a number; the boolean is True if and only if solution1 and solution2 are possible local alignments for input1 and input2, the number is the alignment score. If the boolean is False, the score is meaningless.
+    """
+    scoring_matrix = DataFrame(scoring_matrix, columns=alphabet, index=alphabet)
+    s1, s2 = 0, 0
+    i1, i2 = 0, 0
+    score = 0
+    while s1 < len(solution1) and s2 < len(solution2):
+        if solution1[s1] == '-' or solution2[s2] == '-':
+            score -= sigma
+            s1 += 1
+            s2 += 1
+            if solution1[s1] == '-':
+                assert solution2[s2] != '-'
+                i2 += 1
+            else:
+                assert solution1[s1] != '-'
+                i1 += 1
+            continue
+        score += scoring_matrix[solution2[s2]][solution1[s1]]
+        s1 += 1
+        s2 += 1
+
+    solution1_compacted = solution1.replace('-', '')
+    solution2_compacted = solution2.replace('-', '')
+
+    return score, solution1_compacted in input1 and solution2_compacted in input2
