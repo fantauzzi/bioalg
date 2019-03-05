@@ -5,7 +5,7 @@ from pandas import DataFrame
 NOTE
 ====
 
-The code uses adjacency lists to represent weighted directed acyclic graphs (DAGs). Adjacency list are a Python dictionary. Keys in the dictionary are vertices, and values are lists of pairs. Every pair is given by a vertex adjacent to the vertex of the key, and the weight of the conencting edge. Vertices are named with strings. Weights are non-negative integer numbers. If a vertex has no outgoing edges, but only incoming edges, then it may or may not appear among the keys.
+The code uses adjacency lists to represent weighted directed acyclic graphs (DAGs). Adjacency lists are a Python dictionary. Keys in the dictionary are vertices, and values are lists of pairs. Every pair gives a vertex adjacent to the vertex of the key, and the weight of the conencting edge. Vertices are named with strings. Weights are non-negative integer numbers. If a vertex has no outgoing edges, but only incoming edges, then it may or may not appear among the keys.
 """
 
 
@@ -92,7 +92,7 @@ def dag_longest_path(adj, source, sink):
     :param adj: The adjacency lists for the weighted DAG.
     :param source: The starting point for the longest path.
     :param sink: The end point for the longest path.
-    :return: A pair, with the length of the longest path as first item and the path as second item; the path is a sequence of vertices.  TODO correct and updatr this
+    :return: A pair (path, distances), where path is a list of vertices (strings) giving the longest path from source to sink included, and distances is a list of numbers, giving the respective distances from the source to vertices in path.
     """
 
     ''' Traverse the vertices in topological order, from source to sink. Note that not all vertices in the graph will necessarily be traversed. '''
@@ -206,12 +206,13 @@ def longest_common_string(string1, string2):
 
 def best_alignment(string1, string2, scoring_matrix, alphabet, sigma, free_ride=False):
     """
-    Return the best global alignment between two strings, based on a scoring matrix.
+    Returns the best global or local alignment between two strings, based on a scoring matrix.
     :param string1: The first string.
     :param string2: The second string.
     :param scoring_matrix: The scoring matrix, a sequence of sequences of integer numbers.
     :param alphabet: All the characters that could appear in either string, a sequence of strings.
     :param sigma: The penalty to be applied to insertions and deletion; an integer, typically positive; if negative, it becomes a reward for indels.
+    :param free_ride: True if a local alignment is sought, False for a global alignment.
     :return:the score of the alignment and a pair of strings, with the calculated alignment; insertions and deletions are indicated in the strings by a '-'.
     """
     blank = '-'
