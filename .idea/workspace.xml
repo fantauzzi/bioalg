@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter05/align.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter05/align.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chapter05/test_align.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter05/test_align.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter05/align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="217" column="15" selection-start-line="217" selection-start-column="15" selection-end-line="217" selection-end-column="15" />
+            <state relative-caret-position="223">
+              <caret line="347" column="10" selection-start-line="347" selection-start-column="10" selection-end-line="347" selection-end-column="10" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -32,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2304">
-              <caret line="98" column="28" selection-start-line="98" selection-start-column="28" selection-end-line="98" selection-end-column="28" />
+            <state relative-caret-position="271">
+              <caret line="136" selection-start-line="136" selection-end-line="136" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -142,10 +140,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="238" />
-    <option name="y" value="507" />
-    <option name="width" value="1401" />
-    <option name="height" value="789" />
+    <option name="x" value="1977" />
+    <option name="y" value="-3" />
+    <option name="width" value="2503" />
+    <option name="height" value="1443" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -376,27 +374,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_align_py - 2019.02.28 at 17h 53m 26s.xml">
-      <configuration name="pytest in test_align.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.02.28 at 21h 28m 37s.xml">
-      <configuration name="pytest in test_align.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.02.28 at 21h 28m 57s.xml">
-      <configuration name="pytest in test_align.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.02.28 at 21h 30m 02s.xml">
-      <configuration name="pytest in test_align.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.02.28 at 21h 32m 47s.xml">
-      <configuration name="pytest in test_align.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.02.28 at 21h 32m 48s.xml">
-      <configuration name="pytest in test_align.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.02.28 at 21h 33m 31s.xml">
-      <configuration name="pytest in test_align.py" configurationId="tests" />
-    </history-entry>
     <history-entry file="pytest_in_test_align_py - 2019.02.28 at 21h 33m 34s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
@@ -404,6 +381,27 @@
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
     <history-entry file="pytest_in_test_align_py - 2019.03.02 at 10h 11m 10s.xml">
+      <configuration name="pytest in test_align.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_align_py - 2019.03.05 at 11h 39m 59s.xml">
+      <configuration name="pytest in test_align.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_align_py - 2019.03.05 at 12h 54m 52s.xml">
+      <configuration name="pytest in test_align.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_align_py - 2019.03.05 at 13h 04m 40s.xml">
+      <configuration name="pytest in test_align.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_align_py - 2019.03.05 at 13h 08m 16s.xml">
+      <configuration name="pytest in test_align.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_align_py - 2019.03.05 at 13h 08m 17s.xml">
+      <configuration name="pytest in test_align.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_align_py - 2019.03.05 at 13h 10m 32s.xml">
+      <configuration name="pytest in test_align.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_align_py - 2019.03.05 at 13h 16m 07s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -417,15 +415,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="51" y="-3" width="1869" height="1083" extended-state="6" />
+    <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.45502645" visible="true" weight="0.21323928" />
-      <window_info id="Structure" order="1" sideWeight="0.54497355" side_tool="true" visible="true" weight="0.21323928" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.45371428" visible="true" weight="0.21542227" />
+      <window_info id="Structure" order="1" sideWeight="0.5462857" side_tool="true" visible="true" weight="0.21542227" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.33015874" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32950193" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.42222223" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -433,7 +431,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32950193" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32950193" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32698414" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.3264368" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.249694" />
@@ -516,6 +514,31 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>list(sorted(set(string1+string2)))</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>sorted(list(set(string1+string2)))</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>list(set(string1+string2))</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>list(set(string1+string2)).sort()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>set(string1+string2)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>scores[800:]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -537,26 +560,6 @@
       </expression>
       <expression>
         <expression-string>best_path[500:]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>best_path[-10]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>best_path</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>alignment</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>len(alignment[1])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -825,22 +828,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter05/align.py">
+    <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="217" column="15" selection-start-line="217" selection-start-column="15" selection-end-line="217" selection-end-column="15" />
+        <state relative-caret-position="271">
+          <caret line="136" selection-start-line="136" selection-end-line="136" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
+    <entry file="file://$PROJECT_DIR$/chapter05/align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2304">
-          <caret line="98" column="28" selection-start-line="98" selection-start-column="28" selection-end-line="98" selection-end-column="28" />
+        <state relative-caret-position="223">
+          <caret line="347" column="10" selection-start-line="347" selection-start-column="10" selection-end-line="347" selection-end-column="10" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
