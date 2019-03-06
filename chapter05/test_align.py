@@ -149,14 +149,20 @@ def test_longest_common_string():
 
 
 def test_best_protein_alignment():
-    score, alignment = align.best_protein_alignment('PLEASANTLY', 'MEANLY')
+    alphabet, scoring_matrix = align.get_blosum62()
+
+    score, alignment = align.best_alignment('PLEASANTLY', 'MEANLY', scoring_matrix, alphabet, sigma=5, local=False)
 
     assert score == 8
     assert alignment == ('PLEASANTLY', '-ME--AN-LY')
 
-    score, alignment = align.best_protein_alignment(
+    score, alignment = align.best_alignment(
         'KHLGRRPTYGFPFWYMVWDFQCQDDKEQKFFCKPRHVPCTWLGCEVTDEMWMDLHVEVQPQFCLVRQEFWHIFPPFSSIYWMYFDPSDVNRIMHDD',
-        'KPTYGFPFWYMDWDFQCQDEWKKEIRFCKEQKFFCKPRHVPCWWLGCEVMDLHTQRYFWH')
+        'KPTYGFPFWYMDWDFQCQDEWKKEIRFCKEQKFFCKPRHVPCWWLGCEVMDLHTQRYFWH',
+        scoring_matrix,
+        alphabet,
+        sigma=5,
+        local=False)
 
     assert score == 43
     assert alignment[
@@ -168,17 +174,13 @@ def test_best_protein_alignment():
 
 def test_local_protein_alignment():
     alphabet, scoring_matrix = align.get_pam250()
-    # score, alignment = align.best_protein_alignment('AGC', 'ATC', free_ride = True)
-
-    # assert score == 15
-    # assert alignment == ('EANL-Y', 'ENALTY')
 
     score, alignment = align.best_alignment('MEANLY',
                                             'PENALTY',
                                             scoring_matrix=scoring_matrix,
                                             alphabet=alphabet,
                                             sigma=5,
-                                            free_ride=True)
+                                            local=True)
 
     assert score == 15
     assert alignment == ('EANL-Y', 'ENALTY')
@@ -191,10 +193,10 @@ def test_local_protein_alignment():
                                             scoring_matrix=scoring_matrix,
                                             alphabet=alphabet,
                                             sigma=5,
-                                            free_ride=True)
+                                            local=True)
 
     assert score == 56
-    assert alignment[0] =='KHFAYEIRLSHIWLLTQMPWEFVMGIKMPE-DVFQH---W-RVYSVCTAEPMRSDETYPCEL-FTVFDDIFTAEPVV-CS--CFYDD'
+    assert alignment[0] == 'KHFAYEIRLSHIWLLTQMPWEFVMGIKMPE-DVFQH---W-RVYSVCTAEPMRSDETYPCEL-FTVFDDIFTAEPVV-CS--CFYDD'
     assert alignment[1] == 'RH-QY--REKEDRQGNEIGKEFRRGPQVCEYSCNSHSCGWMPIF--CIV-CMSYVAFY-CGLEYPMSRKTAKSQFIEWCDWFCFNHE'
 
     s1 = 'LLQWKRYAVWQFNHLQFPVHAAAAAAAAAADVAGTQCA'
@@ -205,10 +207,32 @@ def test_local_protein_alignment():
                                             scoring_matrix=scoring_matrix,
                                             alphabet=alphabet,
                                             sigma=5,
-                                            free_ride=True)
+                                            local=True)
 
     assert score == 32
     assert alignment[0] == 'RYAVWQFNHLQFPVHAAAAAAAAAADVAG'
-    assert  alignment[1] == 'RC-IR-INH-PFYVNSLVAAAAAAAAAAA'
+    assert alignment[1] == 'RC-IR-INH-PFYVNSLVAAAAAAAAAAA'
+
+
+def test_edit_distance():
+    dist = align.edit_distance('PLEASANTLY', 'MEANLY')
+    assert dist == 5
+
+    s1 = 'GGACRNQMSEVNMWGCWWASVWVSWCEYIMPSGWRRMKDRHMWHWSVHQQSSPCAKSICFHETKNQWNQDACGPKVTQHECMRRRLVIAVKEE'
+    s2 = 'GMWGFVQVSTQSRFRHMWHWSVHQQSSECAKSICHHEWKNQWNQDACGPKVTQHECMANMPMHKCNNWFWRLVIAVKEEKVRETKMLDLIHRHWLVLNQGRMNEHNVTLRKSPCVKRIMHKWKSRTTFHR'
+    dist = align.edit_distance(s1, s2)
+    assert dist == 97
+
+    dist = align.edit_distance('AC', 'AC')
+    assert dist == 0
+
+    dist = align.edit_distance('AT', 'G')
+    assert dist == 2
+
+    dist = align.edit_distance('CAGACCGAGTTAG', 'CGG')
+    assert dist == 10
+
+    dist = align.edit_distance('CGT', 'CAGACGGTGACG')
+    assert dist == 9
 
 

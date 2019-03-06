@@ -161,6 +161,54 @@ def vertex_from_name(name):
     return row, col
 
 
+def alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sigma, local=False):
+    """
+    Returns the alignment graph (a weighted DAG) for two given strings.
+    :param string1: The first string.
+    :param string2: The second string.
+    :param scoring_matrix: The scoring matrix to be used, a sequence of sequences of numbers.
+    :param alphabet: The alphabet used by the strings, a sequence of strings whose items order is matched by the order of rows and columns in the scoring_matrix.
+    :param sigma: The penalty to be used for insertions and deletions, a number, usually positive; if negative, it becomes a reward for indels.
+    :param local: A boolean, indicating whether "free rides" should be allowed in the aligment graph, i.e. if a graph for local alignment is required.
+    :return: The adjacency lists of the weighted DAG, a dictionary.
+    """
+
+    scoring_matrix = DataFrame(scoring_matrix, columns=alphabet, index=alphabet)
+    # Convert the two strings to be matched into their alignment graph
+    adj = {}  # The aligment graph will go here
+    for row_i, row_item in enumerate(string1):
+        adj[vertex_name(row_i, len(string2))] = [(vertex_name(row_i + 1, len(string2)), -sigma)]
+        for col_i, col_item in enumerate(string2):
+            adj[vertex_name(row_i, col_i)] = [(vertex_name(row_i, col_i + 1), -sigma),
+                                              (vertex_name(row_i + 1, col_i), -sigma),
+                                              (vertex_name(row_i + 1, col_i + 1),
+                                               scoring_matrix[string2[col_i]][string1[row_i]])]
+            if local:
+                # (row_i, col_i) -> sink
+                adj[vertex_name(row_i, col_i)].append((vertex_name(len(string1), len(string2)), 0))
+                # source -> (row_i, col_i)
+                if (row_i, col_i) != (0, 0):  # Avoid to add a loop around source
+                    adj[vertex_name(0, 0)].append((vertex_name(row_i, col_i), 0))
+
+    for col_i in range(0, len(string2)):
+        assert adj.get(vertex_name(len(string1), col_i)) is None
+        adj[vertex_name(len(string1), col_i)] = [(vertex_name(len(string1), col_i + 1), -sigma)]
+        if local:
+            # (bottom row, col_i) -> sink
+            adj[vertex_name(len(string1), col_i)].append((vertex_name(len(string1), len(string2)), 0))
+            # source -> (bottom_row, col_i)
+            adj[vertex_name(0, 0)].append((vertex_name(len(string1), col_i), 0))
+
+    if local:
+        for row_i in range(0, len(string1)):
+            # source -> (row_i, starboard side)
+            adj[vertex_name(0, 0)].append((vertex_name(row_i, len(string2)), 0))
+            # (row_1, starboard side) -> sink
+            adj[vertex_name(row_i, len(string2))].append((vertex_name(len(string1), len(string2)), 0))
+
+    return adj
+
+
 def longest_common_string(string1, string2):
     """
     Returns the longest common string between two given strings.
@@ -174,7 +222,7 @@ def longest_common_string(string1, string2):
 
     # Determine the scoring matrix to be used, which is just an identity matrix
     scoring_matrix = [[1 if row_item == col_item else 0 for col_item in alphabet] for row_item in alphabet]
-    adj = alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sigma=0, free_ride=False)
+    adj = alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sigma=0, local=False)
 
     # Determine the longest path along the alignment graph
     longest_path, lengths = dag_longest_path(adj, source=vertex_name(0, 0),
@@ -199,55 +247,7 @@ def longest_common_string(string1, string2):
     return longest_string
 
 
-def alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sigma, free_ride=False):
-    """
-    Returns the alignment graph (a weighted DAG) for two given strings.
-    :param string1: The first string.
-    :param string2: The second string.
-    :param scoring_matrix: The scoring matrix to be used, a sequence of sequences of numbers.
-    :param alphabet: The alphabet used by the strings, a sequence of strings whose items order is matched by the order of rows and columns in the scoring_matrix.
-    :param sigma: The penalty to be used for insertions and deletions, a number, usually positive; if negative, it becomes a reward for indels.
-    :param free_ride: A boolean, indicating whether "free rides" should be allowed in the aligment graph, i.e. if a graph for local alignment is required.
-    :return: The adjacency lists of the weighted DAG, a dictionary.
-    """
-
-    scoring_matrix = DataFrame(scoring_matrix, columns=alphabet, index=alphabet)
-    # Convert the two strings to be matched into their alignment graph
-    adj = {}  # The aligment graph will go here
-    for row_i, row_item in enumerate(string1):
-        adj[vertex_name(row_i, len(string2))] = [(vertex_name(row_i + 1, len(string2)), -sigma)]
-        for col_i, col_item in enumerate(string2):
-            adj[vertex_name(row_i, col_i)] = [(vertex_name(row_i, col_i + 1), -sigma),
-                                              (vertex_name(row_i + 1, col_i), -sigma),
-                                              (vertex_name(row_i + 1, col_i + 1),
-                                               scoring_matrix[string2[col_i]][string1[row_i]])]
-            if free_ride:
-                # (row_i, col_i) -> sink
-                adj[vertex_name(row_i, col_i)].append((vertex_name(len(string1), len(string2)), 0))
-                # source -> (row_i, col_i)
-                if (row_i, col_i) != (0, 0):  # Avoid to add a loop around source
-                    adj[vertex_name(0, 0)].append((vertex_name(row_i, col_i), 0))
-
-    for col_i in range(0, len(string2)):
-        assert adj.get(vertex_name(len(string1), col_i)) is None
-        adj[vertex_name(len(string1), col_i)] = [(vertex_name(len(string1), col_i + 1), -sigma)]
-        if free_ride:
-            # (bottom row, col_i) -> sink
-            adj[vertex_name(len(string1), col_i)].append((vertex_name(len(string1), len(string2)), 0))
-            # source -> (bottom_row, col_i)
-            adj[vertex_name(0, 0)].append((vertex_name(len(string1), col_i), 0))
-
-    if free_ride:
-        for row_i in range(0, len(string1)):
-            # source -> (row_i, starboard side)
-            adj[vertex_name(0, 0)].append((vertex_name(row_i, len(string2)), 0))
-            # (row_1, starboard side) -> sink
-            adj[vertex_name(row_i, len(string2))].append((vertex_name(len(string1), len(string2)), 0))
-
-    return adj
-
-
-def best_alignment(string1, string2, scoring_matrix, alphabet, sigma, free_ride=False):
+def best_alignment(string1, string2, scoring_matrix, alphabet, sigma, local=False):
     """
     Returns the best global or local alignment between two strings, based on a scoring matrix.
     :param string1: The first string.
@@ -255,24 +255,24 @@ def best_alignment(string1, string2, scoring_matrix, alphabet, sigma, free_ride=
     :param scoring_matrix: The scoring matrix, a sequence of sequences of integer numbers.
     :param alphabet: All the characters that could appear in either string, a sequence of strings.
     :param sigma: The penalty to be applied to insertions and deletion; an integer, typically positive; if negative, it becomes a reward for indels.
-    :param free_ride: True if a local alignment is sought, False for a global alignment.
+    :param local: True if a local alignment is sought, False for a global alignment.
     :return:the score of the alignment and a pair of strings, with the calculated alignment; insertions and deletions are indicated in the strings by a '-'.
     """
     blank = '-'
 
-    adj = alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sigma, free_ride)
+    adj = alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sigma, local)
 
     # Determine the longest path along the alignment graph
     best_path, scores = dag_longest_path(adj, source=vertex_name(0, 0), sink=vertex_name(len(string1), len(string2)))
 
-    # Convert the longest path into the longest common string
+    # Convert the longest path into the alignment of the two given strings
     aligned1, aligned2 = [], []
     for i in range(0, len(best_path) - 1):
         vertex1 = best_path[i]
         vertex2 = best_path[i + 1]
         v1_r, v1_c = vertex_from_name(vertex1)
         v2_r, v2_c = vertex_from_name(vertex2)
-        if free_ride and ((scores[i] == 0 and (v1_r, v1_c) == (0, 0)) or (
+        if local and ((scores[i] == 0 and (v1_r, v1_c) == (0, 0)) or (
                 scores[i] == scores[-2] and (v2_r, v2_c) == (len(string1), len(string2)))):
             continue
         if v2_r == v1_r and v2_c == v1_c + 1:
@@ -282,7 +282,7 @@ def best_alignment(string1, string2, scoring_matrix, alphabet, sigma, free_ride=
             aligned2.append(blank)
             aligned1.append(string1[v1_r])
         else:
-            assert free_ride or (v2_r == v1_r + 1 and v2_c == v1_c + 1)
+            assert local or (v2_r == v1_r + 1 and v2_c == v1_c + 1)
             aligned1.append(string1[v1_r])
             aligned2.append(string2[v1_c])
 
@@ -293,6 +293,10 @@ def best_alignment(string1, string2, scoring_matrix, alphabet, sigma, free_ride=
 
 
 def get_pam250():
+    """
+    Returns the alphabet and matrix of a PAM 250 alignment matrix.
+    :return: A pair, the first element is the alphabet, a sequence of strings, and the second element is the matrix, a sequence of sequences of numbers. Order of the alphabet elements matches the order of rows and columns in the matrix.
+    """
     alphabet = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y']
     pam250 = [[2, -2, 0, 0, -3, 1, -1, -1, -1, -2, -1, 0, 1, 0, -2, 1, 1, 0, -6, -3],
               [-2, 12, -5, -5, -4, -3, -3, -2, -5, -6, -5, -4, -3, -5, -4, 0, -2, -2, -8, 0],
@@ -317,10 +321,13 @@ def get_pam250():
     return alphabet, pam250
 
 
-def best_protein_alignment(protein1, protein2, free_ride=False):
-    # The BLOSUM62 scoring matrix
+def get_blosum62():
+    """
+    Returns the alphabet and matrix of a BLOSUM 62 alignment matrix.
+    :return: A pair, the first element is the alphabet, a sequence of strings, and the second element is the matrix, a sequence of sequences of numbers. Order of the alphabet elements matches the order of rows and columns in the matrix.
+    """
     alphabet = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y']
-    scoring_matrix = [[4, 0, -2, -1, -2, 0, -2, -1, -1, -1, -1, -2, -1, -1, -1, 1, 0, 0, -3, -2],
+    blosum62 = [[4, 0, -2, -1, -2, 0, -2, -1, -1, -1, -1, -2, -1, -1, -1, 1, 0, 0, -3, -2],
                       [0, 9, -3, -4, -2, -3, -3, -1, -3, -1, -1, -3, -3, -3, -3, -1, -1, -1, -2, -2],
                       [-2, -3, 6, 2, -3, -1, -1, -3, -1, -4, -3, 1, -1, 0, -2, 0, -1, -3, -4, -3],
                       [-1, -4, 2, 5, -3, -2, 0, -3, 1, -3, -2, 0, -1, 2, 0, 0, -1, -2, -3, -2],
@@ -340,9 +347,7 @@ def best_protein_alignment(protein1, protein2, free_ride=False):
                       [0, -1, -3, -2, -1, -3, -3, 3, -2, 1, 1, -3, -2, -2, -3, -2, 0, 4, -3, -1],
                       [-3, -2, -4, -3, 1, -2, -2, -3, -3, -2, -1, -4, -4, -2, -3, -3, -2, -3, 11, 2],
                       [-2, -2, -3, -2, 3, -3, 2, -1, -2, -1, -1, -2, -3, -1, -2, -2, -2, -1, 2, 7]]
-
-    score, alignment = best_alignment(protein1, protein2, scoring_matrix, alphabet, sigma=5, free_ride=free_ride)
-    return score, alignment
+    return alphabet, blosum62
 
 
 def score_and_check(input1, input2, solution1, solution2, scoring_matrix, alphabet, sigma):
@@ -381,3 +386,28 @@ def score_and_check(input1, input2, solution1, solution2, scoring_matrix, alphab
     solution2_compacted = solution2.replace('-', '')
 
     return score, solution1_compacted in input1 and solution2_compacted in input2
+
+
+def edit_distance(string1, string2):
+    """
+    Returns the edit distance between two strings, i.e. the number of insertions, deletions and replacements to turn one string into another. The operation is commutative.
+    :param string1: The first string.
+    :param string2: The second string.
+    :return:The edit distance, an integer.
+    """
+    # Sigma is positive because it is a penalty (if negative, it would be a reward)
+    sigma = 1
+
+    # Determine the alphabet of the two strings, and store it in a list. The list is sorted to facilitate debugging
+    alphabet = list(sorted(set(string1 + string2)))
+
+    # Determine the scoring matrix to be used
+    scoring_matrix = [[-1 if row_item != col_item else 0 for col_item in alphabet] for row_item in alphabet]
+    adj = alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sigma=sigma, local=False)
+
+    # Determine the longest path along the alignment graph
+    longest_path, lengths = dag_longest_path(adj, source=vertex_name(0, 0),
+                                             sink=vertex_name(len(string1), len(string2)))
+    length = lengths[-1]
+
+    return -length
