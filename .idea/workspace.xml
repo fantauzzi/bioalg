@@ -20,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter05/align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="367" column="13" lean-forward="true" selection-start-line="367" selection-start-column="13" selection-end-line="367" selection-end-column="13" />
+            <state relative-caret-position="-3820">
+              <caret line="257" column="181" selection-start-line="257" selection-start-column="181" selection-end-line="257" selection-end-column="181" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -32,8 +32,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="814">
-              <caret line="226" column="20" lean-forward="true" selection-start-line="226" selection-start-column="20" selection-end-line="226" selection-end-column="20" />
+            <state relative-caret-position="728">
+              <caret line="251" selection-start-line="251" selection-end-line="251" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -52,8 +52,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>NONE</find>
-      <find>.txt</find>
       <find>'''</find>
       <find>print</find>
       <find>readline</find>
@@ -82,6 +80,8 @@
       <find>,,</find>
       <find>YQAGI</find>
       <find>sigma</find>
+      <find>starbo</find>
+      <find>if v2_r == v1_r and v2_c == v1_c + 1:</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;&quot;</replace>
@@ -154,8 +154,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -345,34 +345,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_align_py - 2019.03.06 at 17h 57m 25s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 10m 28s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.06 at 18h 13m 07s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 11m 56s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.06 at 18h 15m 25s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 12m 57s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.06 at 18h 15m 45s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 12m 59s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.06 at 18h 17m 09s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 14m 56s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.06 at 18h 19m 52s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 14m 59s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.06 at 18h 21m 44s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 17m 19s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.06 at 18h 22m 30s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 18m 44s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.06 at 18h 22m 41s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 19m 36s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.06 at 18h 28m 28s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 30m 18s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -389,12 +389,12 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.45142856" visible="true" weight="0.21719822" />
-      <window_info id="Structure" order="1" sideWeight="0.5485714" side_tool="true" visible="true" weight="0.21719822" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.45057473" visible="true" weight="0.22154222" />
+      <window_info id="Structure" order="1" sideWeight="0.5494253" side_tool="true" visible="true" weight="0.22154222" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32950193" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32950193" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.42222223" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -430,11 +430,6 @@
           <url>file://$PROJECT_DIR$/chapter04/sequence.py</url>
           <line>201</line>
           <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/chapter05/align.py</url>
-          <line>410</line>
-          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -806,8 +801,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="814">
-          <caret line="226" column="20" lean-forward="true" selection-start-line="226" selection-start-column="20" selection-end-line="226" selection-end-column="20" />
+        <state relative-caret-position="728">
+          <caret line="251" selection-start-line="251" selection-end-line="251" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -816,8 +811,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter05/align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="367" column="13" lean-forward="true" selection-start-line="367" selection-start-column="13" selection-end-line="367" selection-end-column="13" />
+        <state relative-caret-position="-3820">
+          <caret line="257" column="181" selection-start-line="257" selection-start-column="181" selection-end-line="257" selection-end-column="181" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

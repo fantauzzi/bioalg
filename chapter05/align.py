@@ -247,24 +247,17 @@ def longest_common_string(string1, string2):
     return longest_string
 
 
-def best_alignment(string1, string2, scoring_matrix, alphabet, sigma, local=False):
+def alignment_from_longest_path(best_path, scores, string1, string2, local=False):
     """
-    Returns the best global or local alignment between two strings, based on a scoring matrix.
+    Returns the alignment between two strings, given a path in their alignment graph.
+    :param best_path: The path in the alignment graph; a sequence of pairs, where each pair corresponds to a vertex; the first element of each pair being the row index, and the second element the column index.
+    :param scores: A sequence of numbers; the i-th item is the overall score to traverse the graph along the path from source to the i-th vertex of the path. Because the last vertex of the path is the sink of the graph, the last item in the sequence is the overall score for the path.
     :param string1: The first string.
     :param string2: The second string.
-    :param scoring_matrix: The scoring matrix, a sequence of sequences of integer numbers.
-    :param alphabet: All the characters that could appear in either string, a sequence of strings.
-    :param sigma: The penalty to be applied to insertions and deletion; an integer, typically positive; if negative, it becomes a reward for indels.
-    :param local: True if a local alignment is sought, False for a global alignment.
-    :return:the score of the alignment and a pair of strings, with the calculated alignment; insertions and deletions are indicated in the strings by a '-'.
+    :param local: A boolean, indicating if local alignment is sought; if False, then global alignment is sought.
+    :return: A pair of strings, the alignment strings corresponding respectively to string1 and string2; any insertion and deletion in the strings is represented by a "-" character.
     """
     blank = '-'
-
-    adj = alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sigma, local)
-
-    # Determine the longest path along the alignment graph
-    best_path, scores = dag_longest_path(adj, source=vertex_name(0, 0), sink=vertex_name(len(string1), len(string2)))
-
     # Convert the longest path into the alignment of the two given strings
     aligned1, aligned2 = [], []
     for i in range(0, len(best_path) - 1):
@@ -288,6 +281,26 @@ def best_alignment(string1, string2, scoring_matrix, alphabet, sigma, local=Fals
 
     aligned1 = ''.join(aligned1)
     aligned2 = ''.join(aligned2)
+    return aligned1, aligned2
+
+
+def best_alignment(string1, string2, scoring_matrix, alphabet, sigma, local=False):
+    """
+    Returns the best global or local alignment between two strings, based on a scoring matrix.
+    :param string1: The first string.
+    :param string2: The second string.
+    :param scoring_matrix: The scoring matrix, a sequence of sequences of integer numbers.
+    :param alphabet: All the characters that could appear in either string, a sequence of strings.
+    :param sigma: The penalty to be applied to insertions and deletion; an integer, typically positive; if negative, it becomes a reward for indels.
+    :param local: True if a local alignment is sought, False for a global alignment.
+    :return:the score of the alignment and a pair of strings, with the calculated alignment; insertions and deletions are indicated in the strings by a '-'.
+    """
+    adj = alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sigma, local)
+
+    # Determine the longest path along the alignment graph
+    best_path, scores = dag_longest_path(adj, source=vertex_name(0, 0), sink=vertex_name(len(string1), len(string2)))
+
+    aligned1, aligned2 = alignment_from_longest_path(best_path, scores, string1, string2, local)
 
     return scores[-1], (aligned1, aligned2)
 
@@ -328,25 +341,25 @@ def get_blosum62():
     """
     alphabet = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y']
     blosum62 = [[4, 0, -2, -1, -2, 0, -2, -1, -1, -1, -1, -2, -1, -1, -1, 1, 0, 0, -3, -2],
-                      [0, 9, -3, -4, -2, -3, -3, -1, -3, -1, -1, -3, -3, -3, -3, -1, -1, -1, -2, -2],
-                      [-2, -3, 6, 2, -3, -1, -1, -3, -1, -4, -3, 1, -1, 0, -2, 0, -1, -3, -4, -3],
-                      [-1, -4, 2, 5, -3, -2, 0, -3, 1, -3, -2, 0, -1, 2, 0, 0, -1, -2, -3, -2],
-                      [-2, -2, -3, -3, 6, -3, -1, 0, -3, 0, 0, -3, -4, -3, -3, -2, -2, -1, 1, 3],
-                      [0, -3, -1, -2, -3, 6, -2, -4, -2, -4, -3, 0, -2, -2, -2, 0, -2, -3, -2, -3],
-                      [-2, -3, -1, 0, -1, -2, 8, -3, -1, -3, -2, 1, -2, 0, 0, -1, -2, -3, -2, 2],
-                      [-1, -1, -3, -3, 0, -4, -3, 4, -3, 2, 1, -3, -3, -3, -3, -2, -1, 3, -3, -1],
-                      [-1, -3, -1, 1, -3, -2, -1, -3, 5, -2, -1, 0, -1, 1, 2, 0, -1, -2, -3, -2],
-                      [-1, -1, -4, -3, 0, -4, -3, 2, -2, 4, 2, -3, -3, -2, -2, -2, -1, 1, -2, -1],
-                      [-1, -1, -3, -2, 0, -3, -2, 1, -1, 2, 5, -2, -2, 0, -1, -1, -1, 1, -1, -1],
-                      [2, -3, 1, 0, -3, 0, 1, -3, 0, -3, -2, 6, -2, 0, 0, 1, 0, -3, -4, -2],
-                      [-1, -3, -1, -1, -4, -2, -2, -3, -1, -3, -2, -2, 7, -1, -2, -1, -1, -2, -4, -3],
-                      [-1, -3, 0, 2, -3, -2, 0, -3, 1, -2, 0, 0, -1, 5, 1, 0, -1, -2, -2, -1],
-                      [-1, -3, -2, 0, -3, -2, 0, -3, 2, -2, -1, 0, -2, 1, 5, -1, -1, -3, -3, -2],
-                      [1, -1, 0, 0, -2, 0, -1, -2, 0, -2, -1, 1, -1, 0, -1, 4, 1, -2, -3, -2],
-                      [0, -1, -1, -1, -2, -2, -2, -1, -1, -1, -1, 0, -1, -1, -1, 1, 5, 0, -2, -2],
-                      [0, -1, -3, -2, -1, -3, -3, 3, -2, 1, 1, -3, -2, -2, -3, -2, 0, 4, -3, -1],
-                      [-3, -2, -4, -3, 1, -2, -2, -3, -3, -2, -1, -4, -4, -2, -3, -3, -2, -3, 11, 2],
-                      [-2, -2, -3, -2, 3, -3, 2, -1, -2, -1, -1, -2, -3, -1, -2, -2, -2, -1, 2, 7]]
+                [0, 9, -3, -4, -2, -3, -3, -1, -3, -1, -1, -3, -3, -3, -3, -1, -1, -1, -2, -2],
+                [-2, -3, 6, 2, -3, -1, -1, -3, -1, -4, -3, 1, -1, 0, -2, 0, -1, -3, -4, -3],
+                [-1, -4, 2, 5, -3, -2, 0, -3, 1, -3, -2, 0, -1, 2, 0, 0, -1, -2, -3, -2],
+                [-2, -2, -3, -3, 6, -3, -1, 0, -3, 0, 0, -3, -4, -3, -3, -2, -2, -1, 1, 3],
+                [0, -3, -1, -2, -3, 6, -2, -4, -2, -4, -3, 0, -2, -2, -2, 0, -2, -3, -2, -3],
+                [-2, -3, -1, 0, -1, -2, 8, -3, -1, -3, -2, 1, -2, 0, 0, -1, -2, -3, -2, 2],
+                [-1, -1, -3, -3, 0, -4, -3, 4, -3, 2, 1, -3, -3, -3, -3, -2, -1, 3, -3, -1],
+                [-1, -3, -1, 1, -3, -2, -1, -3, 5, -2, -1, 0, -1, 1, 2, 0, -1, -2, -3, -2],
+                [-1, -1, -4, -3, 0, -4, -3, 2, -2, 4, 2, -3, -3, -2, -2, -2, -1, 1, -2, -1],
+                [-1, -1, -3, -2, 0, -3, -2, 1, -1, 2, 5, -2, -2, 0, -1, -1, -1, 1, -1, -1],
+                [2, -3, 1, 0, -3, 0, 1, -3, 0, -3, -2, 6, -2, 0, 0, 1, 0, -3, -4, -2],
+                [-1, -3, -1, -1, -4, -2, -2, -3, -1, -3, -2, -2, 7, -1, -2, -1, -1, -2, -4, -3],
+                [-1, -3, 0, 2, -3, -2, 0, -3, 1, -2, 0, 0, -1, 5, 1, 0, -1, -2, -2, -1],
+                [-1, -3, -2, 0, -3, -2, 0, -3, 2, -2, -1, 0, -2, 1, 5, -1, -1, -3, -3, -2],
+                [1, -1, 0, 0, -2, 0, -1, -2, 0, -2, -1, 1, -1, 0, -1, 4, 1, -2, -3, -2],
+                [0, -1, -1, -1, -2, -2, -2, -1, -1, -1, -1, 0, -1, -1, -1, 1, 5, 0, -2, -2],
+                [0, -1, -3, -2, -1, -3, -3, 3, -2, 1, 1, -3, -2, -2, -3, -2, 0, 4, -3, -1],
+                [-3, -2, -4, -3, 1, -2, -2, -3, -3, -2, -1, -4, -4, -2, -3, -3, -2, -3, 11, 2],
+                [-2, -2, -3, -2, 3, -3, 2, -1, -2, -1, -1, -2, -3, -1, -2, -2, -2, -1, 2, 7]]
     return alphabet, blosum62
 
 
@@ -411,3 +424,34 @@ def edit_distance(string1, string2):
     length = lengths[-1]
 
     return -length
+
+
+def fit_align(long, short):
+    assert len(long) >= len(short)
+
+    # Determine the alphabet of the two strings, and store it in a list. The list is sorted to facilitate debugging
+    alphabet = list(sorted(set(long + short)))
+
+    # Set the scoring matrix
+    scoring_matrix = [[-1 if row_item != col_item else 1 for col_item in alphabet] for row_item in alphabet]
+
+    # Compute the alignment graph for the two given strings and the scoring matrix
+    adj = alignment_graph_from_strings(long, short, scoring_matrix, alphabet, sigma=1, local=False)
+
+    # Add free taxi-rides (local aligment) for long only
+
+    for row_i in range(1, len(long) + 1):
+        # source -> (row_i, 0)
+        adj[vertex_name(0, 0)].append((vertex_name(row_i, 0), 0))
+
+    for row_i in range(0, len(long)):
+        # (row_1, starboard side) -> sink
+        adj[vertex_name(row_i, len(short))].append((vertex_name(len(long), len(short)), 0))
+
+    # Find the longest path in the DAG
+    best_path, scores = dag_longest_path(adj, source=vertex_name(0, 0), sink=vertex_name(len(long), len(short)))
+
+    # Compute the alignment for the two strings, given the longest path
+    aligned1, aligned2 = alignment_from_longest_path(best_path, scores, long, short, local=True)
+
+    return scores[-1], (aligned1, aligned2)
