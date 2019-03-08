@@ -20,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter05/align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3820">
-              <caret line="257" column="181" selection-start-line="257" selection-start-column="181" selection-end-line="257" selection-end-column="181" />
+            <state relative-caret-position="692">
+              <caret line="481" column="105" selection-start-line="481" selection-start-column="105" selection-end-line="481" selection-end-column="105" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -32,8 +32,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="728">
-              <caret line="251" selection-start-line="251" selection-end-line="251" />
+            <state relative-caret-position="1102">
+              <caret line="273" selection-start-line="273" selection-end-line="273" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -266,32 +266,17 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest for test_align.test_local_protein_alignment" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="bioalg" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter05" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;-v&quot;" />
-      <option name="_new_target" value="&quot;test_align.test_local_protein_alignment&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="pytest in test_align.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="bioalg" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter05" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;-v&quot;" />
+      <option name="_new_additionalArguments" value="&quot;-v --durations\u003d0&quot;" />
       <option name="_new_target" value="&quot;$PROJECT_DIR$/chapter05/test_align.py&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
@@ -316,12 +301,10 @@
       <item itemvalue="Python.stepik_assembly" />
       <item itemvalue="Python tests.pytest in test_assembly.py" />
       <item itemvalue="Python tests.pytest in test_align.py" />
-      <item itemvalue="Python tests.pytest for test_align.test_local_protein_alignment" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python tests.pytest in test_align.py" />
-        <item itemvalue="Python tests.pytest for test_align.test_local_protein_alignment" />
         <item itemvalue="Python.stepik_assembly" />
         <item itemvalue="Python tests.pytest in test_assembly.py" />
         <item itemvalue="Python.assembly" />
@@ -345,34 +328,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 10m 28s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 53m 22s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 11m 56s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 54m 09s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 12m 57s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 56m 01s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 12m 59s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 56m 40s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 14m 56s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 57m 03s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 14m 59s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 57m 40s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 17m 19s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 59m 05s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 18m 44s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 59m 08s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 19m 36s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 59m 39s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.07 at 18h 30m 18s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 10h 00m 32s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -389,8 +372,8 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.45057473" visible="true" weight="0.22154222" />
-      <window_info id="Structure" order="1" sideWeight="0.5494253" side_tool="true" visible="true" weight="0.22154222" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.44904214" visible="true" weight="0.22123536" />
+      <window_info id="Structure" order="1" sideWeight="0.55095786" side_tool="true" visible="true" weight="0.22123536" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
@@ -801,8 +784,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="728">
-          <caret line="251" selection-start-line="251" selection-end-line="251" />
+        <state relative-caret-position="1102">
+          <caret line="273" selection-start-line="273" selection-end-line="273" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -811,8 +794,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter05/align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3820">
-          <caret line="257" column="181" selection-start-line="257" selection-start-column="181" selection-end-line="257" selection-end-column="181" />
+        <state relative-caret-position="692">
+          <caret line="481" column="105" selection-start-line="481" selection-start-column="105" selection-end-line="481" selection-end-column="105" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

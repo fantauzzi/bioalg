@@ -427,6 +427,12 @@ def edit_distance(string1, string2):
 
 
 def fit_align(long, short):
+    """
+    Returns a highest score fitting alignment of one string into another, where matches are scored 1, and both mismatches and indels are penalised by 1.
+    :param long: The string to be aligned against.
+    :param short: The string to be aligned against the long string.
+    :return: A pair, the first element is the score of the alignment, the second element is a pair of strings, with the alignment of long and short respectively.
+    """
     assert len(long) >= len(short)
 
     # Determine the alphabet of the two strings, and store it in a list. The list is sorted to facilitate debugging
@@ -453,5 +459,40 @@ def fit_align(long, short):
 
     # Compute the alignment for the two strings, given the longest path
     aligned1, aligned2 = alignment_from_longest_path(best_path, scores, long, short, local=True)
+
+    return scores[-1], (aligned1, aligned2)
+
+
+def overlap_align(string1, string2):
+    """
+    Returns the highest scoring overlap alignment between two strings, and their score, where mismatches and deletions are penalised by 2, and matches are scored 1. The operation is not commutative.
+    :param string1: The first string.
+    :param string2: The second string.
+    :return: A pair, the first element is the score, the second element is a pair of strings, giving the alignment of a suffix of string1 and a prefix of string2.
+    """
+    # Determine the alphabet of the two strings, and store it in a list. The list is sorted to facilitate debugging
+    alphabet = list(sorted(set(string1 + string2)))
+
+    # Set the scoring matrix
+    scoring_matrix = [[-2 if row_item != col_item else 1 for col_item in alphabet] for row_item in alphabet]
+
+    # Compute the alignment graph for the two given strings and the scoring matrix
+    adj = alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sigma=2, local=False)
+
+    # Add free taxi-rides (local aligment) to allow skipping a prefix of string1 and a postfix of string2
+
+    for row_i in range(1, len(string1) + 1):
+        # source -> (row_i, 0)
+        adj[vertex_name(0, 0)].append((vertex_name(row_i, 0), 0))
+
+    for col_i in range(0, len(string2)):
+        # (bottom side, col_i) -> sink
+        adj[vertex_name(len(string1), col_i)].append((vertex_name(len(string1), len(string2)), 0))
+
+    # Find the longest path in the DAG
+    best_path, scores = dag_longest_path(adj, source=vertex_name(0, 0), sink=vertex_name(len(string1), len(string2)))
+
+    # Compute the alignment for the two strings, given the longest path
+    aligned1, aligned2 = alignment_from_longest_path(best_path, scores, string1, string2, local=True)
 
     return scores[-1], (aligned1, aligned2)
