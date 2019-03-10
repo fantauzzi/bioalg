@@ -20,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter05/align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="692">
-              <caret line="481" column="105" selection-start-line="481" selection-start-column="105" selection-end-line="481" selection-end-column="105" />
+            <state relative-caret-position="434">
+              <caret line="508" column="16" lean-forward="true" selection-start-line="508" selection-start-column="4" selection-end-line="508" selection-end-column="28" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -32,8 +32,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1102">
-              <caret line="273" selection-start-line="273" selection-end-line="273" />
+            <state relative-caret-position="1366">
+              <caret line="315" column="19" lean-forward="true" selection-start-line="315" selection-start-column="19" selection-end-line="315" selection-end-column="19" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -136,16 +136,16 @@
         <option value="$PROJECT_DIR$/chapter05/test/testcase02.txt" />
         <option value="$PROJECT_DIR$/chapter05/test/testcase03.txt" />
         <option value="$PROJECT_DIR$/chapter05/test/testcase04.txt" />
-        <option value="$PROJECT_DIR$/chapter05/test_align.py" />
         <option value="$PROJECT_DIR$/chapter05/align.py" />
+        <option value="$PROJECT_DIR$/chapter05/test_align.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1977" />
-    <option name="y" value="-3" />
+    <option name="y" value="25" />
     <option name="width" value="2503" />
-    <option name="height" value="1443" />
+    <option name="height" value="1415" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -328,34 +328,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 53m 22s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 42m 53s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 54m 09s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 43m 15s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 56m 01s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 43m 18s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 56m 40s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 44m 33s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 57m 03s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 44m 34s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 57m 40s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 44m 46s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 59m 05s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 46m 35s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 59m 08s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 47m 28s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 09h 59m 39s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 47m 29s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.08 at 10h 00m 32s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 51m 28s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -372,8 +372,8 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.44904214" visible="true" weight="0.22123536" />
-      <window_info id="Structure" order="1" sideWeight="0.55095786" side_tool="true" visible="true" weight="0.22123536" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.44444445" visible="true" weight="0.22123536" />
+      <window_info id="Structure" order="1" sideWeight="0.5555556" side_tool="true" visible="true" weight="0.22123536" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
@@ -413,6 +413,11 @@
           <url>file://$PROJECT_DIR$/chapter04/sequence.py</url>
           <line>201</line>
           <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/chapter05/align.py</url>
+          <line>550</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -468,59 +473,53 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>list(sorted(set(string1+string2)))</expression-string>
+        <expression-string>adj['6,9,1']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>sorted(list(set(string1+string2)))</expression-string>
+        <expression-string>adj['6,9,0']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>list(set(string1+string2))</expression-string>
+        <expression-string>adj['6,9,2']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>list(set(string1+string2)).sort()</expression-string>
+        <expression-string>adj['7,3,0']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>set(string1+string2)</expression-string>
+        <expression-string>adj['7,9,1']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>scores[800:]</expression-string>
+        <expression-string>adj['5,9,1']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>scores</expression-string>
+        <expression-string>len(ammino1), len(ammino2)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>len(string1), len(string2)</expression-string>
+        <expression-string>adj['7,9,2']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>best_path[800:]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>best_path[500:]</expression-string>
+        <expression-string>adj['7,9,0']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/chapter01/deborah.py" />
     <entry file="file://$PROJECT_DIR$/chapter01/chap01.py" />
     <entry file="file://$PROJECT_DIR$/chapter01/niemasd.py" />
     <entry file="file://$PROJECT_DIR$/chapter01/Car.py" />
@@ -782,10 +781,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/_pytest/assertion/rewrite.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="300" column="32" lean-forward="true" selection-start-line="300" selection-start-column="32" selection-end-line="300" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1102">
-          <caret line="273" selection-start-line="273" selection-end-line="273" />
+        <state relative-caret-position="1366">
+          <caret line="315" column="19" lean-forward="true" selection-start-line="315" selection-start-column="19" selection-end-line="315" selection-end-column="19" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -794,8 +800,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter05/align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="692">
-          <caret line="481" column="105" selection-start-line="481" selection-start-column="105" selection-end-line="481" selection-end-column="105" />
+        <state relative-caret-position="434">
+          <caret line="508" column="16" lean-forward="true" selection-start-line="508" selection-start-column="4" selection-end-line="508" selection-end-column="28" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

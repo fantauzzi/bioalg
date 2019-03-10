@@ -271,3 +271,58 @@ def test_overlap_alignment():
     assert score == 28
     assert s1 == 'GTACGTTCAGCTAATCCTAGCATGGTATAGCTATAGCCGACGCCGCCTCCCGACATAGCTAA'
     assert s2 == 'GACTAGCTACTAGCCGACGCGCCTCCCGACATAGCTAATCATAATCAGACCATCGACGGACTAGCCATGC'
+
+
+def test_alaign_with_gap_penalties():
+    alphabet, scoring_matrix = align.get_blosum62()
+
+    ammino1 = 'PRTEINS'
+    ammino2 = 'PRTWPSEIN'
+    score, (aligned1, aligned2) = align.align_with_gap_penalties(ammino1,
+                                                                 ammino2,
+                                                                 alphabet,
+                                                                 scoring_matrix,
+                                                                 gap_open_penalty=11,
+                                                                 gap_ext_penalty=1)
+
+    assert score == 8
+    assert aligned1 == 'PRT---EINS'
+    assert aligned2 == 'PRTWPSEIN-'
+
+    ammino1 = 'WC'
+    ammino2 = 'WHC'
+    score, (aligned1, aligned2) = align.align_with_gap_penalties(ammino1,
+                                                                 ammino2,
+                                                                 alphabet,
+                                                                 scoring_matrix,
+                                                                 gap_open_penalty=11,
+                                                                 gap_ext_penalty=1)
+
+    assert score == 9
+    assert ammino1 == 'WC'
+    assert ammino2 == 'WHC'
+
+    ammino1 = 'YHFDVPDCWAHRYWVENPQAIAQMEQICFNWFPSMMMKQPHVFKVDHHMSCRWLPIRGKKCSSCCTRMRVRTVWE'
+    ammino2 = 'YHEDVAHEDAIAQMVNTFGFVWQICLNQFPSMMMKIYWIAVLSAHVADRKTWSKHMSCRWLPIISATCARMRVRTVWE'
+    score, (aligned1, aligned2) = align.align_with_gap_penalties(ammino1,
+                                                                 ammino2,
+                                                                 alphabet,
+                                                                 scoring_matrix,
+                                                                 gap_open_penalty=11,
+                                                                 gap_ext_penalty=1)
+
+    assert score == 144
+    assert aligned1 == 'YHFDVPDCWAHRYWVENPQAIAQME-------QICFNWFPSMMMK-------QPHVF---KVDHHMSCRWLPIRGKKCSSCCTRMRVRTVWE'
+    assert aligned2 == 'YHEDV----AHE------DAIAQMVNTFGFVWQICLNQFPSMMMKIYWIAVLSAHVADRKTWSKHMSCRWLPI----ISATCARMRVRTVWE'
+
+    ammino1='GLWFLNEPSSPQYEFPWDYIHRQNKIEKIPVNMKVFNSNPPMPQTFTEQIIIACMADCAFCYGAGQRWCSYVP'
+    ammino2='GLWFLNEPSSPQYEAPSDYGTDPHLQNKIEKIPIYALAPNMWTVDPEKVFNSNPPMPQNIMFQEQIIIACMVWCSYVP'
+    score, (aligned1, aligned2) = align.align_with_gap_penalties(ammino1,
+                                                                 ammino2,
+                                                                 alphabet,
+                                                                 scoring_matrix,
+                                                                 gap_open_penalty=11,
+                                                                 gap_ext_penalty=1)
+    assert score == 226
+    assert aligned1 =='GLWFLNEPSSPQYEFPWDY---IHRQNKIEKIPV-----NM------KVFNSNPPMPQT--FTEQIIIACMADCAFCYGAGQRWCSYVP'
+    assert aligned2=='GLWFLNEPSSPQYEAPSDYGTDPHLQNKIEKIPIYALAPNMWTVDPEKVFNSNPPMPQNIMFQEQIIIACMV-----------WCSYVP'

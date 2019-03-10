@@ -139,7 +139,7 @@ def dag_longest_path(adj, source, sink):
     return longest_path, distances
 
 
-def vertex_name(row, col):
+def vertex_name(row, col, layer=None):  # TODO fix the documentation
     """
     Converts a pair of integer numbers into a string, and returns the string. It is given by the two numbers separated by a comma.
     :param row: The first integer.
@@ -147,6 +147,8 @@ def vertex_name(row, col):
     :return: The string.
     """
     name = str(row) + ',' + str(col)
+    if layer is not None:
+        name = name + ',' + str(layer)
     return name
 
 
@@ -156,9 +158,15 @@ def vertex_from_name(name):
     :param name:  The given string.
     :return: A pair of two integer numbers.
     """
-    r, c = name.split(',')
-    row, col = int(r), int(c)
-    return row, col
+    items = name.split(',')
+    if len(items) == 2:
+        r, c = items
+        row, col = int(r), int(c)
+        return row, col
+    assert len(items) == 3
+    r, c, l = items
+    row, col, layer = int(r), int(c), int(l)
+    return row, col, layer
 
 
 def alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sigma, local=False):
@@ -496,3 +504,78 @@ def overlap_align(string1, string2):
     aligned1, aligned2 = alignment_from_longest_path(best_path, scores, string1, string2, local=True)
 
     return scores[-1], (aligned1, aligned2)
+
+
+def align_with_gap_penalties(ammino1, ammino2, alphabet, scoring_matrix, gap_open_penalty, gap_ext_penalty):
+    scoring_matrix = DataFrame(scoring_matrix, columns=alphabet, index=alphabet)
+    # Convert the two strings to be matched into their alignment graph
+    adj = {}  # The aligment graph will go here
+    for row_i, row_item in enumerate(ammino1):
+        # Fill in the starboard side, for row row_i
+        adj[vertex_name(row_i, len(ammino2), 0)] = [(vertex_name(row_i + 1, len(ammino2), 0), -gap_ext_penalty),  # Down
+                                                    (vertex_name(row_i, len(ammino2), 1), 0)]  # To layer 1
+        adj[vertex_name(row_i, len(ammino2), 2)] = [(vertex_name(row_i, len(ammino2), 1), 0)]  # To layer 1
+        adj[vertex_name(row_i, len(ammino2), 1)] = [
+            (vertex_name(row_i + 1, len(ammino2), 0), -gap_open_penalty)]  # To layer 0, -sigma
+
+        # Fill in the rest of row row_i
+        for col_i, col_item in enumerate(ammino2):
+            adj[vertex_name(row_i, col_i, 0)] = [(vertex_name(row_i + 1, col_i, 0), -gap_ext_penalty),  # Down, -epsilon
+                                                 (vertex_name(row_i, col_i, 1), 0)]  # To layer 1, cost 0
+            adj[vertex_name(row_i, col_i, 1)] = [
+                (vertex_name(row_i + 1, col_i + 1, 1), scoring_matrix[ammino2[col_i]][ammino1[row_i]]),  # Down-right
+                (vertex_name(row_i + 1, col_i, 0), -gap_open_penalty),  # To layer 0, cost -sigma
+                (vertex_name(row_i, col_i + 1, 2), -gap_open_penalty)]  # To layer 2, cost -sigma
+            adj[vertex_name(row_i, col_i, 2)] = [(vertex_name(row_i, col_i + 1, 2), -gap_ext_penalty),
+                                                 # right, -epsilon
+                                                 (vertex_name(row_i, col_i, 1), 0)]  # To layer 1, cost 0
+
+    # Complete the bottom
+    for col_i in range(0, len(ammino2)):
+        assert adj.get(vertex_name(len(ammino1), col_i, 0)) is None
+        adj[vertex_name(len(ammino1), col_i, 0)] = [(vertex_name(len(ammino1), col_i, 1), 0)]  # To layer 1, cost 0
+        assert adj.get(vertex_name(len(ammino1), col_i, 2)) is None
+        adj[vertex_name(len(ammino1), col_i, 2)] = [(vertex_name(len(ammino1), col_i + 1, 2), -gap_ext_penalty),
+                                                    # Right, -epsilon
+                                                    (vertex_name(len(ammino1), col_i, 1), 0)]  # To layer 1, cost 0
+
+    # Complete the bottom-right corner
+    assert adj.get(vertex_name(len(ammino1), len(ammino2), 0)) is None
+    assert adj.get(vertex_name(len(ammino1), len(ammino2), 2)) is None
+    adj[vertex_name(len(ammino1), len(ammino2), 0)] = [(vertex_name(len(ammino1), len(ammino2), 1), 0)]
+    adj[vertex_name(len(ammino1), len(ammino2), 2)] = [(vertex_name(len(ammino1), len(ammino2), 1), 0)]
+
+    # Find the longest path in the DAG
+    best_path, scores = dag_longest_path(adj, source=vertex_name(0, 0, 1),
+                                         sink=vertex_name(len(ammino1), len(ammino2), 1))
+
+    # Construct the aligned strings based on the longest path
+
+    blank='-'
+    aligned1, aligned2 = [], []
+    for i in range(0, len(best_path) - 1):
+        vertex1 = best_path[i]
+        vertex2 = best_path[i + 1]
+        v1_r, v1_c, v1_l = vertex_from_name(vertex1)
+        v2_r, v2_c, v2_l = vertex_from_name(vertex2)
+        # Match and mismatch
+        if v1_l == v2_l == 1:
+            aligned1.append(ammino1[v1_r])
+            aligned2.append(ammino2[v1_c])
+        # Deletion
+        elif v1_l == v2_l == 0 or (v1_l==1 and v2_l==0):
+            aligned1.append(ammino1[v1_r])
+            aligned2.append(blank)
+        # Insertion
+        elif v1_l == v2_l == 2 or (v1_l==1 and v2_l==2):
+            aligned1.append(blank)
+            aligned2.append(ammino2[v1_c])
+
+    aligned1 = ''.join(aligned1)
+    aligned2 = ''.join(aligned2)
+
+    best_score = scores[-1]
+
+    return best_score, (aligned1, aligned2)
+
+
