@@ -1,5 +1,5 @@
 import numpy as np
-from pandas import DataFrame
+# from pandas import DataFrame
 
 """ 
 NOTE
@@ -169,6 +169,16 @@ def vertex_from_name(name):
     return row, col, layer
 
 
+def scoring_matrix_as_dict(alphabet, scoring_matrix):
+    as_dict = {}
+    for row_i in range(0, len(alphabet)):
+        row_dict = {}
+        for col_i in range(0, len(alphabet)):
+            row_dict[alphabet[col_i]] = scoring_matrix[row_i][col_i]
+        as_dict[alphabet[row_i]] = row_dict
+    return as_dict
+
+
 def alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sigma, local=False):
     """
     Returns the alignment graph (a weighted DAG) for two given strings.
@@ -181,7 +191,8 @@ def alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sig
     :return: The adjacency lists of the weighted DAG, a dictionary.
     """
 
-    scoring_matrix = DataFrame(scoring_matrix, columns=alphabet, index=alphabet)
+    # scoring_matrix = DataFrame(scoring_matrix, columns=alphabet, index=alphabet)
+    scoring_matrix = scoring_matrix_as_dict(alphabet, scoring_matrix)
     # Convert the two strings to be matched into their alignment graph
     adj = {}  # The aligment graph will go here
     for row_i, row_item in enumerate(string1):
@@ -359,7 +370,7 @@ def get_blosum62():
                 [-1, -3, -1, 1, -3, -2, -1, -3, 5, -2, -1, 0, -1, 1, 2, 0, -1, -2, -3, -2],
                 [-1, -1, -4, -3, 0, -4, -3, 2, -2, 4, 2, -3, -3, -2, -2, -2, -1, 1, -2, -1],
                 [-1, -1, -3, -2, 0, -3, -2, 1, -1, 2, 5, -2, -2, 0, -1, -1, -1, 1, -1, -1],
-                [2, -3, 1, 0, -3, 0, 1, -3, 0, -3, -2, 6, -2, 0, 0, 1, 0, -3, -4, -2],
+                [-2, -3, 1, 0, -3, 0, 1, -3, 0, -3, -2, 6, -2, 0, 0, 1, 0, -3, -4, -2],
                 [-1, -3, -1, -1, -4, -2, -2, -3, -1, -3, -2, -2, 7, -1, -2, -1, -1, -2, -4, -3],
                 [-1, -3, 0, 2, -3, -2, 0, -3, 1, -2, 0, 0, -1, 5, 1, 0, -1, -2, -2, -1],
                 [-1, -3, -2, 0, -3, -2, 0, -3, 2, -2, -1, 0, -2, 1, 5, -1, -1, -3, -3, -2],
@@ -371,7 +382,7 @@ def get_blosum62():
     return alphabet, blosum62
 
 
-def score_and_check(input1, input2, solution1, solution2, scoring_matrix, alphabet, sigma):
+def score_and_check(input1, input2, solution1, solution2, scoring_matrix, alphabet, sigma, local=False):
     """
     Verifies if a given solution is admissible as the best local alignment between two strings, and computes and returns the related score.
     :param input1: The first string.
@@ -383,7 +394,8 @@ def score_and_check(input1, input2, solution1, solution2, scoring_matrix, alphab
     :param sigma: The penalty for insertions and deletions; typically a positive number, if negative, it becomes a reward for indels.
     :return: A pair with a boolean and a number; the boolean is True if and only if solution1 and solution2 are possible local alignments for input1 and input2, the number is the alignment score. If the boolean is False, the score is meaningless.
     """
-    scoring_matrix = DataFrame(scoring_matrix, columns=alphabet, index=alphabet)
+    # scoring_matrix = DataFrame(scoring_matrix, columns=alphabet, index=alphabet)
+    scoring_matrix = scoring_matrix_as_dict(alphabet, scoring_matrix)
     s1, s2 = 0, 0
     i1, i2 = 0, 0
     score = 0
@@ -406,7 +418,10 @@ def score_and_check(input1, input2, solution1, solution2, scoring_matrix, alphab
     solution1_compacted = solution1.replace('-', '')
     solution2_compacted = solution2.replace('-', '')
 
-    return score, solution1_compacted in input1 and solution2_compacted in input2
+    if local:
+        return score, solution1_compacted in input1 and solution2_compacted in input2
+
+    return score, solution1_compacted == input1 and solution2_compacted == input2
 
 
 def edit_distance(string1, string2):
@@ -507,7 +522,8 @@ def overlap_align(string1, string2):
 
 
 def align_with_gap_penalties(ammino1, ammino2, alphabet, scoring_matrix, gap_open_penalty, gap_ext_penalty):
-    scoring_matrix = DataFrame(scoring_matrix, columns=alphabet, index=alphabet)
+    # scoring_matrix = DataFrame(scoring_matrix, columns=alphabet, index=alphabet)
+    scoring_matrix = scoring_matrix_as_dict(alphabet, scoring_matrix)
     # Convert the two strings to be matched into their alignment graph
     adj = {}  # The aligment graph will go here
     for row_i, row_item in enumerate(ammino1):
@@ -551,7 +567,7 @@ def align_with_gap_penalties(ammino1, ammino2, alphabet, scoring_matrix, gap_ope
 
     # Construct the aligned strings based on the longest path
 
-    blank='-'
+    blank = '-'
     aligned1, aligned2 = [], []
     for i in range(0, len(best_path) - 1):
         vertex1 = best_path[i]
@@ -563,11 +579,11 @@ def align_with_gap_penalties(ammino1, ammino2, alphabet, scoring_matrix, gap_ope
             aligned1.append(ammino1[v1_r])
             aligned2.append(ammino2[v1_c])
         # Deletion
-        elif v1_l == v2_l == 0 or (v1_l==1 and v2_l==0):
+        elif v1_l == v2_l == 0 or (v1_l == 1 and v2_l == 0):
             aligned1.append(ammino1[v1_r])
             aligned2.append(blank)
         # Insertion
-        elif v1_l == v2_l == 2 or (v1_l==1 and v2_l==2):
+        elif v1_l == v2_l == 2 or (v1_l == 1 and v2_l == 2):
             aligned1.append(blank)
             aligned2.append(ammino2[v1_c])
 
@@ -579,3 +595,152 @@ def align_with_gap_penalties(ammino1, ammino2, alphabet, scoring_matrix, gap_ope
     return best_score, (aligned1, aligned2)
 
 
+def split(string):
+    if len(string) >= 2:
+        col = len(string) // 2
+        return string[:col], string[-(len(string) - col):][::-1]
+    if len(string) == 1:
+        return '', string[0]
+    return '', ''
+
+
+def middle_edge(string1, string2, alphabet, scoring_matrix, sigma):
+    def last_2columns_score(string1, string2, alphabet, scoring_matrix, sigma):
+        # scoring_matrix = DataFrame(scoring_matrix, columns=alphabet, index=alphabet)
+        scoring_matrix = scoring_matrix_as_dict(alphabet, scoring_matrix)
+
+        prev_scores = None
+        col_scores = [i * (-sigma) for i in range(0, len(string1) + 1)]
+        for col_i in range(1, len(string2) + 1):
+            prev_scores = col_scores
+            col_scores = [prev_scores[0] - sigma]
+            for row in range(1, len(string1) + 1):
+                col_scores.append(max((col_scores[-1] - sigma,
+                                       prev_scores[row] - sigma,
+                                       prev_scores[row - 1] + scoring_matrix[string2[col_i - 1]][string1[row - 1]]
+                                       ))
+                                  )
+
+        return prev_scores, col_scores
+
+    # Select the middle column of the alignment graph
+    col = len(string2) // 2
+    string2_l, string2_r = split(string2)
+
+    # Get the scores from the source to the middle column
+    _, scores_l = last_2columns_score(string1,
+                                      string2_l,
+                                      alphabet,
+                                      scoring_matrix,
+                                      sigma)
+
+    # Get the scores from the sink to the next column after the middle column
+    prev_scores_r, scores_r = last_2columns_score(string1[::-1],
+                                                  string2_r,
+                                                  alphabet,
+                                                  scoring_matrix,
+                                                  sigma)
+
+    scores_r.reverse()
+    if prev_scores_r is not None:
+        prev_scores_r.reverse()
+
+    # scoring_matrix = DataFrame(scoring_matrix, columns=alphabet, index=alphabet)
+    scoring_matrix = scoring_matrix_as_dict(alphabet, scoring_matrix)
+
+    # Find the edge with the highest score going from the middle column to the next column or the lower row
+    highest_score = float('-inf')
+    vertex1 = None  # The vertex from where the edge originates (in the middle column)
+    vertex2 = None  # The vertex into which the edge goes (in the next column or row)
+    for row in range(0, len(string1) + 1):
+        # Check the edge going to the right, from a vertex in the middle column to a vertex in the next column on the same row
+        if col < len(string2):
+            if scores_l is None or prev_scores_r is None:
+                dummy = 42
+            score_right = scores_l[row] - sigma + prev_scores_r[row]
+            if score_right > highest_score:
+                highest_score = score_right
+                vertex1 = (row, col)
+                vertex2 = (row, col + 1)
+        # Check the diagonal edge and the edge going straight down
+        if row < len(string1) and col < len(
+                string2):  # You cannot go one row lower if you are already on the bottom row
+            score_diagonal = scores_l[row] + scoring_matrix[string2[col]][string1[row]] + prev_scores_r[row + 1]
+            if score_diagonal > highest_score:
+                highest_score = score_diagonal
+                vertex1 = (row, col)
+                vertex2 = (row + 1, col + 1)
+        if row < len(string1):  # You cannot go one row lower if you are already on the bottom row
+            score_vertical = scores_l[row] - sigma + scores_r[row + 1]
+            if score_vertical > highest_score:
+                highest_score = score_vertical
+                vertex1 = (row, col)
+                vertex2 = (row + 1, col)
+    return highest_score, (vertex1, vertex2)
+
+
+def linear_space_alignment(string1, string2, alphabet, scoring_matrix, sigma):
+    # Find the middle edge, and thr cost of the associated longest path
+    middle_score, middle = middle_edge(string1, string2, alphabet, scoring_matrix, sigma)
+
+    (v1_row, v1_col), (v2_row, v2_col) = middle
+
+    if v1_row == v2_row and v2_col == v1_col + 1:
+        middle_path = '-'
+    elif v2_row == v1_row + 1 and v2_col == v1_col + 1:
+        middle_path = '\\'
+    elif v2_row == v1_row + 1 and v2_col == v1_col:
+        middle_path = '|'
+    else:
+        assert False
+
+    # If the upper-left sub-problem is non empty, call recursively on the upper-left sub-problem
+    left_score, left_path = 0, ''
+    if string2[:v1_col] or string2[:v1_col]:
+        left_score, left_path = linear_space_alignment(string1[:v1_row], string2[:v1_col], alphabet, scoring_matrix,
+                                                       sigma)
+    # If the lower-right sub-problem is non empty, call recursively on the lower-right sub-problem
+    right_score, right_path = 0, ''
+    # if string2[v2_col:]:
+    if string1[v2_row:] or string2[v2_col:]:
+        right_score, right_path = linear_space_alignment(string1[v2_row:], string2[v2_col:], alphabet, scoring_matrix,
+                                                         sigma)
+
+    # Assemble the results
+    overall_path = ''.join((left_path, middle_path, right_path))
+
+    return middle_score, overall_path
+
+
+def aligned_strings_from_path(s1, s2, path):
+    blank = '-'
+
+    aligned1, aligned2 = [], []
+    pos_in_s1, pos_in_s2 = 0, 0
+    for item in path:
+        if item == '-':
+            aligned2.append(s2[pos_in_s2])
+            pos_in_s2 += 1
+            aligned1.append(blank)
+        elif item == '|':
+            aligned1.append(s1[pos_in_s1])
+            pos_in_s1 += 1
+            aligned2.append(blank)
+        else:
+            assert item == '\\'
+            aligned1.append(s1[pos_in_s1])
+            pos_in_s1 += 1
+            aligned2.append(s2[pos_in_s2])
+            pos_in_s2 += 1
+
+    if pos_in_s1 != len(s1):
+        dummy =42
+    assert pos_in_s1 == len(s1)
+    if pos_in_s2 != len(s2):
+        dummy =42
+    assert pos_in_s2 == len(s2)
+
+    aligned1 = ''.join(aligned1)
+    aligned2 = ''.join(aligned2)
+
+    return aligned1, aligned2

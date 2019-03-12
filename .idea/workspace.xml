@@ -20,11 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter05/align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
-              <caret line="508" column="16" lean-forward="true" selection-start-line="508" selection-start-column="4" selection-end-line="508" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="291">
+              <caret line="703" column="26" lean-forward="true" selection-start-line="703" selection-start-column="26" selection-end-line="703" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -32,8 +29,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1366">
-              <caret line="315" column="19" lean-forward="true" selection-start-line="315" selection-start-column="19" selection-end-line="315" selection-end-column="19" />
+            <state relative-caret-position="421">
+              <caret line="441" column="9" selection-start-line="441" selection-start-column="9" selection-end-line="441" selection-end-column="9" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -52,19 +49,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>'''</find>
-      <find>print</find>
-      <find>readline</find>
-      <find>composition</find>
-      <find>overlap</find>
-      <find>overla</find>
-      <find>over</find>
-      <find>gapped_pa</find>
-      <find>compleme</find>
-      <find>complemen</find>
-      <find>consis</find>
-      <find>peptide_mass</find>
-      <find>dead</find>
       <find>,</find>
       <find>spectrum</find>
       <find>sorted</find>
@@ -82,6 +66,19 @@
       <find>sigma</find>
       <find>starbo</find>
       <find>if v2_r == v1_r and v2_c == v1_c + 1:</find>
+      <find>got the</find>
+      <find>string2_l</find>
+      <find>global</find>
+      <find>dataframe</find>
+      <find>42</find>
+      <find>aligned</find>
+      <find>print</find>
+      <find>da</find>
+      <find>DataFrame</find>
+      <find>dataf</find>
+      <find>as_dict</find>
+      <find>datafra</find>
+      <find>blos</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;&quot;</replace>
@@ -143,9 +140,9 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1977" />
-    <option name="y" value="25" />
+    <option name="y" value="-3" />
     <option name="width" value="2503" />
-    <option name="height" value="1415" />
+    <option name="height" value="1443" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -154,8 +151,23 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bioalg" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bioalg" type="462c0819:PsiDirectoryNode" />
+              <item name="chapter05" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -328,34 +340,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 42m 53s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 24m 18s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 43m 15s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 24m 20s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 43m 18s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 26m 27s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 44m 33s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 31m 34s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 44m 34s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 31m 36s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 44m 46s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 32m 32s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 46m 35s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 33m 13s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 47m 28s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 36m 07s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 47m 29s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 36m 37s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.10 at 11h 51m 28s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 38m 03s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -370,10 +382,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.44444445" visible="true" weight="0.22123536" />
-      <window_info id="Structure" order="1" sideWeight="0.5555556" side_tool="true" visible="true" weight="0.22123536" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.43977273" visible="true" weight="0.22562219" />
+      <window_info id="Structure" order="1" sideWeight="0.5602273" side_tool="true" visible="true" weight="0.22562219" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
@@ -385,7 +396,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32950193" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32950193" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.3264368" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="10" visible="true" weight="0.3256705" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.249694" />
@@ -416,8 +427,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/chapter05/align.py</url>
-          <line>550</line>
-          <option name="timeStamp" value="16" />
+          <line>658</line>
+          <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -473,47 +484,52 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>adj['6,9,1']</expression-string>
+        <expression-string>string1[v2_row:], string2[v2_col:]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>adj['6,9,0']</expression-string>
+        <expression-string>string1[:v1_row], string2[:v1_col]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>adj['6,9,2']</expression-string>
+        <expression-string>string1[:v1_col]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>adj['7,3,0']</expression-string>
+        <expression-string>string1[:v1_row]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>adj['7,9,1']</expression-string>
+        <expression-string>path[-1]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>adj['5,9,1']</expression-string>
+        <expression-string>len(s1), len(s2)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>len(ammino1), len(ammino2)</expression-string>
+        <expression-string>as_dict['A']['N'], scoring_matrix['A']['N']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>adj['7,9,2']</expression-string>
+        <expression-string>as_dict['A']['N'], scoring_matrix['N']['A']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>adj['7,9,0']</expression-string>
+        <expression-string>as_dict['A']['N'], scoring_matrix.A.N</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>as_dict['A']['N'], scoring_matrix</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -606,13 +622,6 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/pluggy/callers.py" />
-    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="3260" column="31" selection-start-line="3260" selection-start-column="31" selection-end-line="3260" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/copy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="251">
@@ -742,7 +751,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/_pytest/python.py" />
     <entry file="file://$PROJECT_DIR$/chapter05/test/testcase02.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="696">
@@ -788,10 +796,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="3290" selection-start-line="3290" selection-end-line="3290" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/_pytest/python.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2">
+          <folding>
+            <element signature="e#64#102#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1366">
-          <caret line="315" column="19" lean-forward="true" selection-start-line="315" selection-start-column="19" selection-end-line="315" selection-end-column="19" />
+        <state relative-caret-position="421">
+          <caret line="441" column="9" selection-start-line="441" selection-start-column="9" selection-end-line="441" selection-end-column="9" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -800,11 +824,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter05/align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="508" column="16" lean-forward="true" selection-start-line="508" selection-start-column="4" selection-end-line="508" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="291">
+          <caret line="703" column="26" lean-forward="true" selection-start-line="703" selection-start-column="26" selection-end-line="703" selection-end-column="26" />
         </state>
       </provider>
     </entry>
