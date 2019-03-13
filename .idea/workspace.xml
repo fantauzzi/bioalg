@@ -17,20 +17,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter05/align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="703" column="26" lean-forward="true" selection-start-line="703" selection-start-column="26" selection-end-line="703" selection-end-column="26" />
+            <state relative-caret-position="578">
+              <caret line="791" lean-forward="true" selection-start-line="791" selection-end-line="791" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="421">
-              <caret line="441" column="9" selection-start-line="441" selection-start-column="9" selection-end-line="441" selection-end-column="9" />
+            <state relative-caret-position="272">
+              <caret line="444" column="3" lean-forward="true" selection-start-line="444" selection-start-column="3" selection-end-line="445" selection-end-column="9" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -49,7 +49,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>,</find>
       <find>spectrum</find>
       <find>sorted</find>
       <find>5-&gt;</find>
@@ -77,8 +76,9 @@
       <find>DataFrame</find>
       <find>dataf</find>
       <find>as_dict</find>
-      <find>datafra</find>
       <find>blos</find>
+      <find>rna</find>
+      <find>datafra</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;&quot;</replace>
@@ -151,7 +151,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -168,6 +167,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -340,34 +340,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 24m 18s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 15h 41m 58s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 24m 20s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 15h 50m 03s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 26m 27s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 15h 53m 08s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 31m 34s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 15h 53m 10s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 31m 36s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 15h 54m 01s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 32m 32s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 16h 05m 12s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 33m 13s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 16h 05m 20s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 36m 07s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 16h 06m 29s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 36m 37s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 16h 06m 31s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.12 at 15h 38m 03s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 16h 09m 53s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -382,9 +382,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.43977273" visible="true" weight="0.22562219" />
-      <window_info id="Structure" order="1" sideWeight="0.5602273" side_tool="true" visible="true" weight="0.22562219" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.43601534" visible="true" weight="0.22970216" />
+      <window_info id="Structure" order="1" sideWeight="0.5639847" side_tool="true" visible="true" weight="0.22970216" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
@@ -396,7 +397,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32950193" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32950193" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="10" visible="true" weight="0.3256705" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.3264368" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.249694" />
@@ -427,7 +428,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/chapter05/align.py</url>
-          <line>658</line>
+          <line>659</line>
           <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
@@ -444,6 +445,11 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="breakpointCondition">
+      <expression>
+        <expression-string>weight == 1</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>current=='7'</expression-string>
         <language-id>Python</language-id>
@@ -484,6 +490,16 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>(len(string1)+1)*(len(string2)+1)*(len(string3)+1), len(adj)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>(len(string1)+1)*(len(string2)+1)*(len(string3)+1)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>string1[v2_row:], string2[v2_col:]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -515,21 +531,6 @@
       </expression>
       <expression>
         <expression-string>as_dict['A']['N'], scoring_matrix['A']['N']</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>as_dict['A']['N'], scoring_matrix['N']['A']</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>as_dict['A']['N'], scoring_matrix.A.N</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>as_dict['A']['N'], scoring_matrix</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -812,20 +813,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
+    <entry file="file://$PROJECT_DIR$/chapter05/align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="441" column="9" selection-start-line="441" selection-start-column="9" selection-end-line="441" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="578">
+          <caret line="791" lean-forward="true" selection-start-line="791" selection-end-line="791" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter05/align.py">
+    <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="703" column="26" lean-forward="true" selection-start-line="703" selection-start-column="26" selection-end-line="703" selection-end-column="26" />
+        <state relative-caret-position="272">
+          <caret line="444" column="3" lean-forward="true" selection-start-line="444" selection-start-column="3" selection-end-line="445" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

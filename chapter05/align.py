@@ -1,4 +1,5 @@
 import numpy as np
+
 # from pandas import DataFrame
 
 """ 
@@ -733,14 +734,62 @@ def aligned_strings_from_path(s1, s2, path):
             aligned2.append(s2[pos_in_s2])
             pos_in_s2 += 1
 
-    if pos_in_s1 != len(s1):
-        dummy =42
     assert pos_in_s1 == len(s1)
-    if pos_in_s2 != len(s2):
-        dummy =42
     assert pos_in_s2 == len(s2)
 
     aligned1 = ''.join(aligned1)
     aligned2 = ''.join(aligned2)
 
     return aligned1, aligned2
+
+
+def three_way_alignment(string1, string2, string3):
+    blank = '-'
+
+    # Make the alignment graph
+    adj = {}
+    increments = ((0, 0, 1),
+                  (0, 1, 0),
+                  (1, 0, 0),
+                  (0, 1, 1),
+                  (1, 1, 0),
+                  (1, 0, 1),
+                  (1, 1, 1))
+    for row_i in range(0, len(string1)+1):
+        for col_i in range(0, len(string2)+1):
+            for depth_i in range(0, len(string3)+1):
+                adjs = []
+                for incr in increments:
+                    adj_vertex = tuple(map(sum, zip((row_i, col_i, depth_i), incr)))
+                    if adj_vertex[0] > len(string1) or adj_vertex[1] > len(string2) or adj_vertex[2] > len(
+                            string3):  # TODO can I write it a tuple comparisons instead?
+                        continue
+                    weight = 1 if (incr == (1, 1, 1)) and (string1[row_i] == string2[col_i] == string3[depth_i]) else 0
+                    adjs.append((vertex_name(*adj_vertex), weight))
+                current_vertex = vertex_name(row_i, col_i, depth_i)
+                assert adj.get(current_vertex) is None
+                if adjs:
+                    adj[current_vertex] = adjs
+
+    # Find the longest path in the alignment graph
+    path, scores = dag_longest_path(adj,
+                                    vertex_name(0, 0, 0),
+                                    vertex_name(len(string1), len(string2), len(string3)))
+    # Build the strings alignment based on the longest path
+    prev_r, prev_c, prev_d = 0, 0, 0
+    aligned1, aligned2, aligned3 = [], [], []
+    for v_name in path[1:]:
+        r, c, d = vertex_from_name(v_name)
+        aligned1.append(string1[prev_r] if r > prev_r else blank)
+        aligned2.append(string2[prev_c] if c > prev_c else blank)
+        aligned3.append(string3[prev_d] if d > prev_d else blank)
+        prev_r, prev_c, prev_d = r, c, d
+
+    aligned1 = ''.join(aligned1)
+    aligned2 = ''.join(aligned2)
+    aligned3 = ''.join(aligned3)
+    assert len(aligned1) == len(aligned2) == len(aligned3)
+
+    return scores[-1], (aligned1, aligned2, aligned3)
+
+
