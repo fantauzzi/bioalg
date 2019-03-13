@@ -20,8 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter05/align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="791" lean-forward="true" selection-start-line="791" selection-end-line="791" />
+            <state relative-caret-position="1750">
+              <caret line="833" lean-forward="true" selection-start-line="833" selection-end-line="833" />
             </state>
           </provider>
         </entry>
@@ -29,10 +29,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="444" column="3" lean-forward="true" selection-start-line="444" selection-start-column="3" selection-end-line="445" selection-end-column="9" />
+            <state relative-caret-position="1184">
+              <caret line="449" column="39" lean-forward="true" selection-start-line="449" selection-start-column="39" selection-end-line="449" selection-end-column="39" />
               <folding>
-                <element signature="e#0#12#0" expanded="true" />
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -74,11 +74,11 @@
       <find>print</find>
       <find>da</find>
       <find>DataFrame</find>
-      <find>dataf</find>
       <find>as_dict</find>
       <find>blos</find>
       <find>rna</find>
       <find>datafra</find>
+      <find>dataf</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;&quot;</replace>
@@ -133,8 +133,8 @@
         <option value="$PROJECT_DIR$/chapter05/test/testcase02.txt" />
         <option value="$PROJECT_DIR$/chapter05/test/testcase03.txt" />
         <option value="$PROJECT_DIR$/chapter05/test/testcase04.txt" />
-        <option value="$PROJECT_DIR$/chapter05/align.py" />
         <option value="$PROJECT_DIR$/chapter05/test_align.py" />
+        <option value="$PROJECT_DIR$/chapter05/align.py" />
       </list>
     </option>
   </component>
@@ -340,34 +340,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 15h 41m 58s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 18h 22m 47s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 15h 50m 03s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 18h 23m 19s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 15h 53m 08s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 18h 24m 00s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 15h 53m 10s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 18h 54m 42s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 15h 54m 01s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 18h 59m 15s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 16h 05m 12s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 19h 10m 48s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 16h 05m 20s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 19h 11m 02s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 16h 06m 29s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 19h 11m 11s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 16h 06m 31s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 19h 11m 15s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 16h 09m 53s.xml">
+    <history-entry file="pytest_in_test_align_py - 2019.03.13 at 19h 11m 21s.xml">
       <configuration name="pytest in test_align.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -384,8 +384,8 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.43601534" visible="true" weight="0.22970216" />
-      <window_info id="Structure" order="1" sideWeight="0.5639847" side_tool="true" visible="true" weight="0.22970216" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.43448275" visible="true" weight="0.23174214" />
+      <window_info id="Structure" order="1" sideWeight="0.56551725" side_tool="true" visible="true" weight="0.23174214" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
@@ -425,11 +425,6 @@
           <url>file://$PROJECT_DIR$/chapter04/sequence.py</url>
           <line>201</line>
           <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/chapter05/align.py</url>
-          <line>659</line>
-          <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -815,17 +810,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter05/align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="791" lean-forward="true" selection-start-line="791" selection-end-line="791" />
+        <state relative-caret-position="1750">
+          <caret line="833" lean-forward="true" selection-start-line="833" selection-end-line="833" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter05/test_align.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="444" column="3" lean-forward="true" selection-start-line="444" selection-start-column="3" selection-end-line="445" selection-end-column="9" />
+        <state relative-caret-position="1184">
+          <caret line="449" column="39" lean-forward="true" selection-start-line="449" selection-start-column="39" selection-end-line="449" selection-end-column="39" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
