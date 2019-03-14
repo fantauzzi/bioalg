@@ -56,3 +56,15 @@ def test_greedy_sorting():
     res = rearrange.greedy_sorting(p)
     expected = fetch_list_of_lists(Path('test/testcase01.txt'))
     assert res == expected
+
+
+def test_count_breakpoints():
+    p = [+3, +4, +5, -12, -8, -7, -6, +1, +2, +10, +9, -11, +13, +14]
+    count = rearrange.count_breakpoints(p)
+    assert count == 8
+
+    with open('test/testcase02.txt') as input_file:
+        line = input_file.readline()
+        p = [int(item) for item in line.split(' ')]
+    count = rearrange.count_breakpoints(p)
+    assert count == 178

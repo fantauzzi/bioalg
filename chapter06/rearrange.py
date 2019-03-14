@@ -33,3 +33,14 @@ def greedy_sorting(p):
             steps.append(deepcopy(p))
 
     return steps
+
+
+def count_breakpoints(p):
+    """
+    Returns the number of breakpoints in a given permutation.
+    :param p: The permutation, a list of integer numbers.
+    :return: The number of breakpoints, an integer.
+    """
+    p = [0]+p+[len(p)+1]
+    count = sum([p[i+1]-p[i] != 1 for i in range(0, len(p)-1)])
+    return count
