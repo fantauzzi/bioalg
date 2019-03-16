@@ -20,8 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter06/rearrange.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="770">
-              <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+            <state relative-caret-position="525">
+              <caret line="119" column="15" lean-forward="true" selection-start-line="119" selection-start-column="15" selection-end-line="119" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -29,8 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter06/test_rearrange.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="908">
-              <caret line="62" column="35" lean-forward="true" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
+            <state relative-caret-position="812">
+              <caret line="128" column="14" lean-forward="true" selection-start-line="128" selection-start-column="14" selection-end-line="128" selection-end-column="14" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -49,9 +49,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sorted</find>
-      <find>5-&gt;</find>
-      <find>13-&gt;31</find>
       <find>-&gt;7</find>
       <find>13-&gt;</find>
       <find>inf</find>
@@ -79,6 +76,9 @@
       <find>datafra</find>
       <find>dataf</find>
       <find>)</find>
+      <find>(</find>
+      <find>)(</find>
+      <find>-5436</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;&quot;</replace>
@@ -137,8 +137,10 @@
         <option value="$PROJECT_DIR$/chapter05/align.py" />
         <option value="$PROJECT_DIR$/chapter06/test/testcase01.txt" />
         <option value="$PROJECT_DIR$/chapter06/test/testcase02.txt" />
-        <option value="$PROJECT_DIR$/chapter06/test_rearrange.py" />
         <option value="$PROJECT_DIR$/chapter06/rearrange.py" />
+        <option value="$PROJECT_DIR$/chapter06/test/testcase03.txt" />
+        <option value="$PROJECT_DIR$/chapter06/test/testcase04.txt" />
+        <option value="$PROJECT_DIR$/chapter06/test_rearrange.py" />
       </list>
     </option>
   </component>
@@ -155,7 +157,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -178,6 +179,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -367,34 +369,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.14 at 15h 15m 23s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.16 at 17h 00m 49s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.14 at 15h 27m 28s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.16 at 17h 00m 51s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.14 at 15h 28m 44s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.16 at 17h 12m 39s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.14 at 16h 05m 09s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.16 at 17h 14m 05s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.14 at 16h 05m 10s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.16 at 17h 14m 58s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.14 at 16h 05m 49s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.16 at 17h 15m 17s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.14 at 16h 13m 12s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.16 at 17h 17m 57s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.14 at 16h 14m 22s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.16 at 17h 20m 00s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.14 at 16h 19m 16s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.16 at 17h 20m 44s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.14 at 16h 20m 12s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.16 at 17h 20m 45s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -411,8 +413,8 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4314176" visible="true" weight="0.23173194" />
-      <window_info id="Structure" order="1" sideWeight="0.56858236" side_tool="true" visible="true" weight="0.23173194" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.42988506" visible="true" weight="0.23173194" />
+      <window_info id="Structure" order="1" sideWeight="0.570115" side_tool="true" visible="true" weight="0.23173194" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
@@ -512,6 +514,41 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>ps[4][-1]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>ps[1][-1]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>ps[0][-1]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>p0[0][-1]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>p[0][-1]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>len(ps), len(qs)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>len(adj)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>(len(string1)+1)*(len(string2)+1)*(len(string3)+1), len(adj)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -526,41 +563,9 @@
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>string1[:v1_row], string2[:v1_col]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>string1[:v1_col]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>string1[:v1_row]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>path[-1]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>len(s1), len(s2)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>as_dict['A']['N'], scoring_matrix['A']['N']</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.editorconfig" />
-    <entry file="file://$PROJECT_DIR$/chapter01/notes.txt" />
     <entry file="file://$PROJECT_DIR$/chapter01/test_main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="528">
@@ -863,17 +868,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chapter06/test/testcase03.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter06/test/testcase04.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="673">
+          <caret line="1" column="49064" selection-start-line="1" selection-start-column="49064" selection-end-line="1" selection-end-column="49064" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter06/rearrange.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="770">
-          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+        <state relative-caret-position="525">
+          <caret line="119" column="15" lean-forward="true" selection-start-line="119" selection-start-column="15" selection-end-line="119" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter06/test_rearrange.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="908">
-          <caret line="62" column="35" lean-forward="true" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
+        <state relative-caret-position="812">
+          <caret line="128" column="14" lean-forward="true" selection-start-line="128" selection-start-column="14" selection-end-line="128" selection-end-column="14" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
