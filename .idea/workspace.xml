@@ -2,8 +2,7 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/chapter04/sequence.py" line="358" />
-    <bookmark url="file://$PROJECT_DIR$/chapter06/rearrange.py" line="177" />
-    <bookmark url="file://$PROJECT_DIR$/chapter06/rearrange.py" line="160" mnemonic="0" />
+    <bookmark url="file://$PROJECT_DIR$/chapter06/rearrange.py" line="210" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
@@ -22,8 +21,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter06/rearrange.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1008">
-              <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+            <state relative-caret-position="238">
+              <caret line="198" column="17" lean-forward="true" selection-start-line="198" selection-start-column="4" selection-end-line="198" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -31,11 +33,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter06/test_rearrange.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2808">
-              <caret line="132" column="33" lean-forward="true" selection-start-line="132" selection-start-column="33" selection-end-line="132" selection-end-column="33" />
+            <state relative-caret-position="1126">
+              <caret line="216" lean-forward="true" selection-start-line="216" selection-end-line="216" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chapter06/trash.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2184">
+              <caret line="91" selection-start-line="91" selection-end-line="91" />
             </state>
           </provider>
         </entry>
@@ -51,7 +62,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>-&gt;7</find>
       <find>13-&gt;</find>
       <find>inf</find>
       <find>-inf</find>
@@ -81,6 +91,7 @@
       <find>(</find>
       <find>)(</find>
       <find>-5436</find>
+      <find>flatte</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;&quot;</replace>
@@ -141,8 +152,9 @@
         <option value="$PROJECT_DIR$/chapter06/test/testcase02.txt" />
         <option value="$PROJECT_DIR$/chapter06/test/testcase03.txt" />
         <option value="$PROJECT_DIR$/chapter06/test/testcase04.txt" />
-        <option value="$PROJECT_DIR$/chapter06/test_rearrange.py" />
+        <option value="$PROJECT_DIR$/chapter06/trash.py" />
         <option value="$PROJECT_DIR$/chapter06/rearrange.py" />
+        <option value="$PROJECT_DIR$/chapter06/test_rearrange.py" />
       </list>
     </option>
   </component>
@@ -159,6 +171,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -181,7 +194,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -371,34 +383,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 09h 29m 03s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 20h 15m 10s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 09h 42m 21s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 20h 15m 24s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 09h 42m 22s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 20h 15m 36s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 09h 43m 55s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 20h 16m 33s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 09h 44m 32s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 20h 20m 11s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 09h 50m 06s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 20h 22m 47s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 09h 54m 43s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 20h 23m 56s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 09h 58m 39s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 20h 25m 10s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 10h 02m 06s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 20h 25m 12s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 10h 03m 33s.xml">
+    <history-entry file="pytest_in_test_rearrange_py - 2019.03.17 at 20h 26m 09s.xml">
       <configuration name="pytest in test_rearrange.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -415,8 +427,8 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4283525" visible="true" weight="0.23173194" />
-      <window_info id="Structure" order="1" sideWeight="0.5716475" side_tool="true" visible="true" weight="0.23173194" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.42681992" visible="true" weight="0.23173194" />
+      <window_info id="Structure" order="1" sideWeight="0.5731801" side_tool="true" visible="true" weight="0.23173194" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
@@ -456,21 +468,6 @@
           <url>file://$PROJECT_DIR$/chapter04/sequence.py</url>
           <line>201</line>
           <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/chapter06/test_rearrange.py</url>
-          <line>158</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/chapter06/test_rearrange.py</url>
-          <line>150</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/chapter06/rearrange.py</url>
-          <line>136</line>
-          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -583,16 +580,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/chapter01/test_main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="22" column="11" lean-forward="true" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/collections/__init__.pyi">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
@@ -868,16 +855,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/_pytest/python.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2928">
-          <caret line="167" selection-start-line="167" selection-end-line="167" />
-          <folding>
-            <element signature="e#64#102#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter06/test/testcase02.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7632">
@@ -895,10 +872,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/_pytest/python.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="625">
+          <caret line="165" selection-start-line="165" selection-end-line="165" />
+          <folding>
+            <element signature="e#64#102#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter06/trash.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2184">
+          <caret line="91" selection-start-line="91" selection-end-line="91" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter06/test_rearrange.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2808">
-          <caret line="132" column="33" lean-forward="true" selection-start-line="132" selection-start-column="33" selection-end-line="132" selection-end-column="33" />
+        <state relative-caret-position="1126">
+          <caret line="216" lean-forward="true" selection-start-line="216" selection-end-line="216" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
@@ -907,8 +901,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter06/rearrange.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1008">
-          <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+        <state relative-caret-position="238">
+          <caret line="198" column="17" lean-forward="true" selection-start-line="198" selection-start-column="4" selection-end-line="198" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

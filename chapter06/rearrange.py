@@ -1,4 +1,5 @@
 from copy import deepcopy
+from itertools import chain
 
 
 def pretty_print(printme):
@@ -54,17 +55,12 @@ def edge_from_block(block):
     return res
 
 
-def graph_from_permutations(ps, color, adj=None):
+def breakpoint_from_permutations(ps):
     def add_edge(adj, vertex1, vertex2):
-        adjs = adj.get(vertex1, [])
-        adjs.append((vertex2, color))
-        adj[vertex1] = adjs
-        adjs = adj.get(vertex2, [])
-        adjs.append((vertex1, color))
-        adj[vertex2] = adjs
+        assert adj.get(vertex1) is None
+        adj[vertex1] = vertex2
 
-    if adj == None:
-        adj = {}
+    adj = {}
     for p in ps:
         for i in range(0, len(p)):
             block = p[i]
@@ -75,9 +71,22 @@ def graph_from_permutations(ps, color, adj=None):
     return adj
 
 
-def breakpoint_graph(ps, qs, color_ps, color_qs):
-    adj = graph_from_permutations(ps, color_ps)
-    adj = graph_from_permutations(qs, color_qs, adj=adj)
+def breakpoint_graph(ps, qs, color_ps='red', color_qs='blue'):
+    def add_edge(adj, vertex1, vertex2, color):
+        adjs = adj.get(vertex1, [])
+        adjs.append((vertex2, color))
+        adj[vertex1] = adjs
+
+    def add_to_adj_with_color(adj, adj2, color):
+        for v1, v2 in adj2.items():
+            add_edge(adj, v1, v2, color)
+            add_edge(adj, v2, v1, color)
+
+    adj_p = breakpoint_from_permutations(ps)
+    adj_q = breakpoint_from_permutations(qs)
+    adj = {}
+    add_to_adj_with_color(adj, adj_p, color_ps)
+    add_to_adj_with_color(adj, adj_q, color_qs)
     return adj
 
 
@@ -115,53 +124,76 @@ def two_break_dist(ps, qs):
             vertex = next_vertex
 
     # The distance is the number of synteny blocks minus the number of cycles
-    dist = len(adj) / 2 - cycles_count
+    dist = len(adj) // 2 - cycles_count
 
     return dist
 
 
-def two_break(adj, v1, v2, v3, v4):
-    pass
+def flatten(seq_of_seq):
+    return list(chain.from_iterable(seq_of_seq))
 
 
-def permutations_from_breakpoint_graph(adj):
-    # Visit all vertices along the breakpoint graph, counting cycles
-
-    # Initially, all vertices are (yet) unvisited
-    unvisited = set(adj)
+def permutations_from_breakpoint(adj):
+    unvisited = set(flatten(adj.items()))
     ps = []
     while unvisited:
-        # Initially, all vertices are (yet) unvisited
-        # Begin to follow a cycle, starting from any unvisited vertex; remove it from the set of unvisited vertices.
-        # starting_vertex = next(iter(unvisited))
         starting_vertex = min(unvisited)
-        unvisited.remove(starting_vertex)
         vertex = None
+        adj_vertex = adj.get(starting_vertex)
+        if adj_vertex is None:
+            next_in_block = starting_vertex + 1
+        else:
+            starting_vertex, next_in_block = starting_vertex + 1, starting_vertex
         p = []
-        # Go from vertex to vertex in the graph, until you return to the starting vertex
         while vertex != starting_vertex:
             if vertex is None:
                 vertex = starting_vertex
-            # Choose the adjacent
-            next_vertex, _ = adj[vertex][0]
-            assert len(adj[vertex]) == 1
-            ''' Remove the chosen adjacent vertex from the visited ones (unless it is the starting vertex,
-            closing the cycle, which has been removed from the set already)'''
-            if next_vertex != starting_vertex:
-                p.append(- next_vertex / 2 if next_vertex % 2 == 0 else (next_vertex + 1) / 2)
-                if next_vertex not in unvisited:
-                    dummy = 42
-                unvisited.remove(next_vertex)
-            # Move on to the next vertex, and keep following the cycle from there
-            vertex = next_vertex + 1 if next_vertex % 2 == 1 else next_vertex - 1
-            if vertex != starting_vertex:
-                unvisited.remove(vertex)
-
-        p = [p[-1]] + p[:len(p) - 1]
+            if next_in_block > vertex:
+                p.append(next_in_block // 2)
+                assert next_in_block % 2 == 0
+            else:
+                p.append(-vertex // 2)
+                assert vertex % 2 == 0
+            unvisited.remove(vertex)
+            unvisited.remove(next_in_block)
+            vertex = adj[next_in_block]
+            next_in_block = vertex - 1 if vertex % 2 == 0 else vertex + 1
         ps.append(p)
+
     if len(ps) == 1:
         ps = ps[0]
+
     return ps
+
+
+def two_break(adj, vertex1, vertex2, vertex3, vertex4):
+    def break_and_connect(adj, v1, v2, v3, v4):
+        v1_adj = adj.get(v1)
+        if v1_adj is not None:
+            assert v1_adj == v2
+            adj[v1] = v3
+        else:
+            v2_adj = adj.get(v2)
+            assert v2_adj == v1
+            adj[v2] = v4
+
+    break_and_connect(adj, vertex1, vertex2, vertex3, vertex4)
+    break_and_connect(adj, vertex3, vertex4, vertex1, vertex2)
+
+
+def two_break_on_breakpoints(adj, vertex1, vertex2, vertex3, vertex4, color):
+    def break_and_connect(adj, v1, v2, v3, color):
+        new_adjs = []
+        for adj_v, adj_color in adj[v1]:
+            if not (adj_color == color and adj_v == v2):
+                new_adjs.append((adj_v, adj_color))
+        new_adjs.append((v3, color))
+        adj[v1] = new_adjs
+
+    break_and_connect(adj, vertex1, vertex2, vertex3, color)
+    break_and_connect(adj, vertex3, vertex4, vertex1, color)
+    break_and_connect(adj, vertex2, vertex1, vertex4, color)
+    break_and_connect(adj, vertex4, vertex3, vertex2, color)
 
 
 def shortest_rearrangement(ps, qs):
@@ -173,8 +205,9 @@ def shortest_rearrangement(ps, qs):
             assert False
 
     adj = breakpoint_graph(ps, qs, 'red', 'blue')
-    adj_p = graph_from_permutations(ps, 'red')
+    adj_ps = breakpoint_from_permutations(ps)
 
+    res = [ps]
     # Repeat as long as a non-trivial cycle is found (but at least once)
     found_non_trivial_cycle = None
     while found_non_trivial_cycle is None or found_non_trivial_cycle:
@@ -198,6 +231,7 @@ def shortest_rearrangement(ps, qs):
             vertex4 = find_adj_with_color(adj, vertex3, 'red')
             unvisited.remove(vertex4)
             # Perform the necessary 2-breaks
-            adj = two_break(adj, vertex1, vertex2, vertex4, vertex3)
-            adj_p = two_break(adj_p, vertex1, vertex2, vertex4, vertex3)
-            # Output adj_p
+            two_break(adj_ps, vertex1, vertex2, vertex4, vertex3)
+            two_break_on_breakpoints(adj, vertex1, vertex2, vertex4, vertex3)
+            ps = permutations_from_breakpoint(adj_ps)
+            res.append(ps)

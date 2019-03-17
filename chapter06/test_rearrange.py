@@ -86,41 +86,54 @@ def test_count_breakpoints():
 
 def test_graph_from_permutations():
     p = (1, -2, -3, 4)
-    adj = rearrange.graph_from_permutations([p], 'red')
-    assert adj == {2: [(4, 'red')], 4: [(2, 'red')], 3: [(6, 'red')], 6: [(3, 'red')], 5: [(7, 'red')], 7: [(5, 'red')],
-                   8: [(1, 'red')], 1: [(8, 'red')]}
+    graph = rearrange.breakpoint_from_permutations([p])
+    assert graph == {2: 4, 3: 6, 5: 7, 8: 1}
 
     q = (1, 3, 2, -4)
-    adj = rearrange.graph_from_permutations([q], 'blue')
-    assert adj == {2: [(5, 'blue')], 5: [(2, 'blue')], 6: [(3, 'blue')], 3: [(6, 'blue')], 4: [(8, 'blue')],
-                   8: [(4, 'blue')], 7: [(1, 'blue')], 1: [(7, 'blue')]}
-
-    p = (1, -2, -3, 4)
-    adj = rearrange.graph_from_permutations([p], 'red')
-    assert adj == {2: [(4, 'red')], 4: [(2, 'red')], 3: [(6, 'red')], 6: [(3, 'red')], 5: [(7, 'red')], 7: [(5, 'red')],
-                   8: [(1, 'red')], 1: [(8, 'red')]}
+    graph = rearrange.breakpoint_from_permutations([q])
+    assert graph == {2: 5, 6: 3, 4: 8, 7: 1}
 
     p = [(1, -2), (-4, 3)]
-    adj = rearrange.graph_from_permutations(p, 'red')
-    assert adj == {2: [(4, 'red')], 4: [(2, 'red')], 3: [(1, 'red')], 1: [(3, 'red')], 7: [(5, 'red')], 5: [(7, 'red')],
-                   6: [(8, 'red')], 8: [(6, 'red')]}
+    graph = rearrange.breakpoint_from_permutations(p)
+    assert graph == {2: 4, 3: 1, 7: 5, 6: 8}
+
+    p = [(2, -4), (1, -3, -6, -5)]
+    graph = rearrange.breakpoint_from_permutations(p)
+    assert graph == {4: 8, 7: 3, 2: 6, 5: 12, 11: 10, 9: 1}
+
+    p = [(1, 2, 3, 4, 5, 6)]
+    graph = rearrange.breakpoint_from_permutations(p)
+    assert graph == {2: 3, 4: 5, 6: 7, 8: 9, 10: 11, 12: 1}
 
 
 def test_breakpoint_graph():
+    q = [(2, -4), (1, -3, -6, -5)]
+    p = [(1, 2, 3, 4, 5, 6)]
+    adj = rearrange.breakpoint_graph(p, q, 'red', 'blue')
+    assert adj == {2: [(3, 'red'), (6, 'blue')],
+                   3: [(2, 'red'), (7, 'blue')],
+                   4: [(5, 'red'), (8, 'blue')],
+                   5: [(4, 'red'), (12, 'blue')],
+                   6: [(7, 'red'), (2, 'blue')],
+                   7: [(6, 'red'), (3, 'blue')],
+                   8: [(9, 'red'), (4, 'blue')],
+                   9: [(8, 'red'), (1, 'blue')],
+                   10: [(11, 'red'), (11, 'blue')],
+                   11: [(10, 'red'), (10, 'blue')],
+                   12: [(1, 'red'), (5, 'blue')],
+                   1: [(12, 'red'), (9, 'blue')]}
+
     p = (1, -2, -3, 4)
     q = (1, 3, 2, -4)
     adj = rearrange.breakpoint_graph([p], [q], color_ps='red', color_qs='blue')
-    assert adj == {2: [(4, 'red'), (5, 'blue')], 4: [(2, 'red'), (8, 'blue')], 3: [(6, 'red'), (6, 'blue')],
-                   6: [(3, 'red'), (3, 'blue')], 5: [(7, 'red'), (2, 'blue')], 7: [(5, 'red'), (1, 'blue')],
-                   8: [(1, 'red'), (4, 'blue')], 1: [(8, 'red'), (7, 'blue')]}
-
-    q1 = (2, -4)
-    q2 = (1, -3, -6, -5)
-    adj2 = rearrange.breakpoint_graph([q1], [q2], 'blue', 'blue')
-    adj3 = rearrange.graph_from_permutations([q1, q2], 'blue')
-    assert adj2 == adj3 == {4: [(8, 'blue')], 8: [(4, 'blue')], 7: [(3, 'blue')], 3: [(7, 'blue')], 2: [(6, 'blue')],
-                            6: [(2, 'blue')], 5: [(12, 'blue')], 12: [(5, 'blue')], 11: [(10, 'blue')],
-                            10: [(11, 'blue')], 9: [(1, 'blue')], 1: [(9, 'blue')]}
+    assert adj == {2: [(4, 'red'), (5, 'blue')],
+                   4: [(2, 'red'), (8, 'blue')],
+                   3: [(6, 'red'), (6, 'blue')],
+                   6: [(3, 'red'), (3, 'blue')],
+                   5: [(7, 'red'), (2, 'blue')],
+                   7: [(5, 'red'), (1, 'blue')],
+                   8: [(1, 'red'), (4, 'blue')],
+                   1: [(8, 'red'), (7, 'blue')]}
 
 
 def test_two_break_dist():
@@ -145,21 +158,59 @@ def test_two_break_dist():
 
 
 def test_permutations_from_breakpoint():
-    p = (-1, -2, -3, 4)
-    adj = rearrange.graph_from_permutations([p], 'red')
-
-    p = (1, -2, -3, 4)
-    adj = rearrange.graph_from_permutations([p], 'red')
-    p2 = rearrange.permutations_from_breakpoint_graph(adj)
-    assert p == tuple(p2)
-
-    q = (1, 3, 2, -4)
-    adj = rearrange.graph_from_permutations([q], 'blue')
-    q2 = rearrange.permutations_from_breakpoint_graph(adj)
-    assert q == tuple(q2)
-
-    p = [(1, -2), (-4, 3)]
-    adj = rearrange.graph_from_permutations(p, 'red')
-    p2 = rearrange.permutations_from_breakpoint_graph(adj)
+    p = [1, -2, -3, 4]
+    adj = rearrange.breakpoint_from_permutations([p])
+    p2 = rearrange.permutations_from_breakpoint(adj)
     assert p == p2
 
+    q = [1, 3, 2, -4]
+    adj = rearrange.breakpoint_from_permutations([q])
+    q2 = rearrange.permutations_from_breakpoint(adj)
+    assert q == q2
+
+    p = [[1, -2], [-4, 3]]
+    adj = rearrange.breakpoint_from_permutations(p)
+    p2 = rearrange.permutations_from_breakpoint(adj)
+    assert p2 == [[1, -2], [3, -4]]
+
+
+def test_two_break():
+    p = [[1, -2, -4, 3]]
+    adj = rearrange.breakpoint_from_permutations(p)
+    rearrange.two_break(adj, 1, 6, 3, 8)
+    assert adj == {2: 4, 3: 1, 7: 5, 6: 8}
+
+
+def test_two_break_on_breakpoints():
+    ps = [[1, -2, -3, 4]]
+    qs = [[1, 2, -4, -3]]
+    adj = rearrange.breakpoint_graph(ps, qs)
+    rearrange.two_break_on_breakpoints(adj, 8, 1, 4, 2, 'red')
+    assert adj == {2: [(3, 'blue'), (1, 'red')],
+                   4: [(8, 'blue'), (8, 'red')],
+                   3: [(6, 'red'), (2, 'blue')],
+                   6: [(3, 'red'), (7, 'blue')],
+                   5: [(7, 'red'), (1, 'blue')],
+                   7: [(5, 'red'), (6, 'blue')],
+                   8: [(4, 'blue'), (4, 'red')],
+                   1: [(5, 'blue'), (2, 'red')]}
+
+    rearrange.two_break_on_breakpoints(adj, 2, 1, 3, 6, 'red')
+    assert adj == {2: [(3, 'blue'), (3, 'red')],
+                   4: [(8, 'blue'), (8, 'red')],
+                   3: [(2, 'blue'), (2, 'red')],
+                   6: [(7, 'blue'), (1, 'red')],
+                   5: [(7, 'red'), (1, 'blue')],
+                   7: [(5, 'red'), (6, 'blue')],
+                   8: [(4, 'blue'), (4, 'red')],
+                   1: [(5, 'blue'), (6, 'red')]}
+
+    rearrange.two_break_on_breakpoints(adj, 6, 1, 7, 5, 'red')
+    assert adj == {2: [(3, 'blue'), (3, 'red')],
+                   4: [(8, 'blue'), (8, 'red')],
+                   3: [(2, 'blue'), (2, 'red')],
+                   6: [(7, 'blue'), (7, 'red')],
+                   5: [(1, 'blue'), (1, 'red')],
+                   7: [(6, 'blue'), (6, 'red')],
+                   8: [(4, 'blue'), (4, 'red')],
+                   1: [(5, 'blue'), (5, 'red')]}
