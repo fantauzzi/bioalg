@@ -18,6 +18,7 @@ def fetch_list_of_lists(file_name):
             line = input_file.readline()
     return res
 
+
 def fetch_stepik_permutations(file_name):
     res = []
     with open(file_name) as input_file:
@@ -30,7 +31,6 @@ def fetch_stepik_permutations(file_name):
                 res[-1].append(permutation_as_int)
             line = input_file.readline()
     return res
-
 
 
 def test_greedy_sorting():
@@ -84,21 +84,26 @@ def test_count_breakpoints():
     assert count == 178
 
 
-def test_graph_from_permutation():
+def test_graph_from_permutations():
     p = (1, -2, -3, 4)
-    adj = rearrange.graph_from_permuations([p], 'red')
+    adj = rearrange.graph_from_permutations([p], 'red')
     assert adj == {2: [(4, 'red')], 4: [(2, 'red')], 3: [(6, 'red')], 6: [(3, 'red')], 5: [(7, 'red')], 7: [(5, 'red')],
                    8: [(1, 'red')], 1: [(8, 'red')]}
 
     q = (1, 3, 2, -4)
-    adj = rearrange.graph_from_permuations([q], 'blue')
+    adj = rearrange.graph_from_permutations([q], 'blue')
     assert adj == {2: [(5, 'blue')], 5: [(2, 'blue')], 6: [(3, 'blue')], 3: [(6, 'blue')], 4: [(8, 'blue')],
                    8: [(4, 'blue')], 7: [(1, 'blue')], 1: [(7, 'blue')]}
 
     p = (1, -2, -3, 4)
-    adj = rearrange.graph_from_permuations([p], 'red')
+    adj = rearrange.graph_from_permutations([p], 'red')
     assert adj == {2: [(4, 'red')], 4: [(2, 'red')], 3: [(6, 'red')], 6: [(3, 'red')], 5: [(7, 'red')], 7: [(5, 'red')],
                    8: [(1, 'red')], 1: [(8, 'red')]}
+
+    p = [(1, -2), (-4, 3)]
+    adj = rearrange.graph_from_permutations(p, 'red')
+    assert adj == {2: [(4, 'red')], 4: [(2, 'red')], 3: [(1, 'red')], 1: [(3, 'red')], 7: [(5, 'red')], 5: [(7, 'red')],
+                   6: [(8, 'red')], 8: [(6, 'red')]}
 
 
 def test_breakpoint_graph():
@@ -112,7 +117,7 @@ def test_breakpoint_graph():
     q1 = (2, -4)
     q2 = (1, -3, -6, -5)
     adj2 = rearrange.breakpoint_graph([q1], [q2], 'blue', 'blue')
-    adj3 = rearrange.graph_from_permuations([q1, q2], 'blue')
+    adj3 = rearrange.graph_from_permutations([q1, q2], 'blue')
     assert adj2 == adj3 == {4: [(8, 'blue')], 8: [(4, 'blue')], 7: [(3, 'blue')], 3: [(7, 'blue')], 2: [(6, 'blue')],
                             6: [(2, 'blue')], 5: [(12, 'blue')], 12: [(5, 'blue')], 11: [(10, 'blue')],
                             10: [(11, 'blue')], 9: [(1, 'blue')], 1: [(9, 'blue')]}
@@ -131,10 +136,30 @@ def test_two_break_dist():
     dist = rearrange.two_break_dist(ps, qs)
     assert dist == 8079
 
-
     permutations = fetch_stepik_permutations(Path('test/testcase04.txt'))
     assert len(permutations) == 2
     ps = permutations[0]
     qs = permutations[1]
     dist = rearrange.two_break_dist(ps, qs)
     assert dist == 8354
+
+
+def test_permutations_from_breakpoint():
+    p = (-1, -2, -3, 4)
+    adj = rearrange.graph_from_permutations([p], 'red')
+
+    p = (1, -2, -3, 4)
+    adj = rearrange.graph_from_permutations([p], 'red')
+    p2 = rearrange.permutations_from_breakpoint_graph(adj)
+    assert p == tuple(p2)
+
+    q = (1, 3, 2, -4)
+    adj = rearrange.graph_from_permutations([q], 'blue')
+    q2 = rearrange.permutations_from_breakpoint_graph(adj)
+    assert q == tuple(q2)
+
+    p = [(1, -2), (-4, 3)]
+    adj = rearrange.graph_from_permutations(p, 'red')
+    p2 = rearrange.permutations_from_breakpoint_graph(adj)
+    assert p == p2
+
