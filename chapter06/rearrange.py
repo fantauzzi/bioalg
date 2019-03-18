@@ -212,26 +212,31 @@ def shortest_rearrangement(ps, qs):
     found_non_trivial_cycle = None
     while found_non_trivial_cycle is None or found_non_trivial_cycle:
         # Look for a non-trivial cycle, following cycles one at a time starting from unvisited vertices
-        unvisited = set(adj)  # At first, all vertices are (yet) unvisited
+        # unvisited = set(adj)  # At first, all vertices are (yet) unvisited
         found_non_trivial_cycle = False
-        while unvisited:
-            # Begin to follow a cycle, starting from any unvisited vertex; remove it from the set of unvisited vertices.
-            vertex1 = unvisited.pop()
-            # Find an adjacent vertex along a red edge
-            vertex2 = find_adj_with_color(adj, vertex1, 'red')
-            unvisited.remove(vertex2)
-            # Find the next one along a blue edge
-            vertex3 = find_adj_with_color(adj, vertex2, 'blue')
-            # Check if vertex1-vertex2-vertex3 make a trivial cycle
-            if vertex3 == vertex1:
-                continue
-            found_non_trivial_cycle = True
-            unvisited.remove(vertex3)
-            # Find the next one along a red edge
-            vertex4 = find_adj_with_color(adj, vertex3, 'red')
-            unvisited.remove(vertex4)
-            # Perform the necessary 2-breaks
-            two_break(adj_ps, vertex1, vertex2, vertex4, vertex3)
-            two_break_on_breakpoints(adj, vertex1, vertex2, vertex4, vertex3)
+        # Begin to follow a cycle, starting from any unvisited vertex; remove it from the set of unvisited vertices.
+        # vertex1 = unvisited.pop()
+        vertex1 = min(adj.keys())
+        # Find an adjacent vertex along a red edge
+        vertex2 = find_adj_with_color(adj, vertex1, 'red')
+        # unvisited.remove(vertex2)
+        # Find the next one along a blue edge
+        vertex3 = find_adj_with_color(adj, vertex2, 'blue')
+        # Check if vertex1-vertex2-vertex3 make a trivial cycle
+        if vertex3 == vertex1:
+            continue
+        found_non_trivial_cycle = True
+        # unvisited.remove(vertex3)
+        # Find the next one along a red edge
+        vertex4 = find_adj_with_color(adj, vertex3, 'red')
+        # unvisited.remove(vertex4)
+        # Perform the necessary 2-breaks
+        two_break(adj_ps, vertex2, vertex1, vertex3, vertex4)
+        two_break_on_breakpoints(adj, vertex2, vertex1, vertex3, vertex4, 'red')
+        try:
             ps = permutations_from_breakpoint(adj_ps)
-            res.append(ps)
+        except AssertionError:
+            dummy = 42
+        res.append(ps)
+
+

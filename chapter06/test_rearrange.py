@@ -214,3 +214,10 @@ def test_two_break_on_breakpoints():
                    7: [(6, 'blue'), (6, 'red')],
                    8: [(4, 'blue'), (4, 'red')],
                    1: [(5, 'blue'), (5, 'red')]}
+
+
+def test_shortest_rearrangement():
+    ps = [[1, -2, -3, 4]]
+    qs = [[1, 2, -4, -3]]
+    res = rearrange.shortest_rearrangement(ps, qs)
+    pass
