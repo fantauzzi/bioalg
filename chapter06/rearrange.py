@@ -72,11 +72,11 @@ def colored_edges(genome):
     return edges
 
 
-def graph_to_genome(graph):
+def graph_to_genome(edges):
     genome = []
     cycle = []
     cycle_start = None
-    for edge in graph:
+    for edge in edges:
         if cycle_start is None:
             cycle_start = edge[0]
         cycle.extend(edge)
@@ -88,9 +88,57 @@ def graph_to_genome(graph):
     return genome
 
 
-def two_break_on_genome_graph(graph, i1, i2, i3, i4):
-    new_graph = []
+def fix_graph_cycles(graph):
+    def add_unidirectional_edge(adj, vertex1, vertex2, color):
+        adjs = adj.get(vertex1, [])
+        adjs.append((vertex2, color))
+        adj[vertex1] = adjs
+
+    def add_bidirectional_edge(adj, vertex1, vertex2, color):
+        assert vertex1 != vertex2
+        add_unidirectional_edge(adj, vertex1, vertex2, color)
+        add_unidirectional_edge(adj, vertex2, vertex1, color)
+
+    def find_adj_vertex_with_color(adj, vertex, color):
+        for vertex2, color2 in adj[vertex]:
+            if color2 == color:
+                return vertex2
+        assert False
+
+    # Build the graph adjacency lists, colore edges first, black edges next
+    adj = {}
     for edge in graph:
+        add_bidirectional_edge(adj, edge[0], edge[1], 'colored')
+        add_unidirectional_edge(adj, edge[0], edge[0] - 1 if edge[0] % 2 == 0 else edge[0] + 1, 'black')
+        add_unidirectional_edge(adj, edge[1], edge[1] - 1 if edge[1] % 2 == 0 else edge[1] + 1, 'black')
+
+    # Follow the cycles in the graph, and produce the colored edges in the right order and orientation
+    unvisited = set(adj)
+
+    edges = []
+    previous_edge_color = None
+    cycles_count = 0
+    while unvisited:
+        starting_vertex = next(iter(unvisited))
+        current_vertex = None
+        cycles_count += 1
+        while current_vertex != starting_vertex:
+            if current_vertex is None:
+                current_vertex = starting_vertex
+            unvisited.remove(current_vertex)
+            current_edge_color = 'black' if previous_edge_color in ('None', 'colored') else 'colored'
+            next_vertex = find_adj_vertex_with_color(adj, current_vertex, current_edge_color)
+            if current_edge_color == 'colored':
+                edges.append((current_vertex, next_vertex))
+            current_vertex = next_vertex
+            previous_edge_color = current_edge_color
+
+    return edges, cycles_count
+
+
+def two_break_on_genome_graph(edges, i1, i2, i3, i4):
+    new_graph = []
+    for edge in edges:
         if edge == (i3, i4):
             new_graph.append((i3, i1))
         elif edge == (i4, i3):
@@ -103,3 +151,11 @@ def two_break_on_genome_graph(graph, i1, i2, i3, i4):
             new_graph.append(edge)
 
     return new_graph
+
+
+def two_break_on_genome(genome, i1, i2, i3, i4):
+    edges = colored_edges(genome)
+    edges = two_break_on_genome_graph(edges, i1, i2, i3, i4)
+    edges, _ = fix_graph_cycles(edges)
+    genome = graph_to_genome(edges)
+    return genome
