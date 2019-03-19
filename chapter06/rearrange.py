@@ -88,23 +88,26 @@ def graph_to_genome(edges):
     return genome
 
 
+def add_unidirectional_edge(adj, vertex1, vertex2, color):
+    adjs = adj.get(vertex1, [])
+    adjs.append((vertex2, color))
+    adj[vertex1] = adjs
+
+
+def add_bidirectional_edge(adj, vertex1, vertex2, color):
+    assert vertex1 != vertex2
+    add_unidirectional_edge(adj, vertex1, vertex2, color)
+    add_unidirectional_edge(adj, vertex2, vertex1, color)
+
+
+def find_adj_vertex_with_color(adj, vertex, color):
+    for vertex2, color2 in adj[vertex]:
+        if color2 == color:
+            return vertex2
+    assert False
+
+
 def fix_graph_cycles(graph):
-    def add_unidirectional_edge(adj, vertex1, vertex2, color):
-        adjs = adj.get(vertex1, [])
-        adjs.append((vertex2, color))
-        adj[vertex1] = adjs
-
-    def add_bidirectional_edge(adj, vertex1, vertex2, color):
-        assert vertex1 != vertex2
-        add_unidirectional_edge(adj, vertex1, vertex2, color)
-        add_unidirectional_edge(adj, vertex2, vertex1, color)
-
-    def find_adj_vertex_with_color(adj, vertex, color):
-        for vertex2, color2 in adj[vertex]:
-            if color2 == color:
-                return vertex2
-        assert False
-
     # Build the graph adjacency lists, colore edges first, black edges next
     adj = {}
     for edge in graph:
@@ -159,3 +162,37 @@ def two_break_on_genome(genome, i1, i2, i3, i4):
     edges, _ = fix_graph_cycles(edges)
     genome = graph_to_genome(edges)
     return genome
+
+
+def two_break_distance(genome1, genome2):
+    def add_colored_edges_to_graph(adj, edges, color):
+        for edge in edges:
+            add_unidirectional_edge(adj, edge[0], edge[1], color)
+            add_unidirectional_edge(adj, edge[1], edge[0], color)
+
+    red_edges = colored_edges(genome1)
+    blue_edges = colored_edges(genome2)
+    adj = {}
+    add_colored_edges_to_graph(adj, red_edges, 'red')
+    add_colored_edges_to_graph(adj, blue_edges, 'blue')
+    # Follow the cycles in the graph, and produce the colored edges in the right order and orientation
+    unvisited = set(adj)
+
+    previous_edge_color = None
+    cycles_count = 0
+    while unvisited:
+        starting_vertex = next(iter(unvisited))
+        current_vertex = None
+        cycles_count += 1
+        while current_vertex != starting_vertex:
+            if current_vertex is None:
+                current_vertex = starting_vertex
+            unvisited.remove(current_vertex)
+            current_edge_color = 'red' if previous_edge_color in ('None', 'blue') else 'blue'
+            next_vertex = find_adj_vertex_with_color(adj, current_vertex, current_edge_color)
+            current_vertex = next_vertex
+            previous_edge_color = current_edge_color
+
+    assert len(adj) % 2 == 0
+    dist = len(adj) // 2 - cycles_count
+    return dist

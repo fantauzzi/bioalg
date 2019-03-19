@@ -347,24 +347,24 @@ def test_two_break_on_genome():
                     -48, 49, -50, 51, -52, -53, 54]]
 
 
-def xtest_two_break_dist():
+def test_two_break_dist():
     ps = [(1, 2, 3, 4, 5, 6)]
     qs = [(2, -4), (1, -3, -6, -5)]
-    dist = rearrange.two_break_dist(ps, qs)
+    dist = rearrange.two_break_distance(ps, qs)
     assert dist == 3
 
     permutations = fetch_stepik_permutations(Path('test/testcase03.txt'))
     assert len(permutations) == 2
     ps = permutations[0]
     qs = permutations[1]
-    dist = rearrange.two_break_dist(ps, qs)
+    dist = rearrange.two_break_distance(ps, qs)
     assert dist == 8079
 
     permutations = fetch_stepik_permutations(Path('test/testcase04.txt'))
     assert len(permutations) == 2
     ps = permutations[0]
     qs = permutations[1]
-    dist = rearrange.two_break_dist(ps, qs)
+    dist = rearrange.two_break_distance(ps, qs)
     assert dist == 8354
 
 
