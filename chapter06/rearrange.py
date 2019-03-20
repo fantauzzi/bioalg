@@ -13,6 +13,17 @@ def pretty_print(printme):
         print(fmat.format(*line))
 
 
+def pretty_print_2_break_seq(printme):
+    for line in printme:
+        for permutation in line:
+            print('(', sep='', end='')
+            fmat = '{:+} ' * len(permutation)
+            fmat = fmat.rstrip(' ')
+            print(fmat.format(*permutation), end = '')
+            print(')', sep='', end='')
+        print()
+
+
 def greedy_sorting(p):
     """
     Returns the sequence of permutations leading from a given permutation to the indentity permutation, implementing greedy sorting.
@@ -73,6 +84,10 @@ def colored_edges(genome):
 
 
 def graph_to_genome(edges):
+    def get_block(vertex):
+        block = vertex // 2 if vertex % 2 == 0 else (vertex + 1) // 2
+        return block
+
     genome = []
     cycle = []
     cycle_start = None
@@ -80,7 +95,9 @@ def graph_to_genome(edges):
         if cycle_start is None:
             cycle_start = edge[0]
         cycle.extend(edge)
-        if (edge[1] + 1 == cycle_start or edge[1] - 1 == cycle_start) and edge[0] != cycle_start:
+        block_0, block_1 = get_block(edge[0]), get_block(edge[1])
+        is_trivial_cycle = block_0 == block_1
+        if ((edge[1] + 1 == cycle_start or edge[1] - 1 == cycle_start) and edge[0] != cycle_start) or is_trivial_cycle:
             cycle = [cycle[-1]] + cycle[0:len(cycle) - 1]
             genome.append(cycle_to_chromosome(cycle))
             cycle = []
@@ -107,6 +124,21 @@ def find_adj_vertex_with_color(adj, vertex, color):
     assert False
 
 
+def remove_unidirectional_edge(adj, vertex1, vertex2, color):
+    adjs = adj[vertex1]
+    new_adjs = []
+    for adj_vertex, adj_color in adjs:
+        if not (adj_vertex == vertex2 and adj_color == color):
+            new_adjs.append((adj_vertex, adj_color))
+    adj[vertex1] = new_adjs
+
+
+def remove_bidirectional_edge(adj, vertex1, vertex2, color):
+    assert vertex1 != vertex2
+    remove_unidirectional_edge(adj, vertex1, vertex2, color)
+    remove_unidirectional_edge(adj, vertex2, vertex1, color)
+
+
 def fix_graph_cycles(graph):
     # Build the graph adjacency lists, colore edges first, black edges next
     adj = {}
@@ -119,12 +151,13 @@ def fix_graph_cycles(graph):
     unvisited = set(adj)
 
     edges = []
-    previous_edge_color = None
+    # previous_edge_color = None
     cycles_count = 0
     while unvisited:
         starting_vertex = next(iter(unvisited))
         current_vertex = None
         cycles_count += 1
+        previous_edge_color = None
         while current_vertex != starting_vertex:
             if current_vertex is None:
                 current_vertex = starting_vertex
@@ -159,17 +192,18 @@ def two_break_on_genome_graph(edges, i1, i2, i3, i4):
 def two_break_on_genome(genome, i1, i2, i3, i4):
     edges = colored_edges(genome)
     edges = two_break_on_genome_graph(edges, i1, i2, i3, i4)
-    edges, _ = fix_graph_cycles(edges)
+    edges, cycles = fix_graph_cycles(edges)
     genome = graph_to_genome(edges)
     return genome
 
 
-def two_break_distance(genome1, genome2):
-    def add_colored_edges_to_graph(adj, edges, color):
-        for edge in edges:
-            add_unidirectional_edge(adj, edge[0], edge[1], color)
-            add_unidirectional_edge(adj, edge[1], edge[0], color)
+def add_colored_edges_to_graph(adj, edges, color):
+    for edge in edges:
+        add_unidirectional_edge(adj, edge[0], edge[1], color)
+        add_unidirectional_edge(adj, edge[1], edge[0], color)
 
+
+def two_break_distance(genome1, genome2):
     red_edges = colored_edges(genome1)
     blue_edges = colored_edges(genome2)
     adj = {}
@@ -196,3 +230,49 @@ def two_break_distance(genome1, genome2):
     assert len(adj) % 2 == 0
     dist = len(adj) // 2 - cycles_count
     return dist
+
+
+def two_break_sorting(genome1, genome2):
+    sequence = [deepcopy(genome1)]
+    current_genome = genome1
+
+    red_edges = colored_edges(genome1)
+    blue_edges = colored_edges(genome2)
+
+    # Fill in the adjacency lists of the breakpoint graph for genome1 and genome2
+    adj = {}
+    add_colored_edges_to_graph(adj, red_edges, 'red')
+    add_colored_edges_to_graph(adj, blue_edges, 'blue')
+
+    has_non_trivial_cycles = True
+    # Iterate as long as the breakpoint graph contains non-trivial (red-blue) cycle(s), but anyway at least once
+    while has_non_trivial_cycles:
+        ''' Look for a non-trivial cycle, exploring cycles one at a time, until you have explored them all, or have
+        found a non-trivial one '''
+        has_non_trivial_cycles = False
+        unvisited = set(adj)
+        while unvisited and not has_non_trivial_cycles:
+            vertex1 = next(iter(unvisited))
+            unvisited.remove(vertex1)
+            vertex2 = find_adj_vertex_with_color(adj, vertex1, 'red')
+            unvisited.remove(vertex2)
+            vertex3 = find_adj_vertex_with_color(adj, vertex2, 'blue')
+            # If it is a trivial red-blue cycle, proceed looking for another cycle
+            if vertex3 == vertex1:
+                continue
+            unvisited.remove(vertex3)
+            has_non_trivial_cycles = True
+            vertex4 = find_adj_vertex_with_color(adj, vertex3, 'red')
+            unvisited.remove(vertex4)
+        if has_non_trivial_cycles:
+            # Update the breakpoint graph, based on the red-blue-red edges at the beginning of the non-trivial cycle just found
+            remove_bidirectional_edge(adj, vertex1, vertex2, 'red')
+            remove_bidirectional_edge(adj, vertex3, vertex4, 'red')
+            add_bidirectional_edge(adj, vertex1, vertex4, 'red')
+            add_bidirectional_edge(adj, vertex2, vertex3, 'red')
+            # Do a 2-break on current_genome, and use the result to update the sequence of steps to be returned at the end
+            current_genome = two_break_on_genome(current_genome, vertex1, vertex2, vertex4, vertex3)
+            sequence.append(current_genome)
+
+    return sequence
+
