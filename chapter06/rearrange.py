@@ -19,9 +19,16 @@ def pretty_print_2_break_seq(printme):
             print('(', sep='', end='')
             fmat = '{:+} ' * len(permutation)
             fmat = fmat.rstrip(' ')
-            print(fmat.format(*permutation), end = '')
+            print(fmat.format(*permutation), end='')
             print(')', sep='', end='')
         print()
+
+
+def pretty_print_seq_of_seqs(printme):
+    for item in printme:
+        fmat = '{}, ' * len(item)
+        fmat = fmat.rstrip(', ')
+        print('(', fmat.format(*item), ')', sep='')
 
 
 def greedy_sorting(p):
@@ -137,6 +144,42 @@ def remove_bidirectional_edge(adj, vertex1, vertex2, color):
     assert vertex1 != vertex2
     remove_unidirectional_edge(adj, vertex1, vertex2, color)
     remove_unidirectional_edge(adj, vertex2, vertex1, color)
+
+
+def DNA_complement(dna):
+    complements = {'A': 'T',
+                   'T': 'A',
+                   'G': 'C',
+                   'C': 'G'}
+    complement = [complements[nucleotide] for nucleotide in reversed(dna)]
+    as_string = ''.join(complement)
+    return as_string
+
+
+def find_shared_kmers(k, string1, string2):
+    def add_position(kmers_position, kmer, pos):
+        positions = kmers_position.get(kmer, [])
+        positions.append(pos)
+        kmers_position[kmer] = positions
+
+    kmers_position = {}
+    for i in range(0, len(string1) - k + 1):
+        kmer = string1[i: i + k]
+        add_position(kmers_position, kmer, i)
+        kmer_rc = DNA_complement(kmer)
+        if kmer != kmer_rc:
+            add_position(kmers_position, kmer_rc, i)
+
+    res = []
+    for i in range(0, len(string2) - k + 1):
+        kmer = string2[i: i + k]
+        positions_in_1 = kmers_position.get(kmer)
+        if positions_in_1 is None:
+            continue
+        for pos in positions_in_1:
+            res.append((pos, i))
+
+    return res
 
 
 def fix_graph_cycles(graph):
@@ -275,4 +318,3 @@ def two_break_sorting(genome1, genome2):
             sequence.append(current_genome)
 
     return sequence
-
