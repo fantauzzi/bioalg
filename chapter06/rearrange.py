@@ -1,6 +1,25 @@
 from copy import deepcopy
 from itertools import chain, islice
 
+"""
+NOTE
+====
+
+The following conventions are adopted throughout this source file.
+
+A synteny block is expressed as an integer number, whose sign indicates the orientation of the block within its
+chromosome.
+
+A chromosome is expressed as the sequence of its synteny blocks. A chromosome is therefore indicated by a sequence of
+integer numbers, e.g. (1, -2, -3, 4).
+
+A Genome is expressed as its chromosomes in a sequence. Therefore it is a sequence of sequences of integer numbers, e.g.
+[(1, -2, -3, 4), (5, -6)]
+
+A genome graph is indicated with the sequence of its colored edges; each colored edge is a pair of positive integer
+numbers, which represent the vertices joined by the edge.
+"""
+
 
 def pretty_print(printme):
     """
@@ -66,6 +85,12 @@ def count_breakpoints(p):
 
 
 def chromosome_to_cycle(chromosome):
+    """
+    Returns the sequence of vertices in a breakpoint graph corresponding to a given chromosome.
+    :param chromosome: The chromosome, a sequence of integers, representing its synteny blocks.
+    :return: The vertices, a sequence of positive integer numbers.
+    """
+
     def flatten(seq_of_seq):
         return list(chain.from_iterable(seq_of_seq))
 
@@ -74,16 +99,31 @@ def chromosome_to_cycle(chromosome):
 
 
 def pairwise(seq):
+    """
+    Iterates over the elements of a sequence of even length one pair at a time.
+    :param seq: The sequence, must be of even length.
+    :return: The iterator.
+    """
     assert len(seq) % 2 == 0
     return zip(islice(seq, 0, None, 2), islice(seq, 1, None, 2))
 
 
 def cycle_to_chromosome(cycle):
+    """
+    Returns the chromosome corresponding to a given breakpoint graph.
+    :param cycle: The sequence of vertices in the breakpoint graph, a sequence of positive integer numbers.
+    :return: The chromosome, a sequence of integers, representing its synteny blocks.
+    """
     chromosome = [item2 // 2 if item1 < item2 else -item1 // 2 for item1, item2 in pairwise(cycle)]
     return chromosome
 
 
 def colored_edges(genome):
+    """
+    Returns the colored edges in a genome graph.
+    :param genome: The given genome, a sequence of chromosomes, each chromosome being a sequence of integer numbers.
+    :return: The colored edges, a sequence of pairs of integer numbers, each pair being the two end-points of the edge.
+    """
     cycles = [chromosome_to_cycle(chromosome) for chromosome in genome]
     cycles = [cycle + [cycle[0]] for cycle in cycles]
     edges = [(block1, block2) for cycle in cycles for (block1, block2) in pairwise(cycle[1:])]
@@ -91,6 +131,12 @@ def colored_edges(genome):
 
 
 def graph_to_genome(edges):
+    """
+    Returns the genome corresponding to a given genome graph.
+    :param edges: The colored edges of the genome graph, a sequence of pairs of integer numbers.
+    :return: a sequence of sequences of integer numbers, the genome corresponding to the graph.
+    """
+
     def get_block(vertex):
         block = vertex // 2 if vertex % 2 == 0 else (vertex + 1) // 2
         return block
