@@ -4,6 +4,10 @@ from pathlib import Path
 
 
 def pretty_print_matrix(matrix):
+    """
+    Prints the matrix with distances between nodes in a graph, as returned by dist_between_leaves().
+    :param matrix: The matrix.
+    """
     items = sorted(matrix)
     for row_item in items:
         line = [matrix[row_item][col_item] for col_item in items]
@@ -11,6 +15,12 @@ def pretty_print_matrix(matrix):
 
 
 def parse_stepik_input(file_name):
+    """
+    Fetches the adjacency lists of a tree from a file, with input from the Stepik challenge "Distances Between Leaves
+    Problem"
+    :param file_name: The file name, with its relative path.
+    :return: The adjacency lists, as expected by dist_between_leaves().
+    """
     tree = {}
     with open(file_name) as input_file:
         input_file.readline().rstrip('\n')
@@ -30,6 +40,12 @@ def parse_stepik_input(file_name):
 
 
 def parse_stepik_result(file_name):
+    """
+    Fetches and returns a matrix of distances between nodes in a graph from a given file.
+    :param file_name: The file name, with its relative path. The content of the file must be formatted like the
+    output of the stepik challenge "Distances Between Leaves Problem".
+    :return: The distances matrix, a dictionary of dictionaries, same as returned by dist_between_leaves()
+    """
     matrix = {}
     with open(file_name) as input_file:
         lines = input_file.readlines()
