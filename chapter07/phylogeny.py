@@ -104,3 +104,17 @@ def dist_between_leaves(tree):
                     del distance[node1][node2]
 
     return distance
+
+
+def limb_length(leaf, distance_matrix):
+    """
+    Returns the limb length of a given leaf in a tree with given distance matrix.
+    :param leaf: The given leaf, a non-negative integer.
+    :param distance_matrix: The distance matrix, a dictionary of dictionaries; it must be additive.
+    :return: The limb length, an integer.
+    """
+    n = len(distance_matrix)
+    length = min(
+        [(distance_matrix[i][leaf] + distance_matrix[leaf][k] - distance_matrix[i][k]) // 2 for i in range(0, n) for k
+         in range(0, n) if i != leaf != k])
+    return length

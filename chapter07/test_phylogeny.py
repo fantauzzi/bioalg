@@ -14,7 +14,7 @@ def pretty_print_matrix(matrix):
         print(*line, sep=' ')
 
 
-def parse_stepik_input(file_name):
+def fetch_stepik_input(file_name):
     """
     Fetches the adjacency lists of a tree from a file, with input from the Stepik challenge "Distances Between Leaves
     Problem"
@@ -39,7 +39,7 @@ def parse_stepik_input(file_name):
     return tree
 
 
-def parse_stepik_result(file_name):
+def parse_stepik_matrix(input_file):
     """
     Fetches and returns a matrix of distances between nodes in a graph from a given file.
     :param file_name: The file name, with its relative path. The content of the file must be formatted like the
@@ -47,8 +47,7 @@ def parse_stepik_result(file_name):
     :return: The distances matrix, a dictionary of dictionaries, same as returned by dist_between_leaves()
     """
     matrix = {}
-    with open(file_name) as input_file:
-        lines = input_file.readlines()
+    lines = input_file.readlines()
 
     for row_i, line in enumerate(lines):
         matrix[row_i] = {}
@@ -57,6 +56,22 @@ def parse_stepik_result(file_name):
             matrix[row_i][col_i] = int(item)
 
     return matrix
+
+
+def fetch_stepik_result(file_name):
+    with open(file_name) as input_file:
+        matrix = parse_stepik_matrix(input_file)
+    return matrix
+
+
+def fetch_stepik_limb_length_input(file_name):
+    with open(file_name) as input_file:
+        n = input_file.readline().rstrip('\n')
+        n = int(n)
+        j = input_file.readline().rstrip('\n')
+        j = int(j)
+        matrix = parse_stepik_matrix(input_file)
+    return n, j, matrix
 
 
 def test_add_node():
@@ -77,17 +92,34 @@ def test_dist_between_leaves():
     assert dist == {0: {0: 0, 1: 13, 2: 21, 3: 22}, 1: {1: 0, 0: 13, 2: 12, 3: 13}, 2: {2: 0, 0: 21, 1: 12, 3: 13},
                     3: {3: 0, 0: 22, 1: 13, 2: 13}}
 
-    tree = parse_stepik_input(Path('test/testcase00.txt'))
+    tree = fetch_stepik_input(Path('test/testcase00.txt'))
     dist = phylogeny.dist_between_leaves(tree)
     assert dist == {0: {0: 0, 1: 13, 3: 22, 2: 21}, 1: {1: 0, 0: 13, 3: 13, 2: 12}, 3: {3: 0, 0: 22, 1: 13, 2: 13},
                     2: {2: 0, 0: 21, 1: 12, 3: 13}}
 
-    tree = parse_stepik_input(Path('test/testcase01.txt'))
+    tree = fetch_stepik_input(Path('test/testcase01.txt'))
     dist = phylogeny.dist_between_leaves(tree)
-    expected = parse_stepik_result(Path('test/testresult01.txt'))
+    expected = fetch_stepik_result(Path('test/testresult01.txt'))
     assert dist == expected
 
-    tree = parse_stepik_input(Path('test/testcase02.txt'))
+    tree = fetch_stepik_input(Path('test/testcase02.txt'))
     dist = phylogeny.dist_between_leaves(tree)
-    expected = parse_stepik_result(Path('test/testresult02.txt'))
+    expected = fetch_stepik_result(Path('test/testresult02.txt'))
     assert dist == expected
+
+
+def test_limb_length():
+    n, j, d = fetch_stepik_limb_length_input(Path('test/testcase03.txt'))
+    assert len(d) == n
+    length = phylogeny.limb_length(j, d)
+    assert length == 2
+
+    n, j, d = fetch_stepik_limb_length_input(Path('test/testcase04.txt'))
+    assert len(d) == n
+    length = phylogeny.limb_length(j, d)
+    assert length == 534
+
+    n, j, d = fetch_stepik_limb_length_input(Path('test/testcase05.txt'))
+    assert len(d) == n
+    length = phylogeny.limb_length(j, d)
+    assert length == 537

@@ -203,6 +203,14 @@ def DNA_complement(dna):
 
 
 def find_shared_kmers(k, string1, string2):
+    """
+    Returns all shared k-mers between two sttrings.
+    :param k: Parameter k, a positive integer.
+    :param string1: The first string.
+    :param string2: The second string.
+    :return: The shared k-mers, a list of strings.
+    """
+
     def add_position(kmers_position, kmer, pos):
         positions = kmers_position.get(kmer, [])
         positions.append(pos)
