@@ -209,3 +209,65 @@ def additive_phylogeny(d):
     add_node(tree, selected_node, n - 1, limb)
 
     return tree
+
+
+def argmin(seq):
+    current_min = float('inf')
+    min_i = None
+    for i, item in enumerate(seq):
+        if item < current_min:
+            current_min = item
+            min_i = i
+    return min_i
+
+
+# import numpy as np
+
+
+def upgma(d):
+    n = len(d)
+    # d = np.array(distances, float)
+    # Start with one cluster per row (column) of matrix d, numbered with integers starting from 0
+    # clusters = set(range(0, n))
+    clusters = {vertex: 1 for vertex in range(0, n)}
+    # Start with a graph with one vertex per cluster.
+    graph = {vertex: [] for vertex in clusters}
+    # Initialise the age for every vertex in the graph
+    age = {vertex: 0 for vertex in graph}
+    while len(clusters) > 1:
+        current_min = float('inf')  # Find i, k with i!=k that mininimise d[i][k], assuming d simmetric.
+        min_idxs = None
+        for i in d:
+            for j in d:
+                if i != j and d[i][j] < current_min:
+                    current_min = d[i][j]
+                    min_idxs = i, j
+        assert min_idxs is not None
+        i, j = min_idxs
+        assert i != j
+        # Get the new cluster number
+        new_cluster = max(clusters) + 1
+        # Set the age for the new cluster
+        age[new_cluster] = d[i][j] / 2
+        # Add it as a vertex to the graph, connected to vertices (clusters) i and j
+        add_node(graph, i, new_cluster, age[new_cluster] - age[i])
+        add_node(graph, j, new_cluster, age[new_cluster] - age[j])
+        # Update the matrix d, by removing rows and columns for i and j, and inserting a new row and column for new_cluster
+        # new_row = {col: (d[i][col] + d[j][col]) / 2 for col in d if col != i and col != j}
+        new_row = {col: (d[i][col] * clusters[i] + d[j][col] * clusters[j]) / (clusters[i] + clusters[j]) for col in d
+                   if col != i and col != j}
+        new_row[new_cluster] = 0
+        del d[i]
+        del d[j]
+        for row in d:
+            del d[row][i]
+            del d[row][j]
+        d[new_cluster] = new_row
+        for row in d:
+            d[row][new_cluster] = new_row[row]
+        # clusters = clusters - {i} - {j} | {new_cluster}
+        clusters[new_cluster] = clusters[i] + clusters[j]
+        del clusters[i]
+        del clusters[j]
+
+    return graph
