@@ -13,6 +13,7 @@ of row 'r' and column 'c'.
 '''
 
 from collections import deque
+from itertools import product
 
 
 def add_node(tree, node1, node2, weight):
@@ -115,6 +116,96 @@ def limb_length(leaf, distance_matrix):
     """
     n = len(distance_matrix)
     length = min(
-        [(distance_matrix[i][leaf] + distance_matrix[leaf][k] - distance_matrix[i][k]) // 2 for i in range(0, n) for k
+        [(distance_matrix[i][leaf] + distance_matrix[leaf][k] - distance_matrix[i][k]) / 2 for i in range(0, n) for k
          in range(0, n) if i != leaf != k])
-    return length
+    assert length == int(length)
+    return int(length)
+
+
+def path_in_a_tree(tree, v1, v2):
+    pending = [(v1, 0)]  # Stack of nodes to be processed, each with its distance from v1
+    unvisited = set(tree)
+    current = None
+    precedent = {}
+    while current != v2 and unvisited:
+        current, current_dist = pending.pop()
+        unvisited -= {current}
+        for next_v, next_dist in tree[current]:
+            if next_v in unvisited:
+                pending.append((next_v, current_dist + next_dist))
+                precedent[next_v] = current, current_dist
+    assert current == v2
+    path = [(current, current_dist)]
+    while current != v1:
+        current, dist = precedent[current]
+        path.append((current, dist))
+    path.reverse()
+    return path
+
+
+def break_edge_with_node(tree, node1, node2, new_node, dist_from_node1, dist_from_node2):
+    def remove_adjacent(tree, node1, node2):
+        new_adj = []
+        for adj_node, adj_dist in tree[node1]:
+            if adj_node != node2:
+                new_adj.append((adj_node, adj_dist))
+        tree[node1] = new_adj
+
+    remove_adjacent(tree, node1, node2)
+    remove_adjacent(tree, node2, node1)
+    add_node(tree, node1, new_node, dist_from_node1)
+    add_node(tree, node2, new_node, dist_from_node2)
+
+
+def additive_phylogeny(d):
+    def remove_row_and_col(d, to_be_removed):
+        del d[to_be_removed]
+        for row in d:
+            del d[row][to_be_removed]
+
+    n = len(d)
+    if n == 2:  # Recursion base case
+        tree = {0: [(1, d[0][1])],
+                1: [(0, d[1][0])]}
+        return tree
+
+    limb = limb_length(n - 1, d)
+    for j in range(0, n - 1):
+        d[j][n - 1] -= limb
+        d[n - 1][j] = d[j][n - 1]
+
+    # Find two leaves i and k such that they satisfy the equality of the limb length theorem
+    for row, col in product(range(0, n), repeat=2):
+        if d[row][col] == d[row][n - 1] + d[n - 1][col]:
+            i, k = row, col
+            break
+    else:
+        assert False
+
+    x = d[i][n - 1]
+    remove_row_and_col(d, n - 1)
+    tree = additive_phylogeny(d)
+    # Determine a (potentially new) node in the path from i to k at distance x from i where to connect the limb for n-1
+    selected_node = None
+    path = path_in_a_tree(tree, i, k)
+    for i_node in range(0, len(path)):
+        node, dist_from_i = path[i_node]
+        if dist_from_i == x:
+            selected_node = node
+            assert len(tree[selected_node]) > 1
+            break
+        if i_node < len(path) - 1:
+            next_node, next_dist_from_i = path[i_node + 1]
+            if next_dist_from_i > x:
+                selected_node = min([-1, min(tree) - 1])
+                break_edge_with_node(tree=tree,
+                                     node1=node,
+                                     node2=next_node,
+                                     new_node=selected_node,
+                                     dist_from_node1=x - dist_from_i,
+                                     dist_from_node2=next_dist_from_i - x)
+                break
+    assert selected_node is not None
+    add_node(tree, selected_node, n - 1, limb)
+
+    return tree

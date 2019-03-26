@@ -6,11 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/chapter07/test/testcase03.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chapter07/test/testcase04.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chapter07/test/testcase05.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chapter07/test/testcase07.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chapter06/rearrange.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter06/rearrange.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter07/phylogeny.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter07/phylogeny.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter07/test_phylogeny.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter07/test_phylogeny.py" afterDir="false" />
     </list>
@@ -25,8 +22,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter07/test_phylogeny.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="124" column="24" selection-start-line="124" selection-start-column="24" selection-end-line="124" selection-end-column="24" />
+            <state relative-caret-position="1772">
+              <caret line="190" selection-start-line="190" selection-end-line="190" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -37,8 +34,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter07/phylogeny.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="764">
-              <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
+            <state relative-caret-position="864">
+              <caret line="171" column="32" lean-forward="true" selection-start-line="171" selection-start-column="32" selection-end-line="171" selection-end-column="32" />
+              <folding>
+                <element signature="e#573#602#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -98,9 +98,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/chapter02/dataset01.txt" />
-        <option value="$PROJECT_DIR$/mkdocs.yml" />
-        <option value="$PROJECT_DIR$/docs/chapter02/hidden_motif.py" />
         <option value="$PROJECT_DIR$/site/chapter02/test_hidden_motif.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/.gitignore" />
@@ -147,16 +144,19 @@
         <option value="$PROJECT_DIR$/chapter07/test/testcase03.txt" />
         <option value="$PROJECT_DIR$/chapter07/test/testcase04.txt" />
         <option value="$PROJECT_DIR$/chapter07/test/testcase05.txt" />
-        <option value="$PROJECT_DIR$/chapter07/test_phylogeny.py" />
+        <option value="$PROJECT_DIR$/chapter07/notes.txt" />
         <option value="$PROJECT_DIR$/chapter07/phylogeny.py" />
+        <option value="$PROJECT_DIR$/chapter07/test/testcase06.txt" />
+        <option value="$PROJECT_DIR$/chapter07/test/testcase07.txt" />
+        <option value="$PROJECT_DIR$/chapter07/test_phylogeny.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1977" />
-    <option name="y" value="25" />
+    <option name="y" value="-3" />
     <option name="width" value="2503" />
-    <option name="height" value="1415" />
+    <option name="height" value="1443" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -165,7 +165,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -178,16 +177,11 @@
               <item name="bioalg" type="462c0819:PsiDirectoryNode" />
               <item name="chapter07" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bioalg" type="462c0819:PsiDirectoryNode" />
-              <item name="chapter07" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -371,34 +365,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.23 at 16h 49m 13s.xml">
+    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.26 at 12h 30m 43s.xml">
       <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.23 at 16h 53m 59s.xml">
+    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.26 at 12h 44m 19s.xml">
       <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.23 at 16h 59m 16s.xml">
+    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.26 at 13h 25m 32s.xml">
       <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.23 at 17h 00m 27s.xml">
+    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.26 at 13h 26m 52s.xml">
       <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.23 at 17h 00m 46s.xml">
+    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.26 at 13h 27m 18s.xml">
       <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.23 at 17h 03m 07s.xml">
+    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.26 at 13h 30m 04s.xml">
       <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.23 at 17h 04m 59s.xml">
+    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.26 at 13h 30m 55s.xml">
       <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.23 at 17h 05m 12s.xml">
+    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.26 at 13h 39m 39s.xml">
       <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.23 at 17h 08m 25s.xml">
+    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.26 at 14h 23m 30s.xml">
       <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.23 at 17h 08m 30s.xml">
+    <history-entry file="pytest_in_test_phylogeny_py - 2019.03.26 at 14h 23m 47s.xml">
       <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -415,13 +409,13 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4130268" visible="true" weight="0.24384336" />
-      <window_info id="Structure" order="1" sideWeight="0.5869732" side_tool="true" visible="true" weight="0.24384336" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.40689656" visible="true" weight="0.24384336" />
+      <window_info id="Structure" order="1" sideWeight="0.59310347" side_tool="true" visible="true" weight="0.24384336" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32950193" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.42222223" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.6413793" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3302682" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32950193" />
@@ -476,6 +470,21 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>d[i][node]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>d[row][col], d[row][n - 1], d[n - 1][col]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>d[row][col]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>[(distance_matrix[i][leaf] + distance_matrix[leaf][k] - distance_matrix[i][k]) / 2 for i in range(0, n) for k in
          range(0, n)]</expression-string>
@@ -552,6 +561,16 @@
     </expressions>
     <expressions id="watch">
       <expression>
+        <expression-string>d[3][0]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>d[0][3]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>adj[current]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -621,16 +640,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/chapter02/hidden_motif.ipynb" />
-    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/pandas/core/series.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="1045" selection-start-line="1045" selection-end-line="1045" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter02/notes.txt" />
-    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/pluggy/callers.py" />
     <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/copy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="251">
@@ -893,29 +902,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase01.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="8" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase00.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter07/test/testresult01.txt">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase02.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter07/test/testresult02.txt">
       <provider selected="true" editor-type-id="text-editor">
@@ -934,6 +922,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase05.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="22" column="101" selection-start-line="22" selection-start-column="101" selection-end-line="22" selection-end-column="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase00.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase02.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter07/test/testcase03.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -948,17 +957,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase05.txt">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="22" column="101" selection-start-line="22" selection-start-column="101" selection-end-line="22" selection-end-column="101" />
+        <state relative-caret-position="769">
+          <caret line="1740" selection-start-line="1740" selection-end-line="1740" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase01.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1848">
+          <caret line="4" column="8" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase06.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter07/notes.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase07.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="21" column="102" selection-start-line="21" selection-start-column="102" selection-end-line="21" selection-end-column="102" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter07/test_phylogeny.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="124" column="24" selection-start-line="124" selection-start-column="24" selection-end-line="124" selection-end-column="24" />
+        <state relative-caret-position="1772">
+          <caret line="190" selection-start-line="190" selection-end-line="190" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
@@ -967,8 +1004,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter07/phylogeny.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="764">
-          <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
+        <state relative-caret-position="864">
+          <caret line="171" column="32" lean-forward="true" selection-start-line="171" selection-start-column="32" selection-end-line="171" selection-end-column="32" />
+          <folding>
+            <element signature="e#573#602#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
