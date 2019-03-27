@@ -306,3 +306,87 @@ def upgma(d):
         del clusters[j]
 
     return graph
+
+
+def total_distance(d):
+    """
+    Returns the total distance vector for a given distance matrix.
+    :param d: The distance matrix, a dictionary of dictionaries.
+    :return: The total distance, a dictionary, where item [i] is the sum of items on the i-th row of the matrix.
+    """
+    dist = {i: sum([d[i][k] for k in d if k != i]) for i in d}
+    return dist
+
+
+def neighbor_joining_matrix(d):
+    """
+    Returns the neighbor-joining matrix obtained from a given distance matrix.
+    :param d: The distance matrix, a dictionary of dictionaries.
+    :return: The neighbor-joining matrix, a dictionary of dictionaries.
+    """
+    n = len(d)
+    total_dist = total_distance(d)
+    d_star = {i: {j: (n - 2) * d[i][j] - total_dist[i] - total_dist[j] if j != i else 0 for j in d} for i in d}
+    return d_star
+
+
+def neighbor_joining(d):
+    """
+    Returns the tree fitting a given distance matrix via neighbor joining. The obtained tree has no root.
+    :param d: The distance matrix; a dictionary of dictionaries.
+    :return: The adjacency lists for the tree, a dictionary of lists.
+    """
+    n = len(d)
+    # For each cluster, keep track of its cardinality. Start with one cluster per leaf node, each cluster with cardinality one.
+    clusters = {vertex: 1 for vertex in range(0, n)}
+    # Start with a (non-connected) graph with one vertex per leaf (cluster), and no edges.
+    graph = {vertex: [] for vertex in clusters}
+    # Continue until you have clustered everything in two clusters only (obtaining two trees)
+    while len(clusters) > 2:
+        # Get the neighbor joining matrix and its total distance vector.
+        d_star = neighbor_joining_matrix(d)
+        tot_dist = total_distance(d)
+        # Find i, j with i!=k that minimises d[i][k].
+        current_min = float('inf')
+        min_idxs = None
+        for i in d_star:
+            for j in d_star:
+                if i != j and d_star[i][j] < current_min:
+                    current_min = d_star[i][j]
+                    min_idxs = i, j
+        assert min_idxs is not None
+        i, j = min_idxs
+        assert i != j
+        # Get the new cluster number. They get numbered n, n+1, n+2, ...
+        new_cluster = max(clusters) + 1
+        # Add it as a vertex to the graph, connected to vertices (clusters) i and j
+        delta_ij = (tot_dist[i] - tot_dist[j]) / (n - 2)
+        limb_i = (d[i][j] + delta_ij) / 2
+        limb_j = (d[i][j] - delta_ij) / 2
+        add_node(graph, i, new_cluster, limb_i)
+        add_node(graph, j, new_cluster, limb_j)
+        # Update the matrix d, by removing rows and columns for i and j, and inserting a new row and column for new_cluster
+        new_row = {col: (d[col][i] + d[col][j] - d[i][j]) / 2 for col in d if col != i and col != j}
+        new_row[new_cluster] = 0
+        del d[i]
+        del d[j]
+        for row in d:
+            del d[row][i]
+            del d[row][j]
+        d[new_cluster] = new_row
+        for row in d:
+            d[row][new_cluster] = new_row[row]
+        # Update n, as matrix d is now smaller by 1 row and 1 column
+        n = len(d)
+        # Add the new cluster to 'clusters' along with its cardinality
+        clusters[new_cluster] = clusters[i] + clusters[j]
+        # Clusters that have been clusterd together are moved from 'clusters'
+        del clusters[i]
+        del clusters[j]
+
+    # Connect the two obtained clusters with an edge with appropriate weight. There is no root in the resulting tree.
+    assert len(d) == 2
+    v1, v2 = list(d.keys())
+    add_node(graph, v1, v2, weight=d[v1][v2])
+
+    return graph
