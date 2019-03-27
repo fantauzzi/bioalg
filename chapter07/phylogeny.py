@@ -2,10 +2,10 @@
 NOTE
 ====
 
-Trees are represented with a Pyhton dictionary of adjacency lists. Each key-value in the dictionary has one node for the
-key, and a list of pairs (adj_node, adj_weight) for the value; adj_node is a node adjacent to the one in the key, and
-adj_weight is the weight of the connecting edge. The tree may or may not have a root node. Note that, if node 'a' is
-adjacent to node 'b', then 'b' is adjacent to 'a'.
+Trees and graphs are represented with a Pyhton dictionary of adjacency lists. Each key-value in the dictionary has one
+vertex for the key, and a list of pairs (adj_vertex, adj_weight) for the value; adj_vertex is a vertex adjacent to the
+one in the key, and adj_weight is the weight of the connecting edge. When it is a tree, it may or may not have a root
+node. Note that, if node 'a' is adjacent to node 'b', then 'b' is adjacent to 'a', graphs and trees are not directed.
 
 Matrices are represented with a Python dictionary of dictionaries; given a matrix 'm', m[r][c] indicates its element
 of row 'r' and column 'c'.
@@ -123,10 +123,19 @@ def limb_length(leaf, distance_matrix):
 
 
 def path_in_a_tree(tree, v1, v2):
+    """
+    Returns the path in a weighted tree from one vertex to another, along with the overall weights from the starting vertex to each vertex in the path.
+    :param tree: The adjacency lists for the tree, a dictionary of lists.
+    :param v1: The vertex where the path shall start.
+    :param v2: The vertex where the path shall end.
+    :return: The path from v1 to v2, including v1 and v2, a list of pairs; in each pair, the first element is the traversed vertex, and the second element is the sum of the edge weights from v1 to that vertex, a number.
+    """
+    # Do a depth-first exploration of the tree starting from v1, until you reach v2
+
     pending = [(v1, 0)]  # Stack of nodes to be processed, each with its distance from v1
     unvisited = set(tree)
     current = None
-    precedent = {}
+    precedent = {}  # Track from which vertex any vertex is reached, and the cumulative weight to get there from v1
     while current != v2 and unvisited:
         current, current_dist = pending.pop()
         unvisited -= {current}
@@ -136,6 +145,7 @@ def path_in_a_tree(tree, v1, v2):
                 precedent[next_v] = current, current_dist
     assert current == v2
     path = [(current, current_dist)]
+    # Backtrack from v2 to v1 using precedent
     while current != v1:
         current, dist = precedent[current]
         path.append((current, dist))
@@ -144,6 +154,16 @@ def path_in_a_tree(tree, v1, v2):
 
 
 def break_edge_with_node(tree, node1, node2, new_node, dist_from_node1, dist_from_node2):
+    """
+    Insert a node along an edge in a weighted tree; the edge is removed, and the inserted node is connected to the previous edge endpoints.
+    :param tree: The weighted tree adjacency lists, a dictionary of lists.
+    :param node1: The first node delimiting the edge.
+    :param node2: The second node delimiting the edge.
+    :param new_node: The node to be inserted.
+    :param dist_from_node1: The weight of the new edge between the first node and the inserted node.
+    :param dist_from_node2: The weight of the new edge between the second node and the inserted node.
+    """
+
     def remove_adjacent(tree, node1, node2):
         new_adj = []
         for adj_node, adj_dist in tree[node1]:
@@ -158,23 +178,41 @@ def break_edge_with_node(tree, node1, node2, new_node, dist_from_node1, dist_fro
 
 
 def additive_phylogeny(d):
+    """
+    Returns a simple tree fitting a given distance matrix, solving the distance based phylogeny problem.
+    :param d: The distance matrix, must be additive; a dictionary of dictionaries.
+    :return:The adjacency lists of the tree fitting the matrix, a dictionary of lists.
+    """
+
     def remove_row_and_col(d, to_be_removed):
+        """
+        Remove a given row and column from a distance matrix.
+        :param d: The distance matrix, a dictionary of dictionaries.
+        :param to_be_removed: The key of the row and column to be removed. Both the row and the column with the given
+        key will be removed.
+        """
         del d[to_be_removed]
         for row in d:
             del d[row][to_be_removed]
 
+    ''' Proceed by recursion. Remove one row and one column from the distance matrix, fit a tree to the smaller matrix,
+    then add to the tree the node corresponding to the row and column previously removed. '''
+
     n = len(d)
-    if n == 2:  # Recursion base case
+    if n == 2:  # Recursion base case, a 2x2 distance matrix, the fitting simple tree is trivial
         tree = {0: [(1, d[0][1])],
                 1: [(0, d[1][0])]}
         return tree
 
+    # Determine the length of the limb for the node to be inserted in the tree
     limb = limb_length(n - 1, d)
+    # Compute the "balded" distance matrix, based on the limb length
     for j in range(0, n - 1):
         d[j][n - 1] -= limb
         d[n - 1][j] = d[j][n - 1]
 
-    # Find two leaves i and k such that they satisfy the equality of the limb length theorem
+    ''' Find two leaves i and k such that they satisfy the equality of the limb length theorem. A new vertex will be
+    added along the path from i to k '''
     for row, col in product(range(0, n), repeat=2):
         if d[row][col] == d[row][n - 1] + d[n - 1][col]:
             i, k = row, col
@@ -182,8 +220,11 @@ def additive_phylogeny(d):
     else:
         assert False
 
+    # Determine the distance x from vertex i to the node where the limb for the new node should be connected.
     x = d[i][n - 1]
+    # Remove the last row and last column from the distance matrix
     remove_row_and_col(d, n - 1)
+    # Fit a simple tree on the smaller (trimmed) matrix
     tree = additive_phylogeny(d)
     # Determine a (potentially new) node in the path from i to k at distance x from i where to connect the limb for n-1
     selected_node = None
@@ -206,36 +247,30 @@ def additive_phylogeny(d):
                                      dist_from_node2=next_dist_from_i - x)
                 break
     assert selected_node is not None
+    ''' Add the new node to the fitting tree, along with its limb (a tree edge), and, if not already in the tree,
+    the node where to attach the limb. 
+    '''
     add_node(tree, selected_node, n - 1, limb)
 
     return tree
 
 
-def argmin(seq):
-    current_min = float('inf')
-    min_i = None
-    for i, item in enumerate(seq):
-        if item < current_min:
-            current_min = item
-            min_i = i
-    return min_i
-
-
-# import numpy as np
-
-
 def upgma(d):
+    """
+    Returns the ultrametric tree produced by UPGMA (Unweighted Pair Group Method with Arithmetic Mean) for a given distance matrix.
+    :param d: The distance matrix; a dictionary of dictionaries.
+    :return: The adjacency lists for the tree, a dictionary of lists.
+    """
     n = len(d)
-    # d = np.array(distances, float)
-    # Start with one cluster per row (column) of matrix d, numbered with integers starting from 0
-    # clusters = set(range(0, n))
+    # For each cluster, keep track of its cardinality. Start with one cluster per leaf node, each cluster with cardinality one.
     clusters = {vertex: 1 for vertex in range(0, n)}
-    # Start with a graph with one vertex per cluster.
+    # Start with a (non-connected) graph with one vertex per leaf (cluster), and no edges.
     graph = {vertex: [] for vertex in clusters}
     # Initialise the age for every vertex in the graph
     age = {vertex: 0 for vertex in graph}
+    # Continue until you have clustered everything in one cluster only (i.e. you have built the root of the tree)
     while len(clusters) > 1:
-        current_min = float('inf')  # Find i, k with i!=k that mininimise d[i][k], assuming d simmetric.
+        current_min = float('inf')  # Find i, j with i!=k that mininimises d[i][k].
         min_idxs = None
         for i in d:
             for j in d:
@@ -245,7 +280,7 @@ def upgma(d):
         assert min_idxs is not None
         i, j = min_idxs
         assert i != j
-        # Get the new cluster number
+        # Get the new cluster number. They get numbered n, n+1, n+2, ...
         new_cluster = max(clusters) + 1
         # Set the age for the new cluster
         age[new_cluster] = d[i][j] / 2
@@ -253,7 +288,6 @@ def upgma(d):
         add_node(graph, i, new_cluster, age[new_cluster] - age[i])
         add_node(graph, j, new_cluster, age[new_cluster] - age[j])
         # Update the matrix d, by removing rows and columns for i and j, and inserting a new row and column for new_cluster
-        # new_row = {col: (d[i][col] + d[j][col]) / 2 for col in d if col != i and col != j}
         new_row = {col: (d[i][col] * clusters[i] + d[j][col] * clusters[j]) / (clusters[i] + clusters[j]) for col in d
                    if col != i and col != j}
         new_row[new_cluster] = 0
@@ -265,8 +299,9 @@ def upgma(d):
         d[new_cluster] = new_row
         for row in d:
             d[row][new_cluster] = new_row[row]
-        # clusters = clusters - {i} - {j} | {new_cluster}
+        # Add the new cluster to 'clusters' along with its cardinality
         clusters[new_cluster] = clusters[i] + clusters[j]
+        # Clusters that have been clusterd together are moved from 'clusters'
         del clusters[i]
         del clusters[j]
 
