@@ -12,8 +12,10 @@ of row 'r' and column 'c'.
 
 '''
 
-from collections import deque
 from itertools import product
+from collections import deque, namedtuple
+
+BinTreeAdj = namedtuple('BinTreeAdj', ['left', 'right', 'parent'])  # Adjacency list for a tree node
 
 
 def add_node(tree, node1, node2, weight):
@@ -33,6 +35,12 @@ def add_node(tree, node1, node2, weight):
 
     add_monodir_edge(tree, node1, node2, weight)
     add_monodir_edge(tree, node2, node1, weight)
+
+
+def hamming_distance(s1, s2):
+    assert len(s1) == len(s2)
+    dist = sum([char1 != char2 for char1, char2 in zip(s1, s2)])
+    return dist
 
 
 def dist_between_leaves(tree):
@@ -116,7 +124,8 @@ def limb_length(leaf, distance_matrix):
     """
     n = len(distance_matrix)
     length = min(
-        [(distance_matrix[i][leaf] + distance_matrix[leaf][k] - distance_matrix[i][k]) / 2 for i in range(0, n) for k
+        [(distance_matrix[i][leaf] + distance_matrix[leaf][k] - distance_matrix[i][k]) / 2 for i in range(0, n) for
+         k
          in range(0, n) if i != leaf != k])
     assert length == int(length)
     return int(length)
@@ -288,7 +297,8 @@ def upgma(d):
         add_node(graph, i, new_cluster, age[new_cluster] - age[i])
         add_node(graph, j, new_cluster, age[new_cluster] - age[j])
         # Update the matrix d, by removing rows and columns for i and j, and inserting a new row and column for new_cluster
-        new_row = {col: (d[i][col] * clusters[i] + d[j][col] * clusters[j]) / (clusters[i] + clusters[j]) for col in d
+        new_row = {col: (d[i][col] * clusters[i] + d[j][col] * clusters[j]) / (clusters[i] + clusters[j]) for col in
+                   d
                    if col != i and col != j}
         new_row[new_cluster] = 0
         del d[i]
@@ -388,5 +398,117 @@ def neighbor_joining(d):
     assert len(d) == 2
     v1, v2 = list(d.keys())
     add_node(graph, v1, v2, weight=d[v1][v2])
-
     return graph
+
+
+def symbols_hamming_dist(symbol1, symbol2):
+    return 0 if symbol1 == symbol2 else 1
+
+
+def make_small_parsiomony_tree(strings, alphabet):
+    n_leaves = len(strings)
+    assert n_leaves % 2 == 0
+    n_nodes = 2 * n_leaves - 1
+
+    # Determine the set of symbols used in 'strings'.
+    # alphabet = tuple(sorted(set.union(*[set(item) for item in strings])))
+    # Compute the score for the leaves of the tree
+    s = {node: {symbol: 0 if strings[node] == symbol else float('inf') for symbol in alphabet} for node in
+         range(0, n_leaves)}
+
+    tree = {}  # Adjacency lists for the tree, it associates the node number with a BinTreeAdj.
+    ''' Nodes in the tree are numbered in decreasing order from the root going down to the leaves. The root is numbered
+    n_nodes - 1 and the leaves from n_leaves-1 down to 0. '''
+    next_for_insertion = n_nodes - 1  # Tracks the numbering of the next node to be inserted in the tree.
+    ''' First node to be processed and inserted in the tree is the root. Pairs of the queue contain the number for the
+    node and its parent number; parent of the root node is set to None.'''
+    to_be_inserted = deque([(next_for_insertion, None)])
+    next_for_insertion -= 1
+    while to_be_inserted:
+        current_node, parent = to_be_inserted.popleft()
+        if current_node < n_leaves:  # If the node is a leaf...
+            left, right = None, None
+        else:  # If it is an internal node...
+            left = next_for_insertion - 1
+            right = next_for_insertion
+            next_for_insertion -= 2
+            to_be_inserted.extend([(right, current_node), (left, current_node)])
+        tree[current_node] = BinTreeAdj(left=left, right=right, parent=parent)
+
+    ''' Now that the tree has been built, queue its leaves for processing. They are queue in ascending order to
+    facilitate debugging. '''
+    to_be_processed = deque(sorted({tree[leaf].parent for leaf in range(0, n_leaves)}))
+    while to_be_processed:
+        current_node = to_be_processed.popleft()
+        # Compute the score for 'current_node' and store it in 's'.
+        daughter = tree[current_node].left
+        son = tree[current_node].right
+        s[current_node] = {k: min([s[daughter][i] + symbols_hamming_dist(i, k) for i in alphabet])
+                              + min([s[son][j] + symbols_hamming_dist(j, k) for j in alphabet])
+                           for k in alphabet}
+        # If score has been computed already for 'current_node' and its sibling, then queue their parent for processing.
+        parent = tree[current_node].parent
+        if parent is None:  # The root node has no parent
+            continue
+        son_of_parent = tree[parent].left
+        sibling = son_of_parent if son_of_parent != current_node else tree[parent].right
+        if s.get(sibling) is not None:
+            to_be_processed.append(parent)
+    return tree, s
+
+
+def small_parsimony(strings):
+    def lowest_score_symbol(scores):
+        min_score = float('inf')
+        min_symbol = None
+        for symbol, score in scores.items():
+            if score < min_score:
+                min_score = score
+                min_symbol = symbol
+        assert min_symbol is not None
+        return min_symbol, min_score
+
+    def append_to_best_string(symbol, best_string, node):
+        the_list = best_string.get(node, '')
+        the_list = the_list + symbol
+        best_string[node] = the_list
+
+    n_leaves = len(strings)
+    assert n_leaves % 2 == 0
+    n_nodes = 2 * n_leaves - 1
+    root = n_nodes - 1
+    # A tuple with the alphabet used by strings, in lexicographic order
+    alphabet = tuple(sorted(set.union(*[set(item) for item in strings])))
+    master_tree = None
+    total_parsimony = 0
+    best_string = {}
+
+    for pos in range(0, len(strings[0])):
+        characters = tuple(item[pos] for item in strings)
+        tree, s = make_small_parsiomony_tree(characters, alphabet)
+        if master_tree is None:
+            master_tree = tree
+        assert tree == master_tree
+
+        root_symbol, parsimony = lowest_score_symbol(s[root])
+        total_parsimony += parsimony
+        to_be_processed = deque([(root, root_symbol)])
+        append_to_best_string(root_symbol, best_string, root)
+
+        while to_be_processed:
+            current_node, current_node_symbol = to_be_processed.popleft()
+            for child in (tree[current_node].left, tree[current_node].right):
+                if child is None:
+                    continue
+                best_symbol = None
+                lowest_score = float('inf')
+                for symbol in alphabet:
+                    score = s[child][symbol] + symbols_hamming_dist(current_node_symbol, symbol)
+                    if score < lowest_score:
+                        lowest_score = score
+                        best_symbol = symbol
+                assert best_symbol is not None
+                append_to_best_string(best_symbol, best_string, child)
+                to_be_processed.append((child, best_symbol))
+
+    return tree, best_string, total_parsimony

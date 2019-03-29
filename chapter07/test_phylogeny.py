@@ -1,5 +1,5 @@
 import phylogeny
-from phylogeny import add_node
+from phylogeny import add_node, BinTreeAdj
 from pathlib import Path
 
 
@@ -18,6 +18,20 @@ def pretty_print_adjacencies(tree):
     for node in sorted(tree):
         for adj_node, adj_dist in tree[node]:
             print(node, '->', adj_node, ':', adj_dist, sep='')
+
+
+def pretty_print_parsimony(tree, results, score):
+    print(score)
+    for node, adjs in tree.items():
+        if adjs.left is not None:
+            dist = phylogeny.hamming_distance(results[node], results[adjs.left])
+            print(results[node], '->', results[adjs.left], ':', dist, sep='')
+        if adjs.right is not None:
+            dist = phylogeny.hamming_distance(results[node], results[adjs.right])
+            print(results[node], '->', results[adjs.right], ':', dist, sep='')
+        if adjs.parent is not None:
+            dist = phylogeny.hamming_distance(results[node], results[adjs.parent])
+            print(results[node], '->', results[adjs.parent], ':', dist, sep='')
 
 
 def fetch_stepik_input(file_name):
@@ -86,6 +100,22 @@ def fetch_stepik_additive_phylogeny_input(file_name):
         n = int(n)
         matrix = parse_stepik_matrix(input_file)
     return n, matrix
+
+
+def fetch_small_parsimony_input(file_name):
+    with open(file_name) as input_file:
+        n = input_file.readline().rstrip('\n')
+        n = int(n)
+        lines = input_file.readlines()
+        strings = []
+        for line in lines:
+            left, right = line.rstrip('\n').split('->')
+            left = int(left)
+            assert n % 2 == 0
+            if left <= (n - 1) + n // 2:  # If it is not a leaf
+                strings.append(right)
+        assert n == len(strings)
+        return strings
 
 
 def test_add_node():
@@ -422,3 +452,36 @@ def test_neighbor_joining_matrix():
                     59: [(42, 196.037109375), (57, 21.994140625), (60, 25.38232421875)],
                     60: [(54, 76.83642578125), (59, 25.38232421875), (61, 9.97607421875)],
                     61: [(56, 48.02001953125), (58, 25.54248046875), (60, 9.97607421875)]}
+
+
+def test_small_parsimony():
+    strings = list('CCACGGTC')
+    tree, s = phylogeny.make_small_parsiomony_tree(strings, ['A', 'C', 'G', 'T'])
+    assert tree == {14: BinTreeAdj(left=12, right=13, parent=None), 13: BinTreeAdj(left=10, right=11, parent=14),
+                    12: BinTreeAdj(left=8, right=9, parent=14), 11: BinTreeAdj(left=6, right=7, parent=13),
+                    10: BinTreeAdj(left=4, right=5, parent=13), 9: BinTreeAdj(left=2, right=3, parent=12),
+                    8: BinTreeAdj(left=0, right=1, parent=12), 7: BinTreeAdj(left=None, right=None, parent=11),
+                    6: BinTreeAdj(left=None, right=None, parent=11), 5: BinTreeAdj(left=None, right=None, parent=10),
+                    4: BinTreeAdj(left=None, right=None, parent=10), 3: BinTreeAdj(left=None, right=None, parent=9),
+                    2: BinTreeAdj(left=None, right=None, parent=9), 1: BinTreeAdj(left=None, right=None, parent=8),
+                    0: BinTreeAdj(left=None, right=None, parent=8)}
+    n_leaves = len(strings)
+    assert n_leaves % 2 == 0
+    n_nodes = 2 * n_leaves - 1
+    assert min(s[n_nodes - 1].values()) == 3
+
+    strings = fetch_small_parsimony_input(Path('test/testcase17.txt'))
+    tree, results, score = phylogeny.small_parsimony(strings)
+    assert score == 16
+    print()
+    pretty_print_parsimony(tree, results, score)
+
+    strings = ['ACGTAGGCCT', 'ATGTAAGACT', 'TCGAGAGCAC', 'TCGAAAGCAT']
+    tree, results, score = phylogeny.small_parsimony(strings)
+    assert score == 8
+    pretty_print_parsimony(tree, results, score)
+
+    strings = fetch_small_parsimony_input(Path('test/testcase18.txt'))
+    tree, results, score = phylogeny.small_parsimony(strings)
+    pretty_print_parsimony(tree, results, score)
+    assert score == 11342
