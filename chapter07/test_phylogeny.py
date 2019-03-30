@@ -102,20 +102,70 @@ def fetch_stepik_additive_phylogeny_input(file_name):
     return n, matrix
 
 
-def fetch_small_parsimony_input(file_name):
+def fetch_small_parsimony_input2(file_name):
     with open(file_name) as input_file:
         n = input_file.readline().rstrip('\n')
         n = int(n)
+        assert n % 2 == 0
         lines = input_file.readlines()
         strings = []
         for line in lines:
             left, right = line.rstrip('\n').split('->')
             left = int(left)
-            assert n % 2 == 0
             if left <= (n - 1) + n // 2:  # If it is not a leaf
                 strings.append(right)
         assert n == len(strings)
         return strings
+
+
+def fetch_small_parsimony_input(file_name):
+    def set_children(tree, node, left, right):
+        adjs = tree[node]
+        assert adjs.left is None and adjs.right is None
+        updated_adjs = BinTreeAdj(left=left, right=right, parent=adjs.parent)
+        tree[node] = updated_adjs
+
+    def set_parent(tree, node, parent):
+        adjs = tree[node]
+        assert adjs.parent is None
+        updated_adjs = BinTreeAdj(left=adjs.left, right=adjs.right, parent=parent)
+        tree[node] = updated_adjs
+
+    with open(file_name) as input_file:
+        n = input_file.readline().rstrip('\n')
+        n = int(n)
+        assert n % 2 == 0
+        lines = input_file.readlines()
+        adj = {}
+        leaf_string = {}
+        next_leaf = 0
+        for line in lines:
+            left, right = line.rstrip('\n').split('->')
+            node = int(left)
+            if node > (n - 1) + n // 2:  # If 'right' is not a leaf
+                adj_node = int(right)
+            else:
+                adj_node = next_leaf
+                next_leaf += 1
+                leaf_string[adj_node] = right
+            adjs = adj.get(node, [])
+            adjs.append(adj_node)
+            adj[node] = adjs
+
+    assert next_leaf == n
+    assert len(leaf_string) == n
+
+    tree = {node: BinTreeAdj(None, None, None) for node in set(adj) | set(range(0, n))}
+    for node, adjs in adj.items():
+        left, right = adjs
+        set_children(tree, node, left, right)
+        if left is not None:
+            set_parent(tree, left, node)
+        if right is not None:
+            set_parent(tree, right, node)
+
+    strings = [leaf_string[node] for node in range(0, n)]
+    return tree, strings
 
 
 def test_add_node():
@@ -470,8 +520,8 @@ def test_small_parsimony():
     n_nodes = 2 * n_leaves - 1
     assert min(s[n_nodes - 1].values()) == 3
 
-    strings = fetch_small_parsimony_input(Path('test/testcase17.txt'))
-    tree, results, score = phylogeny.small_parsimony(strings)
+    tree, strings = fetch_small_parsimony_input(Path('test/testcase17.txt'))
+    tree, results, score = phylogeny.small_parsimony(strings, tree)
     assert score == 16
     print()
     pretty_print_parsimony(tree, results, score)
@@ -481,7 +531,7 @@ def test_small_parsimony():
     assert score == 8
     pretty_print_parsimony(tree, results, score)
 
-    strings = fetch_small_parsimony_input(Path('test/testcase18.txt'))
+    tree, strings = fetch_small_parsimony_input(Path('test/testcase18.txt'))
     tree, results, score = phylogeny.small_parsimony(strings)
     pretty_print_parsimony(tree, results, score)
     assert score == 11342

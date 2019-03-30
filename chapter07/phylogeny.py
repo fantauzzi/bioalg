@@ -405,37 +405,36 @@ def symbols_hamming_dist(symbol1, symbol2):
     return 0 if symbol1 == symbol2 else 1
 
 
-def make_small_parsiomony_tree(strings, alphabet):
+def make_small_parsiomony_tree(strings, alphabet, tree=None):
     n_leaves = len(strings)
     assert n_leaves % 2 == 0
     n_nodes = 2 * n_leaves - 1
 
-    # Determine the set of symbols used in 'strings'.
-    # alphabet = tuple(sorted(set.union(*[set(item) for item in strings])))
     # Compute the score for the leaves of the tree
     s = {node: {symbol: 0 if strings[node] == symbol else float('inf') for symbol in alphabet} for node in
          range(0, n_leaves)}
 
-    tree = {}  # Adjacency lists for the tree, it associates the node number with a BinTreeAdj.
-    ''' Nodes in the tree are numbered in decreasing order from the root going down to the leaves. The root is numbered
-    n_nodes - 1 and the leaves from n_leaves-1 down to 0. '''
-    next_for_insertion = n_nodes - 1  # Tracks the numbering of the next node to be inserted in the tree.
-    ''' First node to be processed and inserted in the tree is the root. Pairs of the queue contain the number for the
-    node and its parent number; parent of the root node is set to None.'''
-    to_be_inserted = deque([(next_for_insertion, None)])
-    next_for_insertion -= 1
-    while to_be_inserted:
-        current_node, parent = to_be_inserted.popleft()
-        if current_node < n_leaves:  # If the node is a leaf...
-            left, right = None, None
-        else:  # If it is an internal node...
-            left = next_for_insertion - 1
-            right = next_for_insertion
-            next_for_insertion -= 2
-            to_be_inserted.extend([(right, current_node), (left, current_node)])
-        tree[current_node] = BinTreeAdj(left=left, right=right, parent=parent)
+    if tree is None:
+        tree = {}  # Adjacency lists for the tree, it associates the node number with a BinTreeAdj.
+        ''' Nodes in the tree are numbered in decreasing order from the root going down to the leaves. The root is numbered
+        n_nodes - 1 and the leaves from n_leaves-1 down to 0. '''
+        next_for_insertion = n_nodes - 1  # Tracks the numbering of the next node to be inserted in the tree.
+        ''' First node to be processed and inserted in the tree is the root. Pairs of the queue contain the number for the
+        node and its parent number; parent of the root node is set to None.'''
+        to_be_inserted = deque([(next_for_insertion, None)])
+        next_for_insertion -= 1
+        while to_be_inserted:
+            current_node, parent = to_be_inserted.popleft()
+            if current_node < n_leaves:  # If the node is a leaf...
+                left, right = None, None
+            else:  # If it is an internal node...
+                left = next_for_insertion - 1
+                right = next_for_insertion
+                next_for_insertion -= 2
+                to_be_inserted.extend([(right, current_node), (left, current_node)])
+            tree[current_node] = BinTreeAdj(left=left, right=right, parent=parent)
 
-    ''' Now that the tree has been built, queue its leaves for processing. They are queue in ascending order to
+    ''' Now that the tree has been built, queue its leaves for processing. They are queued in ascending order to
     facilitate debugging. '''
     to_be_processed = deque(sorted({tree[leaf].parent for leaf in range(0, n_leaves)}))
     while to_be_processed:
@@ -457,7 +456,7 @@ def make_small_parsiomony_tree(strings, alphabet):
     return tree, s
 
 
-def small_parsimony(strings):
+def small_parsimony(strings, tree=None):
     def lowest_score_symbol(scores):
         min_score = float('inf')
         min_symbol = None
@@ -479,16 +478,12 @@ def small_parsimony(strings):
     root = n_nodes - 1
     # A tuple with the alphabet used by strings, in lexicographic order
     alphabet = tuple(sorted(set.union(*[set(item) for item in strings])))
-    master_tree = None
     total_parsimony = 0
     best_string = {}
 
     for pos in range(0, len(strings[0])):
         characters = tuple(item[pos] for item in strings)
-        tree, s = make_small_parsiomony_tree(characters, alphabet)
-        if master_tree is None:
-            master_tree = tree
-        assert tree == master_tree
+        tree, s = make_small_parsiomony_tree(characters, alphabet, tree)
 
         root_symbol, parsimony = lowest_score_symbol(s[root])
         total_parsimony += parsimony
@@ -512,3 +507,5 @@ def small_parsimony(strings):
                 to_be_processed.append((child, best_symbol))
 
     return tree, best_string, total_parsimony
+
+# TODO build the tree based on the input file, not programmatically
