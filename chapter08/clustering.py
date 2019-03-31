@@ -15,3 +15,10 @@ def farthest_first_centers(k, data_points):
                 max_dist_point = point
         centers = np.append(centers, np.expand_dims(max_dist_point, axis=0), axis=0)
     return centers.tolist()
+
+
+def sq_error_distortion(data_points, centers):
+    points = np.array(data_points, dtype=float)
+    centers = np.array(centers)
+    dist = sum([min([euclidean(point, center) for center in centers]) ** 2 for point in points]) / len(points)
+    return dist

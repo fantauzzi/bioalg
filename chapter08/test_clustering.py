@@ -1,6 +1,7 @@
 from pathlib import Path
+import numpy as np
 import clustering
-from stepik_clustering import fetch_farthest_first_centers_input, pretty_print_matrix
+from stepik_clustering import fetch_farthest_first_centers_input, pretty_print_matrix, fetch_sq_error_dist_input
 
 
 def testfarthest_first_centers():
@@ -22,3 +23,17 @@ def testfarthest_first_centers():
     k, data_points = fetch_farthest_first_centers_input(Path('test/testcase02.txt'))
     centers = clustering.farthest_first_centers(k, data_points)
     assert centers == [[5.4, 21.0, 12.9], [36.5, 4.7, 6.9], [21.9, 2.4, 28.5], [12.9, 0.3, 0.4]]
+
+
+def test_sq_error_distortion():
+    data_points, centers, k = fetch_sq_error_dist_input(Path('test/testcase03.txt'))
+    dist = clustering.sq_error_distortion(data_points, centers)
+    assert np.isclose(dist, 18.245559999999994)
+
+    data_points, centers, k = fetch_sq_error_dist_input(Path('test/testcase04.txt'))
+    dist = clustering.sq_error_distortion(data_points, centers)
+    assert np.isclose(dist, 36.762834331337366)
+
+    data_points, centers, k = fetch_sq_error_dist_input(Path('test/testcase05.txt'))
+    dist = clustering.sq_error_distortion(data_points, centers)
+    assert np.isclose(dist, 28.69774363476738)
