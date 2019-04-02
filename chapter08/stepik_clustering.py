@@ -1,3 +1,8 @@
+"""
+Convenience functions to input/output data in the format expected by Stepik coding challenges
+"""
+
+
 def fetch_farthest_first_centers_input(file_name):
     with open(file_name) as input_file:
         k, m = input_file.readline().rstrip('\n').split(' ')
