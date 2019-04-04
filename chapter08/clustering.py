@@ -70,3 +70,45 @@ def lloyd_cluster(data_points, centers):
             centers[clusters_idx] = center_of_gravity
 
     return centers.tolist()
+
+
+def hierarchical_clusters(d):
+    def dist(d, cluster1, cluster2):
+        the_distance = sum([d[(row,)][(col,)] for row in cluster1 for col in cluster2]) / (
+                len(cluster1) * len(cluster2))
+        return the_distance
+
+    def arg_min_dist(d, clusters):
+        min_dist = float('inf')
+        min_idx = None
+        n = len(d)
+        for row in clusters:
+            for col in clusters:
+                if d[row][col] < min_dist and row != col:
+                    min_dist = d[row][col]
+                    min_idx = row, col
+        return min_idx
+
+    n = len(d)
+    d = {(row,): {(col,): d[row][col] for col in range(0, n)} for row in range(0, n)}
+
+    clutering_steps = []  # Keep track of the succession of clustering operations, the return value
+    clusters = set(d)  # Keep track of clusters, initialised with one cluster per item (leaf)
+    while len(clusters) > 1:
+        # Find the two closest clusters
+        c_i, c_j = arg_min_dist(d, clusters)
+        # Make a new cluster from their unionlumns corresponding to clusters c_i and c_j
+        c_new = c_i + c_j
+        # Update the set of clusters
+        clusters = (clusters | {c_new}) - {c_i, c_j}
+        # Update the list of performed steps (unions)
+        clutering_steps.append(c_new)
+        # Compute the new row (and column) to be inserted in d for cluster c_new
+        new_row = {col: dist(d, c_new, col) for col in d.keys()}
+        new_row[c_new] = .0
+        # Insert it
+        d[c_new] = new_row
+        for cluster, row in d.items():
+            row[c_new] = new_row[cluster]
+
+    return clutering_steps

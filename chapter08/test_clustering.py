@@ -1,7 +1,8 @@
 from pathlib import Path
 import numpy as np
 import clustering
-from stepik_clustering import fetch_farthest_first_centers_input, pretty_print_matrix, fetch_sq_error_dist_input
+from stepik_clustering import fetch_farthest_first_centers_input, pretty_print_matrix, fetch_sq_error_dist_input, \
+    fetch_hierarchical_cluster_input
 
 
 def testfarthest_first_centers():
@@ -63,3 +64,32 @@ def test_lloyd_cluster():
                 [4.922340425531912, 3.6191489361702125, 4.70345744680851],
                 [8.710439560439553, 3.365384615384615, 14.840659340659354]]
     assert np.all(np.isclose(centers, expected, rtol=0, atol=1e-3))
+
+
+def test_hierarchical_clusters():
+    d = [[0.00, 0.74, 0.85, 0.54, 0.83, 0.92, 0.89],
+         [0.74, 0.00, 1.59, 1.35, 1.20, 1.48, 1.55],
+         [0.85, 1.59, 0.00, 0.63, 1.13, 0.69, 0.73],
+         [0.54, 1.35, 0.63, 0.00, 0.66, 0.43, 0.88],
+         [0.83, 1.20, 1.13, 0.66, 0.00, 0.72, 0.55],
+         [0.92, 1.48, 0.69, 0.43, 0.72, 0.00, 0.80],
+         [0.89, 1.55, 0.73, 0.88, 0.55, 0.80, 0.00]]
+
+    steps = clustering.hierarchical_clusters(d)
+    assert steps == [(5, 3), (4, 6), (2, 5, 3), (0, 1), (2, 5, 3, 4, 6), (0, 1, 2, 5, 3, 4, 6)]
+
+    d = fetch_hierarchical_cluster_input(Path('test/testcase09.txt'))
+    steps = clustering.hierarchical_clusters(d)
+    assert steps == [(0, 17), (8, 2), (3, 5), (10, 4), (14, 3, 5), (1, 0, 17), (15, 19), (9, 13), (6, 18), (8, 2, 12),
+                     (11, 1, 0, 17), (11, 1, 0, 17, 7), (16, 15, 19), (6, 18, 16, 15, 19), (14, 3, 5, 8, 2, 12),
+                     (9, 13, 10, 4), (11, 1, 0, 17, 7, 14, 3, 5, 8, 2, 12),
+                     (6, 18, 16, 15, 19, 11, 1, 0, 17, 7, 14, 3, 5, 8, 2, 12),
+                     (6, 18, 16, 15, 19, 11, 1, 0, 17, 7, 14, 3, 5, 8, 2, 12, 9, 13, 10, 4)]
+
+    d = fetch_hierarchical_cluster_input(Path('test/testcase10.txt'))
+    steps = clustering.hierarchical_clusters(d)
+    assert steps == [(15, 3), (5, 16), (13, 7), (0, 19), (2, 17), (1, 5, 16), (15, 3, 13, 7), (4, 6), (11, 2, 17),
+                     (8, 12), (4, 6, 10), (1, 5, 16, 9), (15, 3, 13, 7, 0, 19), (15, 3, 13, 7, 0, 19, 18),
+                     (8, 12, 4, 6, 10), (11, 2, 17, 14), (15, 3, 13, 7, 0, 19, 18, 11, 2, 17, 14),
+                     (1, 5, 16, 9, 15, 3, 13, 7, 0, 19, 18, 11, 2, 17, 14),
+                     (1, 5, 16, 9, 15, 3, 13, 7, 0, 19, 18, 11, 2, 17, 14, 8, 12, 4, 6, 10)]
