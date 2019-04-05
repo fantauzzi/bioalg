@@ -33,3 +33,50 @@ def trie_from_strings(strings):
                 current_node = next_node
                 next_node += 1
     return trie
+
+
+def prefix_trie_matching(text, trie):
+    """
+    Given a text and a trie, returns a string encoded by the trie that is a prefix of the text, if such a string exists,
+    otherwise returns None.
+    :param text: The text, a string.
+    :param trie: The trie, a dictionary with its adjacency lists.
+    :return: The string from trie which is a prefix for text, if it exists, otherwise None.
+    """
+    # Generate symbols from text, left to right, one at a time
+    text_symbols = (symbol for symbol in text)
+    node = 0  # The root of the trie, start looking for a match from there
+    match = []  # Will collect the list of matching symbols here
+    while trie[node]:  # As long as the currently visited node is not a leaf...
+        try:
+            symbol = next(text_symbols)  # Get the next symbol from the text
+        except StopIteration:  # Handle the case where the text is shorter than any string encoded by 'trie'
+            return None
+        # Is there an outgoing edge from 'node' labelled with 'symbol'?
+        next_node = trie[node].get(symbol)
+        ''' If yes, append the symbol to the matching string in 'match', and visit the node at the other end of the edge
+        at the next iteration '''
+        if next_node is not None:
+            match.append(symbol)
+            node = next_node
+        else:  # If not, then there is no match in trie for the given text
+            return None
+    return ''.join(match)
+
+
+def trie_matching(text, trie):
+    """
+    Given a text and a trie, returns all starting positions in text where a string encoded by the trie appears as a
+    substring, and the substring.
+    :param text: The text, a string.
+    :param trie: The trie, a dictionary of its adajcency lists.
+    :return: A list with one element for every match, each element a pair with the matching string as the first item,
+    and its position within the text as the second item. Positions are numbered starting from 0. If no match is found,
+    the returned list is empty.
+    """
+    res = []
+    for pos in range(0, len(text)):
+        match = prefix_trie_matching(text[pos:], trie)
+        if match is not None:
+            res.append((match, pos))
+    return res
