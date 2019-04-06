@@ -1,6 +1,7 @@
 from pathlib import Path
 import pickle
 import alignment
+from alignment import Edge
 
 
 # from stepik_alignment import pretty_print_trie
@@ -128,3 +129,55 @@ def test_trie_matching():
                        ('ACATCGGAC', 7677), ('ACATCGGAC', 7684), ('TAAAGCATA', 8019), ('TAAAGCATA', 8026),
                        ('ACATCGGAC', 8274), ('ACATCGGAC', 8281), ('ATACACGAT', 8767), ('AATAATGAA', 8971),
                        ('TGTCCGGTG', 9110), ('TGTCCGGTG', 9117), ('CAATCCCCA', 9325), ('CAATCCCCA', 9332)]
+
+
+def test_suffix_trie_from_text():
+    text = 'panamabananas'
+    trie, leaf_labels = alignment.suffix_trie_from_text(text)
+    assert trie == {0: {'p': Edge(node=1, weight=0), 'a': Edge(node=15, weight=1), 'n': Edge(node=28, weight=2),
+                        'm': Edge(node=50, weight=4), 'b': Edge(node=68, weight=6), 's': Edge(node=90, weight=12),
+                        '$': Edge(node=92, weight=13)}, 1: {'a': Edge(node=2, weight=1)},
+                    2: {'n': Edge(node=3, weight=2)}, 3: {'a': Edge(node=4, weight=3)},
+                    4: {'m': Edge(node=5, weight=4)}, 5: {'a': Edge(node=6, weight=5)},
+                    6: {'b': Edge(node=7, weight=6)}, 7: {'a': Edge(node=8, weight=7)},
+                    8: {'n': Edge(node=9, weight=8)}, 9: {'a': Edge(node=10, weight=9)},
+                    10: {'n': Edge(node=11, weight=10)}, 11: {'a': Edge(node=12, weight=11)},
+                    12: {'s': Edge(node=13, weight=12)}, 13: {'$': Edge(node=14, weight=13)}, 14: {},
+                    15: {'n': Edge(node=16, weight=2), 'm': Edge(node=40, weight=4), 'b': Edge(node=60, weight=6),
+                         's': Edge(node=88, weight=12)}, 16: {'a': Edge(node=17, weight=3)},
+                    17: {'m': Edge(node=18, weight=4), 'n': Edge(node=76, weight=10), 's': Edge(node=84, weight=12)},
+                    18: {'a': Edge(node=19, weight=5)}, 19: {'b': Edge(node=20, weight=6)},
+                    20: {'a': Edge(node=21, weight=7)}, 21: {'n': Edge(node=22, weight=8)},
+                    22: {'a': Edge(node=23, weight=9)}, 23: {'n': Edge(node=24, weight=10)},
+                    24: {'a': Edge(node=25, weight=11)}, 25: {'s': Edge(node=26, weight=12)},
+                    26: {'$': Edge(node=27, weight=13)}, 27: {}, 28: {'a': Edge(node=29, weight=3)},
+                    29: {'m': Edge(node=30, weight=4), 'n': Edge(node=80, weight=10), 's': Edge(node=86, weight=12)},
+                    30: {'a': Edge(node=31, weight=5)}, 31: {'b': Edge(node=32, weight=6)},
+                    32: {'a': Edge(node=33, weight=7)}, 33: {'n': Edge(node=34, weight=8)},
+                    34: {'a': Edge(node=35, weight=9)}, 35: {'n': Edge(node=36, weight=10)},
+                    36: {'a': Edge(node=37, weight=11)}, 37: {'s': Edge(node=38, weight=12)},
+                    38: {'$': Edge(node=39, weight=13)}, 39: {}, 40: {'a': Edge(node=41, weight=5)},
+                    41: {'b': Edge(node=42, weight=6)}, 42: {'a': Edge(node=43, weight=7)},
+                    43: {'n': Edge(node=44, weight=8)}, 44: {'a': Edge(node=45, weight=9)},
+                    45: {'n': Edge(node=46, weight=10)}, 46: {'a': Edge(node=47, weight=11)},
+                    47: {'s': Edge(node=48, weight=12)}, 48: {'$': Edge(node=49, weight=13)}, 49: {},
+                    50: {'a': Edge(node=51, weight=5)}, 51: {'b': Edge(node=52, weight=6)},
+                    52: {'a': Edge(node=53, weight=7)}, 53: {'n': Edge(node=54, weight=8)},
+                    54: {'a': Edge(node=55, weight=9)}, 55: {'n': Edge(node=56, weight=10)},
+                    56: {'a': Edge(node=57, weight=11)}, 57: {'s': Edge(node=58, weight=12)},
+                    58: {'$': Edge(node=59, weight=13)}, 59: {}, 60: {'a': Edge(node=61, weight=7)},
+                    61: {'n': Edge(node=62, weight=8)}, 62: {'a': Edge(node=63, weight=9)},
+                    63: {'n': Edge(node=64, weight=10)}, 64: {'a': Edge(node=65, weight=11)},
+                    65: {'s': Edge(node=66, weight=12)}, 66: {'$': Edge(node=67, weight=13)}, 67: {},
+                    68: {'a': Edge(node=69, weight=7)}, 69: {'n': Edge(node=70, weight=8)},
+                    70: {'a': Edge(node=71, weight=9)}, 71: {'n': Edge(node=72, weight=10)},
+                    72: {'a': Edge(node=73, weight=11)}, 73: {'s': Edge(node=74, weight=12)},
+                    74: {'$': Edge(node=75, weight=13)}, 75: {}, 76: {'a': Edge(node=77, weight=11)},
+                    77: {'s': Edge(node=78, weight=12)}, 78: {'$': Edge(node=79, weight=13)}, 79: {},
+                    80: {'a': Edge(node=81, weight=11)}, 81: {'s': Edge(node=82, weight=12)},
+                    82: {'$': Edge(node=83, weight=13)}, 83: {}, 84: {'$': Edge(node=85, weight=13)}, 85: {},
+                    86: {'$': Edge(node=87, weight=13)}, 87: {}, 88: {'$': Edge(node=89, weight=13)}, 89: {},
+                    90: {'$': Edge(node=91, weight=13)}, 91: {}, 92: {}}
+
+    assert leaf_labels == {14: 0, 27: 1, 39: 2, 49: 3, 59: 4, 67: 5, 75: 6, 79: 7, 83: 8, 85: 9, 87: 10, 89: 11, 91: 12,
+                           92: 13}

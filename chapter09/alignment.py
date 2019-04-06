@@ -1,3 +1,5 @@
+from collections import namedtuple
+
 """
 NOTE
 ====
@@ -10,6 +12,10 @@ is the label for an edge, and 'value_adj' is the node on the other end of the eg
 children, not the parent node. If a node has no children, then its adjacencies are an empty dictionary {}.
 """
 
+
+''' The edge leaving a given node, in a modified suffix trie, it provides: the node at the other end of the edge,
+and a weight. '''
+Edge = namedtuple('Edge', ['node', 'weight'])
 
 def trie_from_strings(strings):
     """
@@ -80,3 +86,34 @@ def trie_matching(text, trie):
         if match is not None:
             res.append((match, pos))
     return res
+
+
+def suffix_trie_from_text(text):
+    """
+    Returns the adjacency lists for the modified suffix trie of a text.
+    :param text: The text, a string. It is not allowed to contain symbol '$.
+    :return: The modified suffix trie, a dictionary with its adjacency lists.
+    """
+    assert '$' not in text
+    text = text + '$'
+    trie = {0: {}}  # Begin with a trie with the root node only; the root is numbered as 0
+    next_node = 1  # Keep track of the next node to be inserted in the trie; 0 is the root, already inserted
+    # Leaves will be labelled with the starting position in text of the string spelled by the path from rooot to the leaf
+    leaf_labels = {}
+    for i in range(0, len(text)):  # Process every suffix of text, starting from the longest
+        current_node = 0  # Start from the root
+        for j, symbol in enumerate(text[i:]):
+            # If there is an edge labelled with 'symbol' leaving the current node, then update its weight and traverse it
+            adj = trie[current_node].get(symbol)
+            if adj is not None:
+                # trie[current_node][symbol] = Edge(node=adj.node, weight=j)
+                current_node = adj.node
+            else:  # If not, add to the trie a new edge (and node) for symbol, then traverse it
+                trie[current_node][symbol] = Edge(node=next_node, weight=j + i)
+                trie[next_node] = {}
+                current_node = next_node
+                next_node += 1
+        # If the current node is a leaf, then set its label
+        if not trie[current_node]:
+            leaf_labels[current_node] = i
+    return trie, leaf_labels
