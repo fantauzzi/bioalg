@@ -2,6 +2,7 @@ from pathlib import Path
 import pickle
 import alignment
 from alignment import Edge
+from stepik_alignment import pretty_print_edge_labels
 
 
 # from stepik_alignment import pretty_print_trie
@@ -181,3 +182,37 @@ def test_suffix_trie_from_text():
 
     assert leaf_labels == {14: 0, 27: 1, 39: 2, 49: 3, 59: 4, 67: 5, 75: 6, 79: 7, 83: 8, 85: 9, 87: 10, 89: 11, 91: 12,
                            92: 13}
+
+
+def test_suffix_tree_from_text():
+    text = 'panamabananas'
+    tree, position, length = alignment.suffix_tree_from_text(text)
+    assert tree == {
+        0: {'p': Edge(node=14, weight=None), 'a': Edge(node=15, weight=None), 'n': Edge(node=29, weight=None),
+            'm': Edge(node=59, weight=None), 'b': Edge(node=75, weight=None), 's': Edge(node=91, weight=None),
+            '$': Edge(node=92, weight=None)}, 14: {},
+        15: {'n': Edge(node=17, weight=None), 'm': Edge(node=49, weight=None), 'b': Edge(node=67, weight=None),
+             's': Edge(node=89, weight=None)},
+        17: {'m': Edge(node=27, weight=None), 'n': Edge(node=79, weight=None), 's': Edge(node=85, weight=None)}, 27: {},
+        29: {'m': Edge(node=39, weight=None), 'n': Edge(node=83, weight=None), 's': Edge(node=87, weight=None)}, 39: {},
+        49: {}, 59: {}, 67: {}, 75: {}, 79: {}, 83: {}, 85: {}, 87: {}, 89: {}, 91: {}, 92: {}}
+    assert position == {(0, 14): 0, (0, 15): 1, (0, 29): 2, (0, 59): 4, (0, 75): 6, (0, 91): 12, (0, 92): 13,
+                        (15, 17): 2, (15, 49): 4, (15, 67): 6, (15, 89): 12, (17, 27): 4, (17, 79): 10, (17, 85): 12,
+                        (29, 39): 4, (29, 83): 10, (29, 87): 12}
+    assert length == {(0, 14): 14, (0, 15): 1, (0, 29): 2, (0, 59): 10, (0, 75): 8, (0, 91): 2, (0, 92): 1, (15, 17): 2,
+                      (15, 49): 10, (15, 67): 8, (15, 89): 2, (17, 27): 10, (17, 79): 4, (17, 85): 2, (29, 39): 10,
+                      (29, 83): 4, (29, 87): 2}
+
+    text = 'ATAAATG'
+    tree, position, length = alignment.suffix_tree_from_text(text)
+    assert tree == {0: {'A': Edge(node=1, weight=None), 'T': Edge(node=9, weight=None), 'G': Edge(node=29, weight=None),
+                        '$': Edge(node=30, weight=None)},
+                    1: {'T': Edge(node=2, weight=None), 'A': Edge(node=16, weight=None)},
+                    2: {'A': Edge(node=8, weight=None), 'G': Edge(node=25, weight=None)}, 8: {},
+                    9: {'A': Edge(node=15, weight=None), 'G': Edge(node=27, weight=None)}, 15: {},
+                    16: {'A': Edge(node=20, weight=None), 'T': Edge(node=23, weight=None)}, 20: {}, 23: {}, 25: {},
+                    27: {}, 29: {}, 30: {}}
+    assert position == {(0, 1): 0, (0, 9): 1, (0, 29): 6, (0, 30): 7, (1, 2): 1, (1, 16): 3, (2, 8): 2, (2, 25): 6,
+                        (9, 15): 2, (9, 27): 6, (16, 20): 4, (16, 23): 5}
+    assert length == {(0, 1): 1, (0, 9): 1, (0, 29): 2, (0, 30): 1, (1, 2): 1, (1, 16): 1, (2, 8): 6, (2, 25): 2,
+                      (9, 15): 6, (9, 27): 2, (16, 20): 4, (16, 23): 3}

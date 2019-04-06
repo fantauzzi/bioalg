@@ -12,10 +12,10 @@ is the label for an edge, and 'value_adj' is the node on the other end of the eg
 children, not the parent node. If a node has no children, then its adjacencies are an empty dictionary {}.
 """
 
-
 ''' The edge leaving a given node, in a modified suffix trie, it provides: the node at the other end of the edge,
 and a weight. '''
 Edge = namedtuple('Edge', ['node', 'weight'])
+
 
 def trie_from_strings(strings):
     """
@@ -98,7 +98,7 @@ def suffix_trie_from_text(text):
     text = text + '$'
     trie = {0: {}}  # Begin with a trie with the root node only; the root is numbered as 0
     next_node = 1  # Keep track of the next node to be inserted in the trie; 0 is the root, already inserted
-    # Leaves will be labelled with the starting position in text of the string spelled by the path from rooot to the leaf
+    # Leaves will be labelled with the starting position in text of the string spelled by the path from root to the leaf
     leaf_labels = {}
     for i in range(0, len(text)):  # Process every suffix of text, starting from the longest
         current_node = 0  # Start from the root
@@ -106,9 +106,8 @@ def suffix_trie_from_text(text):
             # If there is an edge labelled with 'symbol' leaving the current node, then update its weight and traverse it
             adj = trie[current_node].get(symbol)
             if adj is not None:
-                # trie[current_node][symbol] = Edge(node=adj.node, weight=j)
                 current_node = adj.node
-            else:  # If not, add to the trie a new edge (and node) for symbol, then traverse it
+            else:  # If not, add to the trie a new edge (and node) for 'symbol', then traverse it
                 trie[current_node][symbol] = Edge(node=next_node, weight=j + i)
                 trie[next_node] = {}
                 current_node = next_node
@@ -117,3 +116,29 @@ def suffix_trie_from_text(text):
         if not trie[current_node]:
             leaf_labels[current_node] = i
     return trie, leaf_labels
+
+
+def suffix_tree_from_text(text):
+    trie, leaf_labels = suffix_trie_from_text(text)
+    # Collect all nodes that begin a branching path, i.e. with a fan-out of at least 2
+    branching_nodes = [node for node in trie if len(trie[node]) > 1]
+    position = {}
+    length = {}
+    for branching_node in branching_nodes:
+        # Follow each branching path
+        for label, edge in trie[branching_node].items():
+            current_node = edge.node
+            ''' Keep following the path as long as the current node is neither a leaf nor the start of another 
+            branching path; remove the nodes within the path from the trie.'''
+            path_length = 1
+            while len(trie[current_node]) == 1:
+                next_node = next(iter(trie[current_node].values())).node
+                del trie[current_node]
+                current_node = next_node
+                path_length += 1
+            ''' Add to the trie and edge from the branching node at the beginning of the path, to the last node of the
+            path ('current_node') '''
+            trie[branching_node][label] = Edge(node=current_node, weight=None)
+            position[(branching_node, current_node)] = edge.weight
+            length[(branching_node, current_node)] = path_length
+    return trie, position, length

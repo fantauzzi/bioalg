@@ -8,6 +8,7 @@
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter09/alignment.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter09/alignment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chapter09/stepik_alignment.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter09/stepik_alignment.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter09/test_alignment.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter09/test_alignment.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,8 +22,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter09/alignment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="733">
-              <caret line="119" lean-forward="true" selection-start-line="119" selection-end-line="119" />
+            <state relative-caret-position="836">
+              <caret line="133" column="36" selection-start-line="133" selection-start-column="36" selection-end-line="133" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -30,8 +31,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter09/test_alignment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1861">
-              <caret line="170" column="23" selection-start-line="170" selection-start-column="23" selection-end-line="170" selection-end-column="23" />
+            <state relative-caret-position="667">
+              <caret line="218" selection-start-line="218" selection-end-line="218" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -42,8 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter09/stepik_alignment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="288">
+              <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -88,7 +89,7 @@
       <find>hamming</find>
       <find>ATCCATAAACCGCTTAAACATATCCACGAGTCCCTCTAGCCCAGTACTCAGCGACAAGTCGGGTTACAGCGACAAGATTCCGCCCAAACACACACGAAAGGACCCAGCCGGAACAAGCATAACAAACACAAAAAACAGTAAACATGAAAAAAGTAGATTCA</find>
       <find>ATCCATAAACCGCTTATACATATCCACGAGTCCCTCTCGCCCAGTACTCAGCGACAAGTCGGGTTACAGCGACTAGATTCCGCCCAAACACACACGAAAGGACCCAGCCGGAACAAGCATAAGAAACACATAAAACAGTAAACATGAAAAAAGTAGATTCA</find>
-      <find />
+      <find>next</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;&quot;</replace>
@@ -149,10 +150,10 @@
         <option value="$PROJECT_DIR$/chapter09/test/testcase01.txt" />
         <option value="$PROJECT_DIR$/chapter09/test/testcase02.txt" />
         <option value="$PROJECT_DIR$/chapter09/test/testcase03.txt" />
-        <option value="$PROJECT_DIR$/chapter09/stepik_alignment.py" />
         <option value="$PROJECT_DIR$/chapter09/test/testcase04.txt" />
         <option value="$PROJECT_DIR$/chapter09/test/testcase05.txt" />
         <option value="$PROJECT_DIR$/chapter09/test_alignment.py" />
+        <option value="$PROJECT_DIR$/chapter09/stepik_alignment.py" />
         <option value="$PROJECT_DIR$/chapter09/alignment.py" />
       </list>
     </option>
@@ -170,12 +171,23 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
               <item name="bioalg" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bioalg" type="462c0819:PsiDirectoryNode" />
+              <item name="chapter07" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bioalg" type="462c0819:PsiDirectoryNode" />
+              <item name="chapter08" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
@@ -192,7 +204,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -372,34 +383,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.05 at 21h 02m 20s.xml">
+    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 14h 24m 58s.xml">
       <configuration name="pytest in test_alignment.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.05 at 21h 03m 58s.xml">
+    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 14h 31m 00s.xml">
       <configuration name="pytest in test_alignment.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 10h 27m 54s.xml">
+    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 14h 31m 24s.xml">
       <configuration name="pytest in test_alignment.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 10h 32m 55s.xml">
+    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 14h 34m 48s.xml">
       <configuration name="pytest in test_alignment.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 10h 33m 24s.xml">
+    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 14h 43m 43s.xml">
       <configuration name="pytest in test_alignment.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 10h 34m 09s.xml">
+    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 14h 46m 05s.xml">
       <configuration name="pytest in test_alignment.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 10h 35m 42s.xml">
+    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 14h 47m 11s.xml">
       <configuration name="pytest in test_alignment.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 10h 47m 18s.xml">
+    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 14h 47m 13s.xml">
       <configuration name="pytest in test_alignment.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 10h 49m 12s.xml">
+    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 14h 56m 11s.xml">
       <configuration name="pytest in test_alignment.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 10h 51m 24s.xml">
+    <history-entry file="pytest_in_test_alignment_py - 2019.04.06 at 14h 57m 35s.xml">
       <configuration name="pytest in test_alignment.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -416,13 +427,13 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.38361046" visible="true" weight="0.21517965" />
-      <window_info id="Structure" order="1" sideWeight="0.6163896" side_tool="true" visible="true" weight="0.21517965" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.38314176" visible="true" weight="0.21517965" />
+      <window_info id="Structure" order="1" sideWeight="0.61685824" side_tool="true" visible="true" weight="0.21517965" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.38697317" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3547893" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3547893" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32950193" />
@@ -484,6 +495,11 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="tests">
+        <watch expression="trie[branching_node]" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
@@ -587,6 +603,11 @@
     </expressions>
     <expressions id="watch">
       <expression>
+        <expression-string>trie[branching_node]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>left, right</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -631,13 +652,28 @@
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
+    </expressions>
+    <expressions id="evaluateExpression">
       <expression>
-        <expression-string>profile</expression-string>
+        <expression-string>position</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-    </expressions>
-    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>length</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>sum()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>trie[branching_node][label]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>d[(3,)][(5,)]</expression-string>
         <language-id>Python</language-id>
@@ -665,26 +701,6 @@
       </expression>
       <expression>
         <expression-string>centers[0]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>np.all(np.isclose(centers, [[1.800, 2.867], [1.060, 1.140]]))</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>np.all(np.isclose(prev_centers, centers))</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>a.all(np.isclose(prev_centers, centers))</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>all(np.isclose(prev_centers, centers))</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -864,16 +880,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter07/phylogeny.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
-          <caret line="439" column="26" selection-start-line="439" selection-start-column="26" selection-end-line="439" selection-end-column="26" />
-          <folding>
-            <element signature="e#640#669#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter07/test_phylogeny.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1968">
@@ -950,16 +956,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter08/clustering.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="74" column="29" selection-start-line="74" selection-start-column="29" selection-end-line="74" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter08/test_clustering.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="912">
@@ -1022,27 +1018,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter09/stepik_alignment.py">
+    <entry file="file://$PROJECT_DIR$/chapter08/clustering.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="261">
+          <caret line="82" column="22" selection-start-line="82" selection-start-column="22" selection-end-line="82" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter07/phylogeny.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="77" column="24" selection-start-line="77" selection-start-column="20" selection-end-line="77" selection-end-column="24" />
+          <folding>
+            <element signature="e#640#669#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter09/test_alignment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1861">
-          <caret line="170" column="23" selection-start-line="170" selection-start-column="23" selection-end-line="170" selection-end-column="23" />
+        <state relative-caret-position="667">
+          <caret line="218" selection-start-line="218" selection-end-line="218" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chapter09/stepik_alignment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter09/alignment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="733">
-          <caret line="119" lean-forward="true" selection-start-line="119" selection-end-line="119" />
+        <state relative-caret-position="836">
+          <caret line="133" column="36" selection-start-line="133" selection-start-column="36" selection-end-line="133" selection-end-column="36" />
         </state>
       </provider>
     </entry>
