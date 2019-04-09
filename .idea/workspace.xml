@@ -6,10 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter09/alignment.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter09/alignment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chapter09/stepik_alignment.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter09/stepik_alignment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chapter09/test_alignment.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter09/test_alignment.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter09/alignment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="110" selection-start-line="110" selection-end-line="110" />
+            <state relative-caret-position="1844">
+              <caret line="200" selection-start-line="200" selection-end-line="200" />
             </state>
           </provider>
         </entry>
@@ -31,8 +28,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter09/test_alignment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="691">
-              <caret line="149" column="43" selection-start-line="149" selection-start-column="43" selection-end-line="149" selection-end-column="43" />
+            <state relative-caret-position="331">
+              <caret line="134" column="20" selection-start-line="134" selection-start-column="20" selection-end-line="134" selection-end-column="20" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -43,11 +40,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter09/stepik_alignment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="24" column="14" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="14" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="529">
+              <caret line="39" selection-start-line="39" selection-end-line="39" />
             </state>
           </provider>
         </entry>
@@ -155,9 +149,9 @@
         <option value="$PROJECT_DIR$/chapter09/test/testcase03.txt" />
         <option value="$PROJECT_DIR$/chapter09/test/testcase04.txt" />
         <option value="$PROJECT_DIR$/chapter09/test/testcase05.txt" />
-        <option value="$PROJECT_DIR$/chapter09/alignment.py" />
         <option value="$PROJECT_DIR$/chapter09/test_alignment.py" />
         <option value="$PROJECT_DIR$/chapter09/stepik_alignment.py" />
+        <option value="$PROJECT_DIR$/chapter09/alignment.py" />
       </list>
     </option>
   </component>
@@ -214,7 +208,7 @@
     <property name="add_unversioned_files" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -386,9 +380,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.09 at 11h 57m 15s.xml">
-      <configuration name="pytest in test_alignment.py" configurationId="tests" />
-    </history-entry>
     <history-entry file="pytest_in_test_alignment_py - 2019.04.09 at 11h 57m 48s.xml">
       <configuration name="pytest in test_alignment.py" configurationId="tests" />
     </history-entry>
@@ -416,6 +407,9 @@
     <history-entry file="pytest_in_test_alignment_py - 2019.04.09 at 12h 13m 44s.xml">
       <configuration name="pytest in test_alignment.py" configurationId="tests" />
     </history-entry>
+    <history-entry file="pytest_in_test_alignment_py - 2019.04.09 at 15h 26m 11s.xml">
+      <configuration name="pytest in test_alignment.py" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -430,8 +424,8 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.3762452" visible="true" weight="0.22154222" />
-      <window_info id="Structure" order="1" sideWeight="0.6237548" side_tool="true" visible="true" weight="0.22154222" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.37547892" visible="true" weight="0.22123536" />
+      <window_info id="Structure" order="1" sideWeight="0.6245211" side_tool="true" visible="true" weight="0.22123536" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
@@ -1036,30 +1030,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chapter09/alignment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1844">
+          <caret line="200" selection-start-line="200" selection-end-line="200" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter09/test_alignment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="691">
-          <caret line="149" column="43" selection-start-line="149" selection-start-column="43" selection-end-line="149" selection-end-column="43" />
+        <state relative-caret-position="331">
+          <caret line="134" column="20" selection-start-line="134" selection-start-column="20" selection-end-line="134" selection-end-column="20" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter09/alignment.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="110" selection-start-line="110" selection-end-line="110" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter09/stepik_alignment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="24" column="14" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="529">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
         </state>
       </provider>
     </entry>
