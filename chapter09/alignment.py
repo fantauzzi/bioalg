@@ -198,3 +198,38 @@ def suffix_tree_from_text(text):
             branching_node.position[symbol] = branching_node.weights[symbol]
             del branching_node.weights[symbol]
     return tree_root
+
+
+def longest_repeat(text):
+    """
+    Returns the longest repeat in a text.
+    :param text: The text, a string.
+    :return: The longest repeat within the given text, a string.
+    """
+
+    def longest_path_to_internal(node, text):
+        """
+        Returns the string corresponding to the longest path in a suffix tree from a given node to its descendants
+        that are internal (i.e. non-leaf) nodes.
+        :param node:The given node, a SuffixNode.
+        :param text:The text which originated the suffix tree.
+        :return: The substring of 'text' corresponding to the longest path from the given node to its non-leaf
+        descendants, a string. If multiple such substrings exist, only one of them is returned.
+        """
+        # If you don't find anything better, the returned longest path will be the empty string
+        longest_path_symbols = ''
+        # Find if any non-leaf child of 'node' leads to a longer path
+        for symbol, child in node.symbol_to_child.items():
+            if not child.symbol_to_child:  # If the child is a leaf, skip it
+                continue
+            symbols = text[
+                      node.position[symbol]: node.position[symbol] + node.length[symbol]] + longest_path_to_internal(
+                child, text)
+            if len(symbols) > len(longest_path_symbols):
+                longest_path_symbols = symbols
+        return longest_path_symbols
+
+    root = suffix_tree_from_text(text)
+    # Find the longest path from the root to any branching node, and that corresponds to the longest repeat in 'text'.
+    symbols = longest_path_to_internal(root, text)
+    return symbols
