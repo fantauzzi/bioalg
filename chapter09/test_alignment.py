@@ -1,8 +1,7 @@
 from pathlib import Path
 import pickle
 import alignment
-from alignment import Edge
-from stepik_alignment import pretty_print_edge_labels
+from stepik_alignment import pretty_print_trie_adj_lists, serialise_suffix_tree, NodeInfo, ChildInfo
 
 
 # from stepik_alignment import pretty_print_trie
@@ -134,85 +133,82 @@ def test_trie_matching():
 
 def test_suffix_trie_from_text():
     text = 'panamabananas'
-    trie, leaf_labels = alignment.suffix_trie_from_text(text)
-    assert trie == {0: {'p': Edge(node=1, weight=0), 'a': Edge(node=15, weight=1), 'n': Edge(node=28, weight=2),
-                        'm': Edge(node=50, weight=4), 'b': Edge(node=68, weight=6), 's': Edge(node=90, weight=12),
-                        '$': Edge(node=92, weight=13)}, 1: {'a': Edge(node=2, weight=1)},
-                    2: {'n': Edge(node=3, weight=2)}, 3: {'a': Edge(node=4, weight=3)},
-                    4: {'m': Edge(node=5, weight=4)}, 5: {'a': Edge(node=6, weight=5)},
-                    6: {'b': Edge(node=7, weight=6)}, 7: {'a': Edge(node=8, weight=7)},
-                    8: {'n': Edge(node=9, weight=8)}, 9: {'a': Edge(node=10, weight=9)},
-                    10: {'n': Edge(node=11, weight=10)}, 11: {'a': Edge(node=12, weight=11)},
-                    12: {'s': Edge(node=13, weight=12)}, 13: {'$': Edge(node=14, weight=13)}, 14: {},
-                    15: {'n': Edge(node=16, weight=2), 'm': Edge(node=40, weight=4), 'b': Edge(node=60, weight=6),
-                         's': Edge(node=88, weight=12)}, 16: {'a': Edge(node=17, weight=3)},
-                    17: {'m': Edge(node=18, weight=4), 'n': Edge(node=76, weight=10), 's': Edge(node=84, weight=12)},
-                    18: {'a': Edge(node=19, weight=5)}, 19: {'b': Edge(node=20, weight=6)},
-                    20: {'a': Edge(node=21, weight=7)}, 21: {'n': Edge(node=22, weight=8)},
-                    22: {'a': Edge(node=23, weight=9)}, 23: {'n': Edge(node=24, weight=10)},
-                    24: {'a': Edge(node=25, weight=11)}, 25: {'s': Edge(node=26, weight=12)},
-                    26: {'$': Edge(node=27, weight=13)}, 27: {}, 28: {'a': Edge(node=29, weight=3)},
-                    29: {'m': Edge(node=30, weight=4), 'n': Edge(node=80, weight=10), 's': Edge(node=86, weight=12)},
-                    30: {'a': Edge(node=31, weight=5)}, 31: {'b': Edge(node=32, weight=6)},
-                    32: {'a': Edge(node=33, weight=7)}, 33: {'n': Edge(node=34, weight=8)},
-                    34: {'a': Edge(node=35, weight=9)}, 35: {'n': Edge(node=36, weight=10)},
-                    36: {'a': Edge(node=37, weight=11)}, 37: {'s': Edge(node=38, weight=12)},
-                    38: {'$': Edge(node=39, weight=13)}, 39: {}, 40: {'a': Edge(node=41, weight=5)},
-                    41: {'b': Edge(node=42, weight=6)}, 42: {'a': Edge(node=43, weight=7)},
-                    43: {'n': Edge(node=44, weight=8)}, 44: {'a': Edge(node=45, weight=9)},
-                    45: {'n': Edge(node=46, weight=10)}, 46: {'a': Edge(node=47, weight=11)},
-                    47: {'s': Edge(node=48, weight=12)}, 48: {'$': Edge(node=49, weight=13)}, 49: {},
-                    50: {'a': Edge(node=51, weight=5)}, 51: {'b': Edge(node=52, weight=6)},
-                    52: {'a': Edge(node=53, weight=7)}, 53: {'n': Edge(node=54, weight=8)},
-                    54: {'a': Edge(node=55, weight=9)}, 55: {'n': Edge(node=56, weight=10)},
-                    56: {'a': Edge(node=57, weight=11)}, 57: {'s': Edge(node=58, weight=12)},
-                    58: {'$': Edge(node=59, weight=13)}, 59: {}, 60: {'a': Edge(node=61, weight=7)},
-                    61: {'n': Edge(node=62, weight=8)}, 62: {'a': Edge(node=63, weight=9)},
-                    63: {'n': Edge(node=64, weight=10)}, 64: {'a': Edge(node=65, weight=11)},
-                    65: {'s': Edge(node=66, weight=12)}, 66: {'$': Edge(node=67, weight=13)}, 67: {},
-                    68: {'a': Edge(node=69, weight=7)}, 69: {'n': Edge(node=70, weight=8)},
-                    70: {'a': Edge(node=71, weight=9)}, 71: {'n': Edge(node=72, weight=10)},
-                    72: {'a': Edge(node=73, weight=11)}, 73: {'s': Edge(node=74, weight=12)},
-                    74: {'$': Edge(node=75, weight=13)}, 75: {}, 76: {'a': Edge(node=77, weight=11)},
-                    77: {'s': Edge(node=78, weight=12)}, 78: {'$': Edge(node=79, weight=13)}, 79: {},
-                    80: {'a': Edge(node=81, weight=11)}, 81: {'s': Edge(node=82, weight=12)},
-                    82: {'$': Edge(node=83, weight=13)}, 83: {}, 84: {'$': Edge(node=85, weight=13)}, 85: {},
-                    86: {'$': Edge(node=87, weight=13)}, 87: {}, 88: {'$': Edge(node=89, weight=13)}, 89: {},
-                    90: {'$': Edge(node=91, weight=13)}, 91: {}, 92: {}}
-
-    assert leaf_labels == {14: 0, 27: 1, 39: 2, 49: 3, 59: 4, 67: 5, 75: 6, 79: 7, 83: 8, 85: 9, 87: 10, 89: 11, 91: 12,
-                           92: 13}
+    root = alignment.suffix_trie_from_text(text)
+    print()
+    pretty_print_trie_adj_lists(root)
+    serialised = serialise_suffix_tree(root)
+    # with open(Path('test/testcase06.pickle'), 'wb') as f:
+    #    pickle.dump(serialised, f, pickle.HIGHEST_PROTOCOL)
+    with open(Path('test/testcase06.pickle'), 'rb') as pickled:
+        expected = pickle.load(pickled)
+    assert serialised == expected
 
 
 def test_suffix_tree_from_text():
     text = 'panamabananas'
-    tree, position, length = alignment.suffix_tree_from_text(text)
-    assert tree == {
-        0: {'p': Edge(node=14, weight=None), 'a': Edge(node=15, weight=None), 'n': Edge(node=29, weight=None),
-            'm': Edge(node=59, weight=None), 'b': Edge(node=75, weight=None), 's': Edge(node=91, weight=None),
-            '$': Edge(node=92, weight=None)}, 14: {},
-        15: {'n': Edge(node=17, weight=None), 'm': Edge(node=49, weight=None), 'b': Edge(node=67, weight=None),
-             's': Edge(node=89, weight=None)},
-        17: {'m': Edge(node=27, weight=None), 'n': Edge(node=79, weight=None), 's': Edge(node=85, weight=None)}, 27: {},
-        29: {'m': Edge(node=39, weight=None), 'n': Edge(node=83, weight=None), 's': Edge(node=87, weight=None)}, 39: {},
-        49: {}, 59: {}, 67: {}, 75: {}, 79: {}, 83: {}, 85: {}, 87: {}, 89: {}, 91: {}, 92: {}}
-    assert position == {(0, 14): 0, (0, 15): 1, (0, 29): 2, (0, 59): 4, (0, 75): 6, (0, 91): 12, (0, 92): 13,
-                        (15, 17): 2, (15, 49): 4, (15, 67): 6, (15, 89): 12, (17, 27): 4, (17, 79): 10, (17, 85): 12,
-                        (29, 39): 4, (29, 83): 10, (29, 87): 12}
-    assert length == {(0, 14): 14, (0, 15): 1, (0, 29): 2, (0, 59): 10, (0, 75): 8, (0, 91): 2, (0, 92): 1, (15, 17): 2,
-                      (15, 49): 10, (15, 67): 8, (15, 89): 2, (17, 27): 10, (17, 79): 4, (17, 85): 2, (29, 39): 10,
-                      (29, 83): 4, (29, 87): 2}
+    root = alignment.suffix_tree_from_text(text)
+    serialised = serialise_suffix_tree(root)
+    assert serialised == [NodeInfo(data=0, parent_data=None, label=None,
+                                   children=[ChildInfo(data=14, symbol='p', weight=None, position=0, length=14),
+                                             ChildInfo(data=15, symbol='a', weight=None, position=1, length=1),
+                                             ChildInfo(data=29, symbol='n', weight=None, position=2, length=2),
+                                             ChildInfo(data=59, symbol='m', weight=None, position=4, length=10),
+                                             ChildInfo(data=75, symbol='b', weight=None, position=6, length=8),
+                                             ChildInfo(data=91, symbol='s', weight=None, position=12, length=2),
+                                             ChildInfo(data=92, symbol='$', weight=None, position=13, length=1)]),
+                          NodeInfo(data=14, parent_data=0, label=0, children=[]),
+                          NodeInfo(data=15, parent_data=0, label=None,
+                                   children=[ChildInfo(data=17, symbol='n', weight=None, position=2, length=2),
+                                             ChildInfo(data=49, symbol='m', weight=None, position=4, length=10),
+                                             ChildInfo(data=67, symbol='b', weight=None, position=6, length=8),
+                                             ChildInfo(data=89, symbol='s', weight=None, position=12, length=2)]),
+                          NodeInfo(data=17, parent_data=15, label=None,
+                                   children=[ChildInfo(data=27, symbol='m', weight=None, position=4, length=10),
+                                             ChildInfo(data=79, symbol='n', weight=None, position=10, length=4),
+                                             ChildInfo(data=85, symbol='s', weight=None, position=12, length=2)]),
+                          NodeInfo(data=27, parent_data=17, label=1, children=[]),
+                          NodeInfo(data=29, parent_data=0, label=None,
+                                   children=[ChildInfo(data=39, symbol='m', weight=None, position=4, length=10),
+                                             ChildInfo(data=83, symbol='n', weight=None, position=10, length=4),
+                                             ChildInfo(data=87, symbol='s', weight=None, position=12, length=2)]),
+                          NodeInfo(data=39, parent_data=29, label=2, children=[]),
+                          NodeInfo(data=49, parent_data=15, label=3, children=[]),
+                          NodeInfo(data=59, parent_data=0, label=4, children=[]),
+                          NodeInfo(data=67, parent_data=15, label=5, children=[]),
+                          NodeInfo(data=75, parent_data=0, label=6, children=[]),
+                          NodeInfo(data=79, parent_data=17, label=7, children=[]),
+                          NodeInfo(data=83, parent_data=29, label=8, children=[]),
+                          NodeInfo(data=85, parent_data=17, label=9, children=[]),
+                          NodeInfo(data=87, parent_data=29, label=10, children=[]),
+                          NodeInfo(data=89, parent_data=15, label=11, children=[]),
+                          NodeInfo(data=91, parent_data=0, label=12, children=[]),
+                          NodeInfo(data=92, parent_data=0, label=13, children=[])]
 
     text = 'ATAAATG'
-    tree, position, length = alignment.suffix_tree_from_text(text)
-    assert tree == {0: {'A': Edge(node=1, weight=None), 'T': Edge(node=9, weight=None), 'G': Edge(node=29, weight=None),
-                        '$': Edge(node=30, weight=None)},
-                    1: {'T': Edge(node=2, weight=None), 'A': Edge(node=16, weight=None)},
-                    2: {'A': Edge(node=8, weight=None), 'G': Edge(node=25, weight=None)}, 8: {},
-                    9: {'A': Edge(node=15, weight=None), 'G': Edge(node=27, weight=None)}, 15: {},
-                    16: {'A': Edge(node=20, weight=None), 'T': Edge(node=23, weight=None)}, 20: {}, 23: {}, 25: {},
-                    27: {}, 29: {}, 30: {}}
-    assert position == {(0, 1): 0, (0, 9): 1, (0, 29): 6, (0, 30): 7, (1, 2): 1, (1, 16): 3, (2, 8): 2, (2, 25): 6,
-                        (9, 15): 2, (9, 27): 6, (16, 20): 4, (16, 23): 5}
-    assert length == {(0, 1): 1, (0, 9): 1, (0, 29): 2, (0, 30): 1, (1, 2): 1, (1, 16): 1, (2, 8): 6, (2, 25): 2,
-                      (9, 15): 6, (9, 27): 2, (16, 20): 4, (16, 23): 3}
+    root = alignment.suffix_tree_from_text(text)
+    serialised = serialise_suffix_tree(root)
+    assert serialised == [NodeInfo(data=0, parent_data=None, label=None,
+                                   children=[ChildInfo(data=1, symbol='A', weight=None, position=0, length=1),
+                                             ChildInfo(data=9, symbol='T', weight=None, position=1, length=1),
+                                             ChildInfo(data=29, symbol='G', weight=None, position=6, length=2),
+                                             ChildInfo(data=30, symbol='$', weight=None, position=7, length=1)]),
+                          NodeInfo(data=1, parent_data=0, label=None,
+                                   children=[ChildInfo(data=2, symbol='T', weight=None, position=1, length=1),
+                                             ChildInfo(data=16, symbol='A', weight=None, position=3, length=1)]),
+                          NodeInfo(data=2, parent_data=1, label=None,
+                                   children=[ChildInfo(data=8, symbol='A', weight=None, position=2, length=6),
+                                             ChildInfo(data=25, symbol='G', weight=None, position=6, length=2)]),
+                          NodeInfo(data=8, parent_data=2, label=0, children=[]),
+                          NodeInfo(data=9, parent_data=0, label=None,
+                                   children=[ChildInfo(data=15, symbol='A', weight=None, position=2, length=6),
+                                             ChildInfo(data=27, symbol='G', weight=None, position=6, length=2)]),
+                          NodeInfo(data=15, parent_data=9, label=1, children=[]),
+                          NodeInfo(data=16, parent_data=1, label=None,
+                                   children=[ChildInfo(data=20, symbol='A', weight=None, position=4, length=4),
+                                             ChildInfo(data=23, symbol='T', weight=None, position=5, length=3)]),
+                          NodeInfo(data=20, parent_data=16, label=2, children=[]),
+                          NodeInfo(data=23, parent_data=16, label=3, children=[]),
+                          NodeInfo(data=25, parent_data=2, label=4, children=[]),
+                          NodeInfo(data=27, parent_data=9, label=5, children=[]),
+                          NodeInfo(data=29, parent_data=0, label=6, children=[]),
+                          NodeInfo(data=30, parent_data=0, label=7, children=[])]

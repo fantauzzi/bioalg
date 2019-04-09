@@ -1,4 +1,4 @@
-from collections import namedtuple
+from collections import namedtuple, deque
 
 """
 NOTE
@@ -88,7 +88,56 @@ def trie_matching(text, trie):
     return res
 
 
+class SuffixNode:  # TODO document this
+    def __init__(self, data, parent=None):
+        self.data = data
+        self.parent = parent
+        self.symbol_to_child = {}
+        self.weights = {}
+        self.label = None
+        self.position = {}
+        self.length = {}
+
+
+def visit_trie_level_order(root):
+    to_be_visited = deque([root])
+    while to_be_visited:
+        current_node = to_be_visited.popleft()
+        for child_node in current_node.symbol_to_child.values():
+            to_be_visited.append(child_node)
+        yield current_node
+
+
 def suffix_trie_from_text(text):
+    """
+    Returns the adjacency lists for the modified suffix trie of a text.
+    :param text: The text, a string. It is not allowed to contain symbol '$.
+    :return: The modified suffix trie, a dictionary with its adjacency lists. #TODO correct this
+    """
+    assert '$' not in text
+    text = text + '$'
+    root = SuffixNode(data=0)  # Begin with a trie with the root node only; the root is numbered as 0
+    next_node = 1  # Keep track of the next node number to be inserted in the trie; 0 is the root, already inserted
+    for i in range(0, len(text)):  # Process every suffix of text, starting from the longest
+        current_node = root  # Start from the root
+        for j, symbol in enumerate(text[i:]):
+            # If there is an edge labelled with 'symbol' leaving the current node, then update its weight and traverse it
+            adj = current_node.symbol_to_child.get(symbol)
+            if adj is not None:
+                current_node = adj
+            else:  # If not, add to the trie a new edge (and node) for 'symbol', then traverse it
+                newly_inserted_node = SuffixNode(data=next_node, parent=current_node)
+                current_node.symbol_to_child[symbol] = newly_inserted_node
+                current_node.weights[symbol] = j + i
+                current_node = newly_inserted_node
+                next_node += 1
+        # If the current node is a leaf, then set its label
+        if not current_node.symbol_to_child:
+            current_node.label = i
+    return root
+
+
+def suffix_trie_from_text2(text):
     """
     Returns the adjacency lists for the modified suffix trie of a text.
     :param text: The text, a string. It is not allowed to contain symbol '$.
@@ -118,7 +167,7 @@ def suffix_trie_from_text(text):
     return trie, leaf_labels
 
 
-def suffix_tree_from_text(text):
+def suffix_tree_from_text2(text):
     trie, leaf_labels = suffix_trie_from_text(text)
     # Collect all nodes that begin a branching path, i.e. with a fan-out of at least 2
     branching_nodes = [node for node in trie if len(trie[node]) > 1]
@@ -142,3 +191,30 @@ def suffix_tree_from_text(text):
             position[(branching_node, current_node)] = edge.weight
             length[(branching_node, current_node)] = path_length
     return trie, position, length
+
+
+def suffix_tree_from_text(text):
+    tree_root = suffix_trie_from_text(text)
+    # Collect all nodes that begin a branching path, i.e. with a fan-out of at least 2
+    branching_nodes = [node for node in visit_trie_level_order(tree_root) if len(node.symbol_to_child) > 1]
+    for branching_node in branching_nodes:
+        # Follow each branching path
+        # for label, edge in trie[branching_node].items():
+        for symbol, current_node in branching_node.symbol_to_child.items():
+            # current_node = edge.node
+            ''' Keep following the path as long as the current node is neither a leaf nor the start of another 
+            branching path; remove the nodes within the path from the trie.'''
+            path_length = 1
+            while len(current_node.symbol_to_child) == 1:
+                next_node = next(iter(current_node.symbol_to_child.values()))
+                del current_node
+                current_node = next_node
+                path_length += 1
+            ''' Add to the trie an edge from the branching node at the beginning of the path, to the last node of the
+            path ('current_node') '''
+            branching_node.symbol_to_child[symbol] = current_node
+            current_node.parent = branching_node
+            branching_node.length[symbol] = path_length
+            branching_node.position[symbol] = branching_node.weights[symbol]
+            del branching_node.weights[symbol]
+    return tree_root
