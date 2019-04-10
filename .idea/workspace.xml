@@ -20,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter09/alignment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="91">
-              <caret line="138" column="21" selection-start-line="138" selection-start-column="21" selection-end-line="138" selection-end-column="21" />
+            <state relative-caret-position="1052">
+              <caret line="263" column="16" lean-forward="true" selection-start-line="263" selection-start-column="16" selection-end-line="263" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -29,8 +29,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter09/test_alignment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="581">
-              <caret line="224" column="4" selection-start-line="224" selection-start-column="4" selection-end-line="224" selection-end-column="4" />
+            <state relative-caret-position="519">
+              <caret line="230" column="42" selection-start-line="230" selection-start-column="21" selection-end-line="230" selection-end-column="42" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -151,8 +151,8 @@
         <option value="$PROJECT_DIR$/chapter09/test/testcase04.txt" />
         <option value="$PROJECT_DIR$/chapter09/test/testcase05.txt" />
         <option value="$PROJECT_DIR$/chapter09/stepik_alignment.py" />
-        <option value="$PROJECT_DIR$/chapter09/alignment.py" />
         <option value="$PROJECT_DIR$/chapter09/test_alignment.py" />
+        <option value="$PROJECT_DIR$/chapter09/alignment.py" />
       </list>
     </option>
   </component>
@@ -381,18 +381,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.09 at 16h 46m 00s.xml">
-      <configuration name="pytest in test_alignment.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.09 at 16h 46m 29s.xml">
-      <configuration name="pytest in test_alignment.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.09 at 16h 47m 28s.xml">
-      <configuration name="pytest in test_alignment.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.09 at 16h 50m 26s.xml">
-      <configuration name="pytest in test_alignment.py" configurationId="tests" />
-    </history-entry>
     <history-entry file="pytest_in_test_alignment_py - 2019.04.09 at 16h 51m 28s.xml">
       <configuration name="pytest in test_alignment.py" configurationId="tests" />
     </history-entry>
@@ -411,6 +399,18 @@
     <history-entry file="pytest_in_test_alignment_py - 2019.04.09 at 17h 04m 13s.xml">
       <configuration name="pytest in test_alignment.py" configurationId="tests" />
     </history-entry>
+    <history-entry file="pytest_in_test_alignment_py - 2019.04.09 at 21h 10m 42s.xml">
+      <configuration name="pytest in test_alignment.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_alignment_py - 2019.04.09 at 21h 11m 01s.xml">
+      <configuration name="pytest in test_alignment.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_alignment_py - 2019.04.09 at 21h 12m 44s.xml">
+      <configuration name="pytest in test_alignment.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_alignment_py - 2019.04.09 at 21h 20m 29s.xml">
+      <configuration name="pytest in test_alignment.py" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -425,8 +425,8 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.37471265" visible="true" weight="0.22123536" />
-      <window_info id="Structure" order="1" sideWeight="0.62528735" side_tool="true" visible="true" weight="0.22123536" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.37394637" visible="true" weight="0.22123536" />
+      <window_info id="Structure" order="1" sideWeight="0.62605363" side_tool="true" visible="true" weight="0.22123536" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
@@ -481,6 +481,11 @@
           <url>file://$PROJECT_DIR$/chapter07/phylogeny.py</url>
           <line>508</line>
           <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/chapter09/test_alignment.py</url>
+          <line>232</line>
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -655,6 +660,16 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>root</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>[node.data for node in visit_trie_level_order(root) if not node.symbol_to_child]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>sorted(serialised)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -686,21 +701,6 @@
       </expression>
       <expression>
         <expression-string>d[3][5]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>np.all(np.isclose(centers[0], [1.800, 2.8666667]))</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>np.all(np.isclose(centers[0], [1.800, 2.867]))</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>np.all(np.isclose(centers[0], centers[0]))</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -1047,8 +1047,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter09/test_alignment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="581">
-          <caret line="224" column="4" selection-start-line="224" selection-start-column="4" selection-end-line="224" selection-end-column="4" />
+        <state relative-caret-position="519">
+          <caret line="230" column="42" selection-start-line="230" selection-start-column="21" selection-end-line="230" selection-end-column="42" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
@@ -1057,8 +1057,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter09/alignment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="138" column="21" selection-start-line="138" selection-start-column="21" selection-end-line="138" selection-end-column="21" />
+        <state relative-caret-position="1052">
+          <caret line="263" column="16" lean-forward="true" selection-start-line="263" selection-start-column="16" selection-end-line="263" selection-end-column="16" />
         </state>
       </provider>
     </entry>

@@ -125,6 +125,7 @@ class SuffixNode:
         self.label = None
         self.position = {}
         self.length = {}
+        self.color = None
 
 
 def visit_trie_level_order(root):
@@ -233,3 +234,33 @@ def longest_repeat(text):
     # Find the longest path from the root to any branching node, and that corresponds to the longest repeat in 'text'.
     symbols = longest_path_to_internal(root, text)
     return symbols
+
+
+def color_suffix_tree(root, no_of_blue_leaves):
+    ripe_nodes = [node for node in visit_trie_level_order(root) if not node.symbol_to_child]
+    ripe_nodes = deque(ripe_nodes)
+    count = {'red': 0, 'blue': 0, 'purple': 0}
+    while ripe_nodes:
+        current_node = ripe_nodes.popleft()
+        color = None
+        if not current_node.symbol_to_child:
+            color = 'blue' if current_node.label < no_of_blue_leaves else 'red'
+        for child in current_node.symbol_to_child.values():
+            assert child.color is not None
+            if color == None:
+                color = child.color
+            elif color != child.color:
+                color = 'purple'
+                break
+        current_node.color = color
+        count[color] += 1
+        if current_node.parent is None:
+            continue
+        for child_of_parent in current_node.parent.symbol_to_child.values():
+            if child_of_parent.color is None:
+                break
+        else:
+            ripe_nodes.append(current_node.parent)
+    return count
+
+# TODO change suffix_trie_from_text and suffix_tree_from_text to assume the input string already ends by '$'
