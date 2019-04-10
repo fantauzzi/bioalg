@@ -129,7 +129,7 @@ def test_trie_matching():
 
 
 def test_suffix_trie_from_text():
-    text = 'panamabananas'
+    text = 'panamabananas$'
     root = alignment.suffix_trie_from_text(text)
     serialised = serialise_suffix_tree(root)
     # with open(Path('test/testcase06.pickle'), 'wb') as f:
@@ -140,7 +140,7 @@ def test_suffix_trie_from_text():
 
 
 def test_suffix_tree_from_text():
-    text = 'panamabananas'
+    text = 'panamabananas$'
     root = alignment.suffix_tree_from_text(text)
     serialised = serialise_suffix_tree(root)
     assert serialised == [NodeInfo(data=0, parent_data=None, label=None,
@@ -179,7 +179,7 @@ def test_suffix_tree_from_text():
                           NodeInfo(data=91, parent_data=0, label=12, children=[]),
                           NodeInfo(data=92, parent_data=0, label=13, children=[])]
 
-    text = 'ATAAATG'
+    text = 'ATAAATG$'
     root = alignment.suffix_tree_from_text(text)
     serialised = serialise_suffix_tree(root)
     assert serialised == [NodeInfo(data=0, parent_data=None, label=None,
@@ -228,6 +228,82 @@ def test_longest_repeat():
 
 
 def test_color_suffix_tree():
-    root = alignment.suffix_tree_from_text('panama#banana')
+    root = alignment.suffix_tree_from_text('panama#bananas$')
     counts = alignment.color_suffix_tree(root, no_of_blue_leaves=7)
-    pass
+    assert counts == {'red': 8, 'blue': 7, 'purple': 4}
+    serialised = serialise_suffix_tree(root)
+    assert serialised == [NodeInfo(data=0, parent_data=None, label=None,
+                                   children=[ChildInfo(data=15, symbol='p', weight=None, position=0, length=15),
+                                             ChildInfo(data=16, symbol='a', weight=None, position=1, length=1),
+                                             ChildInfo(data=31, symbol='n', weight=None, position=2, length=2),
+                                             ChildInfo(data=64, symbol='m', weight=None, position=4, length=11),
+                                             ChildInfo(data=82, symbol='#', weight=None, position=6, length=9),
+                                             ChildInfo(data=90, symbol='b', weight=None, position=7, length=8),
+                                             ChildInfo(data=106, symbol='s', weight=None, position=13, length=2),
+                                             ChildInfo(data=107, symbol='$', weight=None, position=14, length=1)]),
+                          NodeInfo(data=15, parent_data=0, label=0, children=[]),
+                          NodeInfo(data=16, parent_data=0, label=None,
+                                   children=[ChildInfo(data=18, symbol='n', weight=None, position=2, length=2),
+                                             ChildInfo(data=53, symbol='m', weight=None, position=4, length=11),
+                                             ChildInfo(data=73, symbol='#', weight=None, position=6, length=9),
+                                             ChildInfo(data=104, symbol='s', weight=None, position=13, length=2)]),
+                          NodeInfo(data=18, parent_data=16, label=None,
+                                   children=[ChildInfo(data=29, symbol='m', weight=None, position=4, length=11),
+                                             ChildInfo(data=94, symbol='n', weight=None, position=11, length=4),
+                                             ChildInfo(data=100, symbol='s', weight=None, position=13, length=2)]),
+                          NodeInfo(data=29, parent_data=18, label=1, children=[]),
+                          NodeInfo(data=31, parent_data=0, label=None,
+                                   children=[ChildInfo(data=42, symbol='m', weight=None, position=4, length=11),
+                                             ChildInfo(data=98, symbol='n', weight=None, position=11, length=4),
+                                             ChildInfo(data=102, symbol='s', weight=None, position=13, length=2)]),
+                          NodeInfo(data=42, parent_data=31, label=2, children=[]),
+                          NodeInfo(data=53, parent_data=16, label=3, children=[]),
+                          NodeInfo(data=64, parent_data=0, label=4, children=[]),
+                          NodeInfo(data=73, parent_data=16, label=5, children=[]),
+                          NodeInfo(data=82, parent_data=0, label=6, children=[]),
+                          NodeInfo(data=90, parent_data=0, label=7, children=[]),
+                          NodeInfo(data=94, parent_data=18, label=8, children=[]),
+                          NodeInfo(data=98, parent_data=31, label=9, children=[]),
+                          NodeInfo(data=100, parent_data=18, label=10, children=[]),
+                          NodeInfo(data=102, parent_data=31, label=11, children=[]),
+                          NodeInfo(data=104, parent_data=16, label=12, children=[]),
+                          NodeInfo(data=106, parent_data=0, label=13, children=[]),
+                          NodeInfo(data=107, parent_data=0, label=14, children=[])]
+
+
+def test_longest_shared_substring():
+    s1 = 'TCGGTAGATTGCGCCCACTC'
+    s2 = 'AGGGGCTCGCAGTGTAAGAA'
+    substring = alignment.longest_shared_substring(s1, s2)
+    assert substring == 'TCG'
+
+    with open(Path('test/testcase07.txt')) as input_file:
+        s1 = input_file.readline().rstrip('\n')
+        s2 = input_file.readline().rstrip('\n')
+    substring = alignment.longest_shared_substring(s1, s2)
+    assert substring == 'CATCTGGT'
+
+    with open(Path('test/testcase08.txt')) as input_file:
+        s1 = input_file.readline().rstrip('\n')
+        s2 = input_file.readline().rstrip('\n')
+    substring = alignment.longest_shared_substring(s1, s2)
+    assert substring == 'GTTCAGACG'
+
+
+def test_shortes_substring_not_appearing():
+    s1 = 'CCAAGCTGCTAGAGG'
+    s2 = 'CATGCTGGGCTGGCT'
+    res = alignment.shortes_substring_not_appearing(s1, s2)
+    assert res == 'CC'
+
+    with open(Path('test/testcase09.txt')) as input_file:
+        s1 = input_file.readline().rstrip('\n')
+        s2 = input_file.readline().rstrip('\n')
+    res = alignment.shortes_substring_not_appearing(s1, s2)
+    assert res == 'GCGAT'
+
+    with open(Path('test/testcase10.txt')) as input_file:
+        s1 = input_file.readline().rstrip('\n')
+        s2 = input_file.readline().rstrip('\n')
+    res = alignment.shortes_substring_not_appearing(s1, s2)
+    assert res == 'GAAAT'

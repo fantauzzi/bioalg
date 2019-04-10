@@ -148,8 +148,8 @@ def suffix_trie_from_text(text):
     :param text: The text, a string. It is not allowed to contain symbol '$'.
     :return: The root of the modified suffix trie, a SuffixNode.
     """
-    assert '$' not in text
-    text = text + '$'
+    terminator = text[-1]
+    assert terminator not in text[0:len(text) - 1]
     root = SuffixNode(data=0)  # Begin with a trie with the root node only; the root is numbered as 0
     next_node = 1  # Keep track of the next node number to be inserted in the trie; 0 is the root, already inserted
     for i in range(0, len(text)):  # Process every suffix of text, starting from the longest
@@ -230,7 +230,7 @@ def longest_repeat(text):
                 longest_path_symbols = symbols
         return longest_path_symbols
 
-    root = suffix_tree_from_text(text)
+    root = suffix_tree_from_text(text + '$')
     # Find the longest path from the root to any branching node, and that corresponds to the longest repeat in 'text'.
     symbols = longest_path_to_internal(root, text)
     return symbols
@@ -263,4 +263,80 @@ def color_suffix_tree(root, no_of_blue_leaves):
             ripe_nodes.append(current_node.parent)
     return count
 
-# TODO change suffix_trie_from_text and suffix_tree_from_text to assume the input string already ends by '$'
+
+def longest_shared_substring(string1, string2):
+    def longest_path_to_purple(node, text):
+        """
+        Returns the string corresponding to the longest path in a suffix tree from a given node to its descendants
+        that are colored as purple.
+        :param node:The given node, a SuffixNode.
+        :param text:The text which originated the suffix tree.
+        :return: The substring of 'text' corresponding to the longest path from the given node to its purple
+        descendants, a string. If multiple such substrings exist, only one of them is returned.
+        """
+        # If you don't find anything better, the returned longest path will be the empty string
+        longest_path_symbols = ''
+        # Find if any non-leaf child of 'node' leads to a longer path
+        for symbol, child in node.symbol_to_child.items():
+            if child.color != 'purple':  # If child is not purple, skip it.
+                continue
+            symbols = text[
+                      node.position[symbol]: node.position[symbol] + node.length[symbol]] + longest_path_to_purple(
+                child, text)
+            if len(symbols) > len(longest_path_symbols):
+                longest_path_symbols = symbols
+        return longest_path_symbols
+
+    assert '#' not in string1 + string2
+    assert '$' not in string1 + string2
+    text = string1 + '#' + string2 + '$'
+    root = suffix_tree_from_text(text)
+    color_suffix_tree(root, len(string1))
+    substring = longest_path_to_purple(root, text)
+    return substring
+
+
+def shortes_substring_not_appearing(string1, string2):
+    def longest_match_in_prefix_tree(root, text, string):
+        matched = ''
+        current_node = root
+        mismatch = False
+        ''' Stop traversing the tree if: 'current_node' is a leaf, the whole string to be matched has been matched, or
+        a mismatch has been found '''
+        while current_node.symbol_to_child and len(matched) < len(string) and not mismatch:
+            # Find an edge leaving from 'current_node' whose symbol is the next symbol to be matched
+            symbol = string[len(matched)]
+            child = current_node.symbol_to_child.get(symbol)
+            # If it doesn't exist, then there is a mismatch, stop traversing the tree
+            if child is None:
+                break
+            matching = string[
+                       len(matched):len(matched) + min((len(string) - len(matched), current_node.length[symbol]))]
+            for i in range(0, len(matching)):
+                try:
+                    if matching[i] != text[current_node.position[symbol] + i]:
+                        mismatch = True
+                        matched = matched + matching[:i]
+                        break
+                except IndexError:
+                    pass
+            else:
+                matched = matched + matching
+            current_node = child
+        return matched
+
+    assert '$' not in string1 + string2
+    string2 = string2 + '$'
+    root = suffix_tree_from_text(string2)
+    shortes_longest_match = None
+    shortes_longest_match_pos = None
+    for i in range(0, len(string1)):
+        suffix = string1[i:]
+        longest_match = longest_match_in_prefix_tree(root, string2, suffix)
+        longest_match = longest_match.rstrip('$')
+        if shortes_longest_match is None or (
+                len(longest_match) < len(shortes_longest_match) and len(longest_match) + i < len(string1)):
+            shortes_longest_match = longest_match
+            shortes_longest_match_pos = i
+    shortest_mismatch = string1[shortes_longest_match_pos: shortes_longest_match_pos + len(shortes_longest_match) + 1]
+    return shortest_mismatch
