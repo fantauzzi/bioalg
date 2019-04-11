@@ -1,7 +1,7 @@
 from pathlib import Path
 import pickle
 import alignment
-from stepik_alignment import pretty_print_trie_adj_lists, serialise_suffix_tree, NodeInfo, ChildInfo
+from stepik_alignment import serialise_suffix_tree, NodeInfo, ChildInfo, fetch_sequence_of_int, fetch_string
 
 
 def test_trie_from_strings():
@@ -307,3 +307,18 @@ def test_shortes_substring_not_appearing():
         s2 = input_file.readline().rstrip('\n')
     res = alignment.shortes_substring_not_appearing(s1, s2)
     assert res == 'GAAAT'
+
+
+def test_suffix_array_for_text():
+    suffixes = alignment.suffix_array_for_text('AACGATAGCGGTAGA$')
+    assert suffixes == [15, 14, 0, 1, 12, 6, 4, 2, 8, 13, 3, 7, 9, 10, 11, 5]
+
+    text = fetch_string(Path('test/testcase11.txt'))
+    suffixes = alignment.suffix_array_for_text(text)
+    expecetd = fetch_sequence_of_int(Path('test/expected11.txt'))
+    assert suffixes == expecetd
+
+    text = fetch_string(Path('test/testcase12.txt'))
+    suffixes = alignment.suffix_array_for_text(text)
+    expecetd = fetch_sequence_of_int(Path('test/expected12.txt'))
+    assert suffixes == expecetd

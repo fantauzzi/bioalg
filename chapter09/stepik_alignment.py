@@ -39,6 +39,19 @@ def pretty_print_trie_adj_lists(root):
         print('(parent={})'.format(current_node.parent.data if current_node.parent is not None else 'None'))
 
 
+def fetch_string(file_name):
+    with open(file_name) as input_file:
+        text = input_file.readline().rstrip('\n')
+    return text
+
+
+def fetch_sequence_of_int(file_name):
+    with open(file_name) as input_file:
+        line = input_file.readline().rstrip('\n')
+    seq = [int(item) for item in line.split(', ')]
+    return seq
+
+
 ChildInfo = namedtuple('ChildInfo', ['data', 'symbol', 'weight', 'position', 'length'])
 NodeInfo = namedtuple('NodeInfo', ['data', 'parent_data', 'label', 'children'])
 

@@ -340,3 +340,13 @@ def shortes_substring_not_appearing(string1, string2):
             shortes_longest_match_pos = i
     shortest_mismatch = string1[shortes_longest_match_pos: shortes_longest_match_pos + len(shortes_longest_match) + 1]
     return shortest_mismatch
+
+
+def suffix_array_for_text(text):
+    suffixes = {}
+    for i in range(0, len(text)):
+        suffix = text[i:]
+        suffixes[suffix] = i
+
+    res = [value for (_, value) in sorted(suffixes.items())]
+    return res
