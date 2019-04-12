@@ -387,3 +387,54 @@ def inverted_burrow_wheeler(text):
         current_pos = right_count[(current_left_symbol, left_count[current_pos])]
 
     return ''.join(inverted)
+
+
+def burrow_wheeler_matching(last_column, patter, last_to_first):
+    pass
+
+
+def count_matches(text, pattern):
+    def last_to_first(transformed_text):
+        assert transformed_text.count('$') == 1
+        sorted_text = sorted(transformed_text)
+
+        left_symbols_count = {}  # TODO refactor common code and choose between left/right and first/last nomenclature
+        left_symbols = {}
+        for pos, symbol in enumerate(sorted_text):
+            count = left_symbols_count.get(symbol, -1)
+            count += 1
+            left_symbols_count[symbol] = count
+            left_symbols[(symbol, count)] = pos
+
+        l_to_f = [0] * len(transformed_text)
+        right_symbols_count = {}
+        for pos, symbol in enumerate(transformed_text):
+            count = right_symbols_count.get(symbol, -1)
+            count += 1
+            right_symbols_count[symbol] = count
+            l_to_f[pos] = left_symbols[(symbol, count)]
+        return l_to_f
+
+    if not isinstance(pattern, str):
+        counts = [count_matches(text, one_pattern) for one_pattern in pattern]
+        return counts
+
+    transformed_text = text
+    l_to_f = last_to_first(transformed_text)
+
+    top, bottom = 0, len(text) - 1
+    n = len(transformed_text)
+    while top <= bottom:
+        if pattern:
+            symbol = pattern[-1]
+            pattern = pattern[:len(pattern) - 1]
+            try:
+                top_index = transformed_text.index(symbol, top, bottom + 1)
+            except ValueError:
+                return 0
+            bottom_index = n - transformed_text[::-1].index(symbol, n - 1 - bottom, n - top) - 1
+            top = l_to_f[top_index]
+            bottom = l_to_f[bottom_index]
+        else:
+            return bottom - top + 1
+    assert False

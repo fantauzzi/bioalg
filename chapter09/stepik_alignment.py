@@ -48,8 +48,18 @@ def fetch_string(file_name):
 def fetch_sequence_of_int(file_name):
     with open(file_name) as input_file:
         line = input_file.readline().rstrip('\n')
-    seq = [int(item) for item in line.split(', ')]
+
+    separator = ', ' if line.find(',') >=0 else ' '
+    seq = [int(item) for item in line.split(separator)]
     return seq
+
+
+def fetch_BW_matching_input(file_name):
+    with open(file_name) as input_file:
+        text = input_file.readline().rstrip('\n')
+        text2 = input_file.readline().rstrip('\n')
+    pattern = text2.split(' ')
+    return text, pattern
 
 
 ChildInfo = namedtuple('ChildInfo', ['data', 'symbol', 'weight', 'position', 'length'])

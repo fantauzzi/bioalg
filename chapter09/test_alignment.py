@@ -1,7 +1,8 @@
 from pathlib import Path
 import pickle
 import alignment
-from stepik_alignment import serialise_suffix_tree, NodeInfo, ChildInfo, fetch_sequence_of_int, fetch_string
+from stepik_alignment import serialise_suffix_tree, NodeInfo, ChildInfo, fetch_sequence_of_int, fetch_string, \
+    fetch_BW_matching_input
 
 
 def test_trie_from_strings():
@@ -366,3 +367,21 @@ def test_inverted_burrow_wheeler():
     expected = fetch_string(Path('test/expected15.txt'))
     trans = alignment.inverted_burrow_wheeler(text)
     assert trans == expected
+
+
+def test_match_counts():
+    text = 'TCCTCTATGAGATCCTATTCTATGAAACCTTCA$GACCAAAATTCTCCGGC'
+    pattern = ['CCT', 'CAC', 'GAG', 'CAG', 'ATC']
+    counts = alignment.count_matches(text, pattern)
+    assert counts == [2, 1, 1, 0, 1]
+
+    text, pattern = fetch_BW_matching_input(Path('test/testcase16.txt'))
+    counts  = alignment.count_matches(text, pattern)
+    expected = fetch_sequence_of_int(Path('test/expected16.txt'))
+    assert counts == expected
+
+    text, pattern = fetch_BW_matching_input(Path('test/testcase17.txt'))
+    counts  = alignment.count_matches(text, pattern)
+    expected = fetch_sequence_of_int(Path('test/expected17.txt'))
+    assert counts == expected
+
