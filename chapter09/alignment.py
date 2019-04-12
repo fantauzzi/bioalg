@@ -350,3 +350,40 @@ def suffix_array_for_text(text):
 
     res = [value for (_, value) in sorted(suffixes.items())]
     return res
+
+
+def burrows_wheeler_transform(text):
+    rotations = [text[i:] + text[:i] for i in range(0, len(text))]
+    rotations.sort()
+    bw_transformed = [item[-1] for item in rotations]
+    return ''.join(bw_transformed)
+
+
+def inverted_burrow_wheeler(text):
+    assert text.count('$') == 1
+    sorted_text = sorted(text)
+    left_count = [0] * len(text)
+    left_symbols_count = {}
+    for pos, symbol in enumerate(sorted_text):
+        count = left_symbols_count.get(symbol, -1)
+        count += 1
+        left_count[pos] = count
+        left_symbols_count[symbol] = count
+
+    right_symbols_count = {}
+    right_count = {}
+    for pos, symbol in enumerate(text):
+        count = right_symbols_count.get(symbol, -1)
+        count += 1
+        right_symbols_count[symbol] = count
+        right_count[(symbol, count)] = pos
+
+    inverted = []
+    current_pos = text.find('$')
+    assert current_pos >= 0
+    while len(inverted) < len(text):
+        current_left_symbol = sorted_text[current_pos]
+        inverted.append(current_left_symbol)
+        current_pos = right_count[(current_left_symbol, left_count[current_pos])]
+
+    return ''.join(inverted)
