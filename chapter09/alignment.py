@@ -389,10 +389,6 @@ def inverted_burrow_wheeler(text):
     return ''.join(inverted)
 
 
-def burrow_wheeler_matching(last_column, patter, last_to_first):
-    pass
-
-
 def count_matches(text, pattern):
     def last_to_first(transformed_text):
         assert transformed_text.count('$') == 1
@@ -438,3 +434,41 @@ def count_matches(text, pattern):
         else:
             return bottom - top + 1
     assert False
+
+
+def better_BW_matching(first_occurrence, last_column, pattern, count):
+    top = 0
+    bottom = len(last_column) - 1
+    while top <= bottom:
+        if pattern:
+            symbol = pattern[-1]
+            pattern = pattern[:len(pattern) - 1]
+            if symbol in last_column[top: bottom + 1]:
+                top = first_occurrence[symbol] + count[symbol][top]
+                bottom = first_occurrence[symbol] + count[symbol][bottom + 1] - 1
+            else:
+                return 0
+        else:
+            return bottom - top + 1
+
+
+def better_count_matches(transformed_text, patterns):
+    first_column = sorted(transformed_text)
+
+    first_occurrence = {}
+    for pos, symbol in enumerate(first_column):
+        if first_occurrence.get(symbol) is None:
+            first_occurrence[symbol] = pos
+
+    symbols = set(transformed_text)
+    count = {symbol: [0]*(len(transformed_text)+1) for symbol in symbols}
+    for pos, pos_symbol in enumerate(transformed_text):
+        for symbol in symbols:
+            count[symbol][pos+1] = count[symbol][pos]+1 if symbol == pos_symbol else count[symbol][pos]
+
+    counters = []
+    for pattern in patterns:
+        the_counter = better_BW_matching(first_occurrence, transformed_text, pattern, count)
+        counters.append(the_counter)
+
+    return counters
