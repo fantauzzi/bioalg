@@ -2,7 +2,7 @@ from pathlib import Path
 import pickle
 import alignment
 from stepik_alignment import serialise_suffix_tree, NodeInfo, ChildInfo, fetch_sequence_of_int, fetch_string, \
-    fetch_BW_matching_input
+    fetch_BW_matching_input, fetch_find_all_input
 
 
 def test_trie_from_strings():
@@ -272,7 +272,7 @@ def test_color_suffix_tree():
                           NodeInfo(data=107, parent_data=0, label=14, children=[])]
 
 
-def xxxtest_longest_shared_substring():
+def test_longest_shared_substring():
     s1 = 'TCGGTAGATTGCGCCCACTC'
     s2 = 'AGGGGCTCGCAGTGTAAGAA'
     substring = alignment.longest_shared_substring(s1, s2)
@@ -291,7 +291,7 @@ def xxxtest_longest_shared_substring():
     assert substring == 'GTTCAGACG'
 
 
-def xtest_shortes_substring_not_appearing():
+def test_shortes_substring_not_appearing():
     s1 = 'CCAAGCTGCTAGAGG'
     s2 = 'CATGCTGGGCTGGCT'
     res = alignment.shortes_substring_not_appearing(s1, s2)
@@ -401,3 +401,29 @@ def test_better_count_matches():
     counts = alignment.better_count_matches(text, pattern)
     expected = fetch_sequence_of_int(Path('test/expected19.txt'))
     assert counts == expected
+
+
+def test_find_all():
+    text = 'AATCGGGTTCAATCGGGGT$'
+    patterns = ['ATCG', 'GGGT']
+    positions = alignment.find_all(text, patterns)
+    assert positions == [1, 4, 11, 15]
+
+    text = 'AAAAAA$'
+    patterns = ['AA']
+    positions = alignment.find_all(text, patterns)
+    assert positions == [0, 1, 2, 3, 4]
+
+    text, patterns = fetch_find_all_input(Path('test/testcase20.txt'))
+    text = text + '$'
+    positions = alignment.find_all(text, patterns)
+    expected = fetch_sequence_of_int(Path('test/expected20.txt'))
+    assert positions == sorted(expected)
+
+    text, patterns = fetch_find_all_input(Path('test/testcase21.txt'))
+    text = text + '$'
+    positions = alignment.find_all(text, patterns)
+    expected = fetch_sequence_of_int(Path('test/expected21.txt'))
+    assert positions == sorted(expected)
+
+

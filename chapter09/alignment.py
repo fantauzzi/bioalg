@@ -472,3 +472,46 @@ def better_count_matches(transformed_text, patterns):
         counters.append(the_counter)
 
     return counters
+
+
+def matching_positions(first_occurrence, last_column, pattern, count):
+    top = 0
+    bottom = len(last_column) - 1
+    while top <= bottom:
+        if pattern:
+            symbol = pattern[-1]
+            pattern = pattern[:len(pattern) - 1]
+            if symbol in last_column[top: bottom + 1]:
+                top = first_occurrence[symbol] + count[symbol][top]
+                bottom = first_occurrence[symbol] + count[symbol][bottom + 1] - 1
+            else:
+                return None, None
+        else:
+            return top, bottom
+
+
+def find_all(text, patterns):
+    transformed_text = burrows_wheeler_transform(text)
+    suffix_array = suffix_array_for_text(text)
+
+    first_column = sorted(text)
+    first_occurrence = {}
+    for pos, symbol in enumerate(first_column):
+        if first_occurrence.get(symbol) is None:
+            first_occurrence[symbol] = pos
+
+    symbols = set(transformed_text)
+    count = {symbol: [0]*(len(transformed_text)+1) for symbol in symbols}
+    for pos, pos_symbol in enumerate(transformed_text):
+        for symbol in symbols:
+            count[symbol][pos+1] = count[symbol][pos]+1 if symbol == pos_symbol else count[symbol][pos]
+
+    all_positions = []
+    for pattern in patterns:
+        top, bottom = matching_positions(first_occurrence, transformed_text, pattern, count)
+        if top is not None:
+            positions = [suffix_array[pos] for pos in range(top, bottom+1)]
+            all_positions.extend(positions)
+
+    return sorted(all_positions)
+

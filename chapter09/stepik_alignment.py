@@ -66,6 +66,16 @@ ChildInfo = namedtuple('ChildInfo', ['data', 'symbol', 'weight', 'position', 'le
 NodeInfo = namedtuple('NodeInfo', ['data', 'parent_data', 'label', 'children'])
 
 
+def fetch_find_all_input(file_name):
+    with open(file_name) as input_file:
+        text = input_file.readline().rstrip('\n')
+        patterns = input_file.readlines()
+
+    patterns = [item.rstrip('\n') for item in patterns]
+    return text, patterns
+
+
+
 def serialise_suffix_tree(root):
     nodes = visit_trie_level_order(root)
     serialised = []
