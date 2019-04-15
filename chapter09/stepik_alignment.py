@@ -49,7 +49,7 @@ def fetch_sequence_of_int(file_name):
     with open(file_name) as input_file:
         line = input_file.readline().rstrip('\n')
 
-    separator = ', ' if line.find(',') >=0 else ' '
+    separator = ', ' if line.find(',') >= 0 else ' '
     seq = [int(item) for item in line.split(separator)]
     return seq
 
@@ -74,6 +74,15 @@ def fetch_find_all_input(file_name):
     patterns = [item.rstrip('\n') for item in patterns]
     return text, patterns
 
+
+def fetch_approx_match_input(file_name):
+    with open(file_name) as input_file:
+        text = input_file.readline().rstrip('\n')
+        patterns = input_file.readline().rstrip('\n')
+        patterns = patterns.split(' ')
+        d = input_file.readline().rstrip('\n')
+        d = int(d)
+    return text, patterns, d
 
 
 def serialise_suffix_tree(root):

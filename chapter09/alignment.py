@@ -461,10 +461,10 @@ def better_count_matches(transformed_text, patterns):
             first_occurrence[symbol] = pos
 
     symbols = set(transformed_text)
-    count = {symbol: [0]*(len(transformed_text)+1) for symbol in symbols}
+    count = {symbol: [0] * (len(transformed_text) + 1) for symbol in symbols}
     for pos, pos_symbol in enumerate(transformed_text):
         for symbol in symbols:
-            count[symbol][pos+1] = count[symbol][pos]+1 if symbol == pos_symbol else count[symbol][pos]
+            count[symbol][pos + 1] = count[symbol][pos] + 1 if symbol == pos_symbol else count[symbol][pos]
 
     counters = []
     for pattern in patterns:
@@ -490,7 +490,50 @@ def matching_positions(first_occurrence, last_column, pattern, count):
             return top, bottom
 
 
-def find_all(text, patterns):
+def approx_match(string1, string2, d):
+    assert len(string1) == len(string2)
+    mismatches = 0
+    for symbol1, symbol2 in zip(string1, string2):
+        if symbol1 != symbol2:
+            mismatches += 1
+            if mismatches > d:
+                return False
+    return True
+
+
+def approx_matching_positions(text, suffix_array, first_occurrence, last_column, pattern, count, d=1):
+    assert text[-1] == '$'
+    # Break up 'pattern' into d+1 seeds (substrings)
+    n = len(pattern)
+    k = n // (d + 1)  # The length of each seed, except the last one
+    seeds = [pattern[i * k:i * k + k] for i in range(0, d)]
+    seeds.append(pattern[d * k:])
+    seeds_pos = [i * k for i in range(0, d + 1)]  # The starting position of each seed withing 'pattern'
+    assert sum([len(seed) for seed in seeds]) == len(pattern)
+
+    all_matchin_pos = set()
+    #  For every seed ...
+    for seed, seed_pos in zip(seeds, seeds_pos):
+        # ... try an exact match between the seed and the text
+        top, bottom = matching_positions(first_occurrence, last_column, seed, count)
+        if top is None:  # If there is no exact match, nothing to be done with the current seed
+            continue
+        # If there are matches of 'seed', determine all the corresponding positions in 'text' where 'pattern' should begin
+        positions = [suffix_array[pos] - seed_pos for pos in range(top, bottom + 1)]
+        ''' Only keep positions such that 'pattern' is entirely within 'text' and where 'pattern' has not been matched
+        already  (if 'pattern' has at least one exact match in 'text', then different seeds will match to the same
+        position) '''
+        positions = [pos for pos in positions if pos >= 0 and pos + n < len(
+            text) and pos not in all_matchin_pos]  # Keep in mind that 'text' ends with '$'
+        ''' For every determined position, check if a prefix of 'text' starting at that position matches
+        'pattern' with at most d differences '''
+        matching_pos = {pos for pos in positions if approx_match(text[pos: pos + n], pattern, d)}
+        all_matchin_pos |= matching_pos
+
+    return list(all_matchin_pos)
+
+
+def find_all(text, patterns, d=0):
     transformed_text = burrows_wheeler_transform(text)
     suffix_array = suffix_array_for_text(text)
 
@@ -501,17 +544,20 @@ def find_all(text, patterns):
             first_occurrence[symbol] = pos
 
     symbols = set(transformed_text)
-    count = {symbol: [0]*(len(transformed_text)+1) for symbol in symbols}
+    count = {symbol: [0] * (len(transformed_text) + 1) for symbol in symbols}
     for pos, pos_symbol in enumerate(transformed_text):
         for symbol in symbols:
-            count[symbol][pos+1] = count[symbol][pos]+1 if symbol == pos_symbol else count[symbol][pos]
+            count[symbol][pos + 1] = count[symbol][pos] + 1 if symbol == pos_symbol else count[symbol][pos]
 
     all_positions = []
     for pattern in patterns:
-        top, bottom = matching_positions(first_occurrence, transformed_text, pattern, count)
-        if top is not None:
-            positions = [suffix_array[pos] for pos in range(top, bottom+1)]
+        if d == 0:
+            top, bottom = matching_positions(first_occurrence, transformed_text, pattern, count)
+            if top is not None:
+                positions = [suffix_array[pos] for pos in range(top, bottom + 1)]
+                all_positions.extend(positions)
+        else:
+            positions = approx_matching_positions(text, suffix_array, first_occurrence, transformed_text, pattern,
+                                                  count, d)
             all_positions.extend(positions)
-
     return sorted(all_positions)
-

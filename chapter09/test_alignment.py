@@ -2,7 +2,7 @@ from pathlib import Path
 import pickle
 import alignment
 from stepik_alignment import serialise_suffix_tree, NodeInfo, ChildInfo, fetch_sequence_of_int, fetch_string, \
-    fetch_BW_matching_input, fetch_find_all_input
+    fetch_BW_matching_input, fetch_find_all_input, fetch_approx_match_input
 
 
 def test_trie_from_strings():
@@ -427,3 +427,30 @@ def test_find_all():
     assert positions == sorted(expected)
 
 
+def test_find_all_approx():
+    text = 'GTATTCTATA$'
+    patterns = ['TATT']
+    pos = alignment.find_all(text, patterns, d=1)
+    assert pos == [1, 6]
+
+    text = 'GTATTCTATA$'
+    patterns = ['TATG']
+    pos = alignment.find_all(text, patterns, d=1)
+    assert pos == [1, 6]
+
+    text = 'ACATGCTACTTT$'
+    patterns = ['ATT', 'GCC', 'GCTA', 'TATT']
+    pos = alignment.find_all(text, patterns, d=1)
+    assert pos == [2, 4, 4, 6, 7, 8, 9]
+
+    text, patterns, d = fetch_approx_match_input(Path('test/testcase22.txt'))
+    text = text + '$'
+    pos = alignment.find_all(text, patterns, d)
+    expected = fetch_sequence_of_int(Path('test/expected22.txt'))
+    assert pos == sorted(expected)
+
+    text, patterns, d = fetch_approx_match_input(Path('test/testcase23.txt'))
+    text = text + '$'
+    pos = alignment.find_all(text, patterns, d)
+    expected = fetch_sequence_of_int(Path('test/expected23.txt'))
+    assert pos == sorted(expected)
