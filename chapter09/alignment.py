@@ -237,15 +237,29 @@ def longest_repeat(text):
 
 
 def color_suffix_tree(root, no_of_blue_leaves):
+    """
+    Colors the nodes of a suffix tree red, blue or purple; useful to identify a longest shared substring. A given
+    number of leaves are colored blue, the remaining leaves are colored read, internal nodes are colored based
+    on the color of respective children; if all the children of an internal node are of the same color, then
+    the node is colored the same; otherwise, it is colored purple.
+    :param root: The root of the suffix tree, a SuffixNode.
+    :param no_of_blue_leaves: The number of leaves to be colored blue. Leaves numbered from 0 to no_of_blue_leaves-1
+    in their data field will be colored blue.
+    :return: The count of nodes for each color, a dictionary, associating 'red', 'blue' and 'purple' with the respective
+    counts
+    """
+    ''' Nodes are ripe (ready to be colored) if they are leaves, or if they are internal nodes whose children have
+    all been colored already.'''
+    # Initially, only the leaves are ripe.
     ripe_nodes = [node for node in visit_trie_level_order(root) if not node.symbol_to_child]
     ripe_nodes = deque(ripe_nodes)
     count = {'red': 0, 'blue': 0, 'purple': 0}
     while ripe_nodes:
         current_node = ripe_nodes.popleft()
         color = None
-        if not current_node.symbol_to_child:
+        if not current_node.symbol_to_child:  # If it is a leaf...
             color = 'blue' if current_node.label < no_of_blue_leaves else 'red'
-        for child in current_node.symbol_to_child.values():
+        for child in current_node.symbol_to_child.values():  # If it is an internal node...
             assert child.color is not None
             if color == None:
                 color = child.color
@@ -254,6 +268,7 @@ def color_suffix_tree(root, no_of_blue_leaves):
                 break
         current_node.color = color
         count[color] += 1
+        # Update the queue of ripe nodes adding the parent of the current node, if the parent is now ripe
         if current_node.parent is None:
             continue
         for child_of_parent in current_node.parent.symbol_to_child.values():
@@ -265,10 +280,17 @@ def color_suffix_tree(root, no_of_blue_leaves):
 
 
 def longest_shared_substring(string1, string2):
+    """
+    Returns the longest substring shared between two strings.
+    :param string1: The first string.
+    :param string2: The second string.
+    :return: The longest substring shared between string1 and string2.
+    """
+
     def longest_path_to_purple(node, text):
         """
-        Returns the string corresponding to the longest path in a suffix tree from a given node to its descendants
-        that are colored as purple.
+        Returns the string corresponding to the longest path in a colored suffix tree from a given node to its
+        descendants that are colored as purple.
         :param node:The given node, a SuffixNode.
         :param text:The text which originated the suffix tree.
         :return: The substring of 'text' corresponding to the longest path from the given node to its purple
@@ -296,8 +318,22 @@ def longest_shared_substring(string1, string2):
     return substring
 
 
-def shortes_substring_not_appearing(string1, string2):
+def shortest_not_shared(string1, string2):
+    """
+    Returns the shortest substring of a given string that does not appear in another.
+    :param string1: The given string.
+    :param string2: The other string.
+    :return: The shortest substring of string1 that is not a substring of string2, a string.
+    """
+
     def longest_match_in_prefix_tree(root, text, string):
+        """
+        Returns the longest prefix of a string that matches a suffix tree for a given text.
+        :param root: The root of the suffix tree, a SuffixNode.
+        :param text: The text corresponing to the given suffix tree, a string.
+        :param string: The string whose longest prefix has to be matched.
+        :return: The longest match, a string.
+        """
         matched = ''
         current_node = root
         mismatch = False
@@ -343,6 +379,11 @@ def shortes_substring_not_appearing(string1, string2):
 
 
 def suffix_array_for_text(text):
+    """
+    Returns the suffix array for a text.
+    :param text: The text, a string.
+    :return: The suffix array, a list of non-negative integer numbers.
+    """
     suffixes = {}
     for i in range(0, len(text)):
         suffix = text[i:]
@@ -353,6 +394,11 @@ def suffix_array_for_text(text):
 
 
 def burrows_wheeler_transform(text):
+    """
+    Returns the Burrows-Wheeler transform of a given text.
+    :param text: The given text, a string.
+    :return: The requested transform, a string.
+    """
     rotations = [text[i:] + text[:i] for i in range(0, len(text))]
     rotations.sort()
     bw_transformed = [item[-1] for item in rotations]
@@ -360,41 +406,63 @@ def burrows_wheeler_transform(text):
 
 
 def inverted_burrow_wheeler(text):
+    """
+    Returns the inveted Burrows-Wheeler transform of a text.
+    :param text: The text, must contain the '$' symbol.
+    :return: The string obtained applying the inverse of the Burrows-Wheeler transform to the given text, a string
+    ending by '$'.
+    """
+    # In code below, 'first' and 'last' refer to the first and the last column of a Burrows-Wheeler matrix respectively
+
     assert text.count('$') == 1
     sorted_text = sorted(text)
-    left_count = [0] * len(text)
-    left_symbols_count = {}
+    first_count = [0] * len(text)
+    first_symbols_count = {}
     for pos, symbol in enumerate(sorted_text):
-        count = left_symbols_count.get(symbol, -1)
+        count = first_symbols_count.get(symbol, -1)
         count += 1
-        left_count[pos] = count
-        left_symbols_count[symbol] = count
+        first_count[pos] = count
+        first_symbols_count[symbol] = count
 
-    right_symbols_count = {}
-    right_count = {}
+    last_symbols_count = {}
+    last_count = {}
     for pos, symbol in enumerate(text):
-        count = right_symbols_count.get(symbol, -1)
+        count = last_symbols_count.get(symbol, -1)
         count += 1
-        right_symbols_count[symbol] = count
-        right_count[(symbol, count)] = pos
+        last_symbols_count[symbol] = count
+        last_count[(symbol, count)] = pos
 
     inverted = []
     current_pos = text.find('$')
     assert current_pos >= 0
     while len(inverted) < len(text):
-        current_left_symbol = sorted_text[current_pos]
-        inverted.append(current_left_symbol)
-        current_pos = right_count[(current_left_symbol, left_count[current_pos])]
+        current_first_symbol = sorted_text[current_pos]
+        inverted.append(current_first_symbol)
+        current_pos = last_count[(current_first_symbol, first_count[current_pos])]
 
     return ''.join(inverted)
 
 
-def count_matches(text, pattern):
+def count_matches(bw_text, strings):
+    """
+    Returns the count of matches of given strings in a text.
+    :param bw_text: The Burrows-Wheeler transform of the text, a string; it must contain the '$' symbol once.
+    :param strings: The given strings, either a string or a sequence of strings.
+    :return: The count of how many times each string appears as a substring of text; an integer if parameter strings
+    is a single string, a sequence of integer numbers if strings is a sequence of strings.
+    """
+
     def last_to_first(transformed_text):
+        """
+        Returns the association from the last column to the first column of a Burrows-Wheeler matrix.
+        :param transformed_text: The text transformed with Burrows-Wheeler, it must contain the '$' symbol once.
+        :return: A list of integer numbers, where the i-th number is the row in the matrix first colum corresponding
+        to the i-th row in the last column.
+        """
         assert transformed_text.count('$') == 1
         sorted_text = sorted(transformed_text)
 
-        left_symbols_count = {}  # TODO refactor common code and choose between left/right and first/last nomenclature
+        left_symbols_count = {}
         left_symbols = {}
         for pos, symbol in enumerate(sorted_text):
             count = left_symbols_count.get(symbol, -1)
@@ -411,24 +479,24 @@ def count_matches(text, pattern):
             l_to_f[pos] = left_symbols[(symbol, count)]
         return l_to_f
 
-    if not isinstance(pattern, str):
-        counts = [count_matches(text, one_pattern) for one_pattern in pattern]
+    if not isinstance(strings, str):
+        counts = [count_matches(bw_text, one_pattern) for one_pattern in strings]
         return counts
 
-    transformed_text = text
-    l_to_f = last_to_first(transformed_text)
+    assert bw_text.count('$') == 1
+    l_to_f = last_to_first(bw_text)
 
-    top, bottom = 0, len(text) - 1
-    n = len(transformed_text)
+    top, bottom = 0, len(bw_text) - 1
+    n = len(bw_text)
     while top <= bottom:
-        if pattern:
-            symbol = pattern[-1]
-            pattern = pattern[:len(pattern) - 1]
+        if strings:
+            symbol = strings[-1]
+            strings = strings[:len(strings) - 1]
             try:
-                top_index = transformed_text.index(symbol, top, bottom + 1)
+                top_index = bw_text.index(symbol, top, bottom + 1)
             except ValueError:
                 return 0
-            bottom_index = n - transformed_text[::-1].index(symbol, n - 1 - bottom, n - top) - 1
+            bottom_index = n - bw_text[::-1].index(symbol, n - 1 - bottom, n - top) - 1
             top = l_to_f[top_index]
             bottom = l_to_f[bottom_index]
         else:
@@ -436,13 +504,21 @@ def count_matches(text, pattern):
     assert False
 
 
-def better_BW_matching(first_occurrence, last_column, pattern, count):
+def better_BW_matching(first_occurrence, last_column, string, count):
+    """
+    Returns the number of time a given string appears as a substring in a text.
+    :param first_occurrence: The first position of every symbol in the first column of the Burrows-Wheeler matrix for the text; a dictionary associating every symbol (a string) with its position (an integer).
+    :param last_column: The last column of the Burrows-Wheeler matrix for the text, that is, the B-W transform of the text.
+    :param string: The given string.
+    :param count: Item count[symbol][i] is the number (an integer) of occurrences of 'symbol' in the first 'i' positions of the B-W  transform of the text; a dictionary of lists.
+    :return: The number of time the given string appears in the text, an integer.
+    """
     top = 0
     bottom = len(last_column) - 1
     while top <= bottom:
-        if pattern:
-            symbol = pattern[-1]
-            pattern = pattern[:len(pattern) - 1]
+        if string:
+            symbol = string[-1]
+            string = string[:len(string) - 1]
             if symbol in last_column[top: bottom + 1]:
                 top = first_occurrence[symbol] + count[symbol][top]
                 bottom = first_occurrence[symbol] + count[symbol][bottom + 1] - 1
@@ -452,35 +528,57 @@ def better_BW_matching(first_occurrence, last_column, pattern, count):
             return bottom - top + 1
 
 
-def better_count_matches(transformed_text, patterns):
-    first_column = sorted(transformed_text)
+def better_matches_count(bw_text, strings):
+    """
+    Returns the count of matches of given strings in a text. It takes time proportional to the sum of the strings length.
+    :param bw_text: The Burrows-Wheeler transform of the text, a string containing '$'.
+    :param strings: The strings to be matched, a sequence of strings.
+    :return: The count of how many times each string appears as a substring of text; a list of integers where the i-th
+    number is the count for the i-th string in 'strings'.
+    """
+    assert bw_text.count('$') == 1
 
+    # The first column of the Burrows-Wheeler matrix
+    first_column = sorted(bw_text)
+
+    # first_occurrence[symbol] is the position of the first occurrence of symbol in first_column
     first_occurrence = {}
     for pos, symbol in enumerate(first_column):
         if first_occurrence.get(symbol) is None:
             first_occurrence[symbol] = pos
 
-    symbols = set(transformed_text)
-    count = {symbol: [0] * (len(transformed_text) + 1) for symbol in symbols}
-    for pos, pos_symbol in enumerate(transformed_text):
+    symbols = set(bw_text)  # The alphabet of symbols
+
+    # count[symbol][i] is the number of occurrences of 'symbol' in the first 'i' positions of 'bw_text'
+    count = {symbol: [0] * (len(bw_text) + 1) for symbol in symbols}
+    for pos, pos_symbol in enumerate(bw_text):
         for symbol in symbols:
             count[symbol][pos + 1] = count[symbol][pos] + 1 if symbol == pos_symbol else count[symbol][pos]
 
-    counters = []
-    for pattern in patterns:
-        the_counter = better_BW_matching(first_occurrence, transformed_text, pattern, count)
-        counters.append(the_counter)
+    # Go count the matches
+    counts = []
+    for pattern in strings:
+        the_count = better_BW_matching(first_occurrence, bw_text, pattern, count)
+        counts.append(the_count)
 
-    return counters
+    return counts
 
 
-def matching_positions(first_occurrence, last_column, pattern, count):
+def matching_range(first_occurrence, last_column, string, count):
+    """
+    Returns the range of positions in a Burrows-Wheeler matrix that match a given string.
+    :param first_occurrence: The first position of every symbol in the first column of the Burrows-Wheeler matrix for the text; a dictionary associating every symbol (a string) with its position (an integer).
+    :param last_column: The last column of the Burrows-Wheeler matrix.
+    :param string: The string to be matched.
+    :param count: Item count[symbol][i] is the number (an integer) of occurrences of 'symbol' in the first 'i' positions of last_column; a dictionary of lists.
+    :return: The number of the first and the last row in the Burrows-Wheeler matrix that matche the given string, a pair of integers.
+    """
     top = 0
     bottom = len(last_column) - 1
     while top <= bottom:
-        if pattern:
-            symbol = pattern[-1]
-            pattern = pattern[:len(pattern) - 1]
+        if string:
+            symbol = string[-1]
+            string = string[:len(string) - 1]
             if symbol in last_column[top: bottom + 1]:
                 top = first_occurrence[symbol] + count[symbol][top]
                 bottom = first_occurrence[symbol] + count[symbol][bottom + 1] - 1
@@ -491,6 +589,14 @@ def matching_positions(first_occurrence, last_column, pattern, count):
 
 
 def approx_match(string1, string2, d):
+    """
+    Verifies if two strings for the same length differ in no more than a given number of positions.
+    :param string1: The first string.
+    :param string2: The second string.
+    :param d: Then given number of positions.
+    :return: True if the two strings differ at most in 'd' positions, False otherwise.
+    """
+
     assert len(string1) == len(string2)
     mismatches = 0
     for symbol1, symbol2 in zip(string1, string2):
@@ -501,39 +607,61 @@ def approx_match(string1, string2, d):
     return True
 
 
-def approx_matching_positions(text, suffix_array, first_occurrence, last_column, pattern, count, d=1):
+def approx_matching_positions(text, suffix_array, first_occurrence, last_column, string, count, d=1):
+    """
+    Returns all the positions in a text where a given string is a substring of the text, with at most a given number of mismatches.
+    :param text: The text, a string, must end by '$'
+    :param suffix_array: The suffix array for the text, a sequence of integers.
+    :param first_occurrence: The first position of every symbol in the first column of the Burrows-Wheeler matrix for the text; a dictionary associating every symbol (a string) with its position (an integer).
+    :param last_column: The last column of the Burrows-Wheeler matrix for the text, that is, the B-W transform of the text.
+    :param string: The given string.
+    :param count: Item count[symbol][i] is the number (an integer) of occurrences of 'symbol' in the first 'i' positions of the B-W  transform of the text; a dictionary of lists.
+    :param d: The maximum number of mismatches allowed in every matches substring of the text.
+    :return: All the positions in 'text' where 'string' matches as a substring with at most 'd' mismatches, a list of integers.
+    """
     assert text[-1] == '$'
     # Break up 'pattern' into d+1 seeds (substrings)
-    n = len(pattern)
+    n = len(string)
     k = n // (d + 1)  # The length of each seed, except the last one
-    seeds = [pattern[i * k:i * k + k] for i in range(0, d)]
-    seeds.append(pattern[d * k:])
-    seeds_pos = [i * k for i in range(0, d + 1)]  # The starting position of each seed withing 'pattern'
-    assert sum([len(seed) for seed in seeds]) == len(pattern)
+    seeds = [string[i * k:i * k + k] for i in range(0, d)]
+    seeds.append(string[d * k:])  # Add the last seed, which may have different length from the others
+    seeds_pos = [i * k for i in range(0, d + 1)]  # The starting position of each seed within 'pattern'
+    assert sum([len(seed) for seed in seeds]) == len(string)
 
-    all_matchin_pos = set()
+    all_matchin_pos = set()  # The return value will be accumulated here
     #  For every seed ...
     for seed, seed_pos in zip(seeds, seeds_pos):
         # ... try an exact match between the seed and the text
-        top, bottom = matching_positions(first_occurrence, last_column, seed, count)
-        if top is None:  # If there is no exact match, nothing to be done with the current seed
+        top, bottom = matching_range(first_occurrence, last_column, seed, count)
+        if top is None:  # If there is no exact match, nothing to be done with the current seed, skip to the next
             continue
         # If there are matches of 'seed', determine all the corresponding positions in 'text' where 'pattern' should begin
         positions = [suffix_array[pos] - seed_pos for pos in range(top, bottom + 1)]
         ''' Only keep positions such that 'pattern' is entirely within 'text' and where 'pattern' has not been matched
         already  (if 'pattern' has at least one exact match in 'text', then different seeds will match to the same
-        position) '''
+        position, but the position must be only once in the return value) '''
         positions = [pos for pos in positions if pos >= 0 and pos + n < len(
             text) and pos not in all_matchin_pos]  # Keep in mind that 'text' ends with '$'
         ''' For every determined position, check if a prefix of 'text' starting at that position matches
         'pattern' with at most d differences '''
-        matching_pos = {pos for pos in positions if approx_match(text[pos: pos + n], pattern, d)}
+        matching_pos = {pos for pos in positions if approx_match(text[pos: pos + n], string, d)}
         all_matchin_pos |= matching_pos
 
     return list(all_matchin_pos)
 
 
-def find_all(text, patterns, d=0):
+def find_all(text, strings, d=0):
+    """
+    Returns all the positions in a text where any of given strings appear as a substring of the text with at most a given number of mismatches.
+    :param text: The text, a string, must end by '$'.
+    :param strings: The given strings, to be matched agains 'text', a sequence of strings.
+    :param d: The maximum number of mismatches allowed for every matching substring of 'text', an integer.
+    :return: The positions in 'text' where there is an approximate match, a sequence of integers in increasing order. If multiple strings match the same position, then that position is reported only once in the sequence.
+    """
+    assert text[-1] == '$'
+
+    # Compute the pre-requisites to use the Burrows-Wheeler transform for strings matching.
+
     transformed_text = burrows_wheeler_transform(text)
     suffix_array = suffix_array_for_text(text)
 
@@ -549,15 +677,17 @@ def find_all(text, patterns, d=0):
         for symbol in symbols:
             count[symbol][pos + 1] = count[symbol][pos] + 1 if symbol == pos_symbol else count[symbol][pos]
 
+    # Go do the search
     all_positions = []
-    for pattern in patterns:
-        if d == 0:
-            top, bottom = matching_positions(first_occurrence, transformed_text, pattern, count)
+    for pattern in strings:
+        if d == 0:  # If no mismatches are allowed, just perform an exact search
+            top, bottom = matching_range(first_occurrence, transformed_text, pattern, count)
             if top is not None:
                 positions = [suffix_array[pos] for pos in range(top, bottom + 1)]
                 all_positions.extend(positions)
-        else:
+        else:  # If mismatches are allowed, perform an approximate search
             positions = approx_matching_positions(text, suffix_array, first_occurrence, transformed_text, pattern,
                                                   count, d)
             all_positions.extend(positions)
+
     return sorted(all_positions)

@@ -294,19 +294,19 @@ def test_longest_shared_substring():
 def test_shortes_substring_not_appearing():
     s1 = 'CCAAGCTGCTAGAGG'
     s2 = 'CATGCTGGGCTGGCT'
-    res = alignment.shortes_substring_not_appearing(s1, s2)
+    res = alignment.shortest_not_shared(s1, s2)
     assert res == 'CC'
 
     with open(Path('test/testcase09.txt')) as input_file:
         s1 = input_file.readline().rstrip('\n')
         s2 = input_file.readline().rstrip('\n')
-    res = alignment.shortes_substring_not_appearing(s1, s2)
+    res = alignment.shortest_not_shared(s1, s2)
     assert res == 'GCGAT'
 
     with open(Path('test/testcase10.txt')) as input_file:
         s1 = input_file.readline().rstrip('\n')
         s2 = input_file.readline().rstrip('\n')
-    res = alignment.shortes_substring_not_appearing(s1, s2)
+    res = alignment.shortest_not_shared(s1, s2)
     assert res == 'GAAAT'
 
 
@@ -375,6 +375,11 @@ def test_match_counts():
     counts = alignment.count_matches(text, pattern)
     assert counts == [2, 1, 1, 0, 1]
 
+    text = 'TCCTCTATGAGATCCTATTCTATGAAACCTTCA$GACCAAAATTCTCCGGC'
+    pattern = 'CCT'
+    counts = alignment.count_matches(text, pattern)
+    assert counts == 2
+
     text, pattern = fetch_BW_matching_input(Path('test/testcase16.txt'))
     counts = alignment.count_matches(text, pattern)
     expected = fetch_sequence_of_int(Path('test/expected16.txt'))
@@ -389,16 +394,16 @@ def test_match_counts():
 def test_better_count_matches():
     text = 'GGCGCCGC$TAGTCACACACGCCGTA'
     patterns = ['ACC', 'CCG', 'CAG']
-    res = alignment.better_count_matches(text, patterns)
+    res = alignment.better_matches_count(text, patterns)
     assert res == [1, 2, 1]
 
     text, pattern = fetch_BW_matching_input(Path('test/testcase18.txt'))
-    counts = alignment.better_count_matches(text, pattern)
+    counts = alignment.better_matches_count(text, pattern)
     expected = fetch_sequence_of_int(Path('test/expected18.txt'))
     assert counts == expected
 
     text, pattern = fetch_BW_matching_input(Path('test/testcase19.txt'))
-    counts = alignment.better_count_matches(text, pattern)
+    counts = alignment.better_matches_count(text, pattern)
     expected = fetch_sequence_of_int(Path('test/expected19.txt'))
     assert counts == expected
 
