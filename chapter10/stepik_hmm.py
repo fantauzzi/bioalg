@@ -1,5 +1,6 @@
 from hmm import HMM
 
+
 def fetch_hmm(file_name):
     def parse_and_split(input_file):
         line = input_file.readline().rstrip('\n')
@@ -11,7 +12,7 @@ def fetch_hmm(file_name):
         matrix = {}
         while True:
             items = parse_and_split(input_file)
-            if len(items) <=1:  # Found the end of the matrix or of the file
+            if len(items) <= 1:  # Found the end of the matrix or of the file
                 break
             row = items[0]
             matrix[row] = {}
@@ -29,4 +30,4 @@ def fetch_hmm(file_name):
         input_file.readline()
         transision_matrix = parse_matrix(input_file)
         emission_matrix = parse_matrix(input_file)
-        return string, HMM(alphabet =alphabet, states=states, transition=transision_matrix, emission=emission_matrix)
+        return string, HMM(alphabet=alphabet, states=states, transition=transision_matrix, emission=emission_matrix)

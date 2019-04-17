@@ -6,8 +6,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/bioalg.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bioalg.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chapter10/test/testcase01.pickle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chapter10/test/testcase02.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chapter10/test/testcase03.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chapter10/test/testcase04.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chapter10/hmm.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter10/hmm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chapter10/stepik_hmm.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter10/stepik_hmm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chapter10/test_hmm.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter10/test_hmm.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,22 +23,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter10/hmm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="4" column="8" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+            <state>
+              <caret line="11" column="10" lean-forward="true" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
+              <folding>
+                <element signature="e#0#34#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter10/test_hmm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="7" column="49" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
+            <state relative-caret-position="624">
+              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
               <folding>
-                <element signature="e#0#24#0" expanded="true" />
+                <element signature="e#0#31#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -41,8 +50,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter10/stepik_hmm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="23" selection-start-line="23" selection-end-line="23" />
+            <state relative-caret-position="168">
+              <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -102,9 +111,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/chapter08/test/testcase06.txt" />
-        <option value="$PROJECT_DIR$/chapter08/test/testcase07.txt" />
-        <option value="$PROJECT_DIR$/chapter08/test/testcase08.txt" />
         <option value="$PROJECT_DIR$/chapter08/test/testcase09.txt" />
         <option value="$PROJECT_DIR$/chapter08/test/testscase10.txt" />
         <option value="$PROJECT_DIR$/chapter08/test/testcase10.txt" />
@@ -151,6 +157,9 @@
         <option value="$PROJECT_DIR$/chapter09/test_alignment.py" />
         <option value="$PROJECT_DIR$/chapter10/test/testcase01.txt" />
         <option value="$PROJECT_DIR$/chapter10/stepik_hmm.py" />
+        <option value="$PROJECT_DIR$/chapter10/test/testcase02.txt" />
+        <option value="$PROJECT_DIR$/chapter10/test/testcase03.txt" />
+        <option value="$PROJECT_DIR$/chapter10/test/testcase04.txt" />
         <option value="$PROJECT_DIR$/chapter10/hmm.py" />
         <option value="$PROJECT_DIR$/chapter10/test_hmm.py" />
       </list>
@@ -158,9 +167,9 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1977" />
-    <option name="y" value="-3" />
+    <option name="y" value="25" />
     <option name="width" value="2503" />
-    <option name="height" value="1443" />
+    <option name="height" value="1415" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -169,6 +178,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -191,7 +201,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -202,15 +211,15 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/chapter01" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/chapter08/test" />
       <recent name="$PROJECT_DIR$/chapter07/test" />
       <recent name="$PROJECT_DIR$/chapter03/test" />
       <recent name="$PROJECT_DIR$/chapter02/assignment" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/chapter01" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -225,7 +234,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.pytest for test_hmm.test_viterbi">
+  <component name="RunManager" selected="Python tests.pytest in test_hmm.py">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="bioalg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -277,21 +286,6 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest for test_alignment.test_burrows_wheeler_transform" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="bioalg" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter09" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;-v --durations\u003d0&quot;" />
-      <option name="_new_target" value="&quot;test_alignment.test_burrows_wheeler_transform&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="pytest for test_alignment.test_find_all_approx" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="bioalg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -337,20 +331,35 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="pytest in test_hmm.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="bioalg" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter10" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;-v --durations\u003d0&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/chapter10/test_hmm.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Python tests.pytest for test_alignment.test_burrows_wheeler_transform" />
-      <item itemvalue="Python tests.pytest in test_alignment.py" />
-      <item itemvalue="Python tests.pytest for test_alignment.test_find_all_approx" />
       <item itemvalue="Python tests.pytest for hmm.test_viterbi" />
+      <item itemvalue="Python tests.pytest for test_alignment.test_find_all_approx" />
       <item itemvalue="Python tests.pytest for test_hmm.test_viterbi" />
+      <item itemvalue="Python tests.pytest in test_alignment.py" />
+      <item itemvalue="Python tests.pytest in test_hmm.py" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.pytest in test_hmm.py" />
         <item itemvalue="Python tests.pytest for test_hmm.test_viterbi" />
         <item itemvalue="Python tests.pytest for hmm.test_viterbi" />
         <item itemvalue="Python tests.pytest in test_alignment.py" />
         <item itemvalue="Python tests.pytest for test_alignment.test_find_all_approx" />
-        <item itemvalue="Python tests.pytest for test_alignment.test_burrows_wheeler_transform" />
       </list>
     </recent_temporary>
   </component>
@@ -371,35 +380,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_alignment_py - 2019.04.16 at 13h 43m 13s.xml">
-      <configuration name="pytest in test_alignment.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.17 at 19h 43m 18s.xml">
+      <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_hmm_test_viterbi - 2019.04.17 at 10h 30m 20s.xml">
-      <configuration name="pytest for hmm.test_viterbi" configurationId="tests" />
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.17 at 19h 45m 19s.xml">
+      <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_hmm_test_viterbi - 2019.04.17 at 10h 30m 46s.xml">
-      <configuration name="pytest for hmm.test_viterbi" configurationId="tests" />
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.17 at 19h 48m 35s.xml">
+      <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_hmm_test_viterbi - 2019.04.17 at 10h 33m 23s.xml">
-      <configuration name="pytest for hmm.test_viterbi" configurationId="tests" />
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.17 at 19h 48m 36s.xml">
+      <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_hmm_test_viterbi - 2019.04.17 at 10h 33m 46s.xml">
-      <configuration name="pytest for hmm.test_viterbi" configurationId="tests" />
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.17 at 19h 55m 29s.xml">
+      <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_hmm_test_viterbi - 2019.04.17 at 10h 37m 02s.xml">
-      <configuration name="pytest for hmm.test_viterbi" configurationId="tests" />
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.17 at 19h 55m 39s.xml">
+      <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_hmm_test_viterbi - 2019.04.17 at 10h 37m 03s.xml">
-      <configuration name="pytest for hmm.test_viterbi" configurationId="tests" />
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.17 at 20h 45m 17s.xml">
+      <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_hmm_test_viterbi - 2019.04.17 at 10h 37m 26s.xml">
-      <configuration name="pytest for test_hmm.test_viterbi" configurationId="tests" />
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.17 at 20h 45m 26s.xml">
+      <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_hmm_test_viterbi - 2019.04.17 at 10h 46m 02s.xml">
-      <configuration name="pytest for test_hmm.test_viterbi" configurationId="tests" />
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.17 at 20h 45m 38s.xml">
+      <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_for_test_hmm_test_viterbi - 2019.04.17 at 10h 46m 09s.xml">
-      <configuration name="pytest for test_hmm.test_viterbi" configurationId="tests" />
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.17 at 20h 45m 49s.xml">
+      <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -415,8 +424,8 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.36015326" visible="true" weight="0.17440452" />
-      <window_info id="Structure" order="1" sideWeight="0.63984674" side_tool="true" visible="true" weight="0.17440452" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.3578544" visible="true" weight="0.17440452" />
+      <window_info id="Structure" order="1" sideWeight="0.6421456" side_tool="true" visible="true" weight="0.17440452" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
@@ -471,11 +480,6 @@
           <url>file://$PROJECT_DIR$/chapter07/phylogeny.py</url>
           <line>508</line>
           <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/chapter10/test_hmm.py</url>
-          <line>7</line>
-          <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -700,37 +704,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/chapter08/test/testcase08.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="1243" column="12" selection-start-line="1243" selection-start-column="12" selection-end-line="1243" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter08/test/testcase09.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="20" column="99" selection-start-line="20" selection-start-column="99" selection-end-line="20" selection-end-column="99" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter08/test/testcase10.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="20" column="99" selection-start-line="20" selection-start-column="99" selection-end-line="20" selection-end-column="99" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter08/test_clustering.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="912">
-          <caret line="42" column="4" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter08/stepik_clustering.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
@@ -1019,27 +992,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter10/test_hmm.py">
+    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/networkx/classes/reportviews.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="7" column="49" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
+        <state relative-caret-position="255">
+          <caret line="929" selection-start-line="929" selection-end-line="929" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter10/test/testcase02.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter10/test/testcase04.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter10/test/testcase03.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter10/hmm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="11" column="10" lean-forward="true" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
           <folding>
-            <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#0#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter10/stepik_hmm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        <state relative-caret-position="168">
+          <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter10/hmm.py">
+    <entry file="file://$PROJECT_DIR$/chapter10/test_hmm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="8" lean-forward="true" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+        <state relative-caret-position="624">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
