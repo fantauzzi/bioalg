@@ -1,7 +1,8 @@
 from collections import namedtuple
-from itertools import product
+from itertools import product, chain
 import networkx as nx
 from math import log
+from numpy import isclose
 
 HMM = namedtuple('HMM', ['alphabet', 'states', 'transition', 'emission'])
 """
@@ -92,3 +93,88 @@ def viterbi(emissions, model):
     longest_path = ''.join(reversed(longest_path))
 
     return longest_path
+
+
+class Counter(dict):
+    def __missing__(self, key):
+        return 0
+
+
+def flatten(seq_of_seq):
+    """
+    Returns a sequence obtained by flattening a sequence of sequences. E.g. [[1, 2, 3], [4, 5]] becomes [1, 2, 3, 4, 5]
+    :param seq_of_seq: The sequence of sequences.
+    :return: The sequence after flattening, a list.
+    """
+    return list(chain(*seq_of_seq))
+
+
+def make_profile_HMM(theta, sigma, alphabet, alignment):
+    def threshold_alignment(alignment, theta):
+        n_cols = len(alignment[0])
+        n_rows = len(alignment)
+        alignment_T = list(map(list, zip(*alignment)))  # Transpose alignment
+        # Count occurrences of '-' in the transposed of alignment, going by rows
+        count_spaces = [sum([item == '-' for item in row]) for row in alignment_T]
+        # Set of column indices in alignment (row indices in alignment_T) where the count of '-' is above threshold
+        thresholded = {col for col in range(0, n_cols) if count_spaces[col] / n_rows >= theta}
+        return thresholded
+
+    def validate_prob_matrix(matrix):
+        for row in matrix.values():
+            row_total = sum(row.values())
+            assert isclose(row_total, 1) or isclose(row_total, 0)
+
+    n_rows = len(alignment)
+    n_cols = len(alignment[0])
+    thresholded = threshold_alignment(alignment, theta)
+    states = [('S', None), ('I', 0)] + \
+             flatten([(('M', pos), ('D', pos), ('I', pos)) for pos in range(1, n_cols - len(thresholded) + 1)]) + \
+             [('E', None)]
+
+    node_visits = Counter()
+    edge_visits = Counter()
+    node_emissions = {state: Counter() for state in states}
+
+    # For every sequence in alignement, follow the sequence through the HMM and increment counters:
+    # - For every vertex: number of visits to the vertex; for every symbol, number of symbols emitted per symbol in that vertex
+    # - For every edge: number of visits to the edge
+    # Beware of source and sink
+
+    for sequence in alignment:
+        prev_state = ('S', None)
+        pos = 0
+        for col, symbol in enumerate(sequence):
+            assert symbol in alphabet or symbol == '-'
+            if col in thresholded:
+                if symbol == '-':
+                    continue
+                curr_state = ('I', pos)
+            else:
+                pos += 1
+                curr_state = ('D', pos) if symbol == '-' else ('M', pos)
+            node_visits[curr_state] = node_visits[curr_state] + 1
+            edge_visits[(prev_state, curr_state)] = edge_visits[(prev_state, curr_state)] + 1
+            if curr_state[0] in 'MI':
+                node_emissions[curr_state][symbol] = node_emissions[curr_state][symbol] + 1
+            prev_state = curr_state
+        edge_visits[(prev_state, ('E', None))] = edge_visits[(prev_state, ('E', None))] + 1
+        node_visits[('S', None)] = n_rows
+        node_visits[('E', None)] = n_rows
+
+    transition = {state_row: {
+        state_col: 0 if node_visits[state_row] == 0 else edge_visits[state_row, state_col] / node_visits[state_row]
+        for state_col in states}
+        for state_row in states}
+
+    validate_prob_matrix(transition)
+
+    emission = {state: {symbol: 0 if total == 0 else node_emissions[state][symbol] / total
+                        for total in (sum(node_emissions[state].values()),)
+                        for symbol in alphabet}
+                for state in states}
+
+    validate_prob_matrix(emission)
+
+    the_hmm = HMM(alphabet=alphabet, states=states, transition=transition, emission=emission)
+    return the_hmm

@@ -1,0 +1,13 @@
+0.361
+--------
+A	B	C	D	E
+--------
+EBDE-DEBA
+CBCEBDEBB
+CAD--DE-A
+CBCEB---A
+CDEEBDEB-
+EBDE-DEB-
+B-DDBA--A
+E-D-DEEBA
+---E--EBA

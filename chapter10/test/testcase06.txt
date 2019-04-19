@@ -1,0 +1,9 @@
+0.35 0
+--------
+A C D E F
+--------
+ACDEFACADF
+AFDA---CCF
+A--EFD-FDC
+ACAEF--A-C
+ADDEFAAADF
