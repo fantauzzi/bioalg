@@ -125,12 +125,20 @@ def make_profile_HMM(theta, sigma, alphabet, alignment):
             row_total = sum(row.values())
             assert isclose(row_total, 1) or isclose(row_total, 0)
 
+    def normalise_prob_matrix(matrix):
+        for row_key, row in matrix.items():
+            total = sum(row.values())
+            matrix[row_key] = {col_key: 0 if item == 0 else item / total for col_key, item in row.items()}
+
+    source = ('S', None)
+    sink = ('E', None)
     n_rows = len(alignment)
     n_cols = len(alignment[0])
     thresholded = threshold_alignment(alignment, theta)
-    states = [('S', None), ('I', 0)] + \
+    n_unthresholded = n_cols - len(thresholded)
+    states = [source, ('I', 0)] + \
              flatten([(('M', pos), ('D', pos), ('I', pos)) for pos in range(1, n_cols - len(thresholded) + 1)]) + \
-             [('E', None)]
+             [sink]
 
     node_visits = Counter()
     edge_visits = Counter()
@@ -158,9 +166,9 @@ def make_profile_HMM(theta, sigma, alphabet, alignment):
             if curr_state[0] in 'MI':
                 node_emissions[curr_state][symbol] = node_emissions[curr_state][symbol] + 1
             prev_state = curr_state
-        edge_visits[(prev_state, ('E', None))] = edge_visits[(prev_state, ('E', None))] + 1
-        node_visits[('S', None)] = n_rows
-        node_visits[('E', None)] = n_rows
+        edge_visits[(prev_state, sink)] = edge_visits[(prev_state, sink)] + 1
+        node_visits[source] = n_rows
+        node_visits[sink] = n_rows
 
     transition = {state_row: {
         state_col: 0 if node_visits[state_row] == 0 else edge_visits[state_row, state_col] / node_visits[state_row]
@@ -169,12 +177,38 @@ def make_profile_HMM(theta, sigma, alphabet, alignment):
 
     validate_prob_matrix(transition)
 
+    if sigma:
+        for i in range(0, n_unthresholded + 1):
+            if i == 0:
+                for node in [source, ('I', 0)]:
+                    transition[node]['I', 0] = transition[node]['I', 0] + sigma
+                    transition[node]['M', 1] = transition[node]['M', 1] + sigma
+                    transition[node]['D', 1] = transition[node]['D', 1] + sigma
+            elif i == n_unthresholded:
+                for node in [('I', i), sink]:
+                    transition['M', i][node] = transition['M', i][node] + sigma
+                    transition['D', i][node] = transition['D', i][node] + sigma
+                    transition['I', i][node] = transition['I', i][node] + sigma
+            else:
+                for node1 in [('M', i), ('D', i), ('I', i)]:
+                    for node2 in [('I', i), ('M', i + 1), ('D', i + 1)]:
+                        transition[node1][node2] = transition[node1][node2] + sigma
+        normalise_prob_matrix(transition)
+        validate_prob_matrix(transition)
+
     emission = {state: {symbol: 0 if total == 0 else node_emissions[state][symbol] / total
                         for total in (sum(node_emissions[state].values()),)
                         for symbol in alphabet}
                 for state in states}
 
     validate_prob_matrix(emission)
+
+    if sigma:
+        for row_key, row in emission.items():
+            # Pseudo-counts only apply to states that can emit, that is Insertion ('I') and Match ('M')
+            if row_key[0] in 'MI':
+                emission[row_key] = {col_key: item + sigma for col_key, item in row.items()}
+        normalise_prob_matrix(emission)
 
     the_hmm = HMM(alphabet=alphabet, states=states, transition=transition, emission=emission)
     return the_hmm
