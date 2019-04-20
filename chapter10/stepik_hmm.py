@@ -50,10 +50,10 @@ def ugly_print_matrix(matrix, row_labels, col_labels):  # It is ugly, but it is 
     def make_print_label(label):
         n = len(label)
         print_label = 'S' if label[0] == 'S' and n == 2 else 'E' if label[0] == 'E' and n == 2 else label if n == 1 else \
-        label[0] + str(label[1])
+            label[0] + str(label[1])
         return print_label
 
-    print_labels = [make_print_label(label) for label in col_labels if label[0]!='S']
+    print_labels = [make_print_label(label) for label in col_labels if label[0] != 'S']
     if ('S', None) in col_labels:
         print('S   ', end='')
     else:

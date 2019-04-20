@@ -96,6 +96,10 @@ def viterbi(emissions, model):
 
 
 class Counter(dict):
+    """
+    A dictionary that, when retrieving missing values, default them to 0. Retrieving a missing value does not add it to the dictionary.
+    """
+
     def __missing__(self, key):
         return 0
 
@@ -110,48 +114,76 @@ def flatten(seq_of_seq):
 
 
 def make_profile_HMM(theta, sigma, alphabet, alignment):
+    """
+    Returns a profile HMM with pseudocounts from a multiple alignment.
+    :param theta: The column removal threshold, a number between 0 and 1; columns in the alignment with a proportion of blanks '-' greater than or equal to the threshold are ignored.
+    :param sigma: The pseudocount, a positive number; it is added to all allowed state transitions (corresponding to edges in a HMM graph) and to all emission probabilities for states that can emit (matches and insertions).
+    :param alphabet: The alphabet of symbols making the alignment, a string. It must not contain the special symbol '-', reserved for blanks.
+    :param alignment: The multiple alignment, a sequence of strings. Symbol '-' is used to indicate a blank.
+    :return: The profile HMM, an HMM named tuple..
+    """
+
     def threshold_alignment(alignment, theta):
+        """
+        Returns the set of column indices in an alignment that meet or exceed a column removal threshold.
+        :param alignment: The alignment, a sequence of strings. Symbol '-' is used for blanks.
+        :param theta: The removal threshold, a number between 0 and 1.
+        :return: The set of column indices, numbered starting from 0, where the proportion of blanks is greater than, or equal to, the threshold theta.
+        """
         n_cols = len(alignment[0])
         n_rows = len(alignment)
         alignment_T = list(map(list, zip(*alignment)))  # Transpose alignment
         # Count occurrences of '-' in the transposed of alignment, going by rows
         count_spaces = [sum([item == '-' for item in row]) for row in alignment_T]
-        # Set of column indices in alignment (row indices in alignment_T) where the count of '-' is above threshold
+        # The return value
         thresholded = {col for col in range(0, n_cols) if count_spaces[col] / n_rows >= theta}
         return thresholded
 
     def validate_prob_matrix(matrix):
+        """
+        Checks that the sums by row of a given matrix are all equal to 1.
+        :param matrix: The matrix, a dictionary of dictionaries of numbers; matrix[r][c] is the element of row 'r' and column 'c' in the matrix.
+        :raises AssertionError: exception raised when the condition is not met.
+        """
         for row in matrix.values():
             row_total = sum(row.values())
             assert isclose(row_total, 1) or isclose(row_total, 0)
 
     def normalise_prob_matrix(matrix):
+        """
+        Modifies the non-zero values in a numerical matrix, such that their sum by row is equal to 1, in every row. Zero values are left unchanged.
+        :param matrix: The matrix to be modified, a dictionary of dictionaries of numbers; matrix[r][c] is the element of row 'r' and column 'c' in the matrix.
+        """
         for row_key, row in matrix.items():
             total = sum(row.values())
             matrix[row_key] = {col_key: 0 if item == 0 else item / total for col_key, item in row.items()}
 
+    # The source and sink of the HMM Viterbi graph
     source = ('S', None)
     sink = ('E', None)
+    # The total number of rows and columns in the alignment
     n_rows = len(alignment)
     n_cols = len(alignment[0])
+    # The set of indices of alignment columns that meet or exceed the removal threshold theta
     thresholded = threshold_alignment(alignment, theta)
+    # The number of columns in alignment, net of thresholded columns
     n_unthresholded = n_cols - len(thresholded)
+    # The set of vertices (states) in the Viterbi graph
     states = [source, ('I', 0)] + \
-             flatten([(('M', pos), ('D', pos), ('I', pos)) for pos in range(1, n_cols - len(thresholded) + 1)]) + \
+             flatten([(('M', pos), ('D', pos), ('I', pos)) for pos in range(1, n_unthresholded + 1)]) + \
              [sink]
 
-    node_visits = Counter()
-    edge_visits = Counter()
+    # Counters that will be used to compute transition and emission probabilities
+    node_visits = Counter()  # node_visits[a] will be the number of sequences in alignment that go through node 'a'
+    edge_visits = Counter()  # edge_visits[(a,b)] will be the number of sequences in alignment that go through edge 'a'-'b'
+    # node_emissions[state][symbol] will be the number of times the sequences in alignment make 'state' emit 'symbol'
     node_emissions = {state: Counter() for state in states}
 
-    # For every sequence in alignement, follow the sequence through the HMM and increment counters:
-    # - For every vertex: number of visits to the vertex; for every symbol, number of symbols emitted per symbol in that vertex
-    # - For every edge: number of visits to the edge
-    # Beware of source and sink
-
+    ''' For every sequence in alignement, follow the sequence through the Viterbi graph, source to sink,  and increment
+    the counters '''
     for sequence in alignment:
         prev_state = ('S', None)
-        pos = 0
+        pos = 0  # Numbering of the states (vertices in the Viterbi graph)
         for col, symbol in enumerate(sequence):
             assert symbol in alphabet or symbol == '-'
             if col in thresholded:
@@ -163,13 +195,14 @@ def make_profile_HMM(theta, sigma, alphabet, alignment):
                 curr_state = ('D', pos) if symbol == '-' else ('M', pos)
             node_visits[curr_state] = node_visits[curr_state] + 1
             edge_visits[(prev_state, curr_state)] = edge_visits[(prev_state, curr_state)] + 1
-            if curr_state[0] in 'MI':
+            if curr_state[0] in 'MI':  # Only matches and insertions can emit symbols
                 node_emissions[curr_state][symbol] = node_emissions[curr_state][symbol] + 1
             prev_state = curr_state
         edge_visits[(prev_state, sink)] = edge_visits[(prev_state, sink)] + 1
         node_visits[source] = n_rows
         node_visits[sink] = n_rows
 
+    # Compute the transition probabilities matrix based on the counters
     transition = {state_row: {
         state_col: 0 if node_visits[state_row] == 0 else edge_visits[state_row, state_col] / node_visits[state_row]
         for state_col in states}
@@ -177,6 +210,7 @@ def make_profile_HMM(theta, sigma, alphabet, alignment):
 
     validate_prob_matrix(transition)
 
+    # Add pseudocounts to the transition probabilities matrix if requested
     if sigma:
         for i in range(0, n_unthresholded + 1):
             if i == 0:
@@ -196,6 +230,7 @@ def make_profile_HMM(theta, sigma, alphabet, alignment):
         normalise_prob_matrix(transition)
         validate_prob_matrix(transition)
 
+    # Compute the emission probabilities matrix based on the counters
     emission = {state: {symbol: 0 if total == 0 else node_emissions[state][symbol] / total
                         for total in (sum(node_emissions[state].values()),)
                         for symbol in alphabet}
@@ -203,6 +238,7 @@ def make_profile_HMM(theta, sigma, alphabet, alignment):
 
     validate_prob_matrix(emission)
 
+    # Add pseudocounts to the emission probabilities matrix if requested
     if sigma:
         for row_key, row in emission.items():
             # Pseudo-counts only apply to states that can emit, that is Insertion ('I') and Match ('M')
