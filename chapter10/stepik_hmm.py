@@ -34,16 +34,29 @@ def fetch_hmm(file_name):
         return string, HMM(alphabet=alphabet, states=states, transition=transision_matrix, emission=emission_matrix)
 
 
+def parse_alignment(input_file):
+    params = parse_and_split(input_file)
+    theta, sigma = (float(params[0]), float(params[1])) if len(params) == 2 else (float(params[0]), .0)
+    input_file.readline()
+    alphabet = parse_and_split(input_file)
+    input_file.readline()
+    alignment = input_file.readlines()
+    alignment = [line.rstrip('\n') for line in alignment]
+    return theta, sigma, alphabet, alignment
+
+
 def fetch_alignment(file_name):
     with open(file_name) as input_file:
-        params = parse_and_split(input_file)
-        theta, sigma = (float(params[0]), float(params[1])) if len(params) == 2 else (float(params[0]), .0)
+        theta, sigma, alphabet, alignment = parse_alignment(input_file)
+    return theta, sigma, alphabet, alignment
+
+
+def fetch_profile_alignment(file_name):
+    with open(file_name) as input_file:
+        text = input_file.readline().rstrip('\n')
         input_file.readline()
-        alphabet = parse_and_split(input_file)
-        input_file.readline()
-        alignment = input_file.readlines()
-        alignment = [line.rstrip('\n') for line in alignment]
-        return theta, sigma, alphabet, alignment
+        theta, sigma, alphabet, alignment = parse_alignment(input_file)
+    return text, theta, sigma, alphabet, alignment
 
 
 def ugly_print_matrix(matrix, row_labels, col_labels):  # It is ugly, but it is the format stepik/Rosalind expects

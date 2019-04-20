@@ -6,10 +6,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/fanta.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/fanta.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter10/hmm.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter10/hmm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter10/stepik_hmm.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter10/stepik_hmm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chapter10/test_hmm.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter10/test_hmm.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,10 +21,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter10/hmm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+            <state relative-caret-position="620">
+              <caret line="264" lean-forward="true" selection-start-line="264" selection-end-line="264" />
               <folding>
-                <element signature="e#0#34#0" expanded="true" />
+                <element signature="e#0#7#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -34,8 +33,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter10/test_hmm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="76" column="24" lean-forward="true" selection-start-line="76" selection-start-column="24" selection-end-line="76" selection-end-column="24" />
+            <state relative-caret-position="266">
+              <caret line="48" column="34" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="34" />
               <folding>
                 <element signature="e#34#58#0" expanded="true" />
               </folding>
@@ -46,8 +45,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter10/stepik_hmm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6">
-              <caret line="54" selection-start-line="54" selection-end-line="54" />
+            <state relative-caret-position="356">
+              <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
             </state>
           </provider>
         </entry>
@@ -110,8 +109,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/chapter09/test/testcase03.txt" />
-        <option value="$PROJECT_DIR$/chapter09/test/testcase04.txt" />
         <option value="$PROJECT_DIR$/chapter09/test/testcase05.txt" />
         <option value="$PROJECT_DIR$/chapter09/test/testcase07.txt" />
         <option value="$PROJECT_DIR$/chapter09/test/testcase08.txt" />
@@ -158,17 +155,19 @@
         <option value="$PROJECT_DIR$/chapter10/tmp.py" />
         <option value="$PROJECT_DIR$/chapter07/test_phylogeny.py" />
         <option value="$PROJECT_DIR$/chapter10/test/testcase10.txt" />
+        <option value="$PROJECT_DIR$/chapter10/test/testcase11.txt" />
+        <option value="$PROJECT_DIR$/chapter10/stepik_hmm.py" />
+        <option value="$PROJECT_DIR$/chapter10/test/testcase12.txt" />
         <option value="$PROJECT_DIR$/chapter10/test_hmm.py" />
         <option value="$PROJECT_DIR$/chapter10/hmm.py" />
-        <option value="$PROJECT_DIR$/chapter10/stepik_hmm.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1977" />
-    <option name="y" value="25" />
+    <option name="y" value="-3" />
     <option name="width" value="2503" />
-    <option name="height" value="1415" />
+    <option name="height" value="1443" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -177,17 +176,13 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
               <item name="bioalg" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bioalg" type="462c0819:PsiDirectoryNode" />
-              <item name="chapter07" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
@@ -204,7 +199,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -384,34 +378,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.19 at 12h 57m 35s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 12h 59m 28s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.19 at 12h 57m 40s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 01m 06s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.19 at 12h 58m 25s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 01m 59s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.19 at 13h 00m 22s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 02m 06s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.19 at 13h 00m 51s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 05m 51s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.19 at 13h 03m 21s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 12m 29s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.19 at 13h 03m 50s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 23m 39s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.19 at 13h 07m 02s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 23m 50s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.19 at 13h 21m 12s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 24m 10s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 08h 42m 54s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 25m 20s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -428,8 +422,8 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.35019156" visible="true" weight="0.17440452" />
-      <window_info id="Structure" order="1" sideWeight="0.6498084" side_tool="true" visible="true" weight="0.17440452" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.3494253" visible="true" weight="0.17625459" />
+      <window_info id="Structure" order="1" sideWeight="0.6505747" side_tool="true" visible="true" weight="0.17625459" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
@@ -484,6 +478,11 @@
           <url>file://$PROJECT_DIR$/chapter07/phylogeny.py</url>
           <line>508</line>
           <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/chapter10/hmm.py</url>
+          <line>263</line>
+          <option name="timeStamp" value="54" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -703,20 +702,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/chapter09/test/testcase08.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" column="1000" selection-start-line="1" selection-start-column="1000" selection-end-line="1" selection-end-column="1000" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter09/test/testcase07.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="829" selection-start-column="821" selection-end-column="829" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter09/test/testcase09.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -923,13 +908,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter10/test/testcase01.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter10/test/testcase04.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
@@ -1006,29 +984,50 @@
     <entry file="file://$PROJECT_DIR$/chapter10/test/testcase10.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/chapter10/test/testcase12.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="14" column="49" lean-forward="true" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter10/test/testcase11.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="10" column="10" lean-forward="true" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter10/stepik_hmm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter10/test/testcase01.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter10/test_hmm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="76" column="24" lean-forward="true" selection-start-line="76" selection-start-column="24" selection-end-line="76" selection-end-column="24" />
+        <state relative-caret-position="266">
+          <caret line="48" column="34" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="34" />
           <folding>
             <element signature="e#34#58#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter10/stepik_hmm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6">
-          <caret line="54" selection-start-line="54" selection-end-line="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter10/hmm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        <state relative-caret-position="620">
+          <caret line="264" lean-forward="true" selection-start-line="264" selection-end-line="264" />
           <folding>
-            <element signature="e#0#34#0" expanded="true" />
+            <element signature="e#0#7#0" expanded="true" />
           </folding>
         </state>
       </provider>

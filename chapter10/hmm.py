@@ -1,3 +1,4 @@
+from copy import deepcopy
 from collections import namedtuple
 from itertools import product, chain
 import networkx as nx
@@ -248,3 +249,36 @@ def make_profile_HMM(theta, sigma, alphabet, alignment):
 
     the_hmm = HMM(alphabet=alphabet, states=states, transition=transition, emission=emission)
     return the_hmm
+
+
+def make_profile_graph(emissions, model):
+
+    n = len(emissions)
+    source = ('__source', -1)
+    sink = ('__sink', n)
+    graph = nx.DiGraph()
+    # The model states except source and sink
+    states = deepcopy(model.states)
+    states.remove(('S',None))
+    states.remove(('E', None))
+    pass
+
+    # nodes = [(state, index) for state in 'IMD']
+
+
+
+def align(text, theta, sigma, alphabet, alignment):
+    """
+    Returns the optimal hidden path in the HMM for a given alignment that emits a given text.
+    :param text:
+    :param theta:
+    :param sigma:
+    :param alphabet:
+    :param alignment:
+    :return:
+    """
+    # This is an HMM align model, which includes source, sink, and vertices like (<state>, <index>)
+    model = make_profile_HMM(theta, sigma, alphabet, alignment)
+    graph = make_profile_graph(text, model)
+
+
