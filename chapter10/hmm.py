@@ -1,7 +1,9 @@
+import matplotlib.pyplot as plt
 from copy import deepcopy
 from collections import namedtuple
 from itertools import product, chain
 import networkx as nx
+import networkx.drawing.nx_pylab as nxp
 from math import log
 from numpy import isclose
 
@@ -252,20 +254,59 @@ def make_profile_HMM(theta, sigma, alphabet, alignment):
 
 
 def make_profile_graph(emissions, model):
-
     n = len(emissions)
+    n_rows = max([index for _, index in model.states if index is not None])
     source = ('__source', -1)
     sink = ('__sink', n)
     graph = nx.DiGraph()
-    # The model states except source and sink
+    # The HMM states except source and sink
     states = deepcopy(model.states)
-    states.remove(('S',None))
+    states.remove(('S', None))
     states.remove(('E', None))
-    pass
 
-    # nodes = [(state, index) for state in 'IMD']
+    # Compile the list of nodes in topological order
+    nodes = [('D', row, 0) for row in range(0, n_rows + 1)]
+    nodes.extend([(state, row_i, col_i) for col_i in range(1, n + 1) for state, row_i in states])
+    nodes.append(('E', n_rows, n + 1))
+    graph.add_nodes_from(nodes)
+
+    edges = []
+    for node in nodes:
+        if node[0] == 'E':
+            continue
+        state = node[:2]
+        node2, weight = None, None
+        if node[2] < n:
+            node2 = ('I', node[1], node[2] + 1)
+            state2 = node2[:2]
+            try:
+                weight = model.transition[state][state2] * model.emission[state2][emissions[node2[2]]] if node[2] > 0 \
+                    else 1 / 3 if node[1] < n_rows else 1
+            except IndexError:
+                pass
+        if node[1] < n_rows:
+            node2 = ('D', node[1] + 1, node[2])
+            state2 = node2[:2]
+            weight = model.transition[state][state2] if node[2] > 0 else 1 / 3
+        if node[2] < n and node[1] < n_rows:
+            node2 = ('M', node[1] + 1, node[2] + 1)
+            state2 = node2[:2]
+            weight = model.transition[state][state2] * model.emission[state2][emissions[node2[2] - 1]] if node[
+                                                                                                              2] > 0 else 1 / 3
+        if node2 is not None:
+            edges.append((node, node2, weight))
+
+    # Add edges to the graph
+    graph.add_weighted_edges_from(edges)
+    return graph
 
 
+def viterbi_profile_layout(graph):
+    u = 10
+    v_offset = {'M': 0, 'D': u, 'I': 2 * u, 'S': 2*u, 'E': 2*u}
+    n_rows = max([index for _, index, _ in graph.nodes() if index is not None])
+    pos = { node: (node[2]*u, n_rows*2*u-(node[1]*3*u+v_offset[node[0]])) for node in graph.nodes()}
+    return pos
 
 def align(text, theta, sigma, alphabet, alignment):
     """
@@ -280,5 +321,7 @@ def align(text, theta, sigma, alphabet, alignment):
     # This is an HMM align model, which includes source, sink, and vertices like (<state>, <index>)
     model = make_profile_HMM(theta, sigma, alphabet, alignment)
     graph = make_profile_graph(text, model)
-
-
+    pos = viterbi_profile_layout(graph)
+    nx.draw(graph, pos=pos, with_labels=True)
+    # nxp.draw_networkx(graph, with_labels=True)
+    plt.show()

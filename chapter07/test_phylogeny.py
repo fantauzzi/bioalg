@@ -523,15 +523,15 @@ def test_small_parsimony():
     tree, strings = fetch_small_parsimony_input(Path('test/testcase17.txt'))
     tree, results, score = phylogeny.small_parsimony(strings, tree)
     assert score == 16
-    print()
-    pretty_print_parsimony(tree, results, score)
+    #print()
+    #pretty_print_parsimony(tree, results, score)
 
     strings = ['ACGTAGGCCT', 'ATGTAAGACT', 'TCGAGAGCAC', 'TCGAAAGCAT']
     tree, results, score = phylogeny.small_parsimony(strings)
     assert score == 8
-    pretty_print_parsimony(tree, results, score)
+    #pretty_print_parsimony(tree, results, score)
 
     tree, strings = fetch_small_parsimony_input(Path('test/testcase18.txt'))
     tree, results, score = phylogeny.small_parsimony(strings)
-    pretty_print_parsimony(tree, results, score)
+    #pretty_print_parsimony(tree, results, score)
     assert score == 11342

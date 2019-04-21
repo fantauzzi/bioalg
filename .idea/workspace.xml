@@ -6,9 +6,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chapter07/test_phylogeny.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter07/test_phylogeny.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter10/hmm.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter10/hmm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chapter10/stepik_hmm.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter10/stepik_hmm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chapter10/test_hmm.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter10/test_hmm.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,10 +21,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter10/hmm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="620">
-              <caret line="264" lean-forward="true" selection-start-line="264" selection-end-line="264" />
+            <state relative-caret-position="444">
+              <caret line="307" column="72" selection-start-line="307" selection-start-column="72" selection-end-line="307" selection-end-column="72" />
               <folding>
-                <element signature="e#0#7#0" expanded="true" />
+                <element signature="e#0#31#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -33,8 +33,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter10/test_hmm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="48" column="34" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="34" />
+            <state relative-caret-position="180">
+              <caret line="90" column="20" selection-start-line="90" selection-start-column="15" selection-end-line="90" selection-end-column="20" />
               <folding>
                 <element signature="e#34#58#0" expanded="true" />
               </folding>
@@ -43,10 +43,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/networkx/classes/graph.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="164">
+              <caret line="563" selection-start-line="563" selection-end-line="563" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter10/stepik_hmm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+            <state relative-caret-position="1416">
+              <caret line="59" selection-start-line="59" selection-end-line="59" />
             </state>
           </provider>
         </entry>
@@ -153,21 +162,21 @@
         <option value="$PROJECT_DIR$/chapter10/test/testcase08.txt" />
         <option value="$PROJECT_DIR$/chapter10/test/testcase09.txt" />
         <option value="$PROJECT_DIR$/chapter10/tmp.py" />
-        <option value="$PROJECT_DIR$/chapter07/test_phylogeny.py" />
         <option value="$PROJECT_DIR$/chapter10/test/testcase10.txt" />
         <option value="$PROJECT_DIR$/chapter10/test/testcase11.txt" />
         <option value="$PROJECT_DIR$/chapter10/stepik_hmm.py" />
         <option value="$PROJECT_DIR$/chapter10/test/testcase12.txt" />
         <option value="$PROJECT_DIR$/chapter10/test_hmm.py" />
+        <option value="$PROJECT_DIR$/chapter07/test_phylogeny.py" />
         <option value="$PROJECT_DIR$/chapter10/hmm.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1977" />
-    <option name="y" value="-3" />
-    <option name="width" value="2503" />
-    <option name="height" value="1443" />
+    <option name="x" value="284" />
+    <option name="y" value="158" />
+    <option name="width" value="1403" />
+    <option name="height" value="791" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -183,6 +192,11 @@
             <path>
               <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
               <item name="bioalg" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bioalg" type="462c0819:PsiDirectoryNode" />
+              <item name="chapter07" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
@@ -254,6 +268,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="phylogeny" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="bioalg" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter07" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/chapter07/phylogeny.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="tests" factoryName="py.test">
       <module name="bioalg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -267,21 +302,6 @@
       <option name="_new_additionalArguments" value="&quot;-v --durations\u003d0&quot;" />
       <option name="_new_target" value="&quot;&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytest for hmm.test_viterbi" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="bioalg" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter10" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;-v --durations\u003d0&quot;" />
-      <option name="_new_target" value="&quot;hmm.test_viterbi&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <configuration name="pytest for test_hmm.test_viterbi" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
@@ -299,19 +319,19 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest in test_alignment.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+    <configuration name="pytest for test_phylogeny.test_neighbor_joining_matrix" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="bioalg" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter09" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter07" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;-v --durations\u003d0&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/chapter09/test_alignment.py&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <option name="_new_target" value="&quot;test_phylogeny.test_neighbor_joining_matrix&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <configuration name="pytest in test_hmm.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
@@ -345,23 +365,24 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python tests.pytest for hmm.test_viterbi" />
+      <item itemvalue="Python.phylogeny" />
       <item itemvalue="Python tests.pytest for test_hmm.test_viterbi" />
-      <item itemvalue="Python tests.pytest in test_alignment.py" />
       <item itemvalue="Python tests.pytest in test_hmm.py" />
       <item itemvalue="Python tests.pytest in test_phylogeny.py" />
+      <item itemvalue="Python tests.pytest for test_phylogeny.test_neighbor_joining_matrix" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python tests.pytest in test_hmm.py" />
         <item itemvalue="Python tests.pytest in test_phylogeny.py" />
+        <item itemvalue="Python tests.pytest for test_phylogeny.test_neighbor_joining_matrix" />
+        <item itemvalue="Python.phylogeny" />
         <item itemvalue="Python tests.pytest for test_hmm.test_viterbi" />
-        <item itemvalue="Python tests.pytest for hmm.test_viterbi" />
-        <item itemvalue="Python tests.pytest in test_alignment.py" />
       </list>
     </recent_temporary>
   </component>
   <component name="StructureViewFactory">
+    <option name="AUTOSCROLL_FROM_SOURCE" value="true" />
     <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
   </component>
   <component name="SvnConfiguration">
@@ -378,34 +399,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 12h 59m 28s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 15h 58m 52s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 01m 06s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 15h 59m 24s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 01m 59s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 03m 39s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 02m 06s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 05m 16s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 05m 51s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 12m 22s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 12m 29s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 13m 03s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 23m 39s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 14m 48s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 23m 50s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 15m 21s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 24m 10s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 18m 44s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.20 at 13h 25m 20s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 23m 23s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -419,23 +440,23 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
+    <frame x="51" y="-3" width="1869" height="1083" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.3494253" visible="true" weight="0.17625459" />
-      <window_info id="Structure" order="1" sideWeight="0.6505747" side_tool="true" visible="true" weight="0.17625459" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.34603176" visible="true" weight="0.17580032" />
+      <window_info id="Structure" order="1" sideWeight="0.6539683" side_tool="true" visible="true" weight="0.17580032" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.41532567" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.34176245" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.4148148" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.34074074" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32950193" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32950193" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32950193" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.3264368" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32592592" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.249694" />
@@ -470,19 +491,19 @@
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/chapter07/test_phylogeny.py</url>
-          <line>534</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/chapter07/phylogeny.py</url>
           <line>508</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/chapter10/hmm.py</url>
-          <line>263</line>
-          <option name="timeStamp" value="54" />
+          <line>325</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/chapter10/hmm.py</url>
+          <line>307</line>
+          <option name="timeStamp" value="55" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -655,6 +676,21 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>list(product(model.states, model.states))</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>product(model.states, model.states)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>graph.nodes()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>transition.keys()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -689,22 +725,9 @@
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>sum([len(seed) for seed in seeds]) == len(pattern)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>set(expected).difference((set(positions)))</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/chapter09/test/testcase09.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter09/test/testcase10.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
@@ -880,13 +903,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/networkx/classes/reportviews.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="929" selection-start-line="929" selection-end-line="929" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/networkx/classes/reportviews.py" />
     <entry file="file://$PROJECT_DIR$/chapter10/test/testcase02.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -954,26 +971,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter07/test_phylogeny.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="513" column="63" selection-start-line="513" selection-start-column="63" selection-end-line="513" selection-end-column="63" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter07/phylogeny.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-27">
-          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
-          <folding>
-            <element signature="e#640#669#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter10/test/testcase05.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -998,13 +995,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter10/stepik_hmm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter10/test/testcase01.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
@@ -1012,10 +1002,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chapter07/test_phylogeny.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="534" column="52" selection-start-line="534" selection-start-column="37" selection-end-line="534" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter07/phylogeny.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="464" column="33" lean-forward="true" selection-start-line="464" selection-start-column="33" selection-end-line="464" selection-end-column="33" />
+          <folding>
+            <element signature="e#640#669#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter10/stepik_hmm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1416">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/networkx/classes/graph.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="563" selection-start-line="563" selection-end-line="563" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter10/test_hmm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="48" column="34" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="34" />
+        <state relative-caret-position="180">
+          <caret line="90" column="20" selection-start-line="90" selection-start-column="15" selection-end-line="90" selection-end-column="20" />
           <folding>
             <element signature="e#34#58#0" expanded="true" />
           </folding>
@@ -1024,10 +1048,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter10/hmm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="264" lean-forward="true" selection-start-line="264" selection-end-line="264" />
+        <state relative-caret-position="444">
+          <caret line="307" column="72" selection-start-line="307" selection-start-column="72" selection-end-line="307" selection-end-column="72" />
           <folding>
-            <element signature="e#0#7#0" expanded="true" />
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
