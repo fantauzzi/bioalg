@@ -270,43 +270,49 @@ def make_profile_graph(emissions, model):
     nodes.append(('E', n_rows, n + 1))
     graph.add_nodes_from(nodes)
 
+    # Compile the list of edges
     edges = []
     for node in nodes:
         if node[0] == 'E':
             continue
         state = node[:2]
-        node2, weight = None, None
         if node[2] < n:
             node2 = ('I', node[1], node[2] + 1)
             state2 = node2[:2]
-            try:
-                weight = model.transition[state][state2] * model.emission[state2][emissions[node2[2]]] if node[2] > 0 \
-                    else 1 / 3 if node[1] < n_rows else 1
-            except IndexError:
-                pass
+            weight = model.transition[state][state2] * model.emission[state2][emissions[node2[2] - 1]] if node[
+                                                                                                              2] > 0 \
+                else 1 / 3 if node[1] < n_rows else 1
+            edges.append((node, node2, weight))
         if node[1] < n_rows:
             node2 = ('D', node[1] + 1, node[2])
             state2 = node2[:2]
             weight = model.transition[state][state2] if node[2] > 0 else 1 / 3
+            edges.append((node, node2, weight))
         if node[2] < n and node[1] < n_rows:
             node2 = ('M', node[1] + 1, node[2] + 1)
             state2 = node2[:2]
             weight = model.transition[state][state2] * model.emission[state2][emissions[node2[2] - 1]] if node[
                                                                                                               2] > 0 else 1 / 3
-        if node2 is not None:
             edges.append((node, node2, weight))
 
-    # Add edges to the graph
+    # Now the edges going into the sink
+    edges.extend([((state, n_rows, n), ('E', n_rows, n+1), 1) for state in 'MDI'])
+
+    # Add the edges to the graph
     graph.add_weighted_edges_from(edges)
     return graph
 
 
 def viterbi_profile_layout(graph):
     u = 10
-    v_offset = {'M': 0, 'D': u, 'I': 2 * u, 'S': 2*u, 'E': 2*u}
+    v_offset = {'M': 0, 'D': u, 'I': 2 * u, 'S': 2 * u, 'E': 2 * u}
+    h_offset = {'M': 0, 'D': u / 6, 'I': 2 * u / 6, 'S': u / 6, 'E': u / 6}
+
     n_rows = max([index for _, index, _ in graph.nodes() if index is not None])
-    pos = { node: (node[2]*u, n_rows*2*u-(node[1]*3*u+v_offset[node[0]])) for node in graph.nodes()}
+    pos = {node: (node[2] * u + h_offset[node[0]], n_rows * 2 * u - (node[1] * 3 * u + v_offset[node[0]])) for node in
+           graph.nodes()}
     return pos
+
 
 def align(text, theta, sigma, alphabet, alignment):
     """
@@ -322,6 +328,6 @@ def align(text, theta, sigma, alphabet, alignment):
     model = make_profile_HMM(theta, sigma, alphabet, alignment)
     graph = make_profile_graph(text, model)
     pos = viterbi_profile_layout(graph)
-    nx.draw(graph, pos=pos, with_labels=True)
+    nx.draw(graph, pos=pos, with_labels=True, font_weight='bold', node_color='orange')
     # nxp.draw_networkx(graph, with_labels=True)
     plt.show()

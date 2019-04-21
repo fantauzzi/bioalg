@@ -7,7 +7,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chapter07/test_phylogeny.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter07/test_phylogeny.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter10/hmm.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter10/hmm.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter10/hmm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="444">
-              <caret line="307" column="72" selection-start-line="307" selection-start-column="72" selection-end-line="307" selection-end-column="72" />
+            <state relative-caret-position="841">
+              <caret line="328" column="19" selection-start-line="328" selection-start-column="19" selection-end-line="328" selection-end-column="19" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -33,7 +32,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter10/test_hmm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
+            <state relative-caret-position="2016">
               <caret line="90" column="20" selection-start-line="90" selection-start-column="15" selection-end-line="90" selection-end-column="20" />
               <folding>
                 <element signature="e#34#58#0" expanded="true" />
@@ -45,7 +44,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/networkx/classes/graph.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
+            <state relative-caret-position="13272">
               <caret line="563" selection-start-line="563" selection-end-line="563" />
             </state>
           </provider>
@@ -367,9 +366,9 @@
     <list>
       <item itemvalue="Python.phylogeny" />
       <item itemvalue="Python tests.pytest for test_hmm.test_viterbi" />
+      <item itemvalue="Python tests.pytest for test_phylogeny.test_neighbor_joining_matrix" />
       <item itemvalue="Python tests.pytest in test_hmm.py" />
       <item itemvalue="Python tests.pytest in test_phylogeny.py" />
-      <item itemvalue="Python tests.pytest for test_phylogeny.test_neighbor_joining_matrix" />
     </list>
     <recent_temporary>
       <list>
@@ -399,34 +398,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 15h 58m 52s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 20h 56m 23s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 15h 59m 24s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 21h 14m 45s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 03m 39s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 21h 17m 48s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 05m 16s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 21h 19m 38s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 12m 22s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 21h 20m 25s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 13m 03s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 21h 33m 24s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 14m 48s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 21h 36m 55s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 15m 21s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 21h 38m 39s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 18m 44s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 21h 39m 55s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 16h 23m 23s.xml">
+    <history-entry file="pytest_in_test_hmm_py - 2019.04.21 at 21h 47m 01s.xml">
       <configuration name="pytest in test_hmm.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -443,8 +442,8 @@
     <frame x="51" y="-3" width="1869" height="1083" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.34603176" visible="true" weight="0.17580032" />
-      <window_info id="Structure" order="1" sideWeight="0.6539683" side_tool="true" visible="true" weight="0.17580032" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.34391534" visible="true" weight="0.17580032" />
+      <window_info id="Structure" order="1" sideWeight="0.65608466" side_tool="true" visible="true" weight="0.17580032" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32950193" />
@@ -494,16 +493,6 @@
           <url>file://$PROJECT_DIR$/chapter07/phylogeny.py</url>
           <line>508</line>
           <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/chapter10/hmm.py</url>
-          <line>325</line>
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/chapter10/hmm.py</url>
-          <line>307</line>
-          <option name="timeStamp" value="55" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -1022,23 +1011,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter10/stepik_hmm.py">
+    <entry file="file://$PROJECT_DIR$/chapter10/hmm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1416">
-          <caret line="59" selection-start-line="59" selection-end-line="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/networkx/classes/graph.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="563" selection-start-line="563" selection-end-line="563" />
+        <state relative-caret-position="841">
+          <caret line="328" column="19" selection-start-line="328" selection-start-column="19" selection-end-line="328" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter10/test_hmm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
+        <state relative-caret-position="2016">
           <caret line="90" column="20" selection-start-line="90" selection-start-column="15" selection-end-line="90" selection-end-column="20" />
           <folding>
             <element signature="e#34#58#0" expanded="true" />
@@ -1046,13 +1031,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter10/hmm.py">
+    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/networkx/classes/graph.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="307" column="72" selection-start-line="307" selection-start-column="72" selection-end-line="307" selection-end-column="72" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="13272">
+          <caret line="563" selection-start-line="563" selection-end-line="563" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter10/stepik_hmm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1416">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
         </state>
       </provider>
     </entry>
