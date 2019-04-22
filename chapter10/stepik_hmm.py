@@ -88,3 +88,8 @@ def ugly_print_matrices(transition, emission, states, alphabet):
     ugly_print_matrix(transition, states, states)
     print('--------')
     ugly_print_matrix(emission, states, alphabet)
+
+
+def pretty_alignment_print(alignment):
+    items = [item[0] + str(item[1]) for item in alignment]
+    print(*items, sep=' ')

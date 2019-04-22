@@ -4,7 +4,7 @@ from collections import namedtuple
 from itertools import product, chain
 import networkx as nx
 import networkx.drawing.nx_pylab as nxp
-from math import log
+from math import log, exp
 from numpy import isclose
 
 HMM = namedtuple('HMM', ['alphabet', 'states', 'transition', 'emission'])
@@ -296,28 +296,34 @@ def make_profile_graph(emissions, model):
             edges.append((node, node2, weight))
 
     # Now the edges going into the sink
-    edges.extend([((state, n_rows, n), ('E', n_rows, n+1), 1) for state in 'MDI'])
+    edges.extend([((state, n_rows, n), ('E', n_rows, n + 1), 1) for state in 'MDI'])
 
     # Add the edges to the graph
     graph.add_weighted_edges_from(edges)
-    return graph
+    return graph, nodes
 
 
-def viterbi_profile_layout(graph):
-    u = 10
-    v_offset = {'M': 0, 'D': u, 'I': 2 * u, 'S': 2 * u, 'E': 2 * u}
-    h_offset = {'M': 0, 'D': u / 6, 'I': 2 * u / 6, 'S': u / 6, 'E': u / 6}
+def draw_viterbi_profile_graph(graph):
+    def viterbi_profile_layout(graph):
+        u = 10
+        v_offset = {'M': 0, 'D': u, 'I': 2 * u, 'S': 2 * u, 'E': 2 * u}
+        h_offset = {'M': 0, 'D': u / 6, 'I': 2 * u / 6, 'S': u / 6, 'E': u / 6}
 
-    n_rows = max([index for _, index, _ in graph.nodes() if index is not None])
-    pos = {node: (node[2] * u + h_offset[node[0]], n_rows * 2 * u - (node[1] * 3 * u + v_offset[node[0]])) for node in
-           graph.nodes()}
-    return pos
+        n_rows = max([index for _, index, _ in graph.nodes() if index is not None])
+        pos = {node: (node[2] * u + h_offset[node[0]], n_rows * 2 * u - (node[1] * 3 * u + v_offset[node[0]])) for node
+               in
+               graph.nodes()}
+        return pos
+
+    pos = viterbi_profile_layout(graph)
+    nx.draw(graph, pos=pos, with_labels=True, font_weight='bold', node_color='orange')
+    plt.show()
 
 
-def align(text, theta, sigma, alphabet, alignment):
+def align(emissions, theta, sigma, alphabet, alignment):
     """
     Returns the optimal hidden path in the HMM for a given alignment that emits a given text.
-    :param text:
+    :param emissions:
     :param theta:
     :param sigma:
     :param alphabet:
@@ -326,8 +332,33 @@ def align(text, theta, sigma, alphabet, alignment):
     """
     # This is an HMM align model, which includes source, sink, and vertices like (<state>, <index>)
     model = make_profile_HMM(theta, sigma, alphabet, alignment)
-    graph = make_profile_graph(text, model)
-    pos = viterbi_profile_layout(graph)
-    nx.draw(graph, pos=pos, with_labels=True, font_weight='bold', node_color='orange')
-    # nxp.draw_networkx(graph, with_labels=True)
-    plt.show()
+    graph, ordered_nodes = make_profile_graph(emissions, model)
+
+    n = len(emissions)
+    n_rows = max([index for _, index, _ in graph.nodes() if index is not None])
+    source = ('D', 0, 0)  # TODO replace with some sort of global
+    sink = ('E', n_rows, n + 1)
+
+    # Set the length of the longest path from source to the source (which is 0, of course)
+    graph.nodes[source]['s'] = .0
+    # Set the predecessor for source (which is None)
+    graph.nodes[source]['previous'] = None
+    # Follow the topological order
+    for node in ordered_nodes:
+        # For every node2 adjacent to node, determine if the longest path from source to node2 goes through node
+        for node2 in graph[node].keys():
+            s = graph.nodes[node]['s'] + log(graph[node][node2]['weight'])
+            if s > graph.nodes[node2].get('s', float('-inf')):
+                graph.nodes[node2]['s'] = s
+                graph.nodes[node2]['previous'] = node
+
+    # Backtrack from sink to source to determine the longest path found
+    longest_path = []
+    current_vertex = sink
+    while current_vertex != source:
+        previous_state = graph.nodes[current_vertex]['previous']
+        longest_path.append(previous_state)
+        current_vertex = previous_state
+    longest_path = list(reversed(longest_path))[1:]
+
+    return longest_path, graph.nodes[sink]['s']
