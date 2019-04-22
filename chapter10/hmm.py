@@ -3,7 +3,7 @@ from copy import deepcopy
 from collections import namedtuple
 from itertools import product, chain
 import networkx as nx
-import networkx.drawing.nx_pylab as nxp
+# import networkx.drawing.nx_pylab as nxp
 from math import log, exp
 from numpy import isclose
 
@@ -254,11 +254,15 @@ def make_profile_HMM(theta, sigma, alphabet, alignment):
 
 
 def make_profile_graph(emissions, model):
+    """
+    Builds and returns the Viterbi graph to score a text against a given profile HMM, and a topological order of its nodes.
+    :param emissions: The text, a string.
+    :param model: The profile HMM, an HMM named tuple.
+    :return: A pair with the graph and its nodes in topological order. The graph is a nx.DiGraph; the topological order is a list of nodes. Weights of the graph edges are probabilities (not logs of probabilities).
+    """
     n = len(emissions)
     n_rows = max([index for _, index in model.states if index is not None])
-    source = ('__source', -1)
-    sink = ('__sink', n)
-    graph = nx.DiGraph()
+    graph = nx.DiGraph()  # The graph bein built
     # The HMM states except source and sink
     states = deepcopy(model.states)
     states.remove(('S', None))
@@ -268,6 +272,8 @@ def make_profile_graph(emissions, model):
     nodes = [('D', row, 0) for row in range(0, n_rows + 1)]
     nodes.extend([(state, row_i, col_i) for col_i in range(1, n + 1) for state, row_i in states])
     nodes.append(('E', n_rows, n + 1))
+
+    # Time to add them to the graph
     graph.add_nodes_from(nodes)
 
     # Compile the list of edges
@@ -300,10 +306,16 @@ def make_profile_graph(emissions, model):
 
     # Add the edges to the graph
     graph.add_weighted_edges_from(edges)
+
     return graph, nodes
 
 
 def draw_viterbi_profile_graph(graph):
+    """
+    Draws a Viterbi graph for a profile HMM using matplotlib, in its own window. Program execution resumes after the user has closed the window.
+    :param graph: The Viterbi graph, an nx.DiGraph.
+    """
+
     def viterbi_profile_layout(graph):
         u = 10
         v_offset = {'M': 0, 'D': u, 'I': 2 * u, 'S': 2 * u, 'E': 2 * u}
@@ -322,13 +334,13 @@ def draw_viterbi_profile_graph(graph):
 
 def align(emissions, theta, sigma, alphabet, alignment):
     """
-    Returns the optimal hidden path in the HMM for a given alignment that emits a given text.
-    :param emissions:
-    :param theta:
-    :param sigma:
-    :param alphabet:
-    :param alignment:
-    :return:
+    Returns the optimal hidden path in the HMM for a given alignment that emits a given text, and its score. The score is the natural logarithm of a probability, therefore it is a number between -infinity and 0 (-infinity not included).
+    :param emissions: The text, a string.
+    :param theta: The column removal threshold, a number between 0 and 1; columns in the alignment with a proportion of blanks '-' greater than or equal to the threshold are ignored.
+    :param sigma: The pseudocount, a positive number; it is added to all allowed state transitions (corresponding to edges in a HMM graph) and to all emission probabilities for states that can emit (matches and insertions).
+    :param alphabet: The alphabet of symbols making the alignment, a string. It must not contain the special symbol '-', reserved for blanks.
+    :param alignment: The multiple alignment, a sequence of strings. Symbol '-' is used to indicate a blank.
+    :return: The optimal hidden path and its score; a pair, the first element is a sequence of nodes (not including source and sink), the second a number.
     """
     # This is an HMM align model, which includes source, sink, and vertices like (<state>, <index>)
     model = make_profile_HMM(theta, sigma, alphabet, alignment)
@@ -359,6 +371,6 @@ def align(emissions, theta, sigma, alphabet, alignment):
         previous_state = graph.nodes[current_vertex]['previous']
         longest_path.append(previous_state)
         current_vertex = previous_state
-    longest_path = list(reversed(longest_path))[1:]
+    longest_path = [(item1, item2) for item1, item2, _ in reversed(longest_path)][1:]
 
     return longest_path, graph.nodes[sink]['s']
