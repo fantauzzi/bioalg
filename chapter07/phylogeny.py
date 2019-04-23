@@ -14,6 +14,7 @@ of row 'r' and column 'c'.
 
 from itertools import product
 from collections import deque, namedtuple
+from copy import deepcopy
 
 BinTreeAdj = namedtuple('BinTreeAdj', ['left', 'right', 'parent'])  # Adjacency list for a tree node
 
@@ -405,107 +406,116 @@ def symbols_hamming_dist(symbol1, symbol2):
     return 0 if symbol1 == symbol2 else 1
 
 
-def make_small_parsiomony_tree(strings, alphabet, tree=None):
-    n_leaves = len(strings)
-    assert n_leaves % 2 == 0
-    n_nodes = 2 * n_leaves - 1
+def get_children(tree, node):
+    children = set(tree[node].keys()) - {tree.nodes[node]['parent']}
+    return children
 
-    # Compute the score for the leaves of the tree
-    s = {node: {symbol: 0 if strings[node] == symbol else float('inf') for symbol in alphabet} for node in
-         range(0, n_leaves)}
 
-    if tree is None:
-        tree = {}  # Adjacency lists for the tree, it associates the node number with a BinTreeAdj.
-        ''' Nodes in the tree are numbered in decreasing order from the root going down to the leaves. The root is numbered
-        n_nodes - 1 and the leaves from n_leaves-1 down to 0. '''
-        next_for_insertion = n_nodes - 1  # Tracks the numbering of the next node to be inserted in the tree.
-        ''' First node to be processed and inserted in the tree is the root. Pairs of the queue contain the number for the
-        node and its parent number; parent of the root node is set to None.'''
-        to_be_inserted = deque([(next_for_insertion, None)])
-        next_for_insertion -= 1
-        while to_be_inserted:
-            current_node, parent = to_be_inserted.popleft()
-            if current_node < n_leaves:  # If the node is a leaf...
-                left, right = None, None
-            else:  # If it is an internal node...
-                left = next_for_insertion - 1
-                right = next_for_insertion
-                next_for_insertion -= 2
-                to_be_inserted.extend([(right, current_node), (left, current_node)])
-            tree[current_node] = BinTreeAdj(left=left, right=right, parent=parent)
-
-    ''' Now that the tree has been built, queue its leaves for processing. They are queued in ascending order to
-    facilitate debugging. '''
-    to_be_processed = deque(sorted({tree[leaf].parent for leaf in range(0, n_leaves)}))
-    while to_be_processed:
-        current_node = to_be_processed.popleft()
-        # Compute the score for 'current_node' and store it in 's'.
-        daughter = tree[current_node].left
-        son = tree[current_node].right
-        s[current_node] = {k: min([s[daughter][i] + symbols_hamming_dist(i, k) for i in alphabet])
-                              + min([s[son][j] + symbols_hamming_dist(j, k) for j in alphabet])
-                           for k in alphabet}
-        # If score has been computed already for 'current_node' and its sibling, then queue their parent for processing.
-        parent = tree[current_node].parent
-        if parent is None:  # The root node has no parent
+def small_parsimony_symbol(tree, alphabet):
+    ripe_nodes = set()
+    # Find leaves in the tree, set their scores and mark their parents as ripe
+    for node in tree.nodes():
+        if len(tree[node]) != 1:  # Leaves have only one edge; if not a leaf, skip to the next node
             continue
-        son_of_parent = tree[parent].left
-        sibling = son_of_parent if son_of_parent != current_node else tree[parent].right
-        if s.get(sibling) is not None:
-            to_be_processed.append(parent)
-    return tree, s
+        assert tree.nodes[node]['label'] in alphabet
+        tree.nodes[node]['score'] = {symbol: 0 if tree.nodes[node]['label'] == symbol else float('inf') for symbol in
+                                     alphabet}
+        ripe_nodes |= {tree.nodes[node]['parent']}
+
+    root = None  # Keep track of the root once you find it
+    while ripe_nodes:
+        node = ripe_nodes.pop()
+        # Children of 'node' are its adjacent nodes except its parent
+        children = get_children(tree, node)
+        # Compute score[node_symbol] for every node_symbol in alphabet, and set it as property of 'node'
+        tree.nodes[node]['score'] = {}
+        for node_symbol in alphabet:
+            score = 0
+            for child in children:
+                score += min(
+                    [tree.nodes[child]['score'][symbol] + symbols_hamming_dist(symbol, node_symbol) for
+                     symbol in alphabet])
+            tree.nodes[node]['score'][node_symbol] = score
+        ''' Verify if the parent is ripe, and in case add it to the set of ripe nodes. The parent is ripe
+        if scores for the sibling of 'node' have been computed already '''
+        parent = tree.nodes[node]['parent']
+        if parent is None:
+            root = node  # The root has no parent
+        else:
+            parent_children = set(tree[parent].keys()) - {tree.nodes[parent]['parent']}
+            sibling = (parent_children - {node}).pop()
+            if tree.nodes[sibling].get('score') is not None:
+                ripe_nodes |= {parent}
+
+    # Upward pass is done, now do the downward pass
+
+    # Determine score and symbol for the root
+    root_min_score = float('inf')
+    root_arg_min = None
+    for symbol, score in tree.nodes[root]['score'].items():
+        if score < root_min_score:
+            root_min_score = score
+            root_arg_min = symbol
+    tree.nodes[root]['label'] = root_arg_min
+
+    # Queue the root to process its children next (if they are not leaves)
+    children = get_children(tree, root)
+    any_child = next(iter(children))
+    pending = deque([root]) if len(tree[any_child]) > 1 else []
+
+    while pending:
+        # Fetch a node from the queue to process its children
+        node = pending.popleft()
+        # If children are leaves, then nothing to be done with them, skip to the next pending node
+        children = get_children(tree, node)
+        any_child = next(iter(children))
+        if len(tree[any_child]) == 1:
+            continue
+        node_label = tree.nodes[node]['label']
+        # Process the children of 'node' by assigning them a label (a symbol from the alphabet)
+        for child in children:
+            min_score = float('inf')
+            child_label = None
+            for symbol in alphabet:
+                score = tree.nodes[child]['score'][symbol] + symbols_hamming_dist(symbol, node_label)
+                if score < min_score:
+                    min_score = score
+                    child_label = symbol
+            tree.nodes[child]['label'] = child_label
+            pending.append(child)
+
+    return root_min_score
 
 
-def small_parsimony(strings, tree=None):
-    def lowest_score_symbol(scores):
-        min_score = float('inf')
-        min_symbol = None
-        for symbol, score in scores.items():
-            if score < min_score:
-                min_score = score
-                min_symbol = symbol
-        assert min_symbol is not None
-        return min_symbol, min_score
+def small_parsimony(tree, alphabet):
+    # Look for any of the leaves, to detect the length of the leaf labels
+    for node in tree.nodes():
+        if len(tree[node]) == 1:
+            break
+    else:
+        assert False
+    n = len(tree.nodes[node]['label'])
 
-    def append_to_best_string(symbol, best_string, node):
-        the_list = best_string.get(node, '')
-        the_list = the_list + symbol
-        best_string[node] = the_list
-
-    n_leaves = len(strings)
-    assert n_leaves % 2 == 0
-    n_nodes = 2 * n_leaves - 1
-    root = n_nodes - 1
-    # A tuple with the alphabet used by strings, in lexicographic order
-    alphabet = tuple(sorted(set.union(*[set(item) for item in strings])))
-    total_parsimony = 0
-    best_string = {}
-
-    for pos in range(0, len(strings[0])):
-        characters = tuple(item[pos] for item in strings)
-        tree, s = make_small_parsiomony_tree(characters, alphabet, tree)
-
-        root_symbol, parsimony = lowest_score_symbol(s[root])
-        total_parsimony += parsimony
-        to_be_processed = deque([(root, root_symbol)])
-        append_to_best_string(root_symbol, best_string, root)
-
-        while to_be_processed:
-            current_node, current_node_symbol = to_be_processed.popleft()
-            for child in (tree[current_node].left, tree[current_node].right):
-                if child is None:
-                    continue
-                best_symbol = None
-                lowest_score = float('inf')
-                for symbol in alphabet:
-                    score = s[child][symbol] + symbols_hamming_dist(current_node_symbol, symbol)
-                    if score < lowest_score:
-                        lowest_score = score
-                        best_symbol = symbol
-                assert best_symbol is not None
-                append_to_best_string(best_symbol, best_string, child)
-                to_be_processed.append((child, best_symbol))
-
-    return tree, best_string, total_parsimony
-
-# TODO build the tree based on the input file, not programmatically
+    # Make a copy of the tree, to label its nodes with one symbol per node at a time
+    symbol_tree = deepcopy(tree)
+    ''' Run small parsimony on symbol_tree n times, each time after copying into it one symbol from 'tree' leafe labels '''
+    root_score = 0
+    for i in range(0, n):
+        for node in tree.nodes():  # Find the leaves in 'tree'
+            if len(tree[node]) == 1:
+                label = tree.nodes[node]['label']
+                symbol_tree.nodes[node]['label'] = label[i]
+                assert label[i] in alphabet
+        root_score += small_parsimony_symbol(symbol_tree, alphabet)
+        for node in symbol_tree.nodes():  # Find the internal nodes in 'small_p_tree'
+            if len(tree[node]) != 1:
+                # Append to 'node' label the symbol from the respective node in
+                symbol = symbol_tree.nodes[node]['label']
+                tree_label = tree.nodes[node].get('label', '')
+                tree_label = tree_label + symbol
+                tree.nodes[node]['label'] = tree_label
+                '''for symbol, score in symbol_tree.nodes[node]['score'].items():
+                    scores = tree.nodes[node].get('score', {key: 0 for key in alphabet})
+                    scores[symbol] += score
+                    tree.nodes[node]['score'] = score'''
+    return root_score

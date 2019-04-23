@@ -1,6 +1,10 @@
+import matplotlib.pyplot as plt
+import networkx.drawing.nx_pylab as nxp
 import phylogeny
 from phylogeny import add_node, BinTreeAdj
 from pathlib import Path
+import networkx as nx
+import networkx.algorithms.isomorphism as iso
 
 
 def pretty_print_matrix(matrix):
@@ -102,70 +106,31 @@ def fetch_stepik_additive_phylogeny_input(file_name):
     return n, matrix
 
 
-def fetch_small_parsimony_input2(file_name):
-    with open(file_name) as input_file:
-        n = input_file.readline().rstrip('\n')
-        n = int(n)
-        assert n % 2 == 0
-        lines = input_file.readlines()
-        strings = []
-        for line in lines:
-            left, right = line.rstrip('\n').split('->')
-            left = int(left)
-            if left <= (n - 1) + n // 2:  # If it is not a leaf
-                strings.append(right)
-        assert n == len(strings)
-        return strings
-
-
 def fetch_small_parsimony_input(file_name):
-    def set_children(tree, node, left, right):
-        adjs = tree[node]
-        assert adjs.left is None and adjs.right is None
-        updated_adjs = BinTreeAdj(left=left, right=right, parent=adjs.parent)
-        tree[node] = updated_adjs
-
-    def set_parent(tree, node, parent):
-        adjs = tree[node]
-        assert adjs.parent is None
-        updated_adjs = BinTreeAdj(left=adjs.left, right=adjs.right, parent=parent)
-        tree[node] = updated_adjs
-
+    tree = nx.Graph()
     with open(file_name) as input_file:
-        n = input_file.readline().rstrip('\n')
-        n = int(n)
-        assert n % 2 == 0
+        n_leaf = input_file.readline().rstrip('\n')
+        n_leaf = int(n_leaf)
+        for i_leaf in range(0, n_leaf):
+            line = input_file.readline().rstrip('\n')
+            left, right = line.rstrip('\n').split('->')
+            parent = int(left)
+            tree.add_edge(parent, i_leaf)
+            tree.nodes[i_leaf]['label'] = right
+            tree.nodes[i_leaf]['parent'] = parent
         lines = input_file.readlines()
-        adj = {}
-        leaf_string = {}
-        next_leaf = 0
         for line in lines:
             left, right = line.rstrip('\n').split('->')
-            node = int(left)
-            if node > (n - 1) + n // 2:  # If 'right' is not a leaf
-                adj_node = int(right)
-            else:
-                adj_node = next_leaf
-                next_leaf += 1
-                leaf_string[adj_node] = right
-            adjs = adj.get(node, [])
-            adjs.append(adj_node)
-            adj[node] = adjs
-
-    assert next_leaf == n
-    assert len(leaf_string) == n
-
-    tree = {node: BinTreeAdj(None, None, None) for node in set(adj) | set(range(0, n))}
-    for node, adjs in adj.items():
-        left, right = adjs
-        set_children(tree, node, left, right)
-        if left is not None:
-            set_parent(tree, left, node)
-        if right is not None:
-            set_parent(tree, right, node)
-
-    strings = [leaf_string[node] for node in range(0, n)]
-    return tree, strings
+            node1, node2 = int(left), int(right)
+            tree.add_edge(node1, node2)
+            tree.nodes[node2]['parent'] = node1
+        count = 0
+        for node in tree.nodes():
+            if tree.nodes[node].get('parent') is None:
+                count += 1
+                assert count == 1
+                tree.nodes[node]['parent'] = None
+    return tree
 
 
 def test_add_node():
@@ -505,33 +470,59 @@ def test_neighbor_joining_matrix():
 
 
 def test_small_parsimony():
-    strings = list('CCACGGTC')
-    tree, s = phylogeny.make_small_parsiomony_tree(strings, ['A', 'C', 'G', 'T'])
-    assert tree == {14: BinTreeAdj(left=12, right=13, parent=None), 13: BinTreeAdj(left=10, right=11, parent=14),
-                    12: BinTreeAdj(left=8, right=9, parent=14), 11: BinTreeAdj(left=6, right=7, parent=13),
-                    10: BinTreeAdj(left=4, right=5, parent=13), 9: BinTreeAdj(left=2, right=3, parent=12),
-                    8: BinTreeAdj(left=0, right=1, parent=12), 7: BinTreeAdj(left=None, right=None, parent=11),
-                    6: BinTreeAdj(left=None, right=None, parent=11), 5: BinTreeAdj(left=None, right=None, parent=10),
-                    4: BinTreeAdj(left=None, right=None, parent=10), 3: BinTreeAdj(left=None, right=None, parent=9),
-                    2: BinTreeAdj(left=None, right=None, parent=9), 1: BinTreeAdj(left=None, right=None, parent=8),
-                    0: BinTreeAdj(left=None, right=None, parent=8)}
-    n_leaves = len(strings)
-    assert n_leaves % 2 == 0
-    n_nodes = 2 * n_leaves - 1
-    assert min(s[n_nodes - 1].values()) == 3
+    tree = nx.Graph()
+    labels = ['CAAATCCC', 'ATTGCGAC', 'CTGCGCTG', 'ATGGACGA']
+    tree.add_nodes_from([(0, {'parent': 4, 'label': labels[0][0]}),
+                         (1, {'parent': 4, 'label': labels[1][0]}),
+                         (2, {'parent': 5, 'label': labels[2][0]}),
+                         (3, {'parent': 5, 'label': labels[3][0]}),
+                         (4, {'parent': 6}),
+                         (5, {'parent': 6}),
+                         (6, {'parent': None})])
+    tree.add_edges_from([(4, 0), (4, 1), (5, 2), (5, 3), (6, 4), (6, 5)])
 
-    tree, strings = fetch_small_parsimony_input(Path('test/testcase17.txt'))
-    tree, results, score = phylogeny.small_parsimony(strings, tree)
+    score = phylogeny.small_parsimony_symbol(tree, 'ACGT')
+    # nx.readwrite.write_gpickle(tree, Path('test/testcase15.pickle'))
+    expected = nx.readwrite.read_gpickle(Path('test/testcase15.pickle'))
+    assert nx.is_isomorphic(tree, expected)
+    assert score == 2
+    # nxp.draw_planar(result, with_labels=True, font_weight='bold')
+    # plt.show()
+
+    tree = nx.Graph()
+    # Tree below is the same as in test/testcase17.txt
+    labels = ['CAAATCCC', 'ATTGCGAC', 'CTGCGCTG', 'ATGGACGA']
+    tree.add_nodes_from([(0, {'parent': 4, 'label': labels[0]}),
+                         (1, {'parent': 4, 'label': labels[1]}),
+                         (2, {'parent': 5, 'label': labels[2]}),
+                         (3, {'parent': 5, 'label': labels[3]}),
+                         (4, {'parent': 6}),
+                         (5, {'parent': 6}),
+                         (6, {'parent': None})])
+    tree.add_edges_from([(4, 0), (4, 1), (5, 2), (5, 3), (6, 4), (6, 5)])
+    score = phylogeny.small_parsimony(tree, 'ACGT')
+    # nx.readwrite.write_gpickle(tree, Path('test/testcase17.pickle'))
+    expected = nx.readwrite.read_gpickle(Path('test/testcase17.pickle'))
+    assert nx.is_isomorphic(tree, expected)
     assert score == 16
-    #print()
-    #pretty_print_parsimony(tree, results, score)
 
-    strings = ['ACGTAGGCCT', 'ATGTAAGACT', 'TCGAGAGCAC', 'TCGAAAGCAT']
-    tree, results, score = phylogeny.small_parsimony(strings)
+    tree = fetch_small_parsimony_input(Path('test/testcase17.txt'))
+    score = phylogeny.small_parsimony(tree, 'ACGT')
+    assert score == 16
+    assert nx.is_isomorphic(tree, expected)
+
+    labels = ['ACGTAGGCCT', 'ATGTAAGACT', 'TCGAGAGCAC', 'TCGAAAGCAT']
+    tree.add_nodes_from([(0, {'parent': 4, 'label': labels[0]}),
+                         (1, {'parent': 4, 'label': labels[1]}),
+                         (2, {'parent': 5, 'label': labels[2]}),
+                         (3, {'parent': 5, 'label': labels[3]}),
+                         (4, {'parent': 6}),
+                         (5, {'parent': 6}),
+                         (6, {'parent': None})])
+    tree.add_edges_from([(4, 0), (4, 1), (5, 2), (5, 3), (6, 4), (6, 5)])
+    score = phylogeny.small_parsimony(tree, 'ACGT')
     assert score == 8
-    #pretty_print_parsimony(tree, results, score)
 
-    tree, strings = fetch_small_parsimony_input(Path('test/testcase18.txt'))
-    tree, results, score = phylogeny.small_parsimony(strings)
-    #pretty_print_parsimony(tree, results, score)
+    tree = fetch_small_parsimony_input(Path('test/testcase18.txt'))
+    score = phylogeny.small_parsimony(tree, 'ACGT')
     assert score == 11342
