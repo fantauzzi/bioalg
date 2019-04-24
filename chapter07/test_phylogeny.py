@@ -4,8 +4,15 @@ import phylogeny
 from phylogeny import add_node
 from pathlib import Path
 import networkx as nx
-from stepik_phylogeny import fetch_small_parsimony_input, fetch_stepik_additive_phylogeny_input, fetch_stepik_input, \
-    fetch_stepik_limb_length_input, fetch_stepik_result, fetch_small_parsimony_unrooted, pretty_print_small_parsimony
+from stepik_phylogeny import fetch_small_parsimony_input, \
+    fetch_stepik_additive_phylogeny_input, \
+    fetch_stepik_input, \
+    fetch_stepik_limb_length_input, \
+    fetch_stepik_result, \
+    fetch_small_parsimony_unrooted, \
+    pretty_print_small_parsimony, \
+    fetch_nn_input, \
+    pretty_print_nn_trees
 
 
 def fix_nodes_numbering(tree):
@@ -470,3 +477,32 @@ def test_small_parsimoby_unrooted():
     # nx.readwrite.write_gpickle(tree, Path('test/testcase24.pickle'))
     expected = nx.readwrite.read_gpickle(Path('test/testcase24.pickle'))
     assert nx.is_isomorphic(tree, expected)
+
+
+def test_nearest_neighbor_trees():
+    a, b, tree = fetch_nn_input(Path('test/testcase26.txt'))
+    tree1, tree2 = phylogeny.nearest_neighbor_trees(tree, a, b)
+    # nx.readwrite.write_gpickle(tree1, Path('test/testcase26-1.pickle'))
+    # nx.readwrite.write_gpickle(tree1, Path('test/testcase26-2.pickle'))
+    expected1 = nx.readwrite.read_gpickle(Path('test/testcase26-1.pickle'))
+    expected2 = nx.readwrite.read_gpickle(Path('test/testcase26-2.pickle'))
+    assert nx.is_isomorphic(tree1, expected1)
+    assert nx.is_isomorphic(tree2, expected2)
+
+    a, b, tree = fetch_nn_input(Path('test/testcase27.txt'))
+    tree1, tree2 = phylogeny.nearest_neighbor_trees(tree, a, b)
+    # nx.readwrite.write_gpickle(tree1, Path('test/testcase27-1.pickle'))
+    expected1 = nx.readwrite.read_gpickle(Path('test/testcase27-1.pickle'))
+    assert nx.is_isomorphic(tree1, expected1)
+    # nx.readwrite.write_gpickle(tree1, Path('test/testcase27-2.pickle'))
+    expected2 = nx.readwrite.read_gpickle(Path('test/testcase27-2.pickle'))
+    assert nx.is_isomorphic(tree2, expected2)
+
+    a, b, tree = fetch_nn_input(Path('test/testcase28.txt'))
+    tree1, tree2 = phylogeny.nearest_neighbor_trees(tree, a, b)
+    # nx.readwrite.write_gpickle(tree1, Path('test/testcase28-1.pickle'))
+    expected1 = nx.readwrite.read_gpickle(Path('test/testcase28-1.pickle'))
+    assert nx.is_isomorphic(tree1, expected1)
+    # nx.readwrite.write_gpickle(tree1, Path('test/testcase28-2.pickle'))
+    expected2 = nx.readwrite.read_gpickle(Path('test/testcase28-2.pickle'))
+    assert nx.is_isomorphic(tree2, expected2)

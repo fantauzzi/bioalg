@@ -577,3 +577,15 @@ def small_parsimony_unrooted(tree, alphabet):
     score = small_parsimony(tree, alphabet)
     unroot_rooted(tree)
     return score
+
+
+def nearest_neighbor_trees(tree, a, b):
+    w, x = set(tree[a].keys()) - {b}
+    y, z = set(tree[b].keys()) - {a}
+    tree1 = deepcopy(tree)
+    tree1.add_edges_from([(a, y), (b, x)])
+    tree1.remove_edges_from([(a, x), (b, y)])
+    tree2 = deepcopy(tree)
+    tree2.add_edges_from([(a, z), (b, x)])
+    tree2.remove_edges_from([(a, x), (b, z)])
+    return tree1, tree2

@@ -161,3 +161,26 @@ def pretty_print_small_parsimony(tree, score):
         dist = phylogeny.hamming_distance(label1, label2)
         print(label1, '->', label2, ':', dist, sep='')
         print(label2, '->', label1, ':', dist, sep='')
+
+
+def fetch_nn_input(file_name):
+    tree = nx.Graph()
+    with open(file_name) as input_file:
+        line = input_file.readline().rstrip('\n')
+        a, b = line.split(' ')
+        a, b = int(a), int(b)
+        lines = input_file.readlines()
+        for line in lines:
+            node1, node2 = line.split('->')
+            node1, node2 = int(node1), int(node2)
+            tree.add_edge(node1, node2)
+
+    return a, b, tree
+
+
+def pretty_print_nn_trees(tree1, tree2):
+    for tree in (tree1, tree2):
+        for n1, n2 in tree.edges():
+            print(n1, '->', n2, sep='')
+            print(n2, '->', n1, sep='')
+        print()
