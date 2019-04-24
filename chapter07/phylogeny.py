@@ -412,6 +412,13 @@ def get_children(tree, node):
 
 
 def small_parsimony_symbol(tree, alphabet):
+    def get_sibling(tree, node):
+        parent = tree.nodes[node]['parent']
+        assert parent is not None
+        parent_children = set(tree[parent].keys()) - {tree.nodes[parent]['parent']}
+        sibling = (parent_children - {node}).pop()
+        return sibling
+
     ripe_nodes = set()
     # Find leaves in the tree, set their scores and mark their parents as ripe
     for node in tree.nodes():
@@ -420,7 +427,9 @@ def small_parsimony_symbol(tree, alphabet):
         assert tree.nodes[node]['label'] in alphabet
         tree.nodes[node]['score'] = {symbol: 0 if tree.nodes[node]['label'] == symbol else float('inf') for symbol in
                                      alphabet}
-        ripe_nodes |= {tree.nodes[node]['parent']}
+        sibling = get_sibling(tree, node)
+        if tree.nodes[sibling].get('score') is not None:
+            ripe_nodes |= {tree.nodes[node]['parent']}
 
     root = None  # Keep track of the root once you find it
     while ripe_nodes:
@@ -442,8 +451,9 @@ def small_parsimony_symbol(tree, alphabet):
         if parent is None:
             root = node  # The root has no parent
         else:
-            parent_children = set(tree[parent].keys()) - {tree.nodes[parent]['parent']}
-            sibling = (parent_children - {node}).pop()
+            # parent_children = set(tree[parent].keys()) - {tree.nodes[parent]['parent']}
+            # sibling = (parent_children - {node}).pop()
+            sibling = get_sibling(tree, node)
             if tree.nodes[sibling].get('score') is not None:
                 ripe_nodes |= {parent}
 
@@ -460,20 +470,22 @@ def small_parsimony_symbol(tree, alphabet):
 
     # Queue the root to process its children next (if they are not leaves)
     children = get_children(tree, root)
-    any_child = next(iter(children))
-    pending = deque([root]) if len(tree[any_child]) > 1 else []
+    # any_child = next(iter(children))
+    pending = deque([root]) if max([len(tree[child]) for child in children]) > 1 else []
 
     while pending:
         # Fetch a node from the queue to process its children
         node = pending.popleft()
         # If children are leaves, then nothing to be done with them, skip to the next pending node
         children = get_children(tree, node)
-        any_child = next(iter(children))
-        if len(tree[any_child]) == 1:
-            continue
+        # any_child = next(iter(children))
+        # if len(tree[any_child]) == 1:
+        #    continue
         node_label = tree.nodes[node]['label']
         # Process the children of 'node' by assigning them a label (a symbol from the alphabet)
         for child in children:
+            if len(tree[child]) == 1:  # If the child is a leaf, nothing to be done there, skip to the next child
+                continue
             min_score = float('inf')
             child_label = None
             for symbol in alphabet:
@@ -519,3 +531,49 @@ def small_parsimony(tree, alphabet):
                     scores[symbol] += score
                     tree.nodes[node]['score'] = score'''
     return root_score
+
+
+def root_unrooted(tree):
+    # Choose one edge to be broken in two edges by a new node, which will be the root
+    any_edge = next(iter(tree.edges()))
+    # Choose a name for the root
+    root = min(tree.nodes()) - 1
+    # Insert the root long the chosen edge
+    tree.remove_edge(*any_edge)
+    tree.add_edges_from([(root, any_edge[0]), (root, any_edge[1])])
+    # Starting from the newly added root, traverse the tree and set the parent of each node
+    tree.nodes[root]['parent'] = root  # Temporarily set the parent of the root to itself
+    pending = deque([root])
+    while pending:
+        node = pending.popleft()
+        for adj_node in tree[node].keys():
+            if tree.nodes[adj_node].get('parent') is None:
+                tree.nodes[adj_node]['parent'] = node
+                pending.append(adj_node)
+    # Now that all other nodes parent is set, set the parent of the root to None
+    tree.nodes[root]['parent'] = None
+
+
+def unroot_rooted(tree):
+    # Find the root
+    for node in tree.nodes():
+        if tree.nodes[node]['parent'] is None:
+            root = node
+            break
+    else:
+        assert False
+
+    # Remove the root, its edges, and connect the two nodes previously adjacent to the root with a new edge
+    root_adjs = tree[root].keys()
+    tree.remove_node(root)
+    tree.add_edge(*root_adjs)
+    # Remove the 'parent' property from every node
+    for node in tree.nodes():
+        del tree.nodes[node]['parent']
+
+
+def small_parsimony_unrooted(tree, alphabet):
+    root_unrooted(tree)
+    score = small_parsimony(tree, alphabet)
+    unroot_rooted(tree)
+    return score

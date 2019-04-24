@@ -133,6 +133,26 @@ def fetch_small_parsimony_input(file_name):
     return tree
 
 
+def fetch_small_parsimony_unrooted(file_name):
+    tree = nx.Graph()
+    with open(file_name) as input_file:
+        n_leaf = input_file.readline().rstrip('\n')
+        n_leaf = int(n_leaf)
+        for i_leaf in range(0, n_leaf):
+            input_file.readline()
+            line = input_file.readline().rstrip('\n')
+            left, right = line.rstrip('\n').split('->')
+            parent = int(left)
+            tree.add_edge(parent, i_leaf)
+            tree.nodes[i_leaf]['label'] = right
+        lines = input_file.readlines()
+        for line in lines:
+            left, right = line.rstrip('\n').split('->')
+            node1, node2 = int(left), int(right)
+            tree.add_edge(node1, node2)
+    return tree
+
+
 def pretty_print_small_parsimony(tree, score):
     print(score)
     for node1, node2 in tree.edges():
