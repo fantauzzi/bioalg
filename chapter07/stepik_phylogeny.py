@@ -1,10 +1,5 @@
-import matplotlib.pyplot as plt
-import networkx.drawing.nx_pylab as nxp
 import phylogeny
-from phylogeny import add_node, BinTreeAdj
-from pathlib import Path
 import networkx as nx
-import networkx.algorithms.isomorphism as iso
 
 
 def pretty_print_matrix(matrix):
@@ -150,6 +145,34 @@ def fetch_small_parsimony_unrooted(file_name):
             left, right = line.rstrip('\n').split('->')
             node1, node2 = int(left), int(right)
             tree.add_edge(node1, node2)
+    return tree
+
+
+def fetch_small_parsimony_unrooted2(file_name):
+    def str_is_int(s):
+        try:
+            int(s)
+            return True
+        except ValueError:
+            return False
+
+    tree = nx.Graph()
+    with open(file_name) as input_file:
+        n_leaf = input_file.readline().rstrip('\n')
+        n_leaf = int(n_leaf)
+        lines = input_file.readlines()
+        next_leaf = 0
+        for line in lines:
+            left, right = line.rstrip('\n').split('->')
+            if str_is_int(left) and not str_is_int(right):
+                tree.add_edge(int(left), next_leaf)
+                tree.nodes[next_leaf]['label'] = right
+                next_leaf += 1
+            elif not str_is_int(left) and str_is_int(right):
+                continue
+            else:
+                tree.add_edge(int(left), int(right))
+    assert next_leaf == n_leaf
     return tree
 
 

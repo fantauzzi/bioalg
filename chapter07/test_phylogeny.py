@@ -12,7 +12,8 @@ from stepik_phylogeny import fetch_small_parsimony_input, \
     fetch_small_parsimony_unrooted, \
     pretty_print_small_parsimony, \
     fetch_nn_input, \
-    pretty_print_nn_trees
+    pretty_print_nn_trees, \
+    fetch_small_parsimony_unrooted2
 
 
 def fix_nodes_numbering(tree):
@@ -440,7 +441,7 @@ def test_root_unrooted():
     assert nx.is_isomorphic(tree, expected)
 
 
-def test_small_parsimoby_unrooted():
+def test_small_parsimony_unrooted():
     tree = nx.Graph()
     # Tree below is the same as in test/testcase17.txt
     labels = ['CAAATCCC', 'ATTGCGAC', 'CTGCGCTG', 'ATGGACGA']
@@ -506,3 +507,26 @@ def test_nearest_neighbor_trees():
     # nx.readwrite.write_gpickle(tree1, Path('test/testcase28-2.pickle'))
     expected2 = nx.readwrite.read_gpickle(Path('test/testcase28-2.pickle'))
     assert nx.is_isomorphic(tree2, expected2)
+
+
+def test_nearest_neighbor_interchange():
+    tree = fetch_small_parsimony_unrooted2(Path('test/testcase29.txt'))
+    lp_tree, score = phylogeny.nearest_neighbor_interchange(tree, 'ACGT')
+    assert score == 21
+    # nx.readwrite.write_gpickle(lp_tree, Path('test/testcase29.pickle'))
+    expected = nx.readwrite.read_gpickle(Path('test/testcase29.pickle'))
+    assert nx.is_isomorphic(lp_tree, expected)
+
+    tree = fetch_small_parsimony_unrooted2(Path('test/testcase30.txt'))
+    lp_tree, score = phylogeny.nearest_neighbor_interchange(tree, 'ACGT')
+    assert score == 156
+    # nx.readwrite.write_gpickle(lp_tree, Path('test/testcase30.pickle'))
+    expected = nx.readwrite.read_gpickle(Path('test/testcase30.pickle'))
+    assert nx.is_isomorphic(lp_tree, expected)
+
+    tree = fetch_small_parsimony_unrooted2(Path('test/testcase31.txt'))
+    lp_tree, score = phylogeny.nearest_neighbor_interchange(tree, 'ACGT')
+    assert score == 163
+    # nx.readwrite.write_gpickle(lp_tree, Path('test/testcase31.pickle'))
+    expected = nx.readwrite.read_gpickle(Path('test/testcase31.pickle'))
+    assert nx.is_isomorphic(lp_tree, expected)

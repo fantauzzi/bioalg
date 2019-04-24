@@ -16,6 +16,8 @@ from itertools import product
 from collections import deque, namedtuple
 from copy import deepcopy
 
+# from stepik_phylogeny import pretty_print_small_parsimony  # For Stepik challenge only
+
 BinTreeAdj = namedtuple('BinTreeAdj', ['left', 'right', 'parent'])  # Adjacency list for a tree node
 
 
@@ -589,3 +591,40 @@ def nearest_neighbor_trees(tree, a, b):
     tree2.add_edges_from([(a, z), (b, x)])
     tree2.remove_edges_from([(a, x), (b, z)])
     return tree1, tree2
+
+
+def nearest_neighbor_interchange(tree, alphabet):
+    def unlabel_internal_nodes(tree):
+        """
+        Remove labels from internal nodes of a given parsimony tree.
+        :param tree: The parsimony tree, an nx.Graph.
+        """
+        for node in tree.nodes():
+            if len(tree[node].keys()) > 1:  # If it is an internal node
+                del tree.nodes[node]['label']
+
+    score = float('inf')
+    new_score = small_parsimony_unrooted(tree, alphabet)
+    new_tree = tree
+    best_tree = None
+    while new_score < score:
+        score = new_score
+        tree = new_tree
+        unlabel_internal_nodes(tree)
+        internal_edges = [(n1, n2) for n1, n2 in tree.edges() if len(tree[n1]) > 1 and len(tree[n2]) > 1]
+        for e in internal_edges:
+            tree1 = deepcopy(tree)
+            tree2, tree3 = nearest_neighbor_trees(tree, *e)
+            for neighbor_tree in [tree1, tree2, tree3]:
+                neighbor_score = small_parsimony_unrooted(neighbor_tree, alphabet)
+                if neighbor_score < new_score:
+                    new_score = neighbor_score
+                    new_tree = neighbor_tree
+                    best_tree = deepcopy(neighbor_tree)
+        """
+        # Below it is for Stepik challenge only
+        if new_score < score:
+            pretty_print_small_parsimony(best_tree, new_score)
+            print()
+        """
+    return best_tree, score
