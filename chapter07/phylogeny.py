@@ -404,16 +404,45 @@ def neighbor_joining(d):
     return graph
 
 
+'''
+NOTE
+----
+
+In the rest of the implementation I am using the networkx library for graphs. Parsimony trees are encoded as unoriented graphs (nx.Graph), with integer numbers for nodes. If the graph is rooted, then each node has an attribute 'parent' associating it with its parent, set to None for the root. Nodes may have the attribute 'label', a string.
+
+Tipically, the tree input to some parsimony problem has all the leaves labelled, and solving the problem consists in labelling all the internal nodes in a way that minimises the parsimony score for the tree.  
+'''
+
+
 def symbols_hamming_dist(symbol1, symbol2):
+    """
+    Returns the Hamming distance between two symbols, i.e. 1 if they are different, 0 if they are the same.
+    :param symbol1: The first symbol.
+    :param symbol2: The second symbol.
+    :return: The Hamming distance, an integer.
+    """
     return 0 if symbol1 == symbol2 else 1
 
 
 def get_children(tree, node):
+    """
+    Returns the children of a given node in a tree.
+    :param tree: The tree, an ng.Graph.
+    :param node: The node from the tree, a graph node.
+    :return: All children of the node in the tree, a set of graph nodes.
+    """
     children = set(tree[node].keys()) - {tree.nodes[node]['parent']}
     return children
 
 
 def small_parsimony_symbol(tree, alphabet):
+    """
+    Returns the minimum parsimony score for a binary rooted tree with leaves labelled by symbols, and builds the corresponding small parsimony tree.
+    :param tree: The tree, an nx.Graph; it is a rooted binary tree with leaves labelled by strings, each string one symbol long. Upon return from the function, also internal nodes of the tree are labelled, in order to minimise the parsimony score of the tree.
+    :param alphabet: The alphabet of symbols for the labels, a sequence of characters.
+    :return: The minimum small parsimony score of the tree, an integer.
+    """
+
     def get_sibling(tree, node):
         parent = tree.nodes[node]['parent']
         assert parent is not None
@@ -438,7 +467,7 @@ def small_parsimony_symbol(tree, alphabet):
         node = ripe_nodes.pop()
         # Children of 'node' are its adjacent nodes except its parent
         children = get_children(tree, node)
-        # Compute score[node_symbol] for every node_symbol in alphabet, and set it as property of 'node'
+        # Compute score[node_symbol] for every node_symbol in alphabet, and set it as attribute of 'node'
         tree.nodes[node]['score'] = {}
         for node_symbol in alphabet:
             score = 0
@@ -453,13 +482,11 @@ def small_parsimony_symbol(tree, alphabet):
         if parent is None:
             root = node  # The root has no parent
         else:
-            # parent_children = set(tree[parent].keys()) - {tree.nodes[parent]['parent']}
-            # sibling = (parent_children - {node}).pop()
             sibling = get_sibling(tree, node)
             if tree.nodes[sibling].get('score') is not None:
                 ripe_nodes |= {parent}
 
-    # Upward pass is done, now do the downward pass
+    # Upward pass from leaves to root is done, now do the downward pass from root tto leaves.
 
     # Determine score and symbol for the root
     root_min_score = float('inf')
@@ -472,7 +499,6 @@ def small_parsimony_symbol(tree, alphabet):
 
     # Queue the root to process its children next (if they are not leaves)
     children = get_children(tree, root)
-    # any_child = next(iter(children))
     pending = deque([root]) if max([len(tree[child]) for child in children]) > 1 else []
 
     while pending:
@@ -480,9 +506,6 @@ def small_parsimony_symbol(tree, alphabet):
         node = pending.popleft()
         # If children are leaves, then nothing to be done with them, skip to the next pending node
         children = get_children(tree, node)
-        # any_child = next(iter(children))
-        # if len(tree[any_child]) == 1:
-        #    continue
         node_label = tree.nodes[node]['label']
         # Process the children of 'node' by assigning them a label (a symbol from the alphabet)
         for child in children:
@@ -502,6 +525,12 @@ def small_parsimony_symbol(tree, alphabet):
 
 
 def small_parsimony(tree, alphabet):
+    """
+    Returns the minimum parsimony score for a binary rooted tree with leaves labelled by strings, and builds the corresponding small parsimony tree.
+    :param tree: The tree, an nx.Graph; it is a rooted binary tree with leaves labelled by strings. Upon return from the function, also internal nodes of the tree are labelled, in order to minimise the parsimony score of the tree.
+    :param alphabet: The alphabet of symbols for the labels, a sequence of characters.
+    :return: The minimum small parsimony score of the tree, an integer.
+    """
     # Look for any of the leaves, to detect the length of the leaf labels
     for node in tree.nodes():
         if len(tree[node]) == 1:
@@ -512,7 +541,7 @@ def small_parsimony(tree, alphabet):
 
     # Make a copy of the tree, to label its nodes with one symbol per node at a time
     symbol_tree = deepcopy(tree)
-    ''' Run small parsimony on symbol_tree n times, each time after copying into it one symbol from 'tree' leafe labels '''
+    ''' Run small parsimony on 'symbol_tree' n times, each time after copying into it one symbol from 'tree' leaf labels '''
     root_score = 0
     for i in range(0, n):
         for node in tree.nodes():  # Find the leaves in 'tree'
@@ -523,19 +552,20 @@ def small_parsimony(tree, alphabet):
         root_score += small_parsimony_symbol(symbol_tree, alphabet)
         for node in symbol_tree.nodes():  # Find the internal nodes in 'small_p_tree'
             if len(tree[node]) != 1:
-                # Append to 'node' label the symbol from the respective node in
+                # Append to 'node' label the symbol from the respective node in 'symbol_tree'
                 symbol = symbol_tree.nodes[node]['label']
                 tree_label = tree.nodes[node].get('label', '')
                 tree_label = tree_label + symbol
                 tree.nodes[node]['label'] = tree_label
-                '''for symbol, score in symbol_tree.nodes[node]['score'].items():
-                    scores = tree.nodes[node].get('score', {key: 0 for key in alphabet})
-                    scores[symbol] += score
-                    tree.nodes[node]['score'] = score'''
     return root_score
 
 
 def root_unrooted(tree):
+    """
+    Turns an unrooted binary tree into a rooted one, by inserting a root node along one of its edges. The selected edge is removed from the tree, and the root is connected to the endpoints of the removed edge by two newly inserted edges. The function add the 'parent' attribute in each node, such that it is possible to traverse the tree from any of its nodes up to the root.
+    :param tree: The binary tree, an nx.Graph; its nodes must be numbers.
+    :return: The newly inserted root, a number.
+    """
     # Choose one edge to be broken in two edges by a new node, which will be the root
     any_edge = next(iter(tree.edges()))
     # Choose a name for the root
@@ -554,9 +584,14 @@ def root_unrooted(tree):
                 pending.append(adj_node)
     # Now that all other nodes parent is set, set the parent of the root to None
     tree.nodes[root]['parent'] = None
+    return root
 
 
 def unroot_rooted(tree):
+    """
+    Turns a rooted binary tree into an unrooted one, by removing the root and its edges from the tree; it connects the two nodes previously adjacent to the root with a newly added edge. The function also removes the 'parent' attribute from every node.
+    :param tree: The binary tree, an nx.Graph.
+    """
     # Find the root
     for node in tree.nodes():
         if tree.nodes[node]['parent'] is None:
@@ -569,12 +604,18 @@ def unroot_rooted(tree):
     root_adjs = tree[root].keys()
     tree.remove_node(root)
     tree.add_edge(*root_adjs)
-    # Remove the 'parent' property from every node
+    # Remove the 'parent' attribute from every node
     for node in tree.nodes():
         del tree.nodes[node]['parent']
 
 
 def small_parsimony_unrooted(tree, alphabet):
+    """
+    Returns the minimum parsimony score for a binary unrooted tree with leaves labelled by strings, and builds the corresponding small parsimony tree.
+    :param tree: The tree, an nx.Graph; it is an unrooted binary tree with leaves labelled by strings. Upon return from the function, also internal nodes of the tree are labelled, in order to minimise the parsimony score of the tree.
+    :param alphabet: The labels alphabet, a sequence of characters.
+    :return: The minimum small parsimony score of the tree, an integer.
+    """
     root_unrooted(tree)
     score = small_parsimony(tree, alphabet)
     unroot_rooted(tree)
@@ -582,8 +623,16 @@ def small_parsimony_unrooted(tree, alphabet):
 
 
 def nearest_neighbor_trees(tree, a, b):
-    w, x = set(tree[a].keys()) - {b}
-    y, z = set(tree[b].keys()) - {a}
+    """
+    Returns the two nearest neighbors of a given tree, with respect to one of its edges.
+    :param tree: The tree, an nx.Graph.
+    :param a: One endpoint of the edge, a graph node.
+    :param b: The other endpoint of the edge, another graph node.
+    :return: The two nearest neighbors, a pair of nx.Graph instances.
+    """
+    w, x = set(tree[a].keys()) - {b}  # Nodes adjacent to 'a', except 'b'
+    y, z = set(tree[b].keys()) - {a}  # Nodes adjacent to 'b', except 'a'
+    # A nearest neighbor can be obtained by replacing two properly chosen edges in the given tree with two new edges
     tree1 = deepcopy(tree)
     tree1.add_edges_from([(a, y), (b, x)])
     tree1.remove_edges_from([(a, x), (b, y)])
@@ -594,6 +643,13 @@ def nearest_neighbor_trees(tree, a, b):
 
 
 def nearest_neighbor_interchange(tree, alphabet):
+    """
+    Improves an arbitrary unrooted parsimony binary tree, whose leaves are labelled by strings, by applying the nearest neighbor interchange euristic, and returns the score of the improved tree. The algorithm implementation iterates until it is unable to further improve the score.
+    :param tree: The unrooted binary tree, an nx.Graph, with leaf nodes labelled by strings. It is an input parameter, not modified by the function.
+    :param alphabet: The strings alphabet, a sequence of strings.
+    :return: A pair with the score of the improved parsimony tree, a number, and the tree, an nx.Graph with all nodes labelled.
+    """
+
     def unlabel_internal_nodes(tree):
         """
         Remove labels from internal nodes of a given parsimony tree.
@@ -622,7 +678,7 @@ def nearest_neighbor_interchange(tree, alphabet):
                     new_tree = neighbor_tree
                     best_tree = deepcopy(neighbor_tree)
         """
-        # Below it is for Stepik challenge only
+        # Code below is for Stepik challenge only
         if new_score < score:
             pretty_print_small_parsimony(best_tree, new_score)
             print()

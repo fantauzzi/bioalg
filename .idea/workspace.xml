@@ -6,16 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/chapter07/test/testcase29.pickle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chapter07/test/testcase29.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chapter07/test/testcase30.pickle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chapter07/test/testcase30.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chapter07/test/testcase31.pickle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chapter07/test/testcase31.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chapter07/phylogeny.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter07/phylogeny.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chapter07/stepik_phylogeny.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter07/stepik_phylogeny.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chapter07/test_phylogeny.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter07/test_phylogeny.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter07/phylogeny.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="607" column="19" selection-start-line="607" selection-start-column="19" selection-end-line="607" selection-end-column="19" />
+            <state relative-caret-position="72">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
               <folding>
                 <element signature="e#640#669#0" expanded="true" />
               </folding>
@@ -40,8 +31,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter07/test_phylogeny.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="375" column="54" selection-start-line="375" selection-start-column="54" selection-end-line="375" selection-end-column="54" />
+            <state>
               <folding>
                 <element signature="e#76#92#0" expanded="true" />
               </folding>
@@ -49,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter07/stepik_phylogeny.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="79" column="23" lean-forward="true" selection-start-line="79" selection-start-column="23" selection-end-line="79" selection-end-column="23" />
+            <state relative-caret-position="-100">
+              <caret line="84" selection-start-line="84" selection-end-line="84" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -72,9 +62,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>limb</find>
-      <find>hamming</find>
-      <find>ATCCATAAACCGCTTAAACATATCCACGAGTCCCTCTAGCCCAGTACTCAGCGACAAGTCGGGTTACAGCGACAAGATTCCGCCCAAACACACACGAAAGGACCCAGCCGGAACAAGCATAACAAACACAAAAAACAGTAAACATGAAAAAAGTAGATTCA</find>
       <find>ATCCATAAACCGCTTATACATATCCACGAGTCCCTCTCGCCCAGTACTCAGCGACAAGTCGGGTTACAGCGACTAGATTCCGCCCAAACACACACGAAAGGACCCAGCCGGAACAAGCATAAGAAACACATAAAACAGTAAACATGAAAAAAGTAGATTCA</find>
       <find>next</find>
       <find>child_e</find>
@@ -102,12 +89,17 @@
       <find>TCTGCGGA</find>
       <find>xtest</find>
       <find>xtes</find>
+      <find>attribute</find>
+      <find>propert</find>
+      <find>property</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;&quot;</replace>
       <replace />
       <replace>],</replace>
       <replace>,</replace>
+      <replace>property</replace>
+      <replace>attribute</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -186,6 +178,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -208,7 +201,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -395,15 +387,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_phylogeny_py - 2019.04.25 at 00h 55m 29s.xml">
-      <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_phylogeny_py - 2019.04.25 at 00h 56m 29s.xml">
-      <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_phylogeny_py - 2019.04.25 at 00h 57m 09s.xml">
-      <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
-    </history-entry>
     <history-entry file="pytest_in_test_phylogeny_py - 2019.04.25 at 00h 57m 16s.xml">
       <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
     </history-entry>
@@ -425,6 +408,15 @@
     <history-entry file="pytest_in_test_phylogeny_py - 2019.04.25 at 01h 10m 26s.xml">
       <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
     </history-entry>
+    <history-entry file="pytest_in_test_phylogeny_py - 2019.04.25 at 10h 44m 40s.xml">
+      <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_phylogeny_py - 2019.04.25 at 10h 49m 42s.xml">
+      <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_phylogeny_py - 2019.04.25 at 11h 38m 54s.xml">
+      <configuration name="pytest in test_phylogeny.py" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -439,8 +431,8 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.47049809" visible="true" weight="0.27694792" />
-      <window_info id="Structure" order="1" sideWeight="0.5295019" side_tool="true" visible="true" weight="0.27694792" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4697318" visible="true" weight="0.27694792" />
+      <window_info id="Structure" order="1" sideWeight="0.5302682" side_tool="true" visible="true" weight="0.27694792" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32873562" />
@@ -1024,30 +1016,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter07/test_phylogeny.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="375" column="54" selection-start-line="375" selection-start-column="54" selection-end-line="375" selection-end-column="54" />
+        <state>
           <folding>
             <element signature="e#76#92#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter07/phylogeny.py">
+    <entry file="file://$PROJECT_DIR$/chapter07/stepik_phylogeny.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="607" column="19" selection-start-line="607" selection-start-column="19" selection-end-line="607" selection-end-column="19" />
+        <state relative-caret-position="-100">
+          <caret line="84" selection-start-line="84" selection-end-line="84" />
           <folding>
-            <element signature="e#640#669#0" expanded="true" />
+            <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter07/stepik_phylogeny.py">
+    <entry file="file://$PROJECT_DIR$/chapter07/phylogeny.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="79" column="23" lean-forward="true" selection-start-line="79" selection-start-column="23" selection-end-line="79" selection-end-column="23" />
+        <state relative-caret-position="72">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
           <folding>
-            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#640#669#0" expanded="true" />
           </folding>
         </state>
       </provider>
