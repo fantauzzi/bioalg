@@ -107,5 +107,34 @@ def peptide_from_ideal_spectrum(spectrum):
             return ''.join(peptide)
     return None
 
+def vector_from_peptide(peptide):
+    """
+    Returns the peptide vector for a given peptide.
+    :param peptide: The given peptide, a string.
+    :return: The peptide vector, a list of integer numbers (0 and 1).
+    """
+    ammino_mass = get_ammino_mass()
+    peptide_vector = []
+    for ammino in peptide:
+        mass = ammino_mass[ammino]
+        peptide_vector.extend([0]*(mass-1)+[1])
+    return peptide_vector
 
 
+def peptide_from_vector(vector):
+    """
+    Returns the peptide for a given peptide vector.
+    :param vector: The peptide vector, a sequence of numbers, each number being either 0 or 1.
+    :return: The peptide for the given vector, a string, if it exists; None otherwise.
+    """
+    reverse_ammino_mass = get_reverse_ammino_mass()
+    peptide = []
+    previous_mass = 0
+    for i in range(0, len(vector)):
+        if vector[i]:
+            ammino = reverse_ammino_mass.get(i+1-previous_mass)
+            if ammino is None:
+                return None
+            peptide.append(ammino)
+            previous_mass = i+1
+    return ''.join(peptide)
