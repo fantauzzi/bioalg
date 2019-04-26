@@ -88,3 +88,24 @@ def ideal_spectrum(peptide):
         if i != 0 and i != len(peptide):
             spectrum.append(measure_mass(postfix))
     return sorted(spectrum)
+
+
+def peptide_from_ideal_spectrum(spectrum):
+    """
+    Returns a peptide corresponding to a given ideal spectrum.
+    :param spectrum: The ideal spectrum, a sequence of integer numbers in non-decreasing order; it may contain repeated values and it should not contain 0.
+    :return: The peptide decoded from the given spectrum, a string, if such a peptide exists; None otherwise.
+    """
+    spectrum = [0] + spectrum
+    assert sorted(spectrum) == spectrum
+    graph = graph_from_spectrum(spectrum)
+    paths = nx.all_simple_paths(graph, 0, max(spectrum))
+    for path in map(nx.utils.pairwise, paths):
+        peptide = [graph.edges[edge]['ammino'] for edge in path]
+        ideal = ideal_spectrum(peptide)
+        if ideal == spectrum:
+            return ''.join(peptide)
+    return None
+
+
+
