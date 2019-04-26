@@ -13,6 +13,5 @@ def pretty_print_adj(graph):
     for edge in sorted(graph.edges()):
         node1, node2 = edge
         ammino = graph[node1][node2]['ammino']
-        lines.append(str(node1)+'->'+str(node2)+':'+ammino)
+        lines.append(str(node1) + '->' + str(node2) + ':' + ammino)
     print(*lines, sep='\n')
-

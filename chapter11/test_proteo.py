@@ -75,6 +75,7 @@ def test_peptide_vector_from_peptide():
     expected = fetch_ints(Path('test/testcase05.txt'))
     assert pept_vect == expected
 
+
 def test_peptide_from_vector():
     vector = fetch_ints(Path('test/testcase06.txt'))
     peptide = proteo.peptide_from_vector(vector)
@@ -84,7 +85,20 @@ def test_peptide_from_vector():
     peptide = proteo.peptide_from_vector(vector)
     assert peptide == 'CNWSTDLSQEFTCAQFTYYYMLMQQLTW'
 
-    vector = [0]*55+[1]
+    vector = [0] * 55 + [1]
     peptide = proteo.peptide_from_vector(vector)
     assert peptide is None
 
+
+def test_peptide_from_spectral_vector():
+    spectrum = fetch_ints(Path('test/testcase08.txt'))
+    peptide = proteo.peptide_from_spectral_vector(spectrum)
+    assert peptide == 'GGPGGPGGAGG'
+
+    spectrum = fetch_ints(Path('test/testcase09.txt'))
+    peptide = proteo.peptide_from_spectral_vector(spectrum)
+    assert peptide == 'DAGGGGGGTGGV'
+
+    spectrum = fetch_ints(Path('test/testcase10.txt'))
+    peptide = proteo.peptide_from_spectral_vector(spectrum)
+    assert peptide == 'CGEAGLQG'
