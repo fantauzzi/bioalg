@@ -1,7 +1,7 @@
 from pathlib import Path
 import networkx as nx
 import proteo
-from stepik_proteo import fetch_ints, pretty_print_adj, fetch_ints_and_string
+from stepik_proteo import fetch_ints, pretty_print_adj, fetch_ints_and_string, fetch_psm_search_input
 
 
 def test_graph_from_spectrum():
@@ -106,13 +106,61 @@ def test_peptide_from_spectral_vector():
 
 def test_identify_peptide_from_proteome():
     spectrum, proteome = fetch_ints_and_string(Path('test/testcase11.txt'))
-    peptide = proteo.identify_peptide_from_proteome(spectrum, proteome)
+    peptide, score = proteo.identify_peptide_from_proteome(spectrum, proteome)
     assert peptide == 'KLEAARSCFSTRNE'
+    assert score == 274
 
     spectrum, proteome = fetch_ints_and_string(Path('test/testcase12.txt'))
-    peptide = proteo.identify_peptide_from_proteome(spectrum, proteome)
+    peptide, score = proteo.identify_peptide_from_proteome(spectrum, proteome)
     assert peptide == 'SQSVIKFTESATGGN'
+    assert score == 234
 
     spectrum, proteome = fetch_ints_and_string(Path('test/testcase13.txt'))
-    peptide = proteo.identify_peptide_from_proteome(spectrum, proteome)
+    peptide, score = proteo.identify_peptide_from_proteome(spectrum, proteome)
     assert peptide == 'LQKTIIAFHSHVHT'
+    assert score == 142
+
+
+def test_psm_search():
+    spectra, proteome, threshold = fetch_psm_search_input(Path('test/testcase14.txt'))
+    peptides = proteo.psm_search(proteome, spectra, threshold)
+    assert sorted(peptides) == sorted(['QQCGVHEYFWVSKK',
+                                       'HTNGPDCSQYQLLK',
+                                       'VIAAGAHPADGQGVRGP',
+                                       'NGMPFCCMCWDVVM',
+                                       'AAPVCLQQMQPKAVL',
+                                       'SIAQIMVEYTVHGH',
+                                       'KMARKRHIHKFLSP',
+                                       'NRAEQFDMTKYCV',
+                                       'ADMCRPCQACTGKAFG',
+                                       'CKFADFDSKTMGVITQ',
+                                       'DETTVPHLVCPWHD',
+                                       'IFWVHEMMYHCE',
+                                       'GWKRGTYEIIFCPP',
+                                       'DGQGVRGPHQIILMVR',
+                                       'TCFAAGAHVMRKGCH',
+                                       'DCQNYMLMHMVETG',
+                                       'CYCMFHTNTARGERK'])
+
+    spectra, proteome, threshold = fetch_psm_search_input(Path('test/testcase15.txt'))
+    peptides = proteo.psm_search(proteome, spectra, threshold)
+    assert sorted(peptides) == sorted(['MIVALRDMFFFPR',
+                                       'AGFQCLEGVDHAMKK',
+                                       'PYTCKGAHADCPPCAG',
+                                       'CQLTTTKHCWSWDP',
+                                       'DPTCVNMSLAISFVYCG',
+                                       'HSDVQTENSNNPAVPM',
+                                       'MWKYGDFVTCIDP',
+                                       'HHRANTPLVAEGAIIC',
+                                       'LKQKDWCGISRADD',
+                                       'LPSDQIKILERVM',
+                                       'MAVWTCWHCGHNAT',
+                                       'LNFEVVVTMWALWL',
+                                       'IGRIPVEHQQFMAC',
+                                       'KHEGCYRPECTVW',
+                                       'AWLYPPYRFESFC',
+                                       'NCGQFARGWCGCTTA',
+                                       'TSQPPIYIRSHVNKT',
+                                       'AKYEVHIVSTDRGYN',
+                                       'MAMEWLSFHMQR',
+                                       'VWVQGNAAIAKRHRF'])

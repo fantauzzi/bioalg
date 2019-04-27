@@ -18,6 +18,21 @@ def fetch_ints_and_string(file_name):
     return ints, s
 
 
+def fetch_psm_search_input(file_name):
+    with open(file_name) as input_file:
+        lines = input_file.readlines()
+    lines = [line.rstrip('\n') for line in lines]
+    spectra = []
+    for line in lines[:len(lines) - 2]:
+        ints = line.split(' ')
+        ints = [int(item) for item in ints]
+        spectra.append(ints)
+    s = lines[-2]
+    thr = lines[-1]
+    thr = int(thr)
+    return spectra, s, thr
+
+
 def pretty_print_adj(graph):
     if not graph.edges():
         return

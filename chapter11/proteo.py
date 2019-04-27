@@ -179,11 +179,12 @@ def peptide_from_spectral_vector(spectrum):
 
 def identify_peptide_from_proteome(spectrum, proteome):
     """
-    Returns a substring of a given proteome with maximum score against a spectral vector. The score is the dot product between the peptide vector of the substring and the spectrum, when they have the same length, -infinity otherwise.
+    Returns a substring of a given proteome with maximum score against a spectral vector, and its score. The score is the dot product between the peptide vector of the substring and the spectrum, when they have the same length, -infinity otherwise.
     :param spectrum: The spectral vector, a sequence of 1 and 0.
     :param proteome: The given proteome, a string.
-    :return: The proteome substring that maximises the score, a string.
+    :return: A pair with the proteome substring that maximises the score, a string, and its score, an integer.
     """
+
     def score_peptide(peptide, spectrum):
         peptide_v = vector_from_peptide(peptide)
         assert len(peptide_v) == len(spectrum)
@@ -208,4 +209,20 @@ def identify_peptide_from_proteome(spectrum, proteome):
             elif mass > expected_mass:
                 break
 
-    return best_peptide
+    return best_peptide, best_score
+
+
+def psm_search(proteome, spectral_vectors, threshold):
+    """
+    Returns all substrings of a given proteome with the highest score against one vector in a collection of spectral vectors that meet a certain threshold.
+    :param proteome: The given proteome, a string.
+    :param spectral_vectors: The collection of spectral vectors, a sequence of sequences of 1s and 0s.
+    :param threshold: The threshold, a number.
+    :return: The highest scoring substrings whose score is at least equal to the threhsold, a list of strings.
+    """
+    res = []  # The resulting list of proteoms
+    for spectrum in spectral_vectors:
+        peptide, score = identify_peptide_from_proteome(spectrum, proteome)
+        if score >= threshold:
+            res.append(peptide)
+    return res
