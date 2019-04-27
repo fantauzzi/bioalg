@@ -1,7 +1,7 @@
 from pathlib import Path
 import networkx as nx
 import proteo
-from stepik_proteo import fetch_ints, pretty_print_adj
+from stepik_proteo import fetch_ints, pretty_print_adj, fetch_ints_and_string
 
 
 def test_graph_from_spectrum():
@@ -102,3 +102,17 @@ def test_peptide_from_spectral_vector():
     spectrum = fetch_ints(Path('test/testcase10.txt'))
     peptide = proteo.peptide_from_spectral_vector(spectrum)
     assert peptide == 'CGEAGLQG'
+
+
+def test_identify_peptide_from_proteome():
+    spectrum, proteome = fetch_ints_and_string(Path('test/testcase11.txt'))
+    peptide = proteo.identify_peptide_from_proteome(spectrum, proteome)
+    assert peptide == 'KLEAARSCFSTRNE'
+
+    spectrum, proteome = fetch_ints_and_string(Path('test/testcase12.txt'))
+    peptide = proteo.identify_peptide_from_proteome(spectrum, proteome)
+    assert peptide == 'SQSVIKFTESATGGN'
+
+    spectrum, proteome = fetch_ints_and_string(Path('test/testcase13.txt'))
+    peptide = proteo.identify_peptide_from_proteome(spectrum, proteome)
+    assert peptide == 'LQKTIIAFHSHVHT'

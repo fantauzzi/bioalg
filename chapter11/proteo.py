@@ -175,3 +175,37 @@ def peptide_from_spectral_vector(spectrum):
     path_edges = nx.utils.pairwise(longest_path)
     peptide = [dag[node1][node2]['amino'] for (node1, node2) in path_edges]
     return ''.join(peptide)
+
+
+def identify_peptide_from_proteome(spectrum, proteome):
+    """
+    Returns a substring of a given proteome with maximum score against a spectral vector. The score is the dot product between the peptide vector of the substring and the spectrum, when they have the same length, -infinity otherwise.
+    :param spectrum: The spectral vector, a sequence of 1 and 0.
+    :param proteome: The given proteome, a string.
+    :return: The proteome substring that maximises the score, a string.
+    """
+    def score_peptide(peptide, spectrum):
+        peptide_v = vector_from_peptide(peptide)
+        assert len(peptide_v) == len(spectrum)
+        score = sum([digit * spectrum_item for digit, spectrum_item in zip(peptide_v, spectrum)])
+        return score
+
+    amino_mass = get_amino_mass()
+    expected_mass = len(spectrum)
+    m = len(proteome)
+    best_score = float('-inf')
+    best_peptide = None
+    for i in range(0, m):
+        mass = 0
+        for j in range(i + 1, m):
+            peptide = proteome[i:j]
+            mass += amino_mass[proteome[j - 1]]
+            if mass == expected_mass:
+                score = score_peptide(peptide, spectrum)
+                if score > best_score:
+                    best_score = score
+                    best_peptide = peptide
+            elif mass > expected_mass:
+                break
+
+    return best_peptide
