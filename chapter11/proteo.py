@@ -226,3 +226,45 @@ def psm_search(proteome, spectral_vectors, threshold):
         if score >= threshold:
             res.append(peptide)
     return res
+
+
+def size_of_spectral_dict(spectrum, threshold, max_score):
+    amino_mass = get_amino_mass()
+    pre_computed_size = {}
+
+    def size(i, t):
+        if (i, t) == (0, 0):
+            return 1  # Only the empty amino acid (empty string) has mass 0
+        if t < 0 or i <= 0:
+            return 0
+        the_size = pre_computed_size.get((i, t))
+        if the_size is None:
+            the_size = sum([size(i - amino_mass[amino], t - spectrum[i - 1]) for amino in amino_mass.keys()])
+            pre_computed_size[(i, t)] = the_size
+        return the_size
+
+    m = len(spectrum)
+    totalsize = sum([size(m, t) for t in range(threshold, max_score + 1)])
+
+    return totalsize
+
+
+def prob_of_spectral_dict(spectrum, threshold, max_score):
+    amino_mass = get_amino_mass()
+    pre_computed_prob = {}
+
+    def prob(i, t):
+        if (i, t) == (0, 0):
+            return 1  # Only the empty amino acid (empty string) has mass 0
+        if t < 0 or i <= 0:
+            return 0
+        the_prob = pre_computed_prob.get((i, t))
+        if the_prob is None:
+            the_prob = sum([prob(i - amino_mass[amino], t - spectrum[i - 1]) for amino in amino_mass.keys()])/len(amino_mass)
+            pre_computed_prob[(i, t)] = the_prob
+        return the_prob
+
+    m = len(spectrum)
+    totalprob = sum([prob(m, t) for t in range(threshold, max_score + 1)])
+
+    return totalprob

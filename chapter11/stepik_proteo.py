@@ -33,6 +33,16 @@ def fetch_psm_search_input(file_name):
     return spectra, s, thr
 
 
+def fetch_spectral_dict_input(file_name):
+    with open(file_name) as input_file:
+        ints = parse_ints(input_file)
+        thr = input_file.readline().rstrip('\n')
+        thr = int(thr)
+        max_score = input_file.readline().rstrip('\n')
+        max_score = int(max_score)
+    return ints, thr, max_score
+
+
 def pretty_print_adj(graph):
     if not graph.edges():
         return

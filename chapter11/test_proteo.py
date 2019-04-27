@@ -1,7 +1,9 @@
 from pathlib import Path
 import networkx as nx
+from numpy import isclose
 import proteo
-from stepik_proteo import fetch_ints, pretty_print_adj, fetch_ints_and_string, fetch_psm_search_input
+from stepik_proteo import fetch_ints, pretty_print_adj, fetch_ints_and_string, fetch_psm_search_input, \
+    fetch_spectral_dict_input
 
 
 def test_graph_from_spectrum():
@@ -164,3 +166,31 @@ def test_psm_search():
                                        'AKYEVHIVSTDRGYN',
                                        'MAMEWLSFHMQR',
                                        'VWVQGNAAIAKRHRF'])
+
+
+def test_size_of_spectral_dict():
+    spectrum, threshold, max_score = fetch_spectral_dict_input(Path('test/testcase16.txt'))
+    size = proteo.size_of_spectral_dict(spectrum, threshold, max_score)
+    assert size == 330
+
+    spectrum, threshold, max_score = fetch_spectral_dict_input(Path('test/testcase17.txt'))
+    size = proteo.size_of_spectral_dict(spectrum, threshold, max_score)
+    assert size == 336
+
+    spectrum, threshold, max_score = fetch_spectral_dict_input(Path('test/testcase18.txt'))
+    size = proteo.size_of_spectral_dict(spectrum, threshold, max_score)
+    assert size == 293
+
+
+def test_prob_of_spectral_dict():
+    spectrum, threshold, max_score = fetch_spectral_dict_input(Path('test/testcase19.txt'))
+    prob = proteo.prob_of_spectral_dict(spectrum, threshold, max_score)
+    assert isclose(prob, 0.00132187890625)
+
+    spectrum, threshold, max_score = fetch_spectral_dict_input(Path('test/testcase20.txt'))
+    prob = proteo.prob_of_spectral_dict(spectrum, threshold, max_score)
+    assert isclose(prob, .00012864921875)
+
+    spectrum, threshold, max_score = fetch_spectral_dict_input(Path('test/testcase21.txt'))
+    prob = proteo.prob_of_spectral_dict(spectrum, threshold, max_score)
+    assert isclose(prob, 8.381796875e-05)
