@@ -22,19 +22,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter11/proteo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="248" column="16" selection-start-line="248" selection-start-column="16" selection-end-line="248" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chapter11/test_proteo.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="708">
-              <caret line="196" selection-start-line="196" selection-end-line="196" />
+            <state relative-caret-position="524">
+              <caret line="306" column="27" lean-forward="true" selection-start-line="306" selection-start-column="27" selection-end-line="306" selection-end-column="27" />
               <folding>
-                <element signature="e#0#24#0" expanded="true" />
+                <element signature="e#0#21#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -43,8 +34,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chapter11/stepik_proteo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+            <state relative-caret-position="1488">
+              <caret line="62" selection-start-line="62" selection-end-line="62" />
             </state>
           </provider>
         </entry>
@@ -80,7 +71,6 @@
       <find>root =</find>
       <find>48-&gt;36</find>
       <find>TCTGCGGA</find>
-      <find>xtest</find>
       <find>xtes</find>
       <find>attribute</find>
       <find>propert</find>
@@ -90,6 +80,7 @@
       <find>ammino</find>
       <find>pattern</find>
       <find>[0]</find>
+      <find>xtest</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;&quot;</replace>
@@ -109,10 +100,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/chapter10/test/testcase06.txt" />
-        <option value="$PROJECT_DIR$/chapter10/test/testcase07.txt" />
-        <option value="$PROJECT_DIR$/chapter10/test/testcase08.txt" />
-        <option value="$PROJECT_DIR$/chapter10/test/testcase09.txt" />
         <option value="$PROJECT_DIR$/chapter10/tmp.py" />
         <option value="$PROJECT_DIR$/chapter10/test/testcase10.txt" />
         <option value="$PROJECT_DIR$/chapter10/test/testcase11.txt" />
@@ -151,13 +138,17 @@
         <option value="$PROJECT_DIR$/chapter11/test/textcase15.txt" />
         <option value="$PROJECT_DIR$/chapter11/test/testcase15.txt" />
         <option value="$PROJECT_DIR$/chapter11/test/testcase16.txt" />
-        <option value="$PROJECT_DIR$/chapter11/stepik_proteo.py" />
         <option value="$PROJECT_DIR$/chapter11/test/testcase17.txt" />
         <option value="$PROJECT_DIR$/chapter11/test/testcase18.txt" />
         <option value="$PROJECT_DIR$/chapter11/test/testcase19.txt" />
         <option value="$PROJECT_DIR$/chapter11/test/testcaset20.txt" />
         <option value="$PROJECT_DIR$/chapter11/test/testcase20.txt" />
         <option value="$PROJECT_DIR$/chapter11/test/testcase21.txt" />
+        <option value="$PROJECT_DIR$/chapter11/stepik_proteo.py" />
+        <option value="$PROJECT_DIR$/chapter11/test/testcaset22.txt" />
+        <option value="$PROJECT_DIR$/chapter11/test/testcase22.txt" />
+        <option value="$PROJECT_DIR$/chapter11/test/testcase24.txt" />
+        <option value="$PROJECT_DIR$/chapter11/test/testcase25.txt" />
         <option value="$PROJECT_DIR$/chapter11/test_proteo.py" />
         <option value="$PROJECT_DIR$/chapter11/proteo.py" />
       </list>
@@ -176,7 +167,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -199,6 +189,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -254,27 +245,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="phylogeny" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="bioalg" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter07" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/chapter07/phylogeny.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration default="true" type="tests" factoryName="py.test">
       <module name="bioalg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -302,6 +272,21 @@
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;-v --durations\u003d0&quot;" />
       <option name="_new_target" value="&quot;test_phylogeny.test_neighbor_joining_matrix&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest for test_proteo.test_spectral_alignment" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="bioalg" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter11" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;-v --durations\u003d0&quot;" />
+      <option name="_new_target" value="&quot;test_proteo.test_spectral_alignment&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -351,19 +336,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.phylogeny" />
       <item itemvalue="Python tests.pytest for test_phylogeny.test_neighbor_joining_matrix" />
       <item itemvalue="Python tests.pytest in test_hmm.py" />
       <item itemvalue="Python tests.pytest in test_phylogeny.py" />
       <item itemvalue="Python tests.pytest in test_proteo.py" />
+      <item itemvalue="Python tests.pytest for test_proteo.test_spectral_alignment" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python tests.pytest in test_proteo.py" />
+        <item itemvalue="Python tests.pytest for test_proteo.test_spectral_alignment" />
         <item itemvalue="Python tests.pytest in test_phylogeny.py" />
         <item itemvalue="Python tests.pytest in test_hmm.py" />
         <item itemvalue="Python tests.pytest for test_phylogeny.test_neighbor_joining_matrix" />
-        <item itemvalue="Python.phylogeny" />
       </list>
     </recent_temporary>
   </component>
@@ -385,34 +370,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_proteo_py - 2019.04.27 at 19h 08m 15s.xml">
+    <history-entry file="pytest_for_test_proteo_test_spectral_alignment - 2019.04.28 at 20h 48m 28s.xml">
+      <configuration name="pytest for test_proteo.test_spectral_alignment" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_for_test_proteo_test_spectral_alignment - 2019.04.28 at 20h 49m 31s.xml">
+      <configuration name="pytest for test_proteo.test_spectral_alignment" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_for_test_proteo_test_spectral_alignment - 2019.04.28 at 20h 51m 16s.xml">
+      <configuration name="pytest for test_proteo.test_spectral_alignment" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_for_test_proteo_test_spectral_alignment - 2019.04.28 at 20h 52m 01s.xml">
+      <configuration name="pytest for test_proteo.test_spectral_alignment" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_for_test_proteo_test_spectral_alignment - 2019.04.28 at 20h 52m 31s.xml">
+      <configuration name="pytest for test_proteo.test_spectral_alignment" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_for_test_proteo_test_spectral_alignment - 2019.04.28 at 20h 52m 40s.xml">
+      <configuration name="pytest for test_proteo.test_spectral_alignment" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_test_proteo_py - 2019.04.28 at 20h 53m 11s.xml">
       <configuration name="pytest in test_proteo.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_proteo_py - 2019.04.27 at 19h 08m 36s.xml">
+    <history-entry file="pytest_in_test_proteo_py - 2019.04.28 at 20h 56m 34s.xml">
       <configuration name="pytest in test_proteo.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_proteo_py - 2019.04.27 at 19h 09m 16s.xml">
+    <history-entry file="pytest_in_test_proteo_py - 2019.04.28 at 21h 13m 59s.xml">
       <configuration name="pytest in test_proteo.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_proteo_py - 2019.04.27 at 19h 10m 24s.xml">
-      <configuration name="pytest in test_proteo.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_proteo_py - 2019.04.27 at 19h 10m 49s.xml">
-      <configuration name="pytest in test_proteo.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_proteo_py - 2019.04.27 at 19h 11m 28s.xml">
-      <configuration name="pytest in test_proteo.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_proteo_py - 2019.04.27 at 19h 12m 53s.xml">
-      <configuration name="pytest in test_proteo.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_proteo_py - 2019.04.27 at 19h 13m 01s.xml">
-      <configuration name="pytest in test_proteo.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_proteo_py - 2019.04.27 at 19h 13m 39s.xml">
-      <configuration name="pytest in test_proteo.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="pytest_in_test_proteo_py - 2019.04.27 at 19h 14m 41s.xml">
+    <history-entry file="pytest_in_test_proteo_py - 2019.04.28 at 21h 14m 09s.xml">
       <configuration name="pytest in test_proteo.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -429,8 +414,8 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6291188" visible="true" weight="0.21154623" />
-      <window_info id="Structure" order="1" sideWeight="0.37088123" side_tool="true" visible="true" weight="0.21154623" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.62605363" visible="true" weight="0.21154623" />
+      <window_info id="Structure" order="1" sideWeight="0.37394637" side_tool="true" visible="true" weight="0.21154623" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32796934" />
@@ -666,6 +651,11 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>pre_computed[(13, 14, 2)]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>list(path_edges)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -705,38 +695,9 @@
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>len(tree[node])</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/chapter10/test/testcase14.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter10/stepik_hmm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2256">
-          <caret line="94" column="26" selection-start-line="94" selection-start-column="26" selection-end-line="94" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.local/virtualenv/python3.6/lib/python3.6/site-packages/networkx/classes/reportviews.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4224">
-          <caret line="177" selection-start-line="177" selection-end-line="177" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase17.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter07/test/testcase19.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -982,13 +943,6 @@
     <entry file="file://$PROJECT_DIR$/chapter11/test/testcase16.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter11/stepik_proteo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter11/test/testcase17.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -1020,10 +974,45 @@
     <entry file="file://$PROJECT_DIR$/chapter11/test/testcase21.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/chapter11/stepik_proteo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1488">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter11/test/testcase23.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter11/test/testcase22.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter11/test/testcase24.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter11/test/testcase25.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter11/test_proteo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="708">
-          <caret line="196" selection-start-line="196" selection-end-line="196" />
+        <state relative-caret-position="-2652">
+          <caret line="72" column="51" selection-start-line="72" selection-start-column="51" selection-end-line="72" selection-end-column="51" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
@@ -1032,8 +1021,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter11/proteo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="248" column="16" selection-start-line="248" selection-start-column="16" selection-end-line="248" selection-end-column="16" />
+        <state relative-caret-position="524">
+          <caret line="306" column="27" lean-forward="true" selection-start-line="306" selection-start-column="27" selection-end-line="306" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

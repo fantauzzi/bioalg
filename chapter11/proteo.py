@@ -1,4 +1,5 @@
 import networkx as nx
+from copy import deepcopy
 
 
 def get_amino_mass():
@@ -28,6 +29,9 @@ def get_amino_mass():
         'Y': 163,
         'W': 186
     }
+    """amino_mass = {'X': 4,
+                  'Z': 5
+                  }"""
     return amino_mass
 
 
@@ -260,7 +264,8 @@ def prob_of_spectral_dict(spectrum, threshold, max_score):
             return 0
         the_prob = pre_computed_prob.get((i, t))
         if the_prob is None:
-            the_prob = sum([prob(i - amino_mass[amino], t - spectrum[i - 1]) for amino in amino_mass.keys()])/len(amino_mass)
+            the_prob = sum([prob(i - amino_mass[amino], t - spectrum[i - 1]) for amino in amino_mass.keys()]) / len(
+                amino_mass)
             pre_computed_prob[(i, t)] = the_prob
         return the_prob
 
@@ -268,3 +273,58 @@ def prob_of_spectral_dict(spectrum, threshold, max_score):
     totalprob = sum([prob(m, t) for t in range(threshold, max_score + 1)])
 
     return totalprob
+
+
+def spectral_alignment(peptide, spectrum, k):
+    amino_mass = get_amino_mass()
+    m_plus_Delta = len(spectrum)
+
+    pre_computed = {}
+    diff = {}
+    cumulative = 0
+    for pept_i in range(1, len(peptide) + 1):
+        cumulative += amino_mass[peptide[pept_i - 1]]
+        diff[cumulative] = amino_mass[peptide[pept_i - 1]]
+
+    def score(i, j, t):
+        if (i, j, t) == (0, 0, 0):
+            return 0, []
+        if (i, j) == (0, 0) and t >= 1:
+            return float('-inf'), None
+        if i == 0 and j > 0 or j == 0 and i > 0:
+            return float('-inf'), None
+        best_score, best_path = pre_computed.get((i, j, t), (None, None))
+        if best_score is None:
+            best_score, best_path = score(i - diff[i], j - diff[i], t) if j - diff[i] >= 0 else (float('-inf'), None)
+            for j_p in range(0, j):
+                score2, path2 = score(i - diff[i], j_p, t - 1) if t >= 1 else (float('-inf'), None)
+                if score2 > best_score:
+                    best_score = score2
+                    best_path = path2
+            pre_computed[i, j, t] = spectrum[j - 1] + best_score, (best_path if best_path is None else best_path + [(i, j, t)])
+            return spectrum[j - 1] + best_score, (best_path if best_path is None else best_path + [(i, j, t)])
+        else:
+            return best_score, best_path
+
+    m = sum([amino_mass[amino] for amino in peptide])
+    best_path_score = float('-inf')
+    best_path = None
+    for t in range(0, k + 1):
+        the_score, path = score(m, m_plus_Delta, t)
+        if the_score > best_path_score:
+            best_path_score = the_score
+            best_path = path
+
+    best_path = [(0, 0, 0)] + best_path
+
+
+    assert len(best_path) == len(peptide) + 1
+    res = ''
+    for pept_i in range(1, len(peptide) + 1):
+        amino = peptide[pept_i - 1]
+        i, j, _ = best_path[pept_i]
+        i_prev, j_prev, _ = best_path[pept_i - 1]
+        variant = j - (j_prev + (i - i_prev))
+        res = (res + amino) if not variant else res + '{}({:+d})'.format(amino, variant)
+
+    return res, best_path_score

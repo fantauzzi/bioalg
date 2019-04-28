@@ -43,6 +43,14 @@ def fetch_spectral_dict_input(file_name):
     return ints, thr, max_score
 
 
+def fetch_spectral_alignment_input(file_name):
+    with open(file_name) as input_file:
+        peptide = input_file.readline().rstrip('\n')
+        spectrum = parse_ints(input_file)
+        k = int(input_file.readline().rstrip('\n'))
+    return peptide, spectrum, k
+
+
 def pretty_print_adj(graph):
     if not graph.edges():
         return

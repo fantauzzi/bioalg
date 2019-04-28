@@ -3,7 +3,7 @@ import networkx as nx
 from numpy import isclose
 import proteo
 from stepik_proteo import fetch_ints, pretty_print_adj, fetch_ints_and_string, fetch_psm_search_input, \
-    fetch_spectral_dict_input
+    fetch_spectral_dict_input, fetch_spectral_alignment_input
 
 
 def test_graph_from_spectrum():
@@ -194,3 +194,18 @@ def test_prob_of_spectral_dict():
     spectrum, threshold, max_score = fetch_spectral_dict_input(Path('test/testcase21.txt'))
     prob = proteo.prob_of_spectral_dict(spectrum, threshold, max_score)
     assert isclose(prob, 8.381796875e-05)
+
+
+def test_spectral_alignment():
+    peptide, spectrum, k = fetch_spectral_alignment_input(Path('test/testcase23.txt'))
+    alignment, score = proteo.spectral_alignment(peptide, spectrum, k)
+    assert alignment == 'L(-61)VW(-9)STE(+69)'
+    assert score == 67
+
+    peptide, spectrum, k = fetch_spectral_alignment_input(Path('test/testcase24.txt'))
+    alignment, score = proteo.spectral_alignment(peptide, spectrum, k)
+    assert (alignment, score) == ('Y(-69)CRC(+69)N', 45)
+
+    peptide, spectrum, k = fetch_spectral_alignment_input(Path('test/testcase25.txt'))
+    alignment, score = proteo.spectral_alignment(peptide, spectrum, k)
+    assert (alignment, score) == ('A(-20)EE(-9)IN(+29)', 62)
