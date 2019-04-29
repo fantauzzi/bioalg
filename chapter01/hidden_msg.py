@@ -8,6 +8,11 @@ print('Using backend', backend, ', interactive = ', interactive)
 
 
 def argsmin(list_like):
+    """
+    Given a sequence, returns the position in the sequence of its minimum item. If multiple items in the list have minimum value, the position of the first of them is returned.
+    :param list_like: The sequence.
+    :return: The 0-indexed position, an integer.
+    """
     min_so_far = float('inf')
     indices = []  # Unnecessary, here just for clarity
     for i, item in enumerate(list_like):
@@ -20,6 +25,11 @@ def argsmin(list_like):
 
 
 def argsmax(list_like):
+    """
+    Given a sequence, returns the position in the sequence of its maximum item. If multiple items in the list have maximum value, the position of the first of them is returned.
+    :param list_like: The sequence.
+    :return: The 0-indexed position, an integer.
+    """
     max_so_far = float('-inf')
     indices = []  # Unnecessary, here just for clarity
     for i, item in enumerate(list_like):
@@ -32,6 +42,11 @@ def argsmax(list_like):
 
 
 def compute_skew(genome):
+    """
+    Returns the skew of a genome at every position in a genome. The skew at a given position is the difference between the counts of G and C from the beginning of the genome up to the given position included.
+    :param genome: The genome, a string.
+    :return: The skew, a list of integer numbers, as long as the genome.
+    """
     genome = str.lower(genome)
     skew = []
     gc_diff_count = 0
@@ -44,20 +59,13 @@ def compute_skew(genome):
     return skew
 
 
-def min_skew(genome):
-    skew = compute_skew(genome)
-    res = argsmin(skew)
-    res = [item + 1 for item in res]  # Count positions from 1 instead of 0, as requested by specs
-    return res
-
-
-def MinimumSkew(genome):
-    return min_skew(genome)
-
-
-# Input:  Two strings p and q
-# Output: An integer value representing the Hamming Distance between p and q.
-def HammingDistance(p, q):
+def hamming_distance(p, q):
+    """
+    Returns the Hamming distance betweem two strings of the same length.
+    :param p: The first string.
+    :param q: The second string.
+    :return: The Hammind distance, an integer.
+    """
     assert len(p) == len(q)
     dist = 0
     for char1, char2 in zip(p, q):
@@ -81,26 +89,29 @@ def approximate_pattern_matching(text, pattern, d):
     for i in range(0, len(text) - len(pattern) + 1):
         if i > 0:
             sub_text = sub_text[1:] + text[len(pattern) + i - 1]
-        if HammingDistance(sub_text, pattern) <= d:
+        if hamming_distance(sub_text, pattern) <= d:
             positions.append(i)
     return positions
 
 
-# Input:  Strings Pattern and Text, and an integer d
-# Output: The number of times Pattern appears in Text with at most d mismatches
-def approximate_pattern_count(Text, Pattern, d):
+def approximate_pattern_count(text, pattern, d):
     """
-
-    :param Text:
-    :param Pattern:
-    :param d:
-    :return:
+    Returns the number of different places a given string appears as a substring of a text with at most a given number of mismatches.
+    :param text: The text, a string.
+    :param pattern: The given string.
+    :param d: The maximum allowed number of mismatches at every matching location, an integer.
+    :return: The count of approximate matches, an integer.
     """
-    positions = approximate_pattern_matching(Text, Pattern, d)
+    positions = approximate_pattern_matching(text, pattern, d)
     return len(positions)
 
 
 def immediate_neighbors(kmer):
+    """
+    Returns the 1-neighbors of a given k-mer.
+    :param kmer: The k-mer, a DNA string.
+    :return: All the 1-neighbors of the k-mer, a list of strings.
+    """
     res = []
     lookup = {'G': ('T', 'A', 'C'),
               'T': ('G', 'A', 'C'),
@@ -114,6 +125,12 @@ def immediate_neighbors(kmer):
 
 
 def neighbors(kmer, d):
+    """
+    Returns the d-neighbors of a given k-mer.
+    :param kmer: The k-mer, a DNA string.
+    :param d: The value for d paramter, a non-negative integer.
+    :return: All the d-neighbots of the k-mer, a list of strings.
+    """
     kmers = set((kmer,))
     processed = set()
     for _ in range(1, d + 1):
@@ -126,25 +143,25 @@ def neighbors(kmer, d):
     return kmers
 
 
-def frequent_words_with_mismatches(Text, k, d):
+def frequent_words_with_mismatches(text, k, d):
     """
     Returns the most frequent k-mers in a text with at most a given number of mismatches.
-    :param Text: The text, a string.
+    :param text: The text, a string.
     :param k: The length of every k-mer, an integer.
     :param d: The maximum number of mismatches allowed in each k-mer, an integer.
     :return: The most frequent k-mer appearing in text with at most d mismatches, a list of strings.
     """
     all_neighbors = set()
-    for i in range(0, len(Text) - k + 1):
-        current_kmer = Text[i:i + k]
+    for i in range(0, len(text) - k + 1):
+        current_kmer = text[i:i + k]
         all_neighbors = all_neighbors.union(neighbors(current_kmer, d))
 
     all_neighbors = dict.fromkeys(all_neighbors, 0)
     max_so_far = float('-inf')
-    for i in range(0, len(Text) - k + 1):
-        current_kmer = Text[i:i + k]
+    for i in range(0, len(text) - k + 1):
+        current_kmer = text[i:i + k]
         for kmer, count in all_neighbors.items():
-            if HammingDistance(kmer, current_kmer) <= d:
+            if hamming_distance(kmer, current_kmer) <= d:
                 all_neighbors[kmer] = count + 1
                 if count + 1 > max_so_far:
                     max_so_far = count + 1
@@ -171,27 +188,31 @@ def DNA_rev_complement(dna):
     return as_string
 
 
-# Place your FrequentWordsWithMismatchesAndReverseComplements() function here, along with any subroutines you need.
-# Your function should return a list.
-def FrequentWordsWithMismatchesAndReverseComplements(Text, k, d):
+def frequent_words_with_complements(text, k, d):
+    """
+    Returns the k-mers that, along with their reverse complements, appear the most in a text, with at most a given number of mismatches.
+    :param text: The text, a string.
+    :param k: The length of every k-mer, an integer.
+    :param d: The maximum number of mismatches allowed each k-mer, an integer.
+    :return: The most frequent k-mers, with reverse complements and at most d mismatches, in the text, a list of strings.
+    """
     all_neighbors = set()
-    for i in range(0, len(Text) - k + 1):
-        current_kmer = Text[i:i + k]
+    for i in range(0, len(text) - k + 1):
+        current_kmer = text[i:i + k]
         all_neighbors = all_neighbors.union(neighbors(current_kmer, d))
         all_neighbors = all_neighbors.union(neighbors(DNA_rev_complement(current_kmer), d))
 
     all_neighbors = dict.fromkeys(all_neighbors, 0)
     max_so_far = float('-inf')
-    for i in range(0, len(Text) - k + 1):
-        current_kmer = Text[i:i + k]
+    for i in range(0, len(text) - k + 1):
+        current_kmer = text[i:i + k]
         for kmer, count in all_neighbors.items():
             updated_count = count
-            if HammingDistance(kmer, current_kmer) <= d:
+            if hamming_distance(kmer, current_kmer) <= d:
                 updated_count += 1
             kmer_c = DNA_rev_complement(kmer)
-            if HammingDistance(kmer_c, current_kmer) <= d:
+            if hamming_distance(kmer_c, current_kmer) <= d:
                 updated_count += 1
-            # assert kmer != kmer_c
             if updated_count > count:
                 all_neighbors[kmer] = updated_count
                 if updated_count > max_so_far:
@@ -205,6 +226,10 @@ def FrequentWordsWithMismatchesAndReverseComplements(Text, k, d):
 
 
 def plot_skew(running_skew):
+    """
+    Plots the chart of a running skew with matplotlib.
+    :param running_skew: The running skew, a sequence of integer numbers, as returned by compute_skew()
+    """
     plt.plot(running_skew)
     plt.xlabel('position')
     plt.ylabel('running count')
@@ -213,7 +238,10 @@ def plot_skew(running_skew):
     plt.show(block=True)
 
 
-def main():  # TODO remove this!
+def main():
+    """
+    Plots a sample C-G skew chart.
+    """
     with open('skew_dataset.txt') as genome_file:
         genome = genome_file.read()
 
@@ -224,6 +252,12 @@ def main():  # TODO remove this!
 
 
 def compute_frequencies(text, k):
+    """
+    For every k-mer that appears in a text, returns the k-mer and the number of times it appears.
+    :param text: The text, a string.
+    :param k: The size of the k-mers, an integer.
+    :return: A dictionary, associating every k-mer that appears at least once in the text with the count of its appearances (a string to integer association).
+    """
     frequencies = {}
     for i in range(0, len(text) - k + 1):
         kmer = text[i:i + k]
