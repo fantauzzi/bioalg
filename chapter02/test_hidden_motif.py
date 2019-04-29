@@ -207,6 +207,14 @@ def test_median_string():
     res, _ = hidden_motif.median_string(dna, k)
     assert res == 'ACACCG'
 
+    motif = ['CTCGATGAGTAGGAAAGTAGTTTCACTGGGCGAACCACCCCGGCGCTAATCCTAGTGCCC',
+             'GCAATCCTACCCGAGGCCACATATCAGTAGGAACTAGAACCACCACGGGTGGCTAGTTTC',
+             'GGTGTTGAACCACGGGGTTAGTTTCATCTATTGTAGGAATCGGCTTCAAATCCTACACAG']
+    k = 7
+    strings, score = hidden_motif.all_median_strings(motif, k)
+    assert sorted(strings) == sorted(['AATCCTA', 'GAACCAC', 'GTAGGAA', 'TAGTTTC'])
+    assert score == 0
+
 
 def test_motifs_profile():
     dna = ['GGCGTTCAGGCA', 'AAGAATCAGTCA', 'CAAGGAGTTCGC', 'CACGTCAATCAC', 'CAATAATATTCG']

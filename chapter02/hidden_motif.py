@@ -193,17 +193,30 @@ def median_string(dna, k, progress_bar=False):
     Among all possible k-mers, returns the one with minimum distance from a given collection of DNA segments. If multiple k-mers satisfy the requirement, choose any of them.
     :param dna: The collection of DNA segments (each segment is a string).
     :param k: The length of the k-mer to be found.
-    :return: The median string, a string.
+    :return: A pair with the median string and its score, a string and an integer respectively.
+    """
+    best_kmers, min_dist = all_median_strings(dna, k, progress_bar=False)
+    return best_kmers[0], min_dist
+
+
+def all_median_strings(dna, k, progress_bar=False):
+    """
+    Among all possible k-mers, returns those with minimum distance from a given collection of DNA segments.
+    :param dna: The collection of DNA segments (each segment is a string).
+    :param k: The length of the k-mers to be found.
+    :return: A pair with median strings and the minimum score, respectively a list of strings and an integer.
     """
     min_dist = float('inf')
-    best_kmer = None
+    best_kmers = None
     kmers_count = 4 ** k
     for kmer in tqdm(iterable=all_kmers(k), total=kmers_count, miniters=64) if progress_bar else all_kmers(k):
         dist = kmer_to_dna_distance(kmer, dna)
         if dist < min_dist:
             min_dist = dist
-            best_kmer = kmer
-    return best_kmer, min_dist
+            best_kmers = [kmer]
+        elif dist == min_dist:
+            best_kmers.append(kmer)
+    return best_kmers, min_dist
 
 
 """
@@ -591,4 +604,3 @@ def main2():  # TODO clean up this stuff
 
 if __name__ == '__main__':
     main2()
-
