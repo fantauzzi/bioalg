@@ -1,9 +1,11 @@
 import hidden_motif
 import stepik_hidden_motif
+from stepik_hidden_motif import fetch_greedy_motif_input, fetch_kmer_to_dna_dist_input
 import pytest
 from math import isclose
 from random import seed
 import numpy as np
+from pathlib import Path
 
 
 def test_kmers_from_dna():
@@ -73,7 +75,7 @@ def test_generalised_hamming_distance():
     assert dist7 == 3
 
 
-def test_kmer_to_motif_distance():
+def test_kmer_to_dna_distance():
     kmer = 'GATTACA'
     motif = ['ACGTGATTACACGTGATTACAA', 'GATTACC', 'AATTACG']
     dist = hidden_motif.kmer_to_dna_distance(kmer, motif)
@@ -81,6 +83,19 @@ def test_kmer_to_motif_distance():
 
     with pytest.raises(TypeError):
         _ = hidden_motif.kmer_to_dna_distance(kmer, 42)
+
+    kmer = 'AAA'
+    motif = ['TTACCTTAAC', 'GATATCTGTC', 'ACGGCGTTCG', 'CCCTAAAGAG', 'CGTCAGAGGT']
+    dist = hidden_motif.kmer_to_dna_distance(kmer, motif)
+    assert dist == 5
+
+    kmer, motif = fetch_kmer_to_dna_dist_input(Path('test/testcase03.txt'))
+    dist = hidden_motif.kmer_to_dna_distance(kmer, motif)
+    assert dist == 76
+
+    kmer, motif = fetch_kmer_to_dna_dist_input(Path('test/testcase04.txt'))
+    dist = hidden_motif.kmer_to_dna_distance(kmer, motif)
+    assert dist == 70
 
 
 def test_flattened():
@@ -123,6 +138,25 @@ def test_profile_most_probable_kmer():
     res = hidden_motif.profile_most_probable_kmer(dna, k, profile)
     assert res == 'CCGAG'
 
+    dna = 'TGCCCGAGCTATCTTATGCGCATCGCATGCGGACCCTTCCCTAGGCTTGTCGCAAGCCATTATCCTGGGCGCTAGTTGCGCGAGTATTGTCAGACCTGATGACGCTGTAAGCTAGCGTGTTCAGCGGCGCGCAATGAGCGGTTTAGATCACAGAATCCTTTGGCGTATTCCTATCCGTTACATCACCTTCCTCACCCCTA'
+    k = 6
+    profile = {'A': [0.364, 0.333, 0.303, 0.212, 0.121, 0.242],
+               'C': [0.182, 0.182, 0.212, 0.303, 0.182, 0.303],
+               'G': [0.121, 0.303, 0.182, 0.273, 0.333, 0.303],
+               'T': [0.333, 0.182, 0.303, 0.212, 0.364, 0.152]}
+    res = hidden_motif.profile_most_probable_kmer(dna, k, profile)
+    assert res == 'TGTCGC'
+
+    dna = 'GCTGTGTAATCCTTGATGCCAATTCTTGGAGGTCCCCCGCGACTTACTCTATTGAGTGAGCAGCGACTTTTGTTTTGCCGAATATATCCACGCTAATTGTCTGTGGACGTCAAAAGAGATTGAGTTTACTTTTAGCACGAGAGTGCCCAGGTTAGATCGTGGGGGGACTGAACACTAGGTTCAGCCAGGTCGCAATGAAAGTTAGAATTACAACAATGGTGTAGGTGCCCACCCTTGATGGATCTAGACCGTTGTGTCCCGCCTCTGTTCTAAAGTGCATCGCCACCTCAGCTTCATTCACACGGTAGCGATGAATGGGCTGCCGAATCCCCTGTGAACGTACACAAGGGAACGCTGAAAGGGGTACCTCCTGACAATGAAACCGATATTGTCTATGAGCCGGATTGAACATACAGCTTTCTTTGATGGGGCTGGTTAATCTTCTTTTACTTCCTTCTAATACAATGTACATTTATCATTAAGTCTGGCAGCTTTAAACGACCTACCTATGAGTCGAGCCACAGGTTTTTAAAGCCTTCCTTGGCCTACCGTTGGGGCTTAACCCTGGGGGAGAACATATGACTCCCACATATCGAGGGACAGCAGATCTTAAACCGAAACGCCCGATCAGTATAAACAAATTAAGGGAACGACTGCTATTGGCGACGATTACAGAACTCATCTAGAGTCAATGCATGTGTCCCTCTATTGCGTACAACTTTCCGTGAGTTCGTCTAGTACCGGCCTTTGGAATTGGGTTCCAGCGAGGCTACCCGGCCGCTAATACTCTGGGTGAGTCTCTAAGCAGTCATGGGCAGCCGCTTATCGACATCTACCCGCGAAAGTACGCTCGGAGATAGGTCACCTGCCGTTGTCCGGCGCGGTTTTCTTTTAATCAAACACAGTGGGCGTCGACTACCAGGGGTTTTGCAGACCTCGCTACATGCCTCTGCCCTAATGTTTTGGCCCAGTGTGGTTCTTAAACAACCGGAACCTGAGA'
+    k = 15
+    profile = {
+        'A': [0.364, 0.212, 0.318, 0.136, 0.288, 0.227, 0.212, 0.242, 0.303, 0.242, 0.318, 0.348, 0.242, 0.258, 0.121],
+        'C': [0.212, 0.212, 0.182, 0.288, 0.182, 0.242, 0.273, 0.273, 0.258, 0.273, 0.212, 0.182, 0.242, 0.288, 0.379],
+        'G': [0.227, 0.258, 0.273, 0.242, 0.167, 0.258, 0.394, 0.273, 0.167, 0.258, 0.258, 0.197, 0.242, 0.227, 0.273],
+        'T': [0.197, 0.318, 0.227, 0.333, 0.364, 0.273, 0.121, 0.212, 0.273, 0.227, 0.212, 0.273, 0.273, 0.227, 0.227]}
+    res = hidden_motif.profile_most_probable_kmer(dna, k, profile)
+    assert res == 'ATTCTTGGAGGTCCC'
+
 
 def test_median_string():
     dna = ['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA', 'GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG', 'TAGTACCGAGACCGAAAGAAGTATACAGGCGT',
@@ -135,6 +169,43 @@ def test_median_string():
     k2 = 3
     res2, _ = hidden_motif.median_string(dna2, k2)
     assert res2 == 'AAA'
+
+    dna = ['AAATTGACGCAT',
+           'GACGACCACGTT',
+           'CGTCAGCGCCTG',
+           'GCTGAGCACCGG',
+           'AGTTCGGGACAG']
+    k = 3
+    res, _ = hidden_motif.median_string(dna, k)
+    assert res == 'GAC'
+
+    dna = ['TGATGATAACGTGACGGGACTCAGCGGCGATGAAGGATGAGT',
+           'CAGCGACAGACAATTTCAATAATATCCGCGGTAAGCGGCGTA',
+           'TGCAGAGGTTGGTAACGCCGGCGACTCGGAGAGCTTTTCGCT',
+           'TTTGTCATGAACTCAGATACCATAGAGCACCGGCGAGACTCA',
+           'ACTGGGACTTCACATTAGGTTGAACCGCGAGCCAGGTGGGTG',
+           'TTGCGGACGGGATACTCAATAACTAAGGTAGTTCAGCTGCGA',
+           'TGGGAGGACACACATTTTCTTACCTCTTCCCAGCGAGATGGC',
+           'GAAAAAACCTATAAAGTCCACTCTTTGCGGCGGCGAGCCATA',
+           'CCACGTCCGTTACTCCGTCGCCGTCAGCGATAATGGGATGAG',
+           'CCAAAGCTGCGAAATAACCATACTCTGCTCAGGAGCCCGATG']
+    k = 6
+    res, _ = hidden_motif.median_string(dna, k)
+    assert res == 'CGGCGA'
+
+    dna = ['TGCGTTCTGCAACTTCTTCTCACAACACTGGACTCGCGCTGT',
+           'GACGGGTCGGCCTATGTTCAGTTCACACCGGGCTCAGAACGT',
+           'AAAATCTATAAGGACGACGTAGTGACACTGGGCTCGGAGTCA',
+           'TCTCCAAAGAGGCAGAAAGGGTTTTTCGCTACACCGGTGAGT',
+           'CCCCCCATAGGACCATTAGTTACGTAGGCACGATAGACACAG',
+           'CGACGTTTTATAAAGGAGACACTGTCCCTGTAATAATCTCCC',
+           'ACACCGAGACAAAAGATTGAGGGAAGGCACCGTCCCCCTGAG',
+           'GTCGAGGTTTTAGCAAAATCCTACCCGAGTACACCGTTAAGT',
+           'AGAAATCGTACAAGCACTTTCATGCTAAGACAAGATACACTG',
+           'ACACAGGAGTCAGTCCGAGGGCCGACGTCATATTCCTGTTAG']
+    k = 6
+    res, _ = hidden_motif.median_string(dna, k)
+    assert res == 'ACACCG'
 
 
 def test_motifs_profile():
@@ -156,11 +227,29 @@ def test_score_motif():
     assert hidden_motif.score_motif(dna) == 28
 
 
-def test_GreedyMotifSearch():
+def test_greedy_motifs_search():
     dna = ['GGCGTTCAGGCA', 'AAGAATCAGTCA', 'CAAGGAGTTCGC', 'CACGTCAATCAC', 'CAATAATATTCG']
     k = 3
     motif = hidden_motif.greedy_motifs_search(dna, k)
     assert sorted(motif) == sorted(['CAG', 'CAG', 'CAA', 'CAA', 'CAA'])
+
+    k, dna = fetch_greedy_motif_input(Path('test/testcase01.txt'))
+    motif = hidden_motif.greedy_motifs_search(dna, k)
+    expected = ['AGTGGGTATCTC', 'TAAAAAGGTATA', 'AACCACGAGTAC', 'TGTCATGTGCGG', 'AACCTAAACCCT', 'AGTCGTTATCCC',
+                'AGTAATATGTAC', 'AGTGGTTATCAC', 'AGTGGTTATCCC', 'AGTGGCTATCGC', 'AGTGGATATCCC', 'AGTGAGAAGCAA',
+                'AGTGACTAGACA', 'TAAGACTAGTTA', 'TATGAAGGGTGA', 'AGTCGGGATAAC', 'AGTGGGTATCTC', 'AGCGGTTAGTCA',
+                'AGTGAAATTCCT', 'TGTGGATGGCTT', 'TGTAGGTATCAC', 'TGCAGATATCCA', 'TGTGGTTATCAC', 'TGTCATTATTCA',
+                'TGCGTAGATCAA']
+
+    assert sorted(motif) == sorted(expected)
+    k, dna = fetch_greedy_motif_input(Path('test/testcase02.txt'))
+    motif = hidden_motif.greedy_motifs_search(dna, k)
+    expected = ['CACCCTTGAGTT', 'ATTGGAGCATGA', 'TAATAAGTATTG', 'GGAGGCTCAATG', 'AGGCAGGGTCTT', 'AGGGATGCTGTG',
+                'AACGAAGGAATG', 'CGTGAAGGAATA', 'AACCGAGCAAGA', 'AGACGGGCAGTG', 'CACTGGGAATGG', 'TGTCGTTGAATT',
+                'CAATCAGAAATG', 'AATGAATCAATG', 'TGCGCAGAAATG', 'AATGACGCAATG', 'AGACCAGAAATG', 'CGCGCAGAAATG',
+                'AGACCAGAAGTG', 'TATGCAGAAATG', 'ATCGGATAAATT', 'ATCCCAGAACTG', 'CAGGGTTAAAGG', 'TAACCAGAAGTG',
+                'AAGTCAGAAGTG']
+    assert sorted(motif) == sorted(expected)
 
 
 def test_laplace_profile_matrix():
@@ -236,5 +325,5 @@ def test_sample_random_relative_entropy():
     dna = ['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA', 'GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG', 'TAGTACCGAGACCGAAAGAAGTATACAGGCGT',
            'TAGATCAAGTTTCAGGTGCACGTCGGTGAACC', 'AATCCACCAGCTCCACGTGCAATGTTGGCCTA']
     samples = hidden_motif.sample_random_relative_entropy(dna=dna, k=7, n=5, seed=42)
-    assert np.isclose(samples, [-4.361310120017858, -3.8374744768060447, -3.3695044762291197, -3.3698300963604413, -3.237474476806044]).all()
-    pass
+    assert np.isclose(samples, [-4.361310120017858, -3.8374744768060447, -3.3695044762291197, -3.3698300963604413,
+                                -3.237474476806044]).all()

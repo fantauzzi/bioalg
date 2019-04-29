@@ -7,8 +7,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6b0998ed-db57-48a3-94f8-4b68d5b09aa6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chapter01/hidden_msg.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter01/hidden_msg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chapter01/test_hidden_msg.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter01/test_hidden_msg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chapter02/hidden_motif.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter02/hidden_motif.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chapter02/stepik_hidden_motif.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter02/stepik_hidden_motif.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chapter02/test_hidden_motif.py" beforeDir="false" afterPath="$PROJECT_DIR$/chapter02/test_hidden_motif.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,25 +19,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/chapter01/hidden_msg.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chapter02/hidden_motif.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="13608">
+              <caret line="578" column="27" selection-start-line="578" selection-start-column="27" selection-end-line="578" selection-end-column="27" />
               <folding>
-                <element signature="e#0#31#0" expanded="true" />
+                <element signature="e#0#16#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/chapter02/test_hidden_motif.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="370">
+              <caret line="103" lean-forward="true" selection-start-line="103" selection-end-line="103" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chapter01/test_hidden_msg.py">
+        <entry file="file://$PROJECT_DIR$/chapter02/stepik_hidden_motif.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1056">
-              <caret line="44" selection-start-line="44" selection-end-line="44" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="2856">
+              <caret line="119" column="4" selection-start-line="119" selection-start-column="4" selection-end-line="119" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -52,9 +63,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>matching_positions</find>
-      <find>show</find>
-      <find>flatten</find>
       <find>make_small_parsiomony_tree</find>
       <find>pickle</find>
       <find>fetch</find>
@@ -74,7 +82,6 @@
       <find>ammino</find>
       <find>pattern</find>
       <find>[0]</find>
-      <find>xtest</find>
       <find>frequency</find>
       <find>pattern_to</find>
       <find>number_to</find>
@@ -82,6 +89,10 @@
       <find>TTGTGTC</find>
       <find>gattaca</find>
       <find>main</find>
+      <find>pandas</find>
+      <find>distance bet</find>
+      <find>xtest</find>
+      <find>print()</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;&quot;&quot;</replace>
@@ -101,13 +112,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/chapter10/stepik_hmm.py" />
-        <option value="$PROJECT_DIR$/chapter10/test_hmm.py" />
-        <option value="$PROJECT_DIR$/chapter10/hmm.py" />
-        <option value="$PROJECT_DIR$/chapter07/test/testcase18.txt" />
-        <option value="$PROJECT_DIR$/chapter07/test/testcase19.txt" />
-        <option value="$PROJECT_DIR$/chapter07/test/testcase22.txt" />
-        <option value="$PROJECT_DIR$/chapter07/test/testcase23.txt" />
         <option value="$PROJECT_DIR$/chapter07/test/testcase24.txt" />
         <option value="$PROJECT_DIR$/chapter07/test/testcase26.txt" />
         <option value="$PROJECT_DIR$/chapter07/test/testcase27.txt" />
@@ -152,14 +156,21 @@
         <option value="$PROJECT_DIR$/chapter01/test/testcase03.txt" />
         <option value="$PROJECT_DIR$/chapter01/test_hidden_msg.py" />
         <option value="$PROJECT_DIR$/chapter01/hidden_msg.py" />
+        <option value="$PROJECT_DIR$/chapter02/test/testcase01.txt" />
+        <option value="$PROJECT_DIR$/chapter02/test/testcase02.txt" />
+        <option value="$PROJECT_DIR$/chapter02/stepik_hidden_motif.py" />
+        <option value="$PROJECT_DIR$/chapter02/test/testcase03.txt" />
+        <option value="$PROJECT_DIR$/chapter02/test/testcase04.txt" />
+        <option value="$PROJECT_DIR$/chapter02/hidden_motif.py" />
+        <option value="$PROJECT_DIR$/chapter02/test_hidden_motif.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1977" />
-    <option name="y" value="-3" />
+    <option name="y" value="25" />
     <option name="width" value="2503" />
-    <option name="height" value="1443" />
+    <option name="height" value="1415" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -168,28 +179,13 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
               <item name="bioalg" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bioalg" type="462c0819:PsiDirectoryNode" />
-              <item name="chapter01" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bioalg" type="462c0819:PsiDirectoryNode" />
-              <item name="chapter01" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bioalg" type="462c0819:PsiDirectoryNode" />
-              <item name="chapter02" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bioalg" type="b2602c69:ProjectViewProjectNode" />
@@ -206,7 +202,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -240,7 +235,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.pytest in test_hidden_msg.py">
+  <component name="RunManager" selected="Python tests.pytest in test_hidden_motif.py">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="bioalg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -298,21 +293,6 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest for test_hidden_msg.test_DNA_Complement" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="bioalg" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter01" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;-v --durations\u003d0&quot;" />
-      <option name="_new_target" value="&quot;test_hidden_msg.test_DNA_Complement&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="pytest for test_hidden_msg.test_frequent_words_with_mismatches" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="bioalg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -343,6 +323,21 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="pytest in test_hidden_motif.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="bioalg" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="$USER_HOME$/.local/virtualenv/python3.6/bin/python3.6" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/chapter02" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;-v --durations\u003d0&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/chapter02/test_hidden_motif.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
     <configuration name="pytest in test_hidden_msg.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="bioalg" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -359,19 +354,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python tests.pytest for test_hidden_msg.test_DNA_Complement" />
-      <item itemvalue="Python tests.pytest for test_hidden_msg.test_pattern_matching" />
-      <item itemvalue="Python tests.pytest for test_hidden_msg.test_frequent_words_with_mismatches" />
-      <item itemvalue="Python tests.pytest in test_hidden_msg.py" />
       <item itemvalue="Python.hidden_msg" />
+      <item itemvalue="Python tests.pytest for test_hidden_msg.test_frequent_words_with_mismatches" />
+      <item itemvalue="Python tests.pytest for test_hidden_msg.test_pattern_matching" />
+      <item itemvalue="Python tests.pytest in test_hidden_motif.py" />
+      <item itemvalue="Python tests.pytest in test_hidden_msg.py" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.pytest in test_hidden_motif.py" />
         <item itemvalue="Python tests.pytest in test_hidden_msg.py" />
         <item itemvalue="Python.hidden_msg" />
         <item itemvalue="Python tests.pytest for test_hidden_msg.test_frequent_words_with_mismatches" />
         <item itemvalue="Python tests.pytest for test_hidden_msg.test_pattern_matching" />
-        <item itemvalue="Python tests.pytest for test_hidden_msg.test_DNA_Complement" />
       </list>
     </recent_temporary>
   </component>
@@ -393,35 +388,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_hidden_msg_py - 2019.04.29 at 15h 38m 08s.xml">
-      <configuration name="pytest in test_hidden_msg.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.04.29 at 20h 41m 38s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hidden_msg_py - 2019.04.29 at 15h 38m 11s.xml">
-      <configuration name="pytest in test_hidden_msg.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.04.29 at 20h 43m 42s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hidden_msg_py - 2019.04.29 at 15h 40m 12s.xml">
-      <configuration name="pytest in test_hidden_msg.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.04.29 at 20h 47m 51s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hidden_msg_py - 2019.04.29 at 15h 40m 37s.xml">
-      <configuration name="pytest in test_hidden_msg.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.04.29 at 20h 52m 17s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hidden_msg_py - 2019.04.29 at 15h 40m 48s.xml">
-      <configuration name="pytest in test_hidden_msg.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.04.29 at 20h 52m 45s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hidden_msg_py - 2019.04.29 at 15h 40m 51s.xml">
-      <configuration name="pytest in test_hidden_msg.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.04.29 at 20h 53m 41s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hidden_msg_py - 2019.04.29 at 15h 49m 03s.xml">
-      <configuration name="pytest in test_hidden_msg.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.04.29 at 20h 54m 10s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hidden_msg_py - 2019.04.29 at 15h 49m 52s.xml">
-      <configuration name="pytest in test_hidden_msg.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.04.29 at 20h 55m 24s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hidden_msg_py - 2019.04.29 at 15h 58m 28s.xml">
-      <configuration name="pytest in test_hidden_msg.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.04.29 at 20h 55m 44s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_hidden_msg_py - 2019.04.29 at 16h 02m 41s.xml">
-      <configuration name="pytest in test_hidden_msg.py" configurationId="tests" />
+    <history-entry file="pytest_in_test_hidden_motif_py - 2019.04.29 at 20h 56m 12s.xml">
+      <configuration name="pytest in test_hidden_motif.py" configurationId="tests" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -437,8 +432,8 @@
     <frame x="1977" y="-3" width="2503" height="1443" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6229885" visible="true" weight="0.21787025" />
-      <window_info id="Structure" order="1" sideWeight="0.3770115" side_tool="true" visible="true" weight="0.21787025" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.62145597" visible="true" weight="0.21962051" />
+      <window_info id="Structure" order="1" sideWeight="0.37854406" side_tool="true" visible="true" weight="0.21962051" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32796934" />
@@ -478,11 +473,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/chapter02/hidden_motif.py</url>
-          <line>588</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/chapter03/assembly.py</url>
           <line>240</line>
@@ -726,48 +716,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase26.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase27.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="587">
-          <caret line="122" column="6" lean-forward="true" selection-start-line="122" selection-start-column="6" selection-end-line="122" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase28.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="7" column="5" lean-forward="true" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase22.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase30.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="624">
-          <caret line="26" column="44" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chapter07/test/testcase29.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter07/test/testcase31.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
@@ -1002,16 +950,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter02/hidden_motif.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="18" column="164" selection-start-line="18" selection-start-column="164" selection-end-line="18" selection-end-column="164" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chapter01/test/testcase01.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
@@ -1047,6 +985,15 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chapter01/hidden_msg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chapter01/test_hidden_msg.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1056">
@@ -1057,11 +1004,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chapter01/hidden_msg.py">
+    <entry file="file://$PROJECT_DIR$/chapter02/test/testcase01.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter02/test/testcase02.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="600">
+          <caret line="25" column="36" lean-forward="true" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter02/test/testcase03.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter02/test/testcase04.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="808">
+          <caret line="1" column="3709" selection-start-line="1" selection-start-column="3709" selection-end-line="1" selection-end-column="3709" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter02/hidden_motif.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13608">
+          <caret line="578" column="27" selection-start-line="578" selection-start-column="27" selection-end-line="578" selection-end-column="27" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter02/stepik_hidden_motif.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2856">
+          <caret line="119" column="4" selection-start-line="119" selection-start-column="4" selection-end-line="119" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter02/test_hidden_motif.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="103" lean-forward="true" selection-start-line="103" selection-end-line="103" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>

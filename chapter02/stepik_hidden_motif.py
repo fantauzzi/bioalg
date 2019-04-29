@@ -40,7 +40,7 @@ def neighbors(kmer, d):
 
 def motif_enumeration(dna, k, d):
     """
-    Produce all (k, d)-motifs in a given DNA segment.
+    Returns all (k, d)-motifs in a given DNA segment.
     :param dna: The given DNA segment.
     :param k: The length (in nucleotides) of each motif to be produced.
     :param d: The maximum allowed Hamming distance between a motif and a corresponding k-mer in the DNA segment.
@@ -99,3 +99,22 @@ def GreedyMotifSearch(dna, k, t):
 def GreedyMotifSearchWithPseudocounts(dna, k, t, pseudocount=1):
     assert t == len(dna)
     return hidden_motif.greedy_motifs_search(dna, k, pseudocount)
+
+
+def fetch_greedy_motif_input(file_name):
+    with open(file_name) as input_file:
+        line = input_file.readline().rstrip('\n')
+        k, t = line.split(' ')
+        k, t = int(k), int(t)
+        dna = input_file.readlines()
+    assert len(dna) == t
+    dna = [item.rstrip('\n') for item in dna]
+    return k, dna
+
+
+def fetch_kmer_to_dna_dist_input(file_name):
+    with open(file_name) as input_file:
+        kmer = input_file.readline().rstrip('\n')
+        line = input_file.readline().rstrip('\n')
+    dna = line.split(' ')
+    return kmer, dna

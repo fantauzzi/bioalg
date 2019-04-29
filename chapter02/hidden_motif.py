@@ -188,9 +188,9 @@ And finally, the calculation of the median string of length k.
 """
 
 
-def median_string(dna, k, progress_bar=False):  # TODO add unit test
+def median_string(dna, k, progress_bar=False):
     """
-    Among all possible k-mers, find the one with minimum distance from a given collection of DNA segments. If multiple k-mers satisfy the requirement, choose any of them.
+    Among all possible k-mers, returns the one with minimum distance from a given collection of DNA segments. If multiple k-mers satisfy the requirement, choose any of them.
     :param dna: The collection of DNA segments (each segment is a string).
     :param k: The length of the k-mer to be found.
     :return: The median string, a string.
@@ -248,7 +248,7 @@ Next thing, given a DNA segment, we want to find, among all its k-mers, the most
 
 def profile_most_probable_kmer(text, k, profile):
     """
-    Choose the k-mer within a DNA segment that is most probable given a certain motifs.
+    Choose the k-mer within a DNA segment that is most probable given a profile.
     :param text: The DNA segment, a string.
     :param k: The size of the wanted k-mer.
     :param profile: The frequency profile; a dictionary with keys 'A', 'C', 'G' and 'T' which associates every nucleotide with a list of probabilities of length k.
@@ -306,10 +306,9 @@ We are now all set to implement a greedy motifs search. Again, there is an addit
 def greedy_motifs_search(dna, k, pseudocount=0):
     """
     Find the motifs that best fit a collection of DNA segments (have the lowest score), using a greedy search. If multiple motifs have the same score, then provide just one of them.
-    :param dna: The collection of DNA segments (strings), not necessarily of the same length.
+    :param dna: A sequence of DNA segments (strings), not necessarily of the same length.
     :param k: The size of motifs to be discovered; the same for every motif, an integer number.
     :param pseudocount: The constant value added to the count of every nucleotide in every position, for computation of the frequency profile.
-
     :return: The discovered motifs, a list of strings.
     """
     t = len(dna)
@@ -538,7 +537,7 @@ def main3():
     print(motif)
 
 
-def main2():
+def main2():  # TODO clean up this stuff
     backend = matplotlib.get_backend()
     interactive = matplotlib.is_interactive()
     print('Using backend', backend, ', interactive = ', interactive)
@@ -593,14 +592,3 @@ def main2():
 if __name__ == '__main__':
     main2()
 
-'''
-TODO
-- Try bigger/real word test cases 
-  - Find a big FASTA file, e.g. from Coursera assignment. How to download it and parse it?
-  - Is the challenge at the end of Ch. 2 of the book different? Where to find that file then?
-- Try different scores
-- Chart the score as Gibbs sampler proceeds
-- Implement Gibbs sampler in C++
-'''
-
-# Secret for synthetic.fasta: GACAGGTACAAGAAGGAGTA
