@@ -66,27 +66,37 @@ def HammingDistance(p, q):
     return dist
 
 
-# Input:  Strings Pattern and Text along with an integer d
-# Output: A list containing all starting positions where Pattern appears
-# as a substring of Text with at most d mismatches
-def ApproximatePatternMatching(Text, Pattern, d):
-    if len(Pattern) > len(Text):
+def approximate_pattern_matching(text, pattern, d):
+    """
+    Returns all starting positions where a given pattern appears as a substring of a text, with a given number of mismatches at most.
+    :param text: The text, a string.
+    :param pattern: The given pattern, a string.
+    :param d: The maximum number of mismatches for every position in the text, an integer.
+    :return: The list of amtching positions in text, zero-indexed, a list of integers in increasing order.
+    """
+    if len(pattern) > len(text):
         return []
     positions = []  # initializing list of positions
-    # your code here
-    sub_text = Text[:len(Pattern)]
-    for i in range(0, len(Text) - len(Pattern) + 1):
+    sub_text = text[:len(pattern)]
+    for i in range(0, len(text) - len(pattern) + 1):
         if i > 0:
-            sub_text = sub_text[1:] + Text[len(Pattern) + i - 1]
-        if HammingDistance(sub_text, Pattern) <= d:
+            sub_text = sub_text[1:] + text[len(pattern) + i - 1]
+        if HammingDistance(sub_text, pattern) <= d:
             positions.append(i)
     return positions
 
 
 # Input:  Strings Pattern and Text, and an integer d
 # Output: The number of times Pattern appears in Text with at most d mismatches
-def ApproximatePatternCount(Text, Pattern, d):
-    positions = ApproximatePatternMatching(Text, Pattern, d)
+def approximate_pattern_count(Text, Pattern, d):
+    """
+
+    :param Text:
+    :param Pattern:
+    :param d:
+    :return:
+    """
+    positions = approximate_pattern_matching(Text, Pattern, d)
     return len(positions)
 
 
@@ -116,9 +126,14 @@ def neighbors(kmer, d):
     return kmers
 
 
-# Write your FrequentWordsWithMismatches() function here, along with any subroutines you need.
-# Your function should return a list.
-def FrequentWordsWithMismatches(Text, k, d):
+def frequent_words_with_mismatches(Text, k, d):
+    """
+    Returns the most frequent k-mers in a text with at most a given number of mismatches.
+    :param Text: The text, a string.
+    :param k: The length of every k-mer, an integer.
+    :param d: The maximum number of mismatches allowed in each k-mer, an integer.
+    :return: The most frequent k-mer appearing in text with at most d mismatches, a list of strings.
+    """
     all_neighbors = set()
     for i in range(0, len(Text) - k + 1):
         current_kmer = Text[i:i + k]
@@ -141,7 +156,12 @@ def FrequentWordsWithMismatches(Text, k, d):
     return res
 
 
-def DNA_complement(dna):
+def DNA_rev_complement(dna):
+    """
+    Returns the reverse complement of a DNA string.
+    :param dna: The DNA string, a string composed of symbols from 'ACGT' (case sensitive).
+    :return: The reverse complement, a string.
+    """
     complements = {'A': 'T',
                    'T': 'A',
                    'G': 'C',
@@ -158,7 +178,7 @@ def FrequentWordsWithMismatchesAndReverseComplements(Text, k, d):
     for i in range(0, len(Text) - k + 1):
         current_kmer = Text[i:i + k]
         all_neighbors = all_neighbors.union(neighbors(current_kmer, d))
-        all_neighbors = all_neighbors.union(neighbors(DNA_complement(current_kmer), d))
+        all_neighbors = all_neighbors.union(neighbors(DNA_rev_complement(current_kmer), d))
 
     all_neighbors = dict.fromkeys(all_neighbors, 0)
     max_so_far = float('-inf')
@@ -168,7 +188,7 @@ def FrequentWordsWithMismatchesAndReverseComplements(Text, k, d):
             updated_count = count
             if HammingDistance(kmer, current_kmer) <= d:
                 updated_count += 1
-            kmer_c = DNA_complement(kmer)
+            kmer_c = DNA_rev_complement(kmer)
             if HammingDistance(kmer_c, current_kmer) <= d:
                 updated_count += 1
             # assert kmer != kmer_c
@@ -193,15 +213,39 @@ def plot_skew(running_skew):
     plt.show(block=True)
 
 
-def main():
+def main():  # TODO remove this!
     with open('skew_dataset.txt') as genome_file:
         genome = genome_file.read()
 
     running_skew = [0] + compute_skew(genome)
     mins = argsmin(running_skew)
-    print("Minimum of skew at position(s)",mins)
+    print("Minimum of skew at position(s)", mins)
     plot_skew(running_skew)
 
 
-if __name__ == '__main__':
-    main()
+def compute_frequencies(text, k):
+    frequencies = {}
+    for i in range(0, len(text) - k + 1):
+        kmer = text[i:i + k]
+        current = frequencies.get(kmer, 0)
+        frequencies[kmer] = current + 1
+    return frequencies
+
+
+def find_clumps(genome, k, l, t):
+    """
+    Returns the k-mers that form an (l,t)-clump within a given genome. A k-mer forms an (l,t)-clump in a string genome if there is an interval of genome of length l in which the k-mer appears at least t times.
+    :param genome: The genome, a string.
+    :param k: The size of the k-mers, an integer.
+    :param l: The length of the cluster, an integer.
+    :param t: The minimum number of times a k-mer is required to appear in the interval, an integer.
+    :return: The k-mers forming an (l,t)-clump, a list of string.
+    """
+
+    assert t >= 1
+    clumped_kmers = set()
+    for i in range(0, len(genome) - l):
+        text = genome[i:i + l]
+        frequencies = compute_frequencies(text, k)
+        clumped_kmers |= {kmer for kmer in frequencies.keys() if frequencies[kmer] >= t}
+    return list(clumped_kmers)
