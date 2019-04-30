@@ -1,7 +1,7 @@
 import functools
 import operator
 from collections import Counter
-from random import randint, choices
+from random import randint, choices, shuffle
 from copy import deepcopy
 import random
 import matplotlib.pyplot as plt
@@ -604,3 +604,21 @@ def main2():  # TODO clean up this stuff
 
 if __name__ == '__main__':
     main2()
+
+
+def shuffle_motifs(motifs, seed=None):
+    """
+    Given a collection of motifs, returns a collection of randomly generated, different motifs, with the same score.
+    :param motifs: The given motifs, a sequence of strings.
+    :param seed: The seed for initialization of the random number generator, an integer; if set to None, no initialization is performed.
+    :return: The randomly generated motifs, with the same score as the given ones; a list of strings.
+    """
+    if seed is not None:
+        random.seed = 42
+    t = len(motifs)  # Number of motifs
+    k = len(motifs[0])  # Length of k-mers
+    motifs_T = list(map(list, zip(*motifs)))  # Transpose motifs
+    shuffle(motifs_T)  # Shuffle
+    motifs_T_rot = [row[pos:] + row[:pos] for row, pos in zip(motifs_T, choices(list(range(0, t)), k=k))]  # Rotate
+    motifs = list(map(list, zip(*motifs_T_rot)))  # Transpose back
+    return motifs

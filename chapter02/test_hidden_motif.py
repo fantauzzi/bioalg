@@ -337,7 +337,6 @@ def test_gibbs_sampler():
 
     k, n, dna = fetch_gibbs_sampler_input(Path('test/testcase07.txt'))
     motif, _ = hidden_motif.gibbs_sampler(dna=dna, k=k, n=n, seed=42)
-    print(motif)
     assert sorted(motif) == sorted(
         ['GACGTCCACCGGCGT', 'TAAGCGCACCGGGGT', 'TACCCTTACCGGGGT', 'GAAGTTCCTCGGGGT', 'TAAGTTTTATGGGGT',
          'CAAGTTTACCGGGTG', 'CAAGTTTCGAGGGGT', 'CCTGTTTACCGGGGT', 'TAAGTTGCTCGGGGT', 'TAAACATACCGGGGT',
@@ -365,3 +364,17 @@ def test_sample_random_relative_entropy():
     samples = hidden_motif.sample_random_relative_entropy(dna=dna, k=7, n=5, seed=42)
     assert np.isclose(samples, [-4.361310120017858, -3.8374744768060447, -3.3695044762291197, -3.3698300963604413,
                                 -3.237474476806044]).all()
+
+def test_shuffle_motifs():
+    motifs = ['GGCGTTCAGGCA', 'AAGAATCAGTCA', 'CAAGGAGTTCGC', 'CACGTCAATCAC', 'CAATAATATTCG']
+    score1 = hidden_motif.score_motif(motifs)
+    shuffled = hidden_motif.shuffle_motifs(motifs)
+    score2 = hidden_motif.score_motif(shuffled)
+    assert score1 == score2
+
+    motifs = ['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA', 'GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG', 'TAGTACCGAGACCGAAAGAAGTATACAGGCGT',
+           'TAGATCAAGTTTCAGGTGCACGTCGGTGAACC', 'AATCCACCAGCTCCACGTGCAATGTTGGCCTA']
+    score1 = hidden_motif.score_motif(motifs)
+    shuffled = hidden_motif.shuffle_motifs(motifs)
+    score2 = hidden_motif.score_motif(shuffled)
+    assert score1 == score2
