@@ -118,3 +118,14 @@ def fetch_kmer_to_dna_dist_input(file_name):
         line = input_file.readline().rstrip('\n')
     dna = line.split(' ')
     return kmer, dna
+
+
+def fetch_gibbs_sampler_input(file_name):
+    with open(file_name) as input_file:
+        line = input_file.readline().rstrip('\n')
+        k, t, n = line.split(' ')
+        k, t, n = int(k), int(t), int(n)
+        dna = input_file.readlines()
+    assert len(dna) == t
+    dna = [item.rstrip('\n') for item in dna]
+    return k, n, dna

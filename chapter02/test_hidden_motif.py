@@ -1,6 +1,6 @@
 import hidden_motif
 import stepik_hidden_motif
-from stepik_hidden_motif import fetch_greedy_motif_input, fetch_kmer_to_dna_dist_input
+from stepik_hidden_motif import fetch_greedy_motif_input, fetch_kmer_to_dna_dist_input, fetch_gibbs_sampler_input
 import pytest
 from math import isclose
 from random import seed
@@ -158,7 +158,7 @@ def test_profile_most_probable_kmer():
     assert res == 'ATTCTTGGAGGTCCC'
 
 
-def test_median_string():
+def xtest_median_string():
     dna = ['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA', 'GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG', 'TAGTACCGAGACCGAAAGAAGTATACAGGCGT',
            'TAGATCAAGTTTCAGGTGCACGTCGGTGAACC', 'AATCCACCAGCTCCACGTGCAATGTTGGCCTA']
     k = 6
@@ -304,23 +304,53 @@ def test_greedy_motif_search_with_pseudocounts():
     assert sorted(motif) == sorted(result)
 
 
-def test_mc_test_randomized_motif_search():
-    seed(42)
+def xtest_mc_test_randomized_motif_search():
     dna = ['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA', 'GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG', 'TAGTACCGAGACCGAAAGAAGTATACAGGCGT',
            'TAGATCAAGTTTCAGGTGCACGTCGGTGAACC', 'AATCCACCAGCTCCACGTGCAATGTTGGCCTA']
     k = 8
     motif = hidden_motif.mc_randomized_motif_search(dna, k, times=1000, seed=42)
     assert sorted(motif) == sorted(['CCAAGGTG', 'TACAGGCG', 'TCCACGTG', 'TCTCGGGG', 'TTCAGGTG'])
 
+    k, dna = fetch_greedy_motif_input(Path('test/testcase05.txt'))
+    motif = hidden_motif.mc_randomized_motif_search(dna, k, times=1000, seed=42)
+    assert sorted(motif) == sorted(
+        ['CATGGGGAAAACTGA', 'CCTCTCGATCACCGA', 'CCTATAGATCACCGA', 'CCGATTGATCACCGA', 'CCTTGTGCAGACCGA',
+         'CCTTGCCTTCACCGA', 'CCTTGTTGCCACCGA', 'ACTTGTGATCACCTT', 'CCTTGTGATCAATTA', 'CCTTGTGATCTGTGA',
+         'CCTTGTGATCACTCC', 'AACTGTGATCACCGA', 'CCTTAGTATCACCGA', 'CCTTGTGAAATCCGA', 'CCTTGTCGCCACCGA',
+         'TGTTGTGATCACCGC', 'CACCGTGATCACCGA', 'CCTTGGTTTCACCGA', 'CCTTTGCATCACCGA', 'CCTTGTGATTTACGA'])
+
+    k, dna = fetch_greedy_motif_input(Path('test/testcase06.txt'))
+    motif = hidden_motif.mc_randomized_motif_search(dna, k, times=1000, seed=42)
+    assert sorted(motif) == sorted(
+        ['CTATCGTATTCCGCC', 'TTAGCCCAACCCGCC', 'TTATTGCAACCTAGC', 'GTATTGCAACCCGAG', 'TCTGTGCAACCCGCC',
+         'TTATTGACTCCCGCC', 'TTTCCGCAACCCGCC', 'TTATCCGAACCCGCC', 'TTATTGCAACCCCTA', 'TTATTGCAGTGCGCC',
+         'TTATTGGCCCCCGCC', 'TTATTGCTTTCCGCC', 'GGATTGCAACCCGCA', 'AGCTTGCAACCCGCC', 'TTATTTGTACCCGCC',
+         'TTATTAAGACCCGCC', 'TTACATCAACCCGCC', 'TTATTGCAAATAGCC', 'TTATGTAAACCCGCC', 'TTATTGCAACTACCC'])
+
 
 def test_gibbs_sampler():
-    seed(42)
     dna = ['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA', 'GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG', 'TAGTACCGAGACCGAAAGAAGTATACAGGCGT',
            'TAGATCAAGTTTCAGGTGCACGTCGGTGAACC', 'AATCCACCAGCTCCACGTGCAATGTTGGCCTA']
     k = 8
-    motif, _ = hidden_motif.gibbs_sampler(dna, k, n=100)
-    # assert sorted(motif) == sorted(['AAACGGCC', 'CAAGTTTC', 'CACGTGCA', 'CGAGACCG', 'TAAGTGCC'])
+    motif, _ = hidden_motif.gibbs_sampler(dna, k, n=100, seed=42)
     assert sorted(motif) == sorted(['AAACGGCC', 'ATACAGGC', 'CAAGGTGC', 'CAAGTTTC', 'CCACGTGC'])
+
+    k, n, dna = fetch_gibbs_sampler_input(Path('test/testcase07.txt'))
+    motif, _ = hidden_motif.gibbs_sampler(dna=dna, k=k, n=n, seed=42)
+    print(motif)
+    assert sorted(motif) == sorted(
+        ['GACGTCCACCGGCGT', 'TAAGCGCACCGGGGT', 'TACCCTTACCGGGGT', 'GAAGTTCCTCGGGGT', 'TAAGTTTTATGGGGT',
+         'CAAGTTTACCGGGTG', 'CAAGTTTCGAGGGGT', 'CCTGTTTACCGGGGT', 'TAAGTTGCTCGGGGT', 'TAAACATACCGGGGT',
+         'CAAGTTTAGGAGGGT', 'TAAGGAAACCGGGGT', 'TAAGTTTACACAGGT', 'TTAGTTTACCGGGGA', 'CCCTTTTACCGGGGT',
+         'GAAGTGAGCCGGGGT', 'AAAGTCGTCCGGGGT', 'TAAGTAAAGCAGCGA', 'AAAGTTTACCAATGT', 'CAAGTTTACCGTCAT'])
+
+    k, n, dna = fetch_gibbs_sampler_input(Path('test/testcase08.txt'))
+    motif, _ = hidden_motif.gibbs_sampler(dna=dna, k=k, n=n, seed=42)
+    assert sorted(motif) == sorted(
+        ['GCTCAAGTTATACGC', 'TCTGTTCGGATAAAC', 'GATTAGCGGATAAAG', 'TCCCGGCGGATAAAC', 'TCTTAAATGATAAAC',
+         'TCTTAGCTATTAAAC', 'TCTTAGTATATAAAC', 'TCTTGTTGGATAAAC', 'TCTTGAAGGATAAAC', 'TGACAGCGGATAAAC',
+         'TCTTAGCGGATTCCC', 'TCTTAGCGGAAGGAC', 'TCTTAGCGCGAAAAC', 'ACTTAGCGGATAAGT', 'TCTTAGAATATAAAC',
+         'AAGTAGCGGATAAAC', 'TCTTAGCGGATACTG', 'TCTCTTCGGATAAAC', 'TCTTAGCGGCATAAC', 'TCTTATTTGATAAAC'])
 
 
 def test_consensus_from_motifs():
