@@ -497,14 +497,19 @@ def overlap_align(string1, string2):
     :param string2: The second string.
     :return: A pair, the first element is the score, the second element is a pair of strings, giving the alignment of a suffix of string1 and a prefix of string2.
     """
+    match_score = 1
+    mismatch_score = -2
+    deletion_score = -2
+
     # Determine the alphabet of the two strings, and store it in a list. The list is sorted to facilitate debugging
     alphabet = list(sorted(set(string1 + string2)))
 
     # Set the scoring matrix
-    scoring_matrix = [[-2 if row_item != col_item else 1 for col_item in alphabet] for row_item in alphabet]
+    scoring_matrix = [[mismatch_score if row_item != col_item else match_score for col_item in alphabet] for row_item in
+                      alphabet]
 
     # Compute the alignment graph for the two given strings and the scoring matrix
-    adj = alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sigma=2, local=False)
+    adj = alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sigma=-deletion_score, local=False)
 
     # Add free taxi-rides (local aligment) to allow skipping a prefix of string1 and a postfix of string2
 

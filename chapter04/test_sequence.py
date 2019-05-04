@@ -165,4 +165,4 @@ def test_spectral_convolution():
 def test_convolution_peptide_sequence():
     spectrum = [57, 57, 71, 99, 129, 137, 170, 186, 194, 208, 228, 265, 285, 299, 307, 323, 356, 364, 394, 422, 493]
     res = sequence.convolution_peptide_sequence(spectrum, n_ammino_acids=20, n_leaderboard=60)
-    print(res)
+    assert res == (71, 99, 129, 57, 79, 58)

@@ -3,6 +3,7 @@ from pathlib import Path
 from pandas import DataFrame
 import align
 
+
 def read_weighted_graph(file_name):
     with open(file_name) as input_file:
         lines = input_file.readlines()
@@ -99,6 +100,18 @@ def test_dag_longest_path():
     path, distances = align.dag_longest_path(adj, '0', '4')
     assert distances[-1] == 12
     assert path == ['0', '2', '5', '3', '4']
+
+    adj = {'a': [('b', 3), ('c', 6), ('d', 5)],
+           'b': [('c', 2), ('f', 4)],
+           'c': [('e', 4), ('f', 3), ('g', 7)],
+           'd': [('e', 4), ('f', 5)],
+           'e': [('g', 2)],
+           'f': [('g', 1)]}
+    topo_order = align.topological_ordering(adj)
+    assert topo_order == ['a', 'd', 'b', 'c', 'f', 'e', 'g']
+    path, distances = align.dag_longest_path(adj, 'a', 'g')
+    assert path == ['a', 'c', 'g']
+    assert distances[-1] == 13
 
     adj2 = read_weighted_graph(Path('test/testcase01.txt'))
     topo_order2 = align.topological_ordering(adj2)
@@ -231,7 +244,14 @@ def test_edit_distance():
     assert dist == 9
 
 
-def test_fit_aligh():
+def test_fit_align():
+
+    long = 'GTTGGATTACGAATCGATATCTGTTTG'
+    short = 'ACGTCG'
+    score, (aligned1, aligned2) = align.fit_align(long, short)
+    assert score ==4
+    assert (aligned1, aligned2) == ('ACGAATCG', 'ACG--TCG')
+
     long = 'CCAT'
     short = 'AT'
     score, (aligned1, aligned2) = align.fit_align(long, short)
@@ -254,6 +274,7 @@ def test_fit_aligh():
 
 
 def test_overlap_alignment():
+
     s1 = 'PAWHEAE'
     s2 = 'HEAGAWGHEE'
     score, (aligned1, aligned2) = align.overlap_align(s1, s2)
