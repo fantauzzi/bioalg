@@ -34,6 +34,12 @@ def fetch_stepik_permutations(file_name):
 
 
 def test_greedy_sorting():
+    p = [+2, +6, -8, -17, +7, -14, +18, +3, -5, -16, -11, -19, -4, +10, +13, -20, -1, +9, -12, +15]
+    res = rearrange.greedy_sorting(p)
+
+    p = [-16, -20, +12, +18, -14, -17, -15, -6, -8, -19, -11, +13, -10, +4, -5, -2, +7, -3, +1, -9]
+    res = rearrange.greedy_sorting(p)  # TODO remove
+
     p = [-3, +4, +1, +5, -2]
     res = rearrange.greedy_sorting(p)
     assert res == [[-1, -4, +3, +5, -2],
@@ -73,6 +79,11 @@ def test_greedy_sorting():
 
 
 def test_count_breakpoints():
+    p = [+10, +6, -8, -7, +17, -20, +18, +19, -5, -16, -11, -4, -3, -2, +13, +14, -1, +9, -12, +15]
+    count = rearrange.count_breakpoints(p)
+    p = [-16, -20, +11, +12, -14, -13, -15, -6, -8, -19, -18, -17, -10, +4, -5, -2, +7, -3, +1, -9]
+    count = rearrange.count_breakpoints(p)
+
     p = [+3, +4, +5, -12, -8, -7, -6, +1, +2, +10, +9, -11, +13, +14]
     count = rearrange.count_breakpoints(p)
     assert count == 8
@@ -313,6 +324,9 @@ def test_two_break_on_genome():
     res = rearrange.two_break_on_genome(genome, 1, 6, 3, 8)
     assert res == [[-1, 2], [-3, 4], [-5, -7, 8, 6]]
 
+    # genome = [[+1, +2, +3, +4],[+5, +6],[+7,+8,+9]]
+    # res = rearrange.two_break_on_genome(genome, )
+
     genome = [
         [-1, +2, -3, -4, -5, -6, -7, +8, +9, +10, +11, +12, +13, +14, +15, -16, -17, -18, +19, -20, +21, +22, -23, -24,
          +25, -26, -27, +28, -29, -30, +31, +32, +33, -34, -35, +36, +37, +38, +39, -40, +41, +42, -43, +44, +45, +46,
@@ -334,6 +348,17 @@ def test_two_break_on_genome():
 
 
 def test_two_break_dist():
+    ps = [(+1, +2, +3, +4), (+5, +6), (+7, +8, +9)]
+    q0 = [(+1, +2, -6, -5),(+3, +4),(+7, +8, +9)]
+    q1 = [(+1, +2), (+3, +4), (+5, +6), (+7, +8), (+9,)]
+    q2 = [(+1, +2), (+3, +4), (+5, +6), (+7, +8, +9)]
+    q3 = [(+7, +8, +3, +4), (+5, +6), (+1, +2, +9)]
+    q4 = [(+1, +2, +3, +4), (+5, -9, -8, -7, +6)]
+    q5 = [(+1, +2, +3, +4),(+5, +6),(+7, -9, -8)]
+    print()
+    for item in [q0, q1, q2, q3, q4, q5]:  # TODO remove
+        print(rearrange.two_break_distance(item, ps))
+
     ps = [(1, 2, 3, 4, 5, 6)]
     qs = [(2, -4), (1, -3, -6, -5)]
     dist = rearrange.two_break_distance(ps, qs)
@@ -389,6 +414,11 @@ def test_two_break_sorting():
 
 
 def test_find_shared_kmers():
+    s1 = 'TCAGTTGGCCTACAT'
+    s2 = 'CCTACATGAGGTCTG'
+    pos = rearrange.find_shared_kmers(3, s1, s2)
+    assert sorted(pos) == sorted([(8, 0), (9, 1), (10, 2), (11, 3), (12, 4), (12, 5), (0, 6), (8, 8), (1, 12)])
+
     s1 = 'AAACTCATC'
     s2 = 'TTTCAAATC'
     pos = rearrange.find_shared_kmers(3, s1, s2)
@@ -477,7 +507,7 @@ def xtest_graph_from_permutations():
     assert graph == {2: 3, 4: 5, 6: 7, 8: 9, 10: 11, 12: 1}
 
 
-def xtest_breakpoint_graph():
+def xtest_breakpoint_graph():  # TODO why is this removed from unit-test? Add it back?
     q = [(2, -4), (1, -3, -6, -5)]
     p = [(1, 2, 3, 4, 5, 6)]
     adj = rearrange.breakpoint_graph(p, q, 'red', 'blue')

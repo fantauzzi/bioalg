@@ -72,12 +72,13 @@ def lloyd_cluster(data_points, centers):
     return centers.tolist()
 
 
-def hierarchical_clusters(d):
-    def dist(d, cluster1, cluster2):
-        the_distance = sum([d[(row,)][(col,)] for row in cluster1 for col in cluster2]) / (
-                len(cluster1) * len(cluster2))
-        return the_distance
+def dist(d, cluster1, cluster2):
+    the_distance = sum([d[(row,)][(col,)] for row in cluster1 for col in cluster2]) / (
+            len(cluster1) * len(cluster2))
+    return the_distance
 
+
+def hierarchical_clusters(d):
     def arg_min_dist(d, clusters):
         min_dist = float('inf')
         min_idx = None
@@ -112,3 +113,27 @@ def hierarchical_clusters(d):
             row[c_new] = new_row[cluster]
 
     return clutering_steps
+
+
+def max_distance(points, centers):
+    max_dist = float('-inf')
+    max_dist_point = None
+    for point in points:
+        dist = min([euclidean(point, center) for center in centers])
+        if dist > max_dist:
+            max_dist = dist
+            max_dist_point = point
+    return max_dist_point, max_dist
+from math import exp
+
+def hidden_matrix(data, centers):
+    """h_m = [[1 / (euclidean(data[j], centers[i]) ** 2 )/ sum(
+        [1 / (euclidean(data[j], centers[t])**2) for t in range(0, len(centers))]) for j in range(0, len(data))] for i in
+           range(0, len(centers))]"""
+    beta =1
+    h_m = [[exp(-beta*euclidean(data[j], centers[i])) / sum(
+        [exp(-beta*euclidean(data[j], centers[t])) for t in range(0, len(centers))]) for j in range(0, len(data))] for i
+           in
+           range(0, len(centers))]
+
+    return h_m

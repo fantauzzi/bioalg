@@ -145,6 +145,23 @@ def test_dag_longest_path():
 
 
 def test_longest_common_string():
+    string1 = 'ACGATACGT'  #TODO remove
+    string2 = 'CCCATTAAGT'
+    res1 = align.longest_common_string(string1, string2)
+
+    string1 = 'ACGATACGT'  #TODO remove
+    string2 = 'GACTATAGAA'
+    res2 = align.longest_common_string(string1, string2)
+
+    string1 = 'CCCATTAAGT'  #TODO remove
+    string2 = 'GACTATAGAA'
+    res3 = align.longest_common_string(string1, string2)
+
+    string1 = 'CTCGAT'  #TODO remove
+    string2 = 'TACGTC'
+    res = align.longest_common_string(string1, string2)
+    #assert res == 'ATGT'
+
     string1 = 'ATGTTATA'
     string2 = 'ATCGTCC'
     res = align.longest_common_string(string1, string2)
@@ -419,6 +436,11 @@ def test_linear_space_alignment():
 
 
 def test_three_way_alignment():
+    s1 = 'ACGATACGT'
+    s2 = 'CCCATTAAGT'
+    s3 = 'GACTATAGAA'
+    score, alignment = align.three_way_alignment(s1, s2, s3)
+
     s1 = 'ATATCCG'
     s2 = 'TCCGA'
     s3 = 'ATGTACTG'

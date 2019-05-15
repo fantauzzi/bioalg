@@ -70,6 +70,17 @@ def test_dist_between_leaves():
 
 
 def test_limb_length():
+    n, j, d = fetch_stepik_limb_length_input(Path('test/testcase34.txt'))
+    assert len(d) == n
+    length = phylogeny.limb_length(j, d)
+    print()
+    print(length)
+
+    n, j, d = fetch_stepik_limb_length_input(Path('test/testcase32.txt'))
+    assert len(d) == n
+    length = phylogeny.limb_length(j, d)
+    # assert length == 2
+
     n, j, d = fetch_stepik_limb_length_input(Path('test/testcase03.txt'))
     assert len(d) == n
     length = phylogeny.limb_length(j, d)
@@ -245,6 +256,12 @@ def test_upgma():
 
 
 def test_neighbor_joining_matrix():
+    n, d = fetch_stepik_additive_phylogeny_input(Path('test/testcase33.txt'))
+    d_star = phylogeny.neighbor_joining_matrix(d)
+    print()
+    print(d_star[1][2])
+
+
     n, d = fetch_stepik_additive_phylogeny_input(Path('test/testcase13.txt'))
     assert n == len(d)
     d_star = phylogeny.neighbor_joining_matrix(d)
@@ -530,3 +547,30 @@ def test_nearest_neighbor_interchange():
     # nx.readwrite.write_gpickle(lp_tree, Path('test/testcase31.pickle'))
     expected = nx.readwrite.read_gpickle(Path('test/testcase31.pickle'))
     assert nx.is_isomorphic(lp_tree, expected)
+
+
+def test_discrepancy():
+    d1 = [[0, 13, 16, 10],
+          [13, 0, 21, 15],
+          [16, 21, 0, 18],
+          [10, 15, 18, 0]]
+
+    d2 = [[0, 14, 17, 11],
+          [14, 0, 21, 15],
+          [17, 21, 0, 18],
+          [11, 15, 18, 0]]
+
+    res = phylogeny.discrepancy(d1, d2)
+    print()
+    print(res)
+
+
+def test_cluster_dist():
+    d = [[0, 20, 9, 11],
+         [20, 0, 17, 11],
+         [9, 17, 0, 8],
+         [11, 11, 8, 0]]
+
+    dist = phylogeny.clusters_distance([0, 1], [2, 3], d)
+    print()
+    print(dist)

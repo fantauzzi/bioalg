@@ -282,7 +282,7 @@ def upgma(d):
     age = {vertex: 0 for vertex in graph}
     # Continue until you have clustered everything in one cluster only (i.e. you have built the root of the tree)
     while len(clusters) > 1:
-        current_min = float('inf')  # Find i, j with i!=k that mininimises d[i][k].
+        current_min = float('inf')  # Find i, j with i!=k that mininimizes d[i][k].
         min_idxs = None
         for i in d:
             for j in d:
@@ -684,3 +684,16 @@ def nearest_neighbor_interchange(tree, alphabet):
             print()
         """
     return best_tree, score
+
+
+def discrepancy(d1, d2):
+    n = len(d1)
+    assert n == len(d2)
+    discr = sum([(d1[i][j] - d2[i][j]) ** 2 for j in range(1, n) for i in range(0, j)])
+    return discr
+
+
+def clusters_distance(c1, c2, d):
+    num = sum([d[i][j] for i in c1 for j in c2])
+    dist = num / (len(c1) * len(c2))
+    return dist

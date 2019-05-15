@@ -27,6 +27,11 @@ def testfarthest_first_centers():
 
 
 def test_sq_error_distortion():
+    data_points, centers, k = fetch_sq_error_dist_input(Path('test/testcase12.txt'))
+    dist = clustering.sq_error_distortion(data_points, centers)
+    print()
+    print(dist)
+
     data_points, centers, k = fetch_sq_error_dist_input(Path('test/testcase03.txt'))
     dist = clustering.sq_error_distortion(data_points, centers)
     assert np.isclose(dist, 18.245559999999994)
@@ -67,6 +72,18 @@ def test_lloyd_cluster():
 
 
 def test_hierarchical_clusters():
+    d = [[0, 20, 9, 11],
+         [20, 0, 17, 11],
+         [9, 17, 0, 8],
+         [11, 11, 8, 0]]
+    c1=(0, 2)
+    c2=(1, 3)
+    n = len(d)
+    d = {(row,): {(col,): d[row][col] for col in range(0, n)} for row in range(0, n)}
+    the_dist = clustering.dist(d, c1, c2)
+    print()
+    print(the_dist)
+
     d = [[0.00, 0.74, 0.85, 0.54, 0.83, 0.92, 0.89],
          [0.74, 0.00, 1.59, 1.35, 1.20, 1.48, 1.55],
          [0.85, 1.59, 0.00, 0.63, 1.13, 0.69, 0.73],
@@ -93,3 +110,21 @@ def test_hierarchical_clusters():
                      (8, 12, 4, 6, 10), (11, 2, 17, 14), (15, 3, 13, 7, 0, 19, 18, 11, 2, 17, 14),
                      (1, 5, 16, 9, 15, 3, 13, 7, 0, 19, 18, 11, 2, 17, 14),
                      (1, 5, 16, 9, 15, 3, 13, 7, 0, 19, 18, 11, 2, 17, 14, 8, 12, 4, 6, 10)]
+
+
+def test_max_distance():
+    # data = [(2, 8), (2, 5), (6, 9), (7, 5), (5, 2) ]
+    data = [(2, 6), (4, 9), (5, 7), (6, 5), (8, 3)]
+    # centers = [(3, 5), (5, 4)]
+    centers = [(4, 5), (7, 4)]
+    dist, center = clustering.max_distance(data, centers)
+    print()
+    print(dist, center)
+
+
+def test_hidden_matrix():
+    data = [(2, 8), (2, 5), (6, 9), (7, 5), (5, 2)]
+    centers = [(3, 5), (5, 4)]
+    h_m = clustering.hidden_matrix(data, centers)
+    print()
+    print(*h_m, sep='\n')

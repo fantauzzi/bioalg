@@ -53,3 +53,5 @@ def fetch_hierarchical_cluster_input(file_name):
 def pretty_print_matrix(m):
     for row in m:
         print(*row, sep=' ')
+
+
