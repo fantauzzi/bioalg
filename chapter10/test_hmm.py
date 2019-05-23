@@ -5,7 +5,8 @@ import networkx as nx
 import networkx.algorithms.isomorphism as iso
 from numpy import isclose
 # import networkx.drawing.nx_pylab as nxp
-from stepik_hmm import fetch_hmm, fetch_alignment, ugly_print_matrices, fetch_profile_alignment, pretty_alignment_print, fetch_hmm_path, fetch_hmm_outcome
+from stepik_hmm import fetch_hmm, fetch_alignment, ugly_print_matrices, fetch_profile_alignment, pretty_alignment_print, \
+    fetch_hmm_path, fetch_hmm_outcome, pretty_print_path
 import hmm
 
 
@@ -50,7 +51,7 @@ def test_viterbi():
 
     emissions, model = fetch_hmm(Path('test/testcase23.txt'))
     path = hmm.viterbi(emissions=emissions, model=model)
-    assert path =='CCCDABBBBBBBBBBBBBBBBBBBBBBCDACDACCCDABBBBBDACDACDABBBBBBBBBBBBBBBBBBBBBBBBBBBBBDADACCDADACCDADADADA'
+    assert path == 'CCCDABBBBBBBBBBBBBBBBBBBBBBCDACDACCCDABBBBBDACDACDABBBBBBBBBBBBBBBBBBBBBBBBBBBBBDADACCDADACCDADADADA'
 
 
 def test_make_profile_HMM():
@@ -86,13 +87,31 @@ def test_make_profile_HMM():
         expected = pickle.load(f)
     assert the_HMM == expected
 
-    # TODO for Rosalind
-    # Save in file and use tab separated
-    # Replace theta wiht 1-theta
     theta, sigma, alphabet, alignment = fetch_alignment(Path('test/testcase09.txt'))
     the_HMM = hmm.make_profile_HMM(theta=theta, sigma=sigma, alphabet=alphabet, alignment=alignment)
-    # print()
+    # with open(Path('test/testcase09.pickle'), 'wb') as f:
+    #    pickle.dump(the_HMM, f, pickle.HIGHEST_PROTOCOL)
+    with open(Path('test/testcase09.pickle'), 'rb') as f:
+        expected = pickle.load(f)
+    assert the_HMM == expected
+
+    theta, sigma, alphabet, alignment = fetch_alignment(Path('test/testcase28.txt'))
+    the_HMM = hmm.make_profile_HMM(theta=theta, sigma=sigma, alphabet=alphabet, alignment=alignment)
+    # with open(Path('test/testcase28.pickle'), 'wb') as f:
+    #    pickle.dump(the_HMM, f, pickle.HIGHEST_PROTOCOL)
+    with open(Path('test/testcase28.pickle'), 'rb') as f:
+        expected = pickle.load(f)
+    assert the_HMM == expected
+
+    theta, sigma, alphabet, alignment = fetch_alignment(Path('test/testcase29.txt'))
+    the_HMM = hmm.make_profile_HMM(theta=theta, sigma=sigma, alphabet=alphabet, alignment=alignment)
+    print()
     # ugly_print_matrices(the_HMM.transition, the_HMM.emission, the_HMM.transition.keys(), the_HMM.alphabet)
+    # with open(Path('test/testcase29.pickle'), 'wb') as f:
+    #     pickle.dump(the_HMM, f, pickle.HIGHEST_PROTOCOL)
+    with open(Path('test/testcase29.pickle'), 'rb') as f:
+        expected = pickle.load(f)
+    assert the_HMM == expected
 
 
 def test_profile_alignment():
@@ -131,6 +150,16 @@ def test_profile_alignment():
                     ('M', 25), ('M', 26), ('D', 27), ('I', 27), ('M', 28), ('D', 29)]
     assert score == -94.51230211004193
 
+    text, theta, sigma, alphabet, alignment = fetch_profile_alignment(Path('test/testcase30.txt'))
+    path, score = hmm.align(emissions=text, theta=theta, sigma=sigma, alphabet=alphabet, alignment=alignment)
+    assert path == [('M', 1), ('I', 1), ('M', 2), ('M', 3), ('M', 4), ('M', 5), ('M', 6), ('M', 7), ('M', 8), ('I', 8),
+                    ('M', 9), ('M', 10), ('I', 10), ('M', 11), ('M', 12), ('M', 13), ('M', 14), ('I', 14), ('I', 14),
+                    ('M', 15), ('I', 15), ('M', 16), ('M', 17), ('I', 17), ('I', 17), ('M', 18), ('M', 19), ('M', 20),
+                    ('M', 21), ('M', 22), ('I', 22), ('M', 23), ('M', 24), ('M', 25), ('M', 26), ('M', 27), ('D', 28),
+                    ('M', 29), ('I', 29), ('I', 29), ('D', 30), ('M', 31), ('I', 31), ('M', 32), ('M', 33), ('I', 33),
+                    ('M', 34), ('M', 35), ('M', 36), ('M', 37), ('M', 38)]
+    assert score == -74.42156226598739
+
 
 def test_hidden_path_prob():
     path, _, transitions = fetch_hmm_path(Path('test/testcase15.txt'))
@@ -144,6 +173,7 @@ def test_hidden_path_prob():
     path, _, transitions = fetch_hmm_path(Path('test/testcase17.txt'))
     prob = hmm.hidden_path_prob(path, transitions)
     assert isclose(prob, 1.5860533198043927e-19)
+
 
 def test_outcome_prob():
     emissions, path, emission_matrix = fetch_hmm_outcome(Path('test/testcase18.txt'))
@@ -159,4 +189,19 @@ def test_outcome_prob():
     assert isclose(prob, 3.660029947725436e-27)
 
 
+def test_outcome_likelyhood():
+    emissions, model = fetch_hmm(Path('test/testcase24.txt'))
+    prob = hmm.outcome_likelyhood(emissions=emissions, model=model)
+    assert isclose(prob, 1.1005510319694847e-06)
 
+    emissions, model = fetch_hmm(Path('test/testcase25.txt'))
+    prob = hmm.outcome_likelyhood(emissions=emissions, model=model)
+    assert isclose(prob, 4.08210708381e-55)
+
+    emissions, model = fetch_hmm(Path('test/testcase26.txt'))
+    prob = hmm.outcome_likelyhood(emissions=emissions, model=model)
+    assert isclose(prob, 4.577544141262532e-49)
+
+    emissions, model = fetch_hmm(Path('test/testcase27.txt'))
+    prob = hmm.outcome_likelyhood(emissions=emissions, model=model)
+    assert isclose(prob, 9.461855360076486e-51)

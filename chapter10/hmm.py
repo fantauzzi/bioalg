@@ -387,3 +387,19 @@ def hidden_path_prob(path, transition_prob):
 def outcome_prob(emissions, path, emission_prob):
     prob = reduce(operator.mul, [emission_prob[state][symbol] for state, symbol in zip(path, emissions)], 1)
     return prob
+
+
+def outcome_likelyhood(emissions, model):
+    def weight(i, l, k, model):
+        w = model.transition[l][k] * model.emission[k][emissions[i - 1]] if i > 1 else \
+            model.emission[k][emissions[i - 1]]
+        return w
+
+    n = len(emissions)
+    n_states = len(model.states)
+    prev_forward = {k: 1 / n_states for k in model.states}
+    for i in range(1, n + 1):
+        forward = {k: sum([prev_forward[l] * weight(i, l, k, model) for l in model.states]) for k in model.states}
+        prev_forward = forward
+    total = sum(prev_forward.values())/n_states
+    return total

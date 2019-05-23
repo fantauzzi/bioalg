@@ -93,19 +93,19 @@ def ugly_print_matrix(matrix, row_labels, col_labels):  # It is ugly, but it is 
 
     print_labels = [make_print_label(label) for label in col_labels if label[0] != 'S']
     if ('S', None) in col_labels:
-        print('S   ', end='')
+        print('\tS\t', sep='', end='')
     else:
-        print('    ', end='')
-    print(*print_labels, sep='  ')
+        print('\t', sep='', end='')
+    print(*print_labels, sep='\t')
     for row_label in row_labels:
         row_print_label = make_print_label(row_label)
-        print(row_print_label, '  ', sep='', end='')
-        if len(row_print_label) == 1:
-            print(' ', end='')
+        print(row_print_label, '\t', sep='', end='')
+        # if len(row_print_label) == 1:
+        #    print(' ', end='')
         values = [matrix[row_label][col_label] for col_label in col_labels]
-        f = ['{:0.3f}   ' if value != 0 else '{:0.0f}  ' for value in values]
+        f = ['{:0.3f}\t' if value != 0 else '{:0.0f}\t' for value in values]
         f = ''.join(f)
-        f = f[:len(f) - 2]
+        f = f[:len(f) - 1]
         print(f.format(*values))
 
 
@@ -118,3 +118,8 @@ def ugly_print_matrices(transition, emission, states, alphabet):
 def pretty_alignment_print(alignment):
     items = [item[0] + str(item[1]) for item in alignment]
     print(*items, sep=' ')
+
+def pretty_print_path(path):
+    for item in path:
+        print(item[0], item[1], sep='', end=' ')
+    print()

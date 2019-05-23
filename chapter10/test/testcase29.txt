@@ -1,0 +1,14 @@
+0.327 0.01
+--------
+A B C D E
+--------
+BDD
+BDD
+-BD
+-DD
+BDD
+BDD
+BDD
+---
+A-D
+-D-
