@@ -382,3 +382,8 @@ def hidden_path_prob(path, transition_prob):
     prob = reduce(operator.mul, [transition_prob[i][j] for i, j in zip(path[:len(path) - 1], path[1:])], 1)
     prob *= .5
     return prob
+
+
+def outcome_prob(emissions, path, emission_prob):
+    prob = reduce(operator.mul, [emission_prob[state][symbol] for state, symbol in zip(path, emissions)], 1)
+    return prob

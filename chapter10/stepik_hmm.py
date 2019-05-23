@@ -32,6 +32,20 @@ def fetch_hmm_path(file_name):
     return path, states, transition_matrix
 
 
+def fetch_hmm_outcome(file_name):
+    with open(file_name) as input_file:
+        emissions = input_file.readline().rstrip('\n')
+        input_file.readline()
+        alphabet = parse_and_split(input_file)
+        input_file.readline()
+        path = input_file.readline().rstrip(('\n'))
+        input_file.readline()
+        states = parse_and_split(input_file)
+        input_file.readline()
+        emission_matrix = parse_matrix(input_file)
+    return emissions, path, emission_matrix
+
+
 def fetch_hmm(file_name):
     with open(file_name) as input_file:
         string = input_file.readline().rstrip('\n')

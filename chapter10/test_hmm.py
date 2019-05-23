@@ -5,7 +5,7 @@ import networkx as nx
 import networkx.algorithms.isomorphism as iso
 from numpy import isclose
 # import networkx.drawing.nx_pylab as nxp
-from stepik_hmm import fetch_hmm, fetch_alignment, ugly_print_matrices, fetch_profile_alignment, pretty_alignment_print, fetch_hmm_path
+from stepik_hmm import fetch_hmm, fetch_alignment, ugly_print_matrices, fetch_profile_alignment, pretty_alignment_print, fetch_hmm_path, fetch_hmm_outcome
 import hmm
 
 
@@ -43,6 +43,14 @@ def test_viterbi():
     emissions, model = fetch_hmm(Path('test/testcase04.txt'))
     path = hmm.viterbi(emissions=emissions, model=model)
     assert path == 'CCCCCAAAAAAAAABABCAAAAAAABCCCAABAAAAAAAAAAABABAAABAAAAAAAAAAAAABABAAABAAAABAAABCABAAAABCAAABAAABCCCC'
+
+    emissions, model = fetch_hmm(Path('test/testcase21.txt'))
+    path = hmm.viterbi(emissions=emissions, model=model)
+    assert path == 'AAABBAAAAA'
+
+    emissions, model = fetch_hmm(Path('test/testcase23.txt'))
+    path = hmm.viterbi(emissions=emissions, model=model)
+    assert path =='CCCDABBBBBBBBBBBBBBBBBBBBBBCDACDACCCDABBBBBDACDACDABBBBBBBBBBBBBBBBBBBBBBBBBBBBBDADACCDADACCDADADADA'
 
 
 def test_make_profile_HMM():
@@ -136,3 +144,19 @@ def test_hidden_path_prob():
     path, _, transitions = fetch_hmm_path(Path('test/testcase17.txt'))
     prob = hmm.hidden_path_prob(path, transitions)
     assert isclose(prob, 1.5860533198043927e-19)
+
+def test_outcome_prob():
+    emissions, path, emission_matrix = fetch_hmm_outcome(Path('test/testcase18.txt'))
+    prob = hmm.outcome_prob(emissions, path, emission_matrix)
+    assert isclose(prob, 3.59748954746e-06)
+
+    emissions, path, emission_matrix = fetch_hmm_outcome(Path('test/testcase19.txt'))
+    prob = hmm.outcome_prob(emissions, path, emission_matrix)
+    assert isclose(prob, 3.42316482177e-35)
+
+    emissions, path, emission_matrix = fetch_hmm_outcome(Path('test/testcase20.txt'))
+    prob = hmm.outcome_prob(emissions, path, emission_matrix)
+    assert isclose(prob, 3.660029947725436e-27)
+
+
+
