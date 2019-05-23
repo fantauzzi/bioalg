@@ -6,6 +6,8 @@ import networkx as nx
 # import networkx.drawing.nx_pylab as nxp
 from math import log, exp
 from numpy import isclose
+from functools import reduce
+import operator
 
 HMM = namedtuple('HMM', ['alphabet', 'states', 'transition', 'emission'])
 """
@@ -374,3 +376,9 @@ def align(emissions, theta, sigma, alphabet, alignment):
     longest_path = [(item1, item2) for item1, item2, _ in reversed(longest_path)][1:]
 
     return longest_path, graph.nodes[sink]['s']
+
+
+def hidden_path_prob(path, transition_prob):
+    prob = reduce(operator.mul, [transition_prob[i][j] for i, j in zip(path[:len(path) - 1], path[1:])], 1)
+    prob *= .5
+    return prob

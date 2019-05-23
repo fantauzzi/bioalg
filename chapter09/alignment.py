@@ -103,7 +103,7 @@ class SuffixNode:
     The instance has the following attributes:
         data: the data contained by the node.
         parent: the parent of the node; another SuffixNode, or None, if the node has no parent.
-            symbol_to_child: the edges leaving from the node, each edge has an associated symbol and enters another
+        symbol_to_child: the edges leaving from the node, each edge has an associated symbol and enters another
             node, a dictionary symbol -> SuffixNode.
         weights: a dictionary that gives the weight of outgoing edges with given symbol, symbol -> weight.
         label: a label for the node, an integer or None.
@@ -174,7 +174,7 @@ def suffix_trie_from_text(text):
 def suffix_tree_from_text(text):
     """
     Returns the suffix tree for a given text.
-    :param text: The text, a string. It is not allowed to contain symbol '$'.
+    :param text: The text, a string. It must end by '$'.
     :return: The root of the suffix tree, a SuffixNode.
     """
     tree_root = suffix_trie_from_text(text)

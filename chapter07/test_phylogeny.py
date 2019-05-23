@@ -257,10 +257,11 @@ def test_upgma():
 
 def test_neighbor_joining_matrix():
     n, d = fetch_stepik_additive_phylogeny_input(Path('test/testcase33.txt'))
-    d_star = phylogeny.neighbor_joining_matrix(d)
-    print()
-    print(d_star[1][2])
+    d_star = phylogeny.neighbor_joining_matrix(d)  # TODO clean up this
 
+    n, d = fetch_stepik_additive_phylogeny_input(Path('test/testcase35.txt'))
+
+    tree = phylogeny.neighbor_joining(d)
 
     n, d = fetch_stepik_additive_phylogeny_input(Path('test/testcase13.txt'))
     assert n == len(d)

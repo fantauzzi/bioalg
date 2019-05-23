@@ -311,6 +311,10 @@ def test_shortes_substring_not_appearing():
 
 
 def test_suffix_array_for_text():
+    suffixes = alignment.suffix_array_for_text('papaya$')
+    print()
+    print(*suffixes, sep=' ')
+
     suffixes = alignment.suffix_array_for_text('AACGATAGCGGTAGA$')
     assert suffixes == [15, 14, 0, 1, 12, 6, 4, 2, 8, 13, 3, 7, 9, 10, 11, 5]
 
@@ -326,6 +330,9 @@ def test_suffix_array_for_text():
 
 
 def test_burrows_wheeler_transform():
+    trans = alignment.burrows_wheeler_transform('TCAGGGCTTG$')
+    assert trans == 'GCTGTGGA$TC'
+
     trans = alignment.burrows_wheeler_transform('panamabananas$')
     assert trans == 'smnpbnnaaaaa$a'
 
@@ -347,6 +354,9 @@ def test_burrows_wheeler_transform():
 
 
 def test_inverted_burrow_wheeler():
+    trans = alignment.inverted_burrow_wheeler('TTCCATTGGA$')
+    assert trans == 'TGTACCATGT$'
+
     trans = alignment.inverted_burrow_wheeler('ard$rcaaaabb')
     assert trans == 'abracadabra$'
 

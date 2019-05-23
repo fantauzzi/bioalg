@@ -3,8 +3,9 @@ from pathlib import Path
 import pickle
 import networkx as nx
 import networkx.algorithms.isomorphism as iso
+from numpy import isclose
 # import networkx.drawing.nx_pylab as nxp
-from stepik_hmm import fetch_hmm, fetch_alignment, ugly_print_matrices, fetch_profile_alignment, pretty_alignment_print
+from stepik_hmm import fetch_hmm, fetch_alignment, ugly_print_matrices, fetch_profile_alignment, pretty_alignment_print, fetch_hmm_path
 import hmm
 
 
@@ -121,3 +122,17 @@ def test_profile_alignment():
                     ('I', 22), ('I', 22), ('M', 23), ('M', 24), ('I', 24), ('I', 24), ('I', 24), ('I', 24), ('I', 24),
                     ('M', 25), ('M', 26), ('D', 27), ('I', 27), ('M', 28), ('D', 29)]
     assert score == -94.51230211004193
+
+
+def test_hidden_path_prob():
+    path, _, transitions = fetch_hmm_path(Path('test/testcase15.txt'))
+    prob = hmm.hidden_path_prob(path, transitions)
+    assert isclose(prob, 0.000384928691755)
+
+    path, _, transitions = fetch_hmm_path(Path('test/testcase16.txt'))
+    prob = hmm.hidden_path_prob(path, transitions)
+    assert isclose(prob, 3.26233331904e-21)
+
+    path, _, transitions = fetch_hmm_path(Path('test/testcase17.txt'))
+    prob = hmm.hidden_path_prob(path, transitions)
+    assert isclose(prob, 1.5860533198043927e-19)
