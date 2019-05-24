@@ -6,7 +6,8 @@ import networkx.algorithms.isomorphism as iso
 from numpy import isclose
 # import networkx.drawing.nx_pylab as nxp
 from stepik_hmm import fetch_hmm, fetch_alignment, ugly_print_matrices, fetch_profile_alignment, pretty_alignment_print, \
-    fetch_hmm_path, fetch_hmm_outcome, pretty_print_path, fetch_parameter_estimation, ugly_print_matrix
+    fetch_hmm_path, fetch_hmm_outcome, pretty_print_path, fetch_parameter_estimation, ugly_print_matrix, \
+    fetch_viterbi_learning
 import hmm
 
 
@@ -105,7 +106,6 @@ def test_make_profile_HMM():
 
     theta, sigma, alphabet, alignment = fetch_alignment(Path('test/testcase29.txt'))
     the_HMM = hmm.make_profile_HMM(theta=theta, sigma=sigma, alphabet=alphabet, alignment=alignment)
-    print()
     # ugly_print_matrices(the_HMM.transition, the_HMM.emission, the_HMM.transition.keys(), the_HMM.alphabet)
     # with open(Path('test/testcase29.pickle'), 'wb') as f:
     #     pickle.dump(the_HMM, f, pickle.HIGHEST_PROTOCOL)
@@ -243,3 +243,36 @@ def test_hmm_parameter_estimation():
     # with open(Path('test/testcase34.pickle'), 'rb') as f:
     #    expected = pickle.load(f)
     assert trans_p, em_p == expected
+
+
+def test_viterbi_learning():
+    n_iterations, emissions, alphabet, states, transision_matrix, emission_matrix = fetch_viterbi_learning(
+        Path('test/testcase35.txt'))
+    trans_m, em_m = hmm.viterbi_learning(n_iterations, emissions, transision_matrix, emission_matrix)
+    # with open(Path('test/testcase35.pickle'), 'wb') as f:
+    #     pickle.dump((trans_m, em_m), f, pickle.HIGHEST_PROTOCOL)
+    with open(Path('test/testcase35.pickle'), 'rb') as f:
+        expected = pickle.load(f)
+    assert trans_m, em_m == expected
+
+    n_iterations, emissions, alphabet, states, transision_matrix, emission_matrix = fetch_viterbi_learning(
+        Path('test/testcase36.txt'))
+    trans_m, em_m = hmm.viterbi_learning(n_iterations, emissions, transision_matrix, emission_matrix)
+    # with open(Path('test/testcase36.pickle'), 'wb') as f:
+    #    pickle.dump((trans_m, em_m), f, pickle.HIGHEST_PROTOCOL)
+    with open(Path('test/testcase36.pickle'), 'rb') as f:
+        expected = pickle.load(f)
+    assert trans_m, em_m == expected
+
+    n_iterations, emissions, alphabet, states, transision_matrix, emission_matrix = fetch_viterbi_learning(
+        Path('test/testcase37.txt'))
+    trans_m, em_m = hmm.viterbi_learning(n_iterations, emissions, transision_matrix, emission_matrix)
+    # with open(Path('test/testcase37.pickle'), 'wb') as f:
+    #     pickle.dump((trans_m, em_m), f, pickle.HIGHEST_PROTOCOL)
+    with open(Path('test/testcase37.pickle'), 'rb') as f:
+        expected = pickle.load(f)
+    assert trans_m, em_m == expected
+    # print()
+    # ugly_print_matrix(trans_m, states, states)
+    # print('--------')
+    # ugly_print_matrix(em_m, states, alphabet)

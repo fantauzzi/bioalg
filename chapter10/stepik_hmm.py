@@ -136,3 +136,20 @@ def fetch_parameter_estimation(file_name):
         input_file.readline()
         states = parse_and_split(input_file)
     return emissions, alphabet, path, states
+
+
+def fetch_viterbi_learning(file_name):
+    with open(file_name) as input_file:
+        n_iterations = int(input_file.readline().rstrip('\n'))
+        input_file.readline()
+        emissions = input_file.readline().rstrip('\n')
+        input_file.readline()
+        alphabet = parse_and_split(input_file)
+        input_file.readline()
+        states = parse_and_split(input_file)
+        input_file.readline()
+        transision_matrix = parse_matrix(input_file)
+        # input_file.readline()
+        emission_matrix = parse_matrix(input_file)
+    return n_iterations, emissions, alphabet, states, transision_matrix, emission_matrix
+

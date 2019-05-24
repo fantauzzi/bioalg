@@ -81,7 +81,10 @@ def viterbi(emissions, model):
             previous_vertices = [source] if i_emission == 0 else [(state, i_emission - 1) for state in model.states]
             highest_s = float('-inf')
             for prev_vertex in previous_vertices:
-                s = graph.nodes[prev_vertex]['s'] + log(graph.edges[(prev_vertex, (state, i_emission))]['weight'])
+                try:
+                    s = graph.nodes[prev_vertex]['s'] + log(graph.edges[(prev_vertex, (state, i_emission))]['weight'])
+                except KeyError as err:
+                    pass
                 if s > highest_s:
                     highest_s = s
                     graph.nodes[(state, i_emission)]['s'] = highest_s
@@ -422,5 +425,27 @@ def hmm_parameter_estimation(emissions, alphabet, path, states):
         emission_total = sum([value for value in emission_prob[state].values()])
         emission_prob[state] = {key: value / emission_total if emission_total != 0 else 1 / len(alphabet) for key, value
                                 in emission_prob[state].items()}
+
+    return transition_prob, emission_prob
+
+
+def viterbi_learning(n_iterations, emissions, transition_prob, emission_prob):
+    sigma = 0.000001
+    alphabet = set(emissions)
+    states = list(transition_prob.keys())
+    for _ in range(0, n_iterations):
+        model = HMM(alphabet=alphabet, states=states, transition=transition_prob, emission=emission_prob)
+        path = viterbi(emissions, model)
+        transition_prob, emission_prob = hmm_parameter_estimation(emissions=emissions,
+                                                                  alphabet=alphabet,
+                                                                  path=path,
+                                                                  states=states)
+        for state in states:
+            for symbol in alphabet:
+                if emission_prob[state][symbol] == 0:
+                    emission_prob[state][symbol] = sigma
+            for state2 in states:
+                if transition_prob[state][state2] == 0:
+                    transition_prob[state][state2] = sigma
 
     return transition_prob, emission_prob
