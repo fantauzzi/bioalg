@@ -6,7 +6,7 @@ import networkx.algorithms.isomorphism as iso
 from numpy import isclose
 # import networkx.drawing.nx_pylab as nxp
 from stepik_hmm import fetch_hmm, fetch_alignment, ugly_print_matrices, fetch_profile_alignment, pretty_alignment_print, \
-    fetch_hmm_path, fetch_hmm_outcome, pretty_print_path
+    fetch_hmm_path, fetch_hmm_outcome, pretty_print_path, fetch_parameter_estimation, ugly_print_matrix
 import hmm
 
 
@@ -205,3 +205,41 @@ def test_outcome_likelyhood():
     emissions, model = fetch_hmm(Path('test/testcase27.txt'))
     prob = hmm.outcome_likelyhood(emissions=emissions, model=model)
     assert isclose(prob, 9.461855360076486e-51)
+
+
+def test_hmm_parameter_estimation():
+    emissions, alphabet, path, states = fetch_parameter_estimation(Path('test/testcase31.txt'))
+    trans_p, em_p = hmm.hmm_parameter_estimation(emissions, alphabet, path, states)
+    # with open(Path('test/testcase31.pickle'), 'wb') as f:
+    #    pickle.dump((trans_p, em_p), f, pickle.HIGHEST_PROTOCOL)
+    with open(Path('test/testcase31.pickle'), 'rb') as f:
+        expected = pickle.load(f)
+    assert trans_p, em_p == expected
+
+    emissions, alphabet, path, states = fetch_parameter_estimation(Path('test/testcase32.txt'))
+    trans_p, em_p = hmm.hmm_parameter_estimation(emissions, alphabet, path, states)
+    # with open(Path('test/testcase32.pickle'), 'wb') as f:
+    #     pickle.dump((trans_p, em_p), f, pickle.HIGHEST_PROTOCOL)
+    with open(Path('test/testcase32.pickle'), 'rb') as f:
+        expected = pickle.load(f)
+    assert trans_p, em_p == expected
+
+    emissions, alphabet, path, states = fetch_parameter_estimation(Path('test/testcase33.txt'))
+    trans_p, em_p = hmm.hmm_parameter_estimation(emissions, alphabet, path, states)
+    # with open(Path('test/testcase33.pickle'), 'wb') as f:
+    #     pickle.dump((trans_p, em_p), f, pickle.HIGHEST_PROTOCOL)
+    with open(Path('test/testcase33.pickle'), 'rb') as f:
+        expected = pickle.load(f)
+    assert trans_p, em_p == expected
+
+    emissions, alphabet, path, states = fetch_parameter_estimation(Path('test/testcase34.txt'))
+    trans_p, em_p = hmm.hmm_parameter_estimation(emissions, alphabet, path, states)
+    # print()
+    # ugly_print_matrix(trans_p, row_labels=states, col_labels=states)
+    # print('--------')
+    # ugly_print_matrix(em_p, row_labels=states, col_labels=alphabet)
+    with open(Path('test/testcase34.pickle'), 'wb') as f:
+        pickle.dump((trans_p, em_p), f, pickle.HIGHEST_PROTOCOL)
+    # with open(Path('test/testcase34.pickle'), 'rb') as f:
+    #    expected = pickle.load(f)
+    assert trans_p, em_p == expected

@@ -119,7 +119,20 @@ def pretty_alignment_print(alignment):
     items = [item[0] + str(item[1]) for item in alignment]
     print(*items, sep=' ')
 
+
 def pretty_print_path(path):
     for item in path:
         print(item[0], item[1], sep='', end=' ')
     print()
+
+
+def fetch_parameter_estimation(file_name):
+    with open(file_name) as input_file:
+        emissions = input_file.readline().rstrip('\n')
+        input_file.readline()
+        alphabet = parse_and_split(input_file)
+        input_file.readline()
+        path = input_file.readline().rstrip('\n')
+        input_file.readline()
+        states = parse_and_split(input_file)
+    return emissions, alphabet, path, states

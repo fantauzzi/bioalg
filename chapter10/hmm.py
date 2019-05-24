@@ -401,5 +401,26 @@ def outcome_likelyhood(emissions, model):
     for i in range(1, n + 1):
         forward = {k: sum([prev_forward[l] * weight(i, l, k, model) for l in model.states]) for k in model.states}
         prev_forward = forward
-    total = sum(prev_forward.values())/n_states
+    total = sum(prev_forward.values()) / n_states
     return total
+
+
+def hmm_parameter_estimation(emissions, alphabet, path, states):
+    emission_prob = {state: {symbol: 0 for symbol in alphabet} for state in states}
+    transition_prob = {state1: {state2: 0 for state2 in states} for state1 in states}
+    prev_state = None
+    for symbol, state in zip(emissions, path):
+        emission_prob[state][symbol] += 1
+        if prev_state is not None:
+            transition_prob[prev_state][state] += 1
+        prev_state = state
+
+    for state in states:
+        transition_total = sum([value for value in transition_prob[state].values()])
+        transition_prob[state] = {key: value / transition_total if transition_total != 0 else 1 / len(states) for
+                                  key, value in transition_prob[state].items()}
+        emission_total = sum([value for value in emission_prob[state].values()])
+        emission_prob[state] = {key: value / emission_total if emission_total != 0 else 1 / len(alphabet) for key, value
+                                in emission_prob[state].items()}
+
+    return transition_prob, emission_prob

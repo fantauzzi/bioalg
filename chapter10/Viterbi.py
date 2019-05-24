@@ -67,4 +67,10 @@ def example():
                    start_probability,
                    transition_probability,
                    emission_probability)
-print(example())
+res = example()
+print(res)
+
+for item in res[1]:
+    s='E' if item =='exon' else 'I' if item=='intron' else 'A' if item in ('acceptor1', 'acceptor2') else 'D' if item in ('donor1', 'donor2') else '?'
+    print(s, end='')
+print()
