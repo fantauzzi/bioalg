@@ -153,3 +153,14 @@ def fetch_viterbi_learning(file_name):
         emission_matrix = parse_matrix(input_file)
     return n_iterations, emissions, alphabet, states, transision_matrix, emission_matrix
 
+
+def pretty_print_cond_prob(prob):
+    steps = sorted(prob.keys())
+    states = sorted(prob[steps[0]].keys())
+    print(*states, sep='\t')
+    for step in steps:
+        printme = [prob[step][state] for state in states]
+        f = ['{:0.4f}\t' for _ in states]
+        f = ''.join(f)
+        f = f[:len(f) - 1]
+        print(f.format(*printme))

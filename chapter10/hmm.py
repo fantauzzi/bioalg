@@ -81,10 +81,7 @@ def viterbi(emissions, model):
             previous_vertices = [source] if i_emission == 0 else [(state, i_emission - 1) for state in model.states]
             highest_s = float('-inf')
             for prev_vertex in previous_vertices:
-                try:
-                    s = graph.nodes[prev_vertex]['s'] + log(graph.edges[(prev_vertex, (state, i_emission))]['weight'])
-                except KeyError as err:
-                    pass
+                s = graph.nodes[prev_vertex]['s'] + log(graph.edges[(prev_vertex, (state, i_emission))]['weight'])
                 if s > highest_s:
                     highest_s = s
                     graph.nodes[(state, i_emission)]['s'] = highest_s
@@ -392,17 +389,25 @@ def outcome_prob(emissions, path, emission_prob):
     return prob
 
 
-def outcome_likelyhood(emissions, model):
-    def weight(i, l, k, model):
-        w = model.transition[l][k] * model.emission[k][emissions[i - 1]] if i > 1 else \
-            model.emission[k][emissions[i - 1]]
-        return w
+def weight(i, l, k, emissions, model):
+    w = model.transition[l][k] * model.emission[k][emissions[i - 1]] if i > 1 else \
+        model.emission[k][emissions[i - 1]]
+    return w
 
+
+def weight_backward(i, k, l, emissions, model):
+    w = model.transition[k][l] * model.emission[l][emissions[i]] if i < len(emissions) else \
+        model.transition[k][l]
+    return w
+
+
+def outcome_likelyhood(emissions, model):
     n = len(emissions)
     n_states = len(model.states)
     prev_forward = {k: 1 / n_states for k in model.states}
     for i in range(1, n + 1):
-        forward = {k: sum([prev_forward[l] * weight(i, l, k, model) for l in model.states]) for k in model.states}
+        forward = {k: sum([prev_forward[l] * weight(i, l, k, emissions, model) for l in model.states]) for k in
+                   model.states}
         prev_forward = forward
     total = sum(prev_forward.values()) / n_states
     return total
@@ -449,3 +454,23 @@ def viterbi_learning(n_iterations, emissions, transition_prob, emission_prob):
                     transition_prob[state][state2] = sigma
 
     return transition_prob, emission_prob
+
+
+def soft_decoding(emissions, model):
+    n = len(emissions)
+    n_states = len(model.states)
+    forward = {0: {k: 1 / n_states for k in model.states}}
+    for i in range(1, n + 1):
+        forward[i] = {k: sum([forward[i - 1][l] * weight(i, l, k, emissions, model) for l in model.states]) for k in
+                      model.states}
+    forward_sink = sum(forward[n].values()) / n_states
+    prob = {}
+    prev_backward = {k: 1 / n_states for k in model.states}
+    for i in range(n, 0, -1):
+        backward = {k: sum([prev_backward[l] * weight_backward(i, k, l, emissions, model) for l in model.states]) for k
+                    in
+                    model.states}
+        prob[i] = {k: forward[i][k] * backward[k] / forward_sink for k in model.states}
+        prev_backward = backward
+
+    return prob
