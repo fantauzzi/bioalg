@@ -464,13 +464,33 @@ def soft_decoding(emissions, model):
         forward[i] = {k: sum([forward[i - 1][l] * weight(i, l, k, emissions, model) for l in model.states]) for k in
                       model.states}
     forward_sink = sum(forward[n].values()) / n_states
-    prob = {}
+    prob_nodes = {}
+    prob_edges = {}
     prev_backward = {k: 1 / n_states for k in model.states}
     for i in range(n, 0, -1):
         backward = {k: sum([prev_backward[l] * weight_backward(i, k, l, emissions, model) for l in model.states]) for k
                     in
                     model.states}
-        prob[i] = {k: forward[i][k] * backward[k] / forward_sink for k in model.states}
+        prob_nodes[i] = {k: forward[i][k] * backward[k] / forward_sink for k in model.states}
+        if i < n:
+            prob_edges[i] = {
+                (k, l): forward[i][k] * weight_backward(i, k, l, emissions, model) * prev_backward[l] / forward_sink for
+                k in
+                model.states for l in model.states}
         prev_backward = backward
 
-    return prob
+    return prob_nodes, prob_edges
+
+
+def baum_welch_learning(emissions, alphabet, states, transition, emission, n_iters):
+    n = len(emissions)
+    for _ in range(0, n_iters):
+        model = HMM(alphabet, states, transition, emission)
+        prob_nodes, prob_edges = soft_decoding(emissions, model)
+        T = {l: {k: sum([prob_edges[i][(l, k)] for i in range(1, n)]) for k in states} for l in states}
+        E = {k: {b: sum([prob_nodes[i][k] for i in range(1, n + 1) if emissions[i - 1] == b]) for b in emissions} for k
+             in states}
+        transition = {l: {k: T[l][k] / sum([T[l][j] for j in states]) for k in states} for l in states}
+        emission = {k: {b: E[k][b] / sum([E[k][c] for c in alphabet]) for b in emissions} for k in states}
+
+    return transition, emission
