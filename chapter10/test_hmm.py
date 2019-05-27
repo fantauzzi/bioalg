@@ -30,6 +30,10 @@ def test_make_graph():
 
 
 def test_viterbi():
+    emissions, model = fetch_hmm(Path('test/testcase46.txt'))
+    path = hmm.viterbi(emissions=emissions, model=model)
+    assert path == 'FFFFF'
+
     emissions, model = fetch_hmm(Path('test/testcase01.txt'))
     path = hmm.viterbi(emissions=emissions, model=model)
     assert path == 'AAABBAAAAA'
@@ -187,6 +191,10 @@ def test_outcome_prob():
     emissions, path, emission_matrix = fetch_hmm_outcome(Path('test/testcase20.txt'))
     prob = hmm.outcome_prob(emissions, path, emission_matrix)
     assert isclose(prob, 3.660029947725436e-27)
+
+    emissions, path, emission_matrix = fetch_hmm_outcome(Path('test/testcase47.txt'))
+    prob = hmm.outcome_prob(emissions, path, emission_matrix)
+    assert isclose(prob, 0.10546875)
 
 
 def test_outcome_likelyhood():

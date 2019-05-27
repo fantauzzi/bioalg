@@ -379,12 +379,25 @@ def align(emissions, theta, sigma, alphabet, alignment):
 
 
 def hidden_path_prob(path, transition_prob):
+    """
+    Returns the probability of a given HMM hidden path.
+    :param path: The hidden path, a string.
+    :param transition_prob: The transition probability matrix for the HMM.
+    :return: The probability for the given path.
+    """
     prob = reduce(operator.mul, [transition_prob[i][j] for i, j in zip(path[:len(path) - 1], path[1:])], 1)
     prob *= .5
     return prob
 
 
 def outcome_prob(emissions, path, emission_prob):
+    """
+    Returns the probability of an outcome (sequence of emissions) for a given HMM hidden path.
+    :param emissions: The sequence of emissions, a string.
+    :param path: The hidden path, a string.
+    :param emission_prob: The emission probability matrix for the HMM.
+    :return: The probability of the given outcome.
+    """
     prob = reduce(operator.mul, [emission_prob[state][symbol] for state, symbol in zip(path, emissions)], 1)
     return prob
 
@@ -402,6 +415,12 @@ def weight_backward(i, k, l, emissions, model):
 
 
 def outcome_likelyhood(emissions, model):
+    """
+    Returns the probability for a HMM to have a given outcome (sequence of emissions).
+    :param emissions: The sequence of emissions, a string.
+    :param model: The HMM, a HMM named tuple.
+    :return: The probability that the HMM produces the given emissions.
+    """
     n = len(emissions)
     n_states = len(model.states)
     prev_forward = {k: 1 / n_states for k in model.states}
