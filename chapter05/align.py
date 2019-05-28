@@ -138,7 +138,7 @@ def dag_longest_path(adj, source, sink):
     return longest_path, distances
 
 
-def vertex_name(row, col, layer=None):  # TODO fix the documentation
+def vertex_name(row, col, layer=None):
     """
     Converts a pair of integer numbers into a string, and returns the string. It is given by the two numbers separated by a comma.
     :param row: The first integer.
@@ -197,7 +197,7 @@ def alignment_graph_from_strings(string1, string2, scoring_matrix, alphabet, sig
     """
     scoring_matrix = scoring_matrix_as_dict(alphabet, scoring_matrix)
 
-    # TODO Making of the alignment graph could be vastly simplified by the approach used in three_way_alignment()
+    # Note: making of the alignment graph could be simplified by the approach used in three_way_alignment()
     # Convert the two strings to be matched into their alignment graph
     adj = {}  # The aligment graph will go here
     for row_i, row_item in enumerate(string1):

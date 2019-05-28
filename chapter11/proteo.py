@@ -1,5 +1,4 @@
 import networkx as nx
-from copy import deepcopy
 
 
 def get_amino_mass():

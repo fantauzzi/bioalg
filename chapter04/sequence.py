@@ -355,7 +355,7 @@ def leaderboard_peptide_sequence(spectrum, n):
     leaderboard = Counter({'': leader_score})
     while leaderboard:
         expanded_peptides = flatten(
-            [expand(peptide) for peptide in leaderboard.keys()])  # TODO move into its own function as common code
+            [expand(peptide) for peptide in leaderboard.keys()])  # Could be moved into its own function as common code
         leaderboard = Counter(
             {peptide: score_peptide(peptide, spectrum, cyclic=False) for peptide in expanded_peptides})
         new_leaderboard = Counter({})
@@ -397,7 +397,7 @@ def convolution_peptide_sequence(spectrum, n_ammino_acids, n_leaderboard):
     leaderboard = Counter({leader_peptide: leader_score})
     while leaderboard:
         expanded_peptides = flatten(
-            [expand_mass(peptide, ammino_acids) for peptide in leaderboard.keys()])  # TODO move into its own function as common code
+            [expand_mass(peptide, ammino_acids) for peptide in leaderboard.keys()])  # Could be moved into its own function as common code
         leaderboard = Counter(
             {tuple(peptide): score_peptide_masses(peptide, spectrum, cyclic=False) for peptide in expanded_peptides})
         new_leaderboard = Counter({})

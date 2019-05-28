@@ -145,22 +145,25 @@ def test_dag_longest_path():
 
 
 def test_longest_common_string():
-    string1 = 'ACGATACGT'  #TODO remove
+    string1 = 'ACGATACGT'
     string2 = 'CCCATTAAGT'
     res1 = align.longest_common_string(string1, string2)
+    assert res1 == 'CATAGT'
 
-    string1 = 'ACGATACGT'  #TODO remove
+    string1 = 'ACGATACGT'
     string2 = 'GACTATAGAA'
     res2 = align.longest_common_string(string1, string2)
+    assert res2 == 'ACATAG'
 
-    string1 = 'CCCATTAAGT'  #TODO remove
+    string1 = 'CCCATTAAGT'
     string2 = 'GACTATAGAA'
     res3 = align.longest_common_string(string1, string2)
+    assert res3 == 'ATAAG'
 
-    string1 = 'CTCGAT'  #TODO remove
+    string1 = 'CTCGAT'
     string2 = 'TACGTC'
-    res = align.longest_common_string(string1, string2)
-    #assert res == 'ATGT'
+    res4 = align.longest_common_string(string1, string2)
+    assert res4 == 'TCGT'
 
     string1 = 'ATGTTATA'
     string2 = 'ATCGTCC'
@@ -262,11 +265,10 @@ def test_edit_distance():
 
 
 def test_fit_align():
-
     long = 'GTTGGATTACGAATCGATATCTGTTTG'
     short = 'ACGTCG'
     score, (aligned1, aligned2) = align.fit_align(long, short)
-    assert score ==4
+    assert score == 4
     assert (aligned1, aligned2) == ('ACGAATCG', 'ACG--TCG')
 
     long = 'CCAT'
@@ -291,7 +293,6 @@ def test_fit_align():
 
 
 def test_overlap_alignment():
-
     s1 = 'PAWHEAE'
     s2 = 'HEAGAWGHEE'
     score, (aligned1, aligned2) = align.overlap_align(s1, s2)

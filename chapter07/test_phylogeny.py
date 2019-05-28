@@ -73,13 +73,12 @@ def test_limb_length():
     n, j, d = fetch_stepik_limb_length_input(Path('test/testcase34.txt'))
     assert len(d) == n
     length = phylogeny.limb_length(j, d)
-    print()
-    print(length)
+    assert length == 6
 
     n, j, d = fetch_stepik_limb_length_input(Path('test/testcase32.txt'))
     assert len(d) == n
     length = phylogeny.limb_length(j, d)
-    # assert length == 2
+    assert length == 6
 
     n, j, d = fetch_stepik_limb_length_input(Path('test/testcase03.txt'))
     assert len(d) == n
@@ -257,11 +256,9 @@ def test_upgma():
 
 def test_neighbor_joining_matrix():
     n, d = fetch_stepik_additive_phylogeny_input(Path('test/testcase33.txt'))
-    d_star = phylogeny.neighbor_joining_matrix(d)  # TODO clean up this
-
-    n, d = fetch_stepik_additive_phylogeny_input(Path('test/testcase35.txt'))
-
-    tree = phylogeny.neighbor_joining(d)
+    d_star = phylogeny.neighbor_joining_matrix(d)
+    assert d_star == {0: {0: 0, 1: -54, 2: -54, 3: -60}, 1: {0: -54, 1: 0, 2: -60, 3: -54},
+                      2: {0: -54, 1: -60, 2: 0, 3: -54}, 3: {0: -60, 1: -54, 2: -54, 3: 0}}
 
     n, d = fetch_stepik_additive_phylogeny_input(Path('test/testcase13.txt'))
     assert n == len(d)
@@ -271,6 +268,11 @@ def test_neighbor_joining_matrix():
     tree = phylogeny.neighbor_joining(d)
     assert tree == {0: [(4, 11.0)], 1: [(4, 2.0)], 2: [(5, 6.0)], 3: [(5, 7.0)], 4: [(0, 11.0), (1, 2.0), (5, 4.0)],
                     5: [(2, 6.0), (3, 7.0), (4, 4.0)]}
+
+    n, d = fetch_stepik_additive_phylogeny_input(Path('test/testcase35.txt'))
+    tree = phylogeny.neighbor_joining(d)
+    assert tree == {0: [(4, 2.25)], 1: [(5, 7.25)], 2: [(4, -0.25)], 3: [(5, 7.75)],
+                    4: [(0, 2.25), (2, -0.25), (5, 3.75)], 5: [(1, 7.25), (3, 7.75), (4, 3.75)]}
 
     n, d = fetch_stepik_additive_phylogeny_input(Path('test/testcase14.txt'))
     assert n == len(d)
@@ -562,8 +564,7 @@ def test_discrepancy():
           [11, 15, 18, 0]]
 
     res = phylogeny.discrepancy(d1, d2)
-    print()
-    print(res)
+    assert res == 3
 
 
 def test_cluster_dist():
@@ -573,5 +574,4 @@ def test_cluster_dist():
          [11, 11, 8, 0]]
 
     dist = phylogeny.clusters_distance([0, 1], [2, 3], d)
-    print()
-    print(dist)
+    assert dist == 12

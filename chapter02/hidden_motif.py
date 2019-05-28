@@ -458,7 +458,7 @@ def gibbs_sampler(dna, k, n, seed=None):
     best_motifs = deepcopy(motifs)  # Deep copy needed to prevent updates to motifs[i] from changing best_motifs[i]
     best_motif_score = score_motif(best_motifs)
     scores = []
-    for _ in range(0, n):  # TODO find better stop criteria
+    for _ in range(0, n):  # Basic stopping criteria
         # Randomly choose one of the motifs
         i = randint(0, t - 1)
         # Find the probability motifs_profile of the motifs, without the randomly choosen one
@@ -550,7 +550,7 @@ def main3():
     print(motif)
 
 
-def main2():  # TODO clean up this stuff
+def main2():  # TODO clean up this
     backend = matplotlib.get_backend()
     interactive = matplotlib.is_interactive()
     print('Using backend', backend, ', interactive = ', interactive)

@@ -1,7 +1,7 @@
 import hidden_motif
 
 
-def immediate_neighbors(kmer):  # TODO should it be a generator?
+def immediate_neighbors(kmer):  # Node: this might be a generator
     """
     All k-mers that dist no more than one from a given k-mer (by Hamming distance).
     :param kmer: The given k-mer.

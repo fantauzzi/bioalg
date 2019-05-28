@@ -34,12 +34,6 @@ def fetch_stepik_permutations(file_name):
 
 
 def test_greedy_sorting():
-    p = [+2, +6, -8, -17, +7, -14, +18, +3, -5, -16, -11, -19, -4, +10, +13, -20, -1, +9, -12, +15]
-    res = rearrange.greedy_sorting(p)
-
-    p = [-16, -20, +12, +18, -14, -17, -15, -6, -8, -19, -11, +13, -10, +4, -5, -2, +7, -3, +1, -9]
-    res = rearrange.greedy_sorting(p)  # TODO remove
-
     p = [-3, +4, +1, +5, -2]
     res = rearrange.greedy_sorting(p)
     assert res == [[-1, -4, +3, +5, -2],
@@ -348,17 +342,6 @@ def test_two_break_on_genome():
 
 
 def test_two_break_dist():
-    ps = [(+1, +2, +3, +4), (+5, +6), (+7, +8, +9)]
-    q0 = [(+1, +2, -6, -5),(+3, +4),(+7, +8, +9)]
-    q1 = [(+1, +2), (+3, +4), (+5, +6), (+7, +8), (+9,)]
-    q2 = [(+1, +2), (+3, +4), (+5, +6), (+7, +8, +9)]
-    q3 = [(+7, +8, +3, +4), (+5, +6), (+1, +2, +9)]
-    q4 = [(+1, +2, +3, +4), (+5, -9, -8, -7, +6)]
-    q5 = [(+1, +2, +3, +4),(+5, +6),(+7, -9, -8)]
-    print()
-    for item in [q0, q1, q2, q3, q4, q5]:  # TODO remove
-        print(rearrange.two_break_distance(item, ps))
-
     ps = [(1, 2, 3, 4, 5, 6)]
     qs = [(2, -4), (1, -3, -6, -5)]
     dist = rearrange.two_break_distance(ps, qs)
@@ -481,9 +464,6 @@ def test_find_shared_kmers():
          (101466, 20376)]
     )
 
-    print()
-    rearrange.pretty_print_seq_of_seqs(pos)
-
 
 def xtest_graph_from_permutations():
     p = (1, -2, -3, 4)
@@ -507,7 +487,7 @@ def xtest_graph_from_permutations():
     assert graph == {2: 3, 4: 5, 6: 7, 8: 9, 10: 11, 12: 1}
 
 
-def xtest_breakpoint_graph():  # TODO why is this removed from unit-test? Add it back?
+def xtest_breakpoint_graph():
     q = [(2, -4), (1, -3, -6, -5)]
     p = [(1, 2, 3, 4, 5, 6)]
     adj = rearrange.breakpoint_graph(p, q, 'red', 'blue')

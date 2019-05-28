@@ -3,7 +3,6 @@ from copy import deepcopy
 from collections import namedtuple
 from itertools import product, chain
 import networkx as nx
-# import networkx.drawing.nx_pylab as nxp
 from math import log, exp
 from numpy import isclose
 from functools import reduce
@@ -59,7 +58,7 @@ def make_graph(emissions, model):
 
 def viterbi(emissions, model):
     """
-    Returns the succession of hidden states in a Hidden Markov Model (HMM) with the highest probability to have produced a given succession of emissions.
+    Returns the succession of hidden states in a Hidden Markov Model (HMM) with the highest probability to have produced a given sequence of emissions.
     :param emissions: The emissions, a string.
     :param model: The HMM, a HMM name tuple.
     :return: The succession of hidden states, a string of the same length as 'emissions'
@@ -314,7 +313,8 @@ def make_profile_graph(emissions, model):
 
 def draw_viterbi_profile_graph(graph):
     """
-    Draws a Viterbi graph for a profile HMM using matplotlib, in its own window. Program execution resumes after the user has closed the window.
+    Draws a Viterbi graph for a profile HMM using matplotlib, in its own window. Program execution resumes after the
+    user has closed the window.
     :param graph: The Viterbi graph, an nx.DiGraph.
     """
 
@@ -386,7 +386,7 @@ def hidden_path_prob(path, transition_prob):
     :return: The probability for the given path.
     """
     prob = reduce(operator.mul, [transition_prob[i][j] for i, j in zip(path[:len(path) - 1], path[1:])], 1)
-    prob *= .5
+    prob /= len(transition_prob)  # Divide by the number of states
     return prob
 
 
@@ -403,12 +403,30 @@ def outcome_prob(emissions, path, emission_prob):
 
 
 def weight(i, l, k, emissions, model):
+    """
+    Returns the weight of an edge in a Viterbi graph for an HMM, when the graph is traversed from source to sink.
+    :param i: The step corresponding to the node which emits a symbol, numbered starting from 1, an integer.
+    :param l: The state the edge is leaving, a string.
+    :param k: The state the edge is entering, a string.
+    :param emissions: The emissions of the HMM, a string.
+    :param model: The HMM, an HMM named tuple.
+    :return: The requested weight, a number.
+    """
     w = model.transition[l][k] * model.emission[k][emissions[i - 1]] if i > 1 else \
         model.emission[k][emissions[i - 1]]
     return w
 
 
 def weight_backward(i, k, l, emissions, model):
+    """
+    Returns the weight of an edge in a Viterbi graph for an HMM, when the graph is traversed from sink to source.
+    :param i: The step corresponding to the node which emits a symbol, numbered starting from 1, an integer.
+    :param k: The state the edge is leaving, a string.
+    :param l: The state the edge is entering, a string.
+    :param emissions: The emissions of the HMM, a string.
+    :param model: The HMM, an HMM named tuple.
+    :return: The requested weight, a number.
+    """
     w = model.transition[k][l] * model.emission[l][emissions[i]] if i < len(emissions) else \
         model.transition[k][l]
     return w
@@ -433,15 +451,29 @@ def outcome_likelyhood(emissions, model):
 
 
 def hmm_parameter_estimation(emissions, alphabet, path, states):
+    """
+    Returns the transition and emission probability matrices that maximise the joint probability of a given sequence of
+    emissions and a given path of hidden states for a HMM.
+    :param emissions: The sequence of emissions, a string.
+    :param alphabet: The alphabet used by the emissions, a sequence of strings.
+    :param path: The path of hidden states, a string.
+    :param states: The possible HMM hidden states, a sequence of strings.
+    :return: The transition and emission probability matrices for the HMM, a pair of dictionaries of dictionaries of
+    numbers.
+    """
+    # Compute numerical estimates for the transition and emission probabilities
     emission_prob = {state: {symbol: 0 for symbol in alphabet} for state in states}
     transition_prob = {state1: {state2: 0 for state2 in states} for state1 in states}
     prev_state = None
+    ''' Given the emissions/path scenario, count how many times the HMM has transitioned from which state to whic state,
+    and how many times it has emitted which symbol in which state '''
     for symbol, state in zip(emissions, path):
         emission_prob[state][symbol] += 1
         if prev_state is not None:
             transition_prob[prev_state][state] += 1
         prev_state = state
 
+    ''' Compute and apply (divide by) the denominators of the respective estimates.'''
     for state in states:
         transition_total = sum([value for value in transition_prob[state].values()])
         transition_prob[state] = {key: value / transition_total if transition_total != 0 else 1 / len(states) for
@@ -454,16 +486,29 @@ def hmm_parameter_estimation(emissions, alphabet, path, states):
 
 
 def viterbi_learning(n_iterations, emissions, transition_prob, emission_prob):
-    sigma = 0.000001
+    """
+    Returns the transition and emission probability matrices for an HMM estimated with Viterbi learning.
+    :param n_iterations: The number of times to iterate Viterbi learning, an integer.
+    :param emissions: The sequence of emissions of the HMM, a string.
+    :param transition_prob: The starting transition probability matrix, a dictionary of dictionaries of numbers.
+    :param emission_prob: The starting emission probability matrix, a dictionary of dictionaries of numbers.
+    :return: The resulting transition and emission probability matrices for the HMM, a pair of dictionaries of
+    dictionaries of numbers.
+    """
+    sigma = 0.000001  # Value to replace zero emission and transition probabilities, to prevent taking the logarithm of 0
     alphabet = set(emissions)
     states = list(transition_prob.keys())
     for _ in range(0, n_iterations):
+        # Use Viterbi to construct the most likely path through the HMM
         model = HMM(alphabet=alphabet, states=states, transition=transition_prob, emission=emission_prob)
         path = viterbi(emissions, model)
+        # Given the most likely path, re-estimate transition and emission probabilities
         transition_prob, emission_prob = hmm_parameter_estimation(emissions=emissions,
                                                                   alphabet=alphabet,
                                                                   path=path,
                                                                   states=states)
+        ''' Make sure that there are no 0 probabilities (or else Viterbi will try to take the log of 0 at the next
+        iteration)'''
         for state in states:
             for symbol in alphabet:
                 if emission_prob[state][symbol] == 0:
@@ -476,13 +521,25 @@ def viterbi_learning(n_iterations, emissions, transition_prob, emission_prob):
 
 
 def soft_decoding(emissions, model):
+    """
+    Returns the probabilities that an HMM was in each of its state, and traversed each of its edges, given a sequence
+    of emissions.
+    :param emissions: The emissions, a string.
+    :param model: The HMM model, an HMM named tuple.
+    :return: A pair with the requested probabilities; the first item in the pair is a dictionary of dictionaries of numbers, with item1[step][state] the probability the HMM was in that state at that step (steps are numbered starting from 1); the second item in the pair is again a dictionary of dictionaries of numbers, with item2[step][(state1, state2)] the probability the HMM traversed the edge going from state1 to state2 at that step.
+    """
+    # Use the forward-backward algorithm for soft-decoding
     n = len(emissions)
     n_states = len(model.states)
+
+    # Do the forward pass, and store its results
     forward = {0: {k: 1 / n_states for k in model.states}}
     for i in range(1, n + 1):
         forward[i] = {k: sum([forward[i - 1][l] * weight(i, l, k, emissions, model) for l in model.states]) for k in
                       model.states}
     forward_sink = sum(forward[n].values()) / n_states
+
+    # Do the backward pass, and compute the final results, to be returned
     prob_nodes = {}
     prob_edges = {}
     prev_backward = {k: 1 / n_states for k in model.states}
@@ -502,10 +559,23 @@ def soft_decoding(emissions, model):
 
 
 def baum_welch_learning(emissions, alphabet, states, transition, emission, n_iters):
+    """
+    Returns the transition and emission probability matrices for an HMM estimated with Baum-Welch learning (expectation maximisation)
+    :param emissions: The sequence of emissions of the HMM, a string.
+    :param alphabet: The alphabet for the emissions, a sequence of strings.
+    :param states: The possible states for the HMM, a sequence of strings.
+    :param transition: The starting transition probability matrix, a dictionary of dictionaries of numbers.
+    :param emission: The starting emission probability matrix, a dictionary of dictionaries of numbers.
+    :param n_iters: The number of times to iterate Baum-Welch learning, an integer.
+    :return: The resulting transition and emission probability matrices for the HMM, a pair of dictionaries of
+    dictionaries of numbers.
+    """
     n = len(emissions)
     for _ in range(0, n_iters):
+        # Estimate the responsibility profile given the current transition and emission probabilities (E-step)
         model = HMM(alphabet, states, transition, emission)
         prob_nodes, prob_edges = soft_decoding(emissions, model)
+        # Re-estimate the transition and emission probabilities given the current probability profile (M-step)
         T = {l: {k: sum([prob_edges[i][(l, k)] for i in range(1, n)]) for k in states} for l in states}
         E = {k: {b: sum([prob_nodes[i][k] for i in range(1, n + 1) if emissions[i - 1] == b]) for b in emissions} for k
              in states}
