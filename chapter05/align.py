@@ -9,15 +9,17 @@ The code uses adjacency lists to represent weighted directed acyclic graphs (DAG
 
 
 def dp_change(money, coins):
-    """
+    """`
     Returns the smallest number of coins that allow to change a given amount of money using available coin denominations.
     :param money: The given amount of money, an integer number.
     :param coins: The available coin denominations, a sequence of integer numbers.
     :return: The smalles number of coins to change the money, an integer.
     """
-    min_num_coins = [0]
+    # Note, a recursive implementation (with memoization) can blow up the stack
+    min_num_coins = [0]  # i-th item in the list will be the minimum number of coins to change the amount 'i'
+    # Compute the min. amount of coins to change all amounts, from 1 up to 'money' included, and store it in min_num_coins[]
     for m in range(1, money + 1):
-        min_num_coins.append(float('inf'))
+        min_num_coins.append(float('inf'))  # 'inf' means it is not possible to change the amount
         for i in range(0, len(coins)):
             if m >= coins[i]:
                 if min_num_coins[m - coins[i]] + 1 < min_num_coins[m]:

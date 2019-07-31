@@ -242,6 +242,17 @@ def test_local_protein_alignment():
     assert alignment[1] == 'RC-IR-INH-PFYVNSLVAAAAAAAAAAA'
 
 
+    score, alignment = align.best_alignment('AMMY',
+                                            'PMMTN',
+                                            scoring_matrix=scoring_matrix,
+                                            alphabet=alphabet,
+                                            sigma=5,
+                                            local=True)
+    assert score == 13
+    assert alignment[0] == 'AMYM'
+    assert alignment[1] == 'PM-M'
+
+
 def test_edit_distance():
     dist = align.edit_distance('PLEASANTLY', 'MEANLY')
     assert dist == 5
